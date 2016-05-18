@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using System.Data.Entity;
+using Merchandiser.Migrations;
+
 namespace Merchandiser
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -18,6 +21,11 @@ namespace Merchandiser
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            #if DEBUG
+            Database.SetInitializer(new Configuration());
+            MerchandiserEntities db = new MerchandiserEntities();
+            db.Database.Initialize(true);
+            #endif
         }
     }
 }
