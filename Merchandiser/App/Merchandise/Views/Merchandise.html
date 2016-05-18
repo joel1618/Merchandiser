@@ -1,27 +1,45 @@
 ﻿<div ng-controller="MerchandiseController">
     <div class="row">
         <div class="col-md-4">
-            <br/>
+            <br />
             <form>
                 <fieldset class="form-group">
                     <label for="formGroupExampleInput">Product Name</label>
-                    <input type="text" class="form-control" placeholder="" ng-model="Item.Name">
+                    <input type="text" class="form-control" maxlength="50" placeholder="" ng-model="Item.Name">
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="formGroupExampleInput2">UPC Code</label>
-                    <input type="text" class="form-control" placeholder="" ng-model="Item.UPCCode">
+                    <input type="text" class="form-control" maxlength="50" placeholder="" ng-model="Item.UPCCode">
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="formGroupExampleInput2">Quantity</label>
-                    <input type="text" class="form-control" required placeholder="" ng-model="Item.Quantity">
+                    <input type="text" class="form-control" placeholder="" ng-model="Item.Quantity">
                 </fieldset>
                 <button type="submit" class="btn btn-primary" ng-click="Submit()">Submit</button>
             </form>
         </div>
         <div class="col-md-8">
-            <div ng-repeat="Item in Items">
-                <label>{{Item.Name}}</label>
-            </div>
+            <br />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="Item in Items">
+                    <tr>
+                        <td><button class="btn btn-sm btn-danger" ng-click="Delete(Item.Id)">Delete</button></td>
+                        <td>{{Item.Name}}</td>
+                        <td>{{Item.Quantity}}</td>
+                        <td>{{Item.CreatedDateTime}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
         </div>
     </div>
 </div>

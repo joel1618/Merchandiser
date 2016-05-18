@@ -25,7 +25,9 @@ namespace Merchandiser
             Database.SetInitializer(new Configuration());
             MerchandiserEntities db = new MerchandiserEntities();
             db.Database.Initialize(true);
-            #endif
+#endif
+            
+
         }
     }
 }

@@ -20,9 +20,15 @@ namespace Merchandiser.App_Start
 
             MetadataScriptWriter.Write();
 
+            //GlobalConfiguration.Configuration.Routes.MapHttpRoute(
+            //    name: "BreezeApi",
+            //    routeTemplate: "breeze/{controller}/{action}"
+            //);
+
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(
                 name: "BreezeApi",
-                routeTemplate: "breeze/{controller}/{action}"
+                routeTemplate: "breeze/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
         }
     }

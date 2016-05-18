@@ -9,10 +9,9 @@
 
         $scope.Search = function () {
             var p1 = new breeze.Predicate('Quantity', '>', 1);
-            var p2 = new breeze.Predicate('Longitude2', '<', 1 + "M");
+            var p2 = new breeze.Predicate('Longitude', '<', 1);
             var predicate = new breeze.Predicate.and([p1, p2]);
-            MerchandiseService.Search(p1, 0, 100, false).then(function (data) {
-           
+            MerchandiseService.Search(null, 0, 20, false).then(function (data) {
                 $scope.Items = data;
             });
         }
@@ -25,7 +24,15 @@
 
         $scope.Submit = function(){
             MerchandiseService.Create($scope.Item).then(function (data) {
-                $scope.Item = { Name: "", UPCCode: "", Quantity: "", Latitude: "", Longitude: "" };
+                $scope.Item.Name = "";
+                $scope.Item.UPCCode = "";
+                $scope.Item.Quantity = "";  
+                $scope.Search();
+            });
+        }
+
+        $scope.Delete = function(id){
+            MerchandiseService.Delete(id).then(function (data) {
                 $scope.Search();
             });
         }

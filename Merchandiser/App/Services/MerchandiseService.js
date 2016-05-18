@@ -18,7 +18,7 @@
             if (predicate != null) {
                 query = query.where(predicate);
             }
-            query = query.orderByDesc('Id').skip(page * pageSize).take(pageSize);
+            query = query.orderByDesc('CreatedDateTime').skip(page * pageSize).take(pageSize);
                         
             breezeservice.executeQuery(query).then(function (data) {
                 deferred.resolve(data.httpResponse.data);
@@ -69,6 +69,23 @@
             var deferred = $q.defer();
 
             $http.put('/PositionApi/Update/' + id, item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to update the requirement.");
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        this.Delete = function (id) {
+            var deferred = $q.defer();
+
+            $http.delete('/breeze/MerchandiseApi/Delete/' + id)
             .then(function (response) {
                 deferred.resolve(response);
             }, function (response) {

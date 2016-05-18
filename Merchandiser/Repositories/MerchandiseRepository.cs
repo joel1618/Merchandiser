@@ -24,5 +24,13 @@ namespace Merchandiser.Repositories
             context.SaveChanges();
             return item;
         }
+
+        public void Delete(Guid Id)
+        {
+            var item = new MerchandiseEntity { Id = Id.ToString() };
+            context.Merchandises.Attach(item);
+            context.Merchandises.Remove(item);
+            context.SaveChanges();
+        }
     }
 }

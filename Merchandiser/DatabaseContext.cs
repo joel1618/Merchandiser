@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Merchandiser.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Merchandiser
             //modelBuilder.Configurations.Add(new ConflictDtoConfiguration());
         }
 
-        public DbSet<Merchandise> Merchandise { get; set; }
+        public DbSet<MerchandiseViewModel> Merchandise { get; set; }
         //public DbSet<Provider> Providers { get; set; }
     }
 }
