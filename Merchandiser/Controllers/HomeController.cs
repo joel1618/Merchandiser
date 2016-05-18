@@ -11,7 +11,8 @@ namespace Merchandiser.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Merchandise");
+            //return View();
         }
 
         public ActionResult About()

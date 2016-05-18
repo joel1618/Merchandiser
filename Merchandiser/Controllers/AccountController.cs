@@ -58,6 +58,10 @@ namespace Merchandiser.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Merchandise");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -140,6 +144,10 @@ namespace Merchandiser.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Merchandise");
+            }
             return View();
         }
 
