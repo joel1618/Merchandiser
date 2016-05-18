@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Merchandiser.Repositories;
 using System.Web.Mvc;
+using MerchandiseEntity = Merchandiser.Merchandise;
 
 namespace Merchandiser.Controllers
 {
     public class MerchandiseController : Controller
     {
-        // GET: Merchandise
+        [Authorize]
         public ActionResult Index()
         {
             return View();

@@ -11,13 +11,18 @@ namespace Merchandiser
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    public partial class AspNetUserLogin
+    
+    public partial class Merchandise
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        [Key]
-        public string UserId { get; set; }
+        public string Id { get; set; }
+        public string AspNetUsersId { get; set; }
+        public int Quantity { get; set; }
+        public string Name { get; set; }
+        public string UPCCode { get; set; }
+        public Nullable<decimal> Latitude { get; set; }
+        public Nullable<decimal> Longitude { get; set; }
+        public Nullable<System.DateTime> ModifiedDateTime { get; set; }
+        public System.DateTime CreatedDateTime { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

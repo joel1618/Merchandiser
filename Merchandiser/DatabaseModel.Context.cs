@@ -31,5 +31,6 @@ namespace Merchandiser
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUsersInfo> AspNetUsersInfoes { get; set; }
+        public virtual DbSet<Merchandise> Merchandises { get; set; }
     }
 }

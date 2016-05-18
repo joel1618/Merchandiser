@@ -13,20 +13,18 @@
 <link rel="stylesheet" type="text/css" href="~/Scripts/Dependencies/angular-ui-grid/3.0.7/ui-grid.css">
 <!--MOMENT-->
 <script src="~/Scripts/Dependencies/momentjs/2.10.6/moment.js"></script>
-<!--PLAY CANVAS-->
-<script src="~/Scripts/Terrain/playcanvas-stable.min.js"></script>
 <!--ANGULAR NGMap http://ngmap.github.io/-->
-<script src="~/Scripts/Dependencies/ngmap/googlemapapi.js"></script>
-<script src="~/Scripts/Dependencies/ngmap/ng-map.js"></script>
+@*<script src="~/Scripts/Dependencies/ngmap/googlemapapi.js"></script>
+<script src="~/Scripts/Dependencies/ngmap/ng-map.js"></script>*@
 <!--SERVICES-->
-@*<script src="~/App/services/services.js"></script>
-<script src="~/App/services/breeze/breezeservice.js"></script>
-<script src="~/App/services/breeze/metadata.js"></script>*@
+<script src="~/App/Services/Services.js"></script>
+<script src="~/App/Services/breeze/breezeservice.js"></script>
+<script src="~/App/Services/breeze/metadata.js"></script>
+<script src="~/App/Services/MerchandiseService.js"></script>
 <!--APP-->
-
-
-<script src="~/App/Merchandiser/App.js"></script>
-<div ng-app="Merchandiser">
+<script src="~/App/Merchandise/App.js"></script>
+<script src="~/App/Merchandise/Controllers/MerchandiseController.js"></script>
+<div ng-app="Merchandise">
     <div ng-view>
 
     </div>
