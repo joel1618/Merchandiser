@@ -1,4 +1,4 @@
-﻿var controlpanel = angular.module('Merchandise', ['ngRoute', 'ui.grid', 'ui.bootstrap', 'breeze.angular', 'Services']);
+﻿var controlpanel = angular.module('Merchandise', ['ngRoute', 'ui.grid', 'ui.bootstrap', 'ngAnimate', 'breeze.angular', 'Services']);
 
 controlpanel.config(['$routeProvider', function ($routeProvider) {
     $routeProvider

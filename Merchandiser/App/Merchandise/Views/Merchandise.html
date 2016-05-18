@@ -5,7 +5,8 @@
             <form>
                 <fieldset class="form-group">
                     <label for="formGroupExampleInput">Product Name</label>
-                    <input type="text" class="form-control" maxlength="50" placeholder="" ng-model="Item.Name">
+                    <input type="text" ng-model="Item.Name" uib-typeahead="Product for Product in Products | filter:$viewValue | limitTo:8" class="form-control">
+                    <!--<input type="text" class="form-control" maxlength="50" placeholder="" ng-model="Item.Name">-->
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="formGroupExampleInput2">UPC Code</label>
