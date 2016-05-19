@@ -280,6 +280,7 @@
     <Content Include="App\Services\Breeze\metadata.js" />
     <Content Include="App\Services\MerchandiseService.js" />
     <Content Include="App\Services\Services.js" />
+    <Content Include="_app_offline.htm" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="DatabaseModel.Context.tt">
@@ -305,6 +306,7 @@
     <Content Include="DatabaseModel.edmx.diagram">
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Dependencies\angular-ui-bootstrap\0.14.3\ui-bootstrap.js" />
     <Content Include="Scripts\Dependencies\angular-ui-grid\3.0.7\ui-grid.css" />

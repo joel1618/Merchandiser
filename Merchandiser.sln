@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merchandiser", "Merchandise
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merchandiser.Tests", "Merchandiser.Tests\Merchandiser.Tests.csproj", "{A4D29923-292D-4A5B-B7A6-9C7362D2504E}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Merchandiser.Database", "Merchandiser.Database\Merchandiser.Database.sqlproj", "{850F2414-0639-45AE-8062-526509A5CCB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{A4D29923-292D-4A5B-B7A6-9C7362D2504E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4D29923-292D-4A5B-B7A6-9C7362D2504E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4D29923-292D-4A5B-B7A6-9C7362D2504E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{850F2414-0639-45AE-8062-526509A5CCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850F2414-0639-45AE-8062-526509A5CCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850F2414-0639-45AE-8062-526509A5CCB6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{850F2414-0639-45AE-8062-526509A5CCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850F2414-0639-45AE-8062-526509A5CCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{850F2414-0639-45AE-8062-526509A5CCB6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
