@@ -1,6 +1,6 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Merchandise').controller('MerchandiseController', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'MerchandiseService',
+    angular.module('Main').controller('MerchandiseController', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'MerchandiseService',
     function controller($scope, $routeParams, $http, $location, $timeout, breezeservice, breeze, MerchandiseService) {
         $scope.Item = { Name : "", UPCCode: "", Quantity: "", Latitude: "", Longitude: "" };
         $scope.Products = ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5"];
