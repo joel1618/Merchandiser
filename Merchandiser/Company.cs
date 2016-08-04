@@ -12,17 +12,15 @@ namespace Merchandiser
     using System;
     using System.Collections.Generic;
     
-    public partial class Merchandise
+    public partial class Company
     {
-        public string Id { get; set; }
-        public string AspNetUsersId { get; set; }
-        public int Quantity { get; set; }
+        public System.Guid Id { get; set; }
         public string Name { get; set; }
-        public string UPCCode { get; set; }
-        public Nullable<decimal> Latitude { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
+        public string UserId { get; set; }
         public Nullable<System.DateTime> ModifiedDateTime { get; set; }
+        public string ModifiedByUserId { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
+        public string CreatedByUserId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

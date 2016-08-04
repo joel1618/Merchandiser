@@ -165,7 +165,7 @@ namespace Merchandiser.Controllers
                 if (result.Succeeded)
                 {
                     AspNetUsersInfoRepository repository = new AspNetUsersInfoRepository();
-                    var item = new AspNetUsersInfo() { Id = Guid.NewGuid().ToString(), AspNetUsersId = UserManager.FindByEmail(model.Email).Id, FirstName = model.FirstName, LastName = model.LastName };
+                    var item = new AspNetUsersInfo() { Id = Guid.NewGuid().ToString(), UserId = UserManager.FindByEmail(model.Email).Id, FirstName = model.FirstName, LastName = model.LastName };
                     repository.Create(item);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

@@ -228,6 +228,9 @@
     <Compile Include="AspNetUsersInfo.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\v1\breeze\MerchandiseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -255,9 +258,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Merchandise.cs">
-      <DependentUpon>DatabaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201605180348324_InitialCreate.cs" />
     <Compile Include="Migrations\201605180348324_InitialCreate.Designer.cs">
       <DependentUpon>201605180348324_InitialCreate.cs</DependentUpon>
@@ -273,6 +273,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Company\Controllers\CompanyController.js" />
+    <Content Include="App\Company\Views\Company.html" />
     <Content Include="App\Main\App.js" />
     <Content Include="App\Main\Controllers\MainController.js" />
     <Content Include="App\Main\Views\Main.html" />

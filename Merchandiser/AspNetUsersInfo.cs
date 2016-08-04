@@ -15,7 +15,7 @@ namespace Merchandiser
     public partial class AspNetUsersInfo
     {
         public string Id { get; set; }
-        public string AspNetUsersId { get; set; }
+        public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     

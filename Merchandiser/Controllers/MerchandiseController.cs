@@ -1,6 +1,6 @@
 ﻿using Merchandiser.Repositories;
 using System.Web.Mvc;
-using MerchandiseEntity = Merchandiser.Merchandise;
+//using MerchandiseEntity = Merchandiser.Merchandise;
 
 namespace Merchandiser.Controllers
 {
