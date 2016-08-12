@@ -7,25 +7,19 @@ using System.Web;
 
 namespace Merchandiser
 {
-    public class DatabaseContext : DbContext
+    internal class DatabaseContext : DbContext
     {
-        public DatabaseContext()
-            : base("BreezeMetadata")
-        {
-            // Prevent attempt to initialize a database for this context
-            Database.SetInitializer<DatabaseContext>(null);
-        }
         static DatabaseContext()
         {
             // Prevent attempt to initialize a database for this context
-            Database.SetInitializer<DatabaseContext>(null);
+            //Database.SetInitializer<DatabaseContext>(null);
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Configurations.Add(new ConflictDtoConfiguration());
         }
 
-        public DbSet<MerchandiseViewModel> Merchandise { get; set; }
-        //public DbSet<Provider> Providers { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<CompanyUser> CompanyUser { get; set; }
     }
 }

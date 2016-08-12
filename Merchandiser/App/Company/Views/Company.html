@@ -1,1 +1,16 @@
-﻿
+﻿<div ng-controller="CompanyController">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-repeat="item in items">
+                <button class="btn btn-primary" ng-click="Edit(item.Id)">Edit</button>
+                <button class="btn btn-danger" ng-click="Delete(item.Id)">Delete</button>
+                <label>{{item.Name}}</label>
+            </div>
+            <button class="btn btn-primary" ng-click="Create()">Create</button>
+        </div>
+        <div class="col-md-12">
+            <div ui-view></div>
+        </div>
+    </div>
+</div>

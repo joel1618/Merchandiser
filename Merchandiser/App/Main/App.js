@@ -5,14 +5,23 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/main")
 
     $stateProvider
-      .state('main', {
-          url: "/main",
-          templateUrl: "/App/Main/Views/Main.html"
-      })
+        .state('main', {
+            url: "/main",
+            templateUrl: "/App/Main/Views/Main.html"
+        })
         .state('main.merchandise', {
             url: "/merchandise",
             templateUrl: "/App/Merchandise/Views/Merchandise.html",
         })
+        .state('main.company', {
+            url: "/company",
+            templateUrl: "/App/Company/Views/Company",
+        })
+        .state('main.company.addedit', {
+            url: "/company/addedit/:id",
+            templateUrl: "/App/Company/Views/CompanyAddEdit",
+        })
+
 
     //.state('route2', {
     //    url: "/route2",

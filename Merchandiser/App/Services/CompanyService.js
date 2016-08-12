@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('Services')
-    .service('MerchandiseService', ['$http', '$q', 'breeze', 'breezeservice',
+    .service('CompanyService', ['$http', '$q', 'breeze', 'breezeservice',
         function ($http, $q, breeze, breezeservice) {
         var _self = this;
         this.deferredRequest = null;
@@ -14,11 +14,11 @@
                 this.deferredRequest = null;
             }
             var deferred = $q.defer();
-            var query = breeze.EntityQuery.from('MerchandiseApi/Search');
+            var query = breeze.EntityQuery.from('CompanyApi/Search');
             if (predicate != null) {
                 query = query.where(predicate);
             }
-            query = query.orderByDesc('CreatedDateTime').skip(page * pageSize).take(pageSize);
+            query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
                         
             breezeservice.executeQuery(query).then(function (data) {
                 deferred.resolve(data.httpResponse.data);
@@ -38,7 +38,7 @@
 
             $http({
                 method: 'Get',
-                url: '/PositionApi/Get/' + id,
+                url: '/breeze/CompanyApi/Get/' + id,
             }).success(function (data, status, headers, config) {
                 deferred.resolve(data);
             }).error(function (msg, code) {
@@ -51,14 +51,14 @@
         this.Create = function (item) {
             var deferred = $q.defer();
 
-            $http.post('/breeze/MerchandiseApi/Create', item)
+            $http.post('/breeze/CompanyApi/Create', item)
             .then(function (response) {
                 deferred.resolve(response);
             }, function (response) {
                 if (response.statusText.length > 0) {
                     deferred.reject(response.statusText);
                 } else {
-                    deferred.reject("Failed to create the new requirement.");
+                    deferred.reject("Failed to create the record.");
                 }
             });
 
@@ -68,14 +68,14 @@
         this.Update = function (id, item) {
             var deferred = $q.defer();
 
-            $http.put('/PositionApi/Update/' + id, item)
+            $http.put('/breeze/CompanyApi/Update/' + id, item)
             .then(function (response) {
                 deferred.resolve(response);
             }, function (response) {
                 if (response.statusText.length > 0) {
                     deferred.reject(response);
                 } else {
-                    deferred.reject("Failed to update the requirement.");
+                    deferred.reject("Failed to update the record.");
                 }
             });
 
@@ -85,14 +85,14 @@
         this.Delete = function (id) {
             var deferred = $q.defer();
 
-            $http.delete('/breeze/MerchandiseApi/Delete/' + id)
+            $http.delete('/breeze/CompanyApi/Delete/' + id)
             .then(function (response) {
                 deferred.resolve(response);
             }, function (response) {
                 if (response.statusText.length > 0) {
                     deferred.reject(response);
                 } else {
-                    deferred.reject("Failed to update the requirement.");
+                    deferred.reject("Failed to delete the record.");
                 }
             });
 
