@@ -67,7 +67,7 @@
 
         this.Update = function (id, item) {
             var deferred = $q.defer();
-
+            debugger;
             $http.put('/breeze/CompanyApi/Update/' + id, item)
             .then(function (response) {
                 deferred.resolve(response);

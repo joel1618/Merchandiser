@@ -6,7 +6,6 @@
         $scope.Search = function () {
             if ($stateParams.id !== undefined) {
                 CompanyService.Get($stateParams.id).then(function (data) {
-                    debugger;
                     $scope.item = data;
                 });
             }
@@ -14,8 +13,8 @@
         $scope.Search();
 
         $scope.Save = function () {
-            debugger;
             if ($scope.item.Id !== null) {
+                debugger;
                 CompanyService.Update($scope.item.Id, $scope.item).then(function (data) {
                     $state.go('main.company.addedit', { }, { reload: true });
                 }, function (error) {

@@ -36,9 +36,10 @@ namespace Merchandiser.Repositories
         public Company Update(Guid id, Company item)
         {
             var entity = context.Companies.Find(id);
+            entity.Name = item.Name;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
-            throw new NotImplementedException();
+            return entity;
         }
 
         public void Delete(Guid id)

@@ -1,5 +1,6 @@
 ﻿using Breeze.WebApi2;
 using Merchandiser.Models;
+using Merchandiser.Models.Extensions;
 using Merchandiser.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
@@ -35,27 +36,27 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public Company Get(Guid id)
+        public CompanyViewModel Get(Guid id)
         {
-            return companyRepository.Get(id);
+            return companyRepository.Get(id).ToViewModel();
         }
 
         [HttpPost]
-        public Company Create(Company item)
+        public CompanyViewModel Create(CompanyViewModel item)
         {
             item.CreatedBy = User.Identity.GetUserId();
-            return companyRepository.Create(item);
+            return companyRepository.Create(item.ToEntity()).ToViewModel();
         }
 
         [HttpPut]
-        public Company Update(Guid id, Company item)
+        public CompanyViewModel Update(Guid id, CompanyViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
-            return companyRepository.Update(id, item);
+            return companyRepository.Update(id, item.ToEntity()).ToViewModel();
         }
 
         [HttpDelete]
-        public Company Delete(Guid id)
+        public CompanyViewModel Delete(Guid id)
         {
             throw new NotImplementedException();
         }

@@ -9,6 +9,7 @@ using System.Web.Routing;
 
 using System.Data.Entity;
 using Merchandiser.Migrations;
+using Merchandiser.App_Start;
 
 namespace Merchandiser
 {
@@ -21,6 +22,7 @@ namespace Merchandiser
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutoMapperConfig.RegisterMappings();
             #if DEBUG
             Database.SetInitializer(new Configuration());
             MerchandiserEntities db = new MerchandiserEntities();
