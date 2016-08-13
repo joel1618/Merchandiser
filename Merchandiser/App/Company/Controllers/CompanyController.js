@@ -21,7 +21,9 @@
         }
 
         $scope.Delete = function (Id) {
-
+            CompanyService.Delete(Id).then(function (data) {
+                $state.go('main.company.addedit', { id: Id }, { reload: true });
+            })
         }
     }]);
 

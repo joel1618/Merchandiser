@@ -4,7 +4,7 @@
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService) {
         $scope.item = { Id : null, Name : ""}
         $scope.Search = function () {
-            if ($stateParams.id !== undefined) {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
                 CompanyService.Get($stateParams.id).then(function (data) {
                     $scope.item = data;
                 });
@@ -13,8 +13,7 @@
         $scope.Search();
 
         $scope.Save = function () {
-            if ($scope.item.Id !== null) {
-                debugger;
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 CompanyService.Update($scope.item.Id, $scope.item).then(function (data) {
                     $state.go('main.company.addedit', { }, { reload: true });
                 }, function (error) {

@@ -56,9 +56,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public CompanyViewModel Delete(Guid id)
+        public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            companyRepository.Delete(id);
         }
     }
 }
