@@ -18,7 +18,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "/App/Company/Views/CompanyAddEdit.html",
         })
         .state('main.customer', {
-            url: "/company",
+            url: "/customer",
             templateUrl: "/App/Customer/Views/Customer.html"
         })
         .state('main.customer.addedit', {
@@ -26,11 +26,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "/App/Customer/Views/CustomerAddEdit.html",
         })
         .state('main.product', {
-            url: "/company",
+            url: "/product",
             templateUrl: "/App/Product/Views/Product.html"
         })
         .state('main.product.addedit', {
             url: "/addedit/:id",
             templateUrl: "/App/Product/Views/ProductAddEdit.html",
+        })
+        .state('main.location', {
+            url: "/location",
+            templateUrl: "/App/Location/Views/Location.html"
+        })
+        .state('main.location.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "/App/Location/Views/LocationAddEdit.html",
         })
 });

@@ -240,6 +240,7 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\LocationApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ProductApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
@@ -272,6 +273,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201605180348324_InitialCreate.cs" />
     <Compile Include="Migrations\201605180348324_InitialCreate.Designer.cs">
       <DependentUpon>201605180348324_InitialCreate.cs</DependentUpon>
@@ -283,15 +287,18 @@
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\Extensions\CompanyViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\CustomerViewModelExtensions.cs" />
+    <Compile Include="Models\Extensions\LocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\ProductViewModelExtensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AspNetUsersInfoRepository.cs" />
+    <Compile Include="Repositories\LocationRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
@@ -307,6 +314,10 @@
     <Content Include="App\Customer\Controllers\CustomerController.js" />
     <Content Include="App\Customer\Views\Customer.html" />
     <Content Include="App\Customer\Views\CustomerAddEdit.html" />
+    <Content Include="App\Location\Controllers\LocationAddEditController.js" />
+    <Content Include="App\Location\Controllers\LocationController.js" />
+    <Content Include="App\Location\Views\Location.html" />
+    <Content Include="App\Location\Views\LocationAddEdit.html" />
     <Content Include="App\Main\App.js" />
     <Content Include="App\Main\Controllers\MainController.js" />
     <Content Include="App\Main\Views\Main.html" />
@@ -319,6 +330,7 @@
     <Content Include="App\Services\Company\CompanyService.js" />
     <Content Include="App\Services\Company\CompanyUserService.js" />
     <Content Include="App\Services\Customer\CustomerService.js" />
+    <Content Include="App\Services\Location\LocationService.js" />
     <Content Include="App\Services\Product\ProductService.js" />
     <Content Include="App\Services\Services.js" />
     <Content Include="Scripts\Dependencies\angular-ui-router\0.2.18\angular-ui-router.js" />

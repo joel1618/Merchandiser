@@ -1,0 +1,13 @@
+﻿<div ng-controller="LocationAddEditController">
+    <h3>Location Detail</h3>
+    <div class="col-md-4">
+        <div ng-form="form">
+            <fieldset class="form-group">
+                <label>Location Name</label>
+                <input type="text" class="form-control" ng-model="item.Name" required />
+                <br />
+                <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
+            </fieldset>
+        </div>
+    </div>
+</div>

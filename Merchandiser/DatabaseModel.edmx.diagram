@@ -14,7 +14,8 @@
         <EntityTypeShape EntityType="MerchandiserModel.Company" Width="1.5" PointX="3" PointY="10.5" />
         <EntityTypeShape EntityType="MerchandiserModel.CompanyUser" Width="1.5" PointX="5.25" PointY="8.375" />
         <EntityTypeShape EntityType="MerchandiserModel.Customer" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.Product" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.Location" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.Product" Width="1.5" PointX="7.75" PointY="7.75" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MerchandiserModel.FK_AspNetUsersInfo_AspNetUsers" />
