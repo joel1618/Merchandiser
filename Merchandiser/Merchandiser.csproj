@@ -285,6 +285,7 @@
     <Compile Include="Models\CompanyUserViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Models\Extensions\CompanyUserViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\CompanyViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\CustomerViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\LocationViewModelExtension.cs" />

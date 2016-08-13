@@ -7,6 +7,7 @@
             var p2 = new breeze.Predicate('Longitude', '<', 1);
             var predicate = new breeze.Predicate.and([p1, p2]);
             LocationService.Search(null, 0, 20, false).then(function (data) {
+            alert(data);
                 $scope.items = data;
             });
         }

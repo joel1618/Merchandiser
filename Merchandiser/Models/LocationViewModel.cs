@@ -11,6 +11,11 @@ namespace Merchandiser.Models
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Store { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
+        public string Address { get; set; }
+        public string AreaManager { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

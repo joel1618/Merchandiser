@@ -1,5 +1,6 @@
 ﻿using Merchandiser.Models;
 using Merchandiser.Repositories;
+using Merchandiser.Models.Extensions;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;

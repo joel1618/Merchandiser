@@ -15,6 +15,9 @@ namespace Merchandiser.App_Start
                 cfg.CreateMap<CompanyViewModel, Company>();
                 cfg.CreateMap<Company, CompanyViewModel>();
 
+                cfg.CreateMap<CompanyUserViewModel, CompanyUser>();
+                cfg.CreateMap<CompanyUser, CompanyUserViewModel>();
+
                 cfg.CreateMap<CustomerViewModel, Customer>();
                 cfg.CreateMap<Customer, CustomerViewModel>();
 
@@ -26,6 +29,9 @@ namespace Merchandiser.App_Start
             });
             Mapper.Map<CompanyViewModel, Company>(new CompanyViewModel());
             Mapper.Map<Company, CompanyViewModel>(new Company());
+
+            Mapper.Map<CompanyUserViewModel, CompanyUser>(new CompanyUserViewModel());
+            Mapper.Map<CompanyUser, CompanyUserViewModel>(new CompanyUser());
 
             Mapper.Map<CustomerViewModel, Customer>(new CustomerViewModel());
             Mapper.Map<Customer, CustomerViewModel>(new Customer());
