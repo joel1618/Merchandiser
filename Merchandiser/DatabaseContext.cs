@@ -9,10 +9,16 @@ namespace Merchandiser
 {
     internal class DatabaseContext : DbContext
     {
+        public DatabaseContext()
+           : base("BreezeMetadata")
+        {
+            // Prevent attempt to initialize a database for this context
+            Database.SetInitializer<DatabaseContext>(null);
+        }
         static DatabaseContext()
         {
             // Prevent attempt to initialize a database for this context
-            //Database.SetInitializer<DatabaseContext>(null);
+            Database.SetInitializer<DatabaseContext>(null);
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -20,6 +26,7 @@ namespace Merchandiser
         }
 
         public DbSet<Company> Company { get; set; }
+        public DbSet<CompanyViewModel> CompanyViewModel { get; set; }
         public DbSet<CompanyUser> CompanyUser { get; set; }
     }
 }

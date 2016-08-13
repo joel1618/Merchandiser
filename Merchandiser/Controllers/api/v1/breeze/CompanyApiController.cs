@@ -24,11 +24,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<CompanyViewModel> Search()
         {
-            var companies = companyUserRepository.Search().Where(e => e.UserId == User.Identity.GetUserId()).Select(x => x.CompanyId).ToList();
-            return companyRepository.Search().Where(e => companies.Contains(e.Id) || e.CreatedBy == User.Identity.GetUserId()).Select(x => new CompanyViewModel()
+            var currentUserId = User.Identity.GetUserId();
+            var companies = companyUserRepository.Search().Where(e => e.UserId == currentUserId).Select(x => x.CompanyId).ToList();
+            return companyRepository.Search().Where(e => companies.Contains(e.Id) || e.CreatedBy == currentUserId).Select(x => new CompanyViewModel()
             {
                 Id = x.Id, 
-                Name = x.Name
+                Name = x.Name,
+                Created = x.Created
             });
         }
 

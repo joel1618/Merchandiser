@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('MerchandiseController', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'MerchandiseService',
-    function controller($scope, $routeParams, $http, $location, $timeout, breezeservice, breeze, MerchandiseService) {
+    angular.module('Main').controller('MerchandiseController', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 
+    function controller($scope, $routeParams, $http, $location, $timeout, breezeservice, breeze) {
         $scope.Item = { Name : "", UPCCode: "", Quantity: "", Latitude: "", Longitude: "" };
         $scope.Products = ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5"];
         if (navigator.geolocation) navigator.geolocation.getCurrentPosition(onPositionUpdate);
@@ -11,9 +11,9 @@
             var p1 = new breeze.Predicate('Quantity', '>', 1);
             var p2 = new breeze.Predicate('Longitude', '<', 1);
             var predicate = new breeze.Predicate.and([p1, p2]);
-            MerchandiseService.Search(null, 0, 20, false).then(function (data) {
-                $scope.Items = data;
-            });
+            //MerchandiseService.Search(null, 0, 20, false).then(function (data) {
+            //    $scope.Items = data;
+            //});
         }
 
         function onPositionUpdate(position) {

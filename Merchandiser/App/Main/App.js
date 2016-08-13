@@ -15,11 +15,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('main.company', {
             url: "/company",
-            templateUrl: "/App/Company/Views/Company",
+            templateUrl: "/App/Company/Views/Company.html"
         })
+
         .state('main.company.addedit', {
-            url: "/company/addedit/:id",
-            templateUrl: "/App/Company/Views/CompanyAddEdit",
+            url: "/addedit/:id",
+            templateUrl: "/App/Company/Views/CompanyAddEdit.html",
         })
 
 

@@ -26,6 +26,7 @@ namespace Merchandiser.Repositories
 
         public Company Create(Company item)
         {
+            item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             context.Companies.Add(item);
             context.SaveChanges();
