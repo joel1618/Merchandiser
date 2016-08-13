@@ -33,5 +33,7 @@ namespace Merchandiser
         public virtual DbSet<AspNetUsersInfo> AspNetUsersInfoes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CompanyUser> CompanyUsers { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }

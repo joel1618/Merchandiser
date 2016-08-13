@@ -1,0 +1,27 @@
+﻿<div ng-controller="CustomerController">
+    <h3>Customer</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>&nbsp;Customer Name</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="item in items">
+                    <tr>
+                        <td><button class="btn btn-primary btn-sm" ng-click="Edit(item.Id)">Edit</button></td>
+                        <td><button class="btn btn-danger btn-sm" ng-click="Delete(item.Id)">Delete</button></td>
+                        <td>&nbsp;{{item.Name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+        <div class="col-md-12">
+            <div ui-view></div>
+        </div>
+    </div>
+</div>

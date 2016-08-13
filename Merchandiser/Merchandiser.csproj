@@ -240,11 +240,16 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\ProductApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyUserApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MerchandiseController.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
@@ -275,11 +280,20 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CompanyUserViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
+    <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\Extensions\CompanyViewModelExtensions.cs" />
+    <Compile Include="Models\Extensions\CustomerViewModelExtensions.cs" />
+    <Compile Include="Models\Extensions\ProductViewModelExtensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Product.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AspNetUsersInfoRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\CompanyUserRepository.cs" />
     <Compile Include="Startup.cs" />
@@ -289,15 +303,23 @@
     <Content Include="App\Company\Controllers\CompanyController.js" />
     <Content Include="App\Company\Views\Company.html" />
     <Content Include="App\Company\Views\CompanyAddEdit.html" />
+    <Content Include="App\Customer\Controllers\CustomerAddEditController.js" />
+    <Content Include="App\Customer\Controllers\CustomerController.js" />
+    <Content Include="App\Customer\Views\Customer.html" />
+    <Content Include="App\Customer\Views\CustomerAddEdit.html" />
     <Content Include="App\Main\App.js" />
     <Content Include="App\Main\Controllers\MainController.js" />
     <Content Include="App\Main\Views\Main.html" />
-    <Content Include="App\Merchandise\Controllers\MerchandiseController.js" />
-    <Content Include="App\Merchandise\Views\Merchandise.html" />
+    <Content Include="App\Product\Controllers\ProductAddEditController.js" />
+    <Content Include="App\Product\Controllers\ProductController.js" />
+    <Content Include="App\Product\Views\Product.html" />
+    <Content Include="App\Product\Views\ProductAddEdit.html" />
     <Content Include="App\Services\Breeze\breezeservice.js" />
     <Content Include="App\Services\Breeze\metadata.js" />
-    <Content Include="App\Services\CompanyService.js" />
-    <Content Include="App\Services\CompanyUserService.js" />
+    <Content Include="App\Services\Company\CompanyService.js" />
+    <Content Include="App\Services\Company\CompanyUserService.js" />
+    <Content Include="App\Services\Customer\CustomerService.js" />
+    <Content Include="App\Services\Product\ProductService.js" />
     <Content Include="App\Services\Services.js" />
     <Content Include="Scripts\Dependencies\angular-ui-router\0.2.18\angular-ui-router.js" />
     <Content Include="_app_offline.htm" />

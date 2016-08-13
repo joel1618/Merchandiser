@@ -9,30 +9,28 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/main",
             templateUrl: "/App/Main/Views/Main.html"
         })
-        .state('main.merchandise', {
-            url: "/merchandise",
-            templateUrl: "/App/Merchandise/Views/Merchandise.html",
-        })
         .state('main.company', {
             url: "/company",
             templateUrl: "/App/Company/Views/Company.html"
         })
-
         .state('main.company.addedit', {
             url: "/addedit/:id",
             templateUrl: "/App/Company/Views/CompanyAddEdit.html",
         })
-
-
-    //.state('route2', {
-    //    url: "/route2",
-    //    templateUrl: "route2.html"
-    //})
-    //  .state('route2.list', {
-    //      url: "/list",
-    //      templateUrl: "route2.list.html",
-    //      controller: function ($scope) {
-    //          $scope.things = ["A", "Set", "Of", "Things"];
-    //      }
-    //  })
+        .state('main.customer', {
+            url: "/company",
+            templateUrl: "/App/Customer/Views/Customer.html"
+        })
+        .state('main.customer.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "/App/Customer/Views/CustomerAddEdit.html",
+        })
+        .state('main.product', {
+            url: "/company",
+            templateUrl: "/App/Product/Views/Product.html"
+        })
+        .state('main.product.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "/App/Product/Views/ProductAddEdit.html",
+        })
 });
