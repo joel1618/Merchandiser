@@ -27,7 +27,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return productRepository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new ProductViewModel()
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                Created = x.Created
             });
         }
 

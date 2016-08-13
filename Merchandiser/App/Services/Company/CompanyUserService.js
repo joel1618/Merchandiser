@@ -18,7 +18,7 @@
             if (predicate != null) {
                 query = query.where(predicate);
             }
-            query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
+            query = query.skip(page * pageSize).take(pageSize);
                         
             breezeservice.executeQuery(query).then(function (data) {
                 deferred.resolve(data.httpResponse.data);

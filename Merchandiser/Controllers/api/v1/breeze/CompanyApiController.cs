@@ -30,7 +30,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return companyRepository.Search().Where(e => companies.Contains(e.Id) || e.CreatedBy == currentUserId).Select(x => new CompanyViewModel()
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                Created = x.Created
             });
         }
 

@@ -37,6 +37,9 @@ namespace Merchandiser.Repositories
         {
             var entity = context.Locations.Find(id);
             entity.Name = item.Name;
+            entity.Store = item.Store;
+            entity.AreaManager = item.AreaManager;
+            entity.Address = item.Address;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;
