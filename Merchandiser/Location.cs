@@ -14,6 +14,12 @@ namespace Merchandiser
     
     public partial class Location
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Location()
+        {
+            this.Location1 = new HashSet<Location>();
+        }
+    
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public string Store { get; set; }
@@ -25,5 +31,10 @@ namespace Merchandiser
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public System.Guid CompanyId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Location1 { get; set; }
+        public virtual Location Location2 { get; set; }
     }
 }

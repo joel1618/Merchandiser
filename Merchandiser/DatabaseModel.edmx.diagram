@@ -22,6 +22,9 @@
         <AssociationConnector Association="MerchandiserModel.FK_CompanyUser_AspNetUsers" />
         <AssociationConnector Association="MerchandiserModel.FK_CompanyUser_Company" />
         <AssociationConnector Association="MerchandiserModel.AspNetUserRoles" />
+        <AssociationConnector Association="MerchandiserModel.FK_Customer_Company" />
+        <AssociationConnector Association="MerchandiserModel.FK_Product_Company" />
+        <AssociationConnector Association="MerchandiserModel.FK_Location_Location" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

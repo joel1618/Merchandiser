@@ -27,6 +27,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return locationRepository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new LocationViewModel()
             {
                 Id = x.Id,
+                CompanyId = x.CompanyId,
                 Name = x.Name,
                 Created = x.Created
             });

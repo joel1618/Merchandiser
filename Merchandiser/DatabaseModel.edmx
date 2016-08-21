@@ -103,6 +103,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -114,6 +115,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Store" Type="nvarchar" MaxLength="100" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
@@ -130,6 +132,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -168,6 +171,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CompanyUser">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
               <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -228,6 +243,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Location_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Location1" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location1">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MerchandiserModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -253,6 +292,10 @@
             <End Role="Company" EntitySet="Company" />
             <End Role="CompanyUser" EntitySet="CompanyUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customer_Company" Association="Self.FK_Customer_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -268,6 +311,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Location" Association="Self.FK_Location_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Location1" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Company" Association="Self.FK_Product_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -309,6 +360,18 @@
           <AssociationSet Name="AspNetUserRoles" Association="MerchandiserModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Company" Association="MerchandiserModel.FK_Customer_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Company" Association="MerchandiserModel.FK_Product_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Location" Association="MerchandiserModel.FK_Location_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Location1" EntitySet="Locations" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -393,6 +456,8 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CompanyUsers" Relationship="MerchandiserModel.FK_CompanyUser_Company" FromRole="Company" ToRole="CompanyUser" />
+          <NavigationProperty Name="Customers" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Company" ToRole="Customer" />
+          <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Company" ToRole="Product" />
         </EntityType>
         <EntityType Name="CompanyUser">
           <Key>
@@ -418,6 +483,8 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Customer" ToRole="Company" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -434,6 +501,9 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Location1" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location" ToRole="Location1" />
+          <NavigationProperty Name="Location2" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location1" ToRole="Location" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -445,6 +515,8 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Product" ToRole="Company" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -513,6 +585,42 @@
         <Association Name="AspNetUserRoles">
           <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Customer_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Location">
+          <End Type="MerchandiserModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="MerchandiserModel.Location" Role="Location1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location1">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -613,6 +721,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="MerchandiserModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -625,6 +734,7 @@
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="MerchandiserModel.Location">
               <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -642,6 +752,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="MerchandiserModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

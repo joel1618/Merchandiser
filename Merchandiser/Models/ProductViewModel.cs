@@ -10,6 +10,8 @@ namespace Merchandiser.Models
     {
         [Key]
         public Guid Id { get; set; }
+        [Required]
+        public Guid CompanyId { get; set; }
         public string Name { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }

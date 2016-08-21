@@ -20,5 +20,8 @@ namespace Merchandiser
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public System.Guid CompanyId { get; set; }
+    
+        public virtual Company Company { get; set; }
     }
 }

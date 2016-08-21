@@ -1,0 +1,18 @@
+﻿<div ng-controller="MainController">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a ui-sref="main.company.addedit">Companies</a></li>
+                <li ng-class="{ 'disabled' : SelectedCompany === null}"><a ui-sref="main.customer.addedit">Customers</a></li>
+                <li ng-class="{ 'disabled' : SelectedCompany === null}"><a ui-sref="main.product.addedit">Products</a></li>
+                <li ng-class="{ 'disabled' : SelectedCompany === null}"><a ui-sref="main.location.addedit">Locations</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row pull-right">
+                <h3>{{SelectedCompany.Name}}</h3>
+            </div>
+            <div ui-view></div>
+        </div>
+    </div>
+</div>

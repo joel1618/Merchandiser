@@ -17,7 +17,7 @@ namespace Collision.App_Start
             var metadata = new EFContextProvider<DatabaseContext>().Metadata();
 
             // construct the filename and runtime file location
-            var fileName = HostingEnvironment.MapPath("~/App/services/breeze/metadata.js");
+            var fileName = HostingEnvironment.MapPath("~/App/databaseservices/breeze/metadata.js");
 
             // the same pre- and post-fix strings we used earlier
             const string prefix = "window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(";

@@ -18,6 +18,8 @@ namespace Merchandiser
         public Company()
         {
             this.CompanyUsers = new HashSet<CompanyUser>();
+            this.Customers = new HashSet<Customer>();
+            this.Products = new HashSet<Product>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,5 +31,9 @@ namespace Merchandiser
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompanyUser> CompanyUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
