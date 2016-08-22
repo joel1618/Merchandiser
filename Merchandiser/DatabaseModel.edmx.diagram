@@ -37,6 +37,7 @@
         <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Question" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Survey" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Survey" />
+        <AssociationConnector Association="MerchandiserModel.FK_Location_Location1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

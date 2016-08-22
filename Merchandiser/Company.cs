@@ -22,6 +22,7 @@ namespace Merchandiser
             this.Products = new HashSet<Product>();
             this.Questions = new HashSet<Question>();
             this.Surveys = new HashSet<Survey>();
+            this.Locations = new HashSet<Location>();
         }
     
         public System.Guid Id { get; set; }
@@ -41,5 +42,7 @@ namespace Merchandiser
         public virtual ICollection<Question> Questions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Survey> Surveys { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Locations { get; set; }
     }
 }

@@ -39,5 +39,6 @@ namespace Merchandiser
         public virtual Location Location2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

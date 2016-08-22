@@ -294,13 +294,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Location_Location">
-          <End Role="Location" Type="Self.Location" Multiplicity="1" />
-          <End Role="Location1" Type="Self.Location" Multiplicity="*" />
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Location">
+            <Principal Role="Company">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Location1">
+            <Dependent Role="Location">
               <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -463,8 +463,8 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Location_Location" Association="Self.FK_Location_Location">
+            <End Role="Company" EntitySet="Company" />
             <End Role="Location" EntitySet="Location" />
-            <End Role="Location1" EntitySet="Location" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Company" Association="Self.FK_Product_Company">
             <End Role="Company" EntitySet="Company" />
@@ -591,6 +591,10 @@
             <End Role="Survey" EntitySet="Surveys" />
             <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
           </AssociationSet>
+          <AssociationSet Name="FK_Location_Location1" Association="MerchandiserModel.FK_Location_Location1">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -678,6 +682,7 @@
           <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Company" ToRole="Product" />
           <NavigationProperty Name="Questions" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Company" ToRole="Question" />
           <NavigationProperty Name="Surveys" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Company" ToRole="Survey" />
+          <NavigationProperty Name="Locations" Relationship="MerchandiserModel.FK_Location_Location1" FromRole="Company" ToRole="Location" />
         </EntityType>
         <EntityType Name="CompanyUser">
           <Key>
@@ -726,6 +731,7 @@
           <NavigationProperty Name="Location1" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location" ToRole="Location1" />
           <NavigationProperty Name="Location2" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location1" ToRole="Location" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="Location" ToRole="SurveyCustomerLocation" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Location_Location1" FromRole="Location" ToRole="Company" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -999,6 +1005,18 @@
             </Principal>
             <Dependent Role="SurveyProductQuestion">
               <PropertyRef Name="SurveyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Location1">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
