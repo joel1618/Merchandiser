@@ -3,6 +3,7 @@
     angular.module('Main').controller('CustomerController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
         $scope.Search = function () {
+        debugger;
             var p1 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
             //var p2 = new breeze.Predicate('Longitude', '<', 1);
             //var predicate = new breeze.Predicate.and([p1, p2]);
