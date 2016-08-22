@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, CompanyApplicationService) {
+    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'CompanyApplicationService', 'SurveyApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, CompanyApplicationService, SurveyApplicationService) {
         $scope.Search = function () {
             var p1 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
             //var p2 = new breeze.Predicate('Longitude', '<', 1);
@@ -24,6 +24,12 @@
             SurveyService.Delete(Id).then(function (data) {
                 $state.go('main.survey.addedit', { id: Id }, { reload: true });
             })
+        }
+
+        $scope.Select = function (Id) {
+            SurveyService.Get(Id).then(function (data) {
+                SurveyApplicationService.SetSelectedSurvey(data);
+            });
         }
     }]);
 

@@ -368,6 +368,7 @@
     <Content Include="App\ApplicationComponents\CompanyUser\Views\CompanyUserAddEdit.html" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />
     <Content Include="App\ApplicationServices\Company\CompanyApplicationService.js" />
+    <Content Include="App\ApplicationServices\Survey\SurveyApplicationService.js" />
     <Content Include="App\DatabaseServices\Breeze\breezeservice.js" />
     <Content Include="App\DatabaseServices\Breeze\metadata.js" />
     <Content Include="App\DatabaseServices\Company\CompanyService.js" />
