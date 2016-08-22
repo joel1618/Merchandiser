@@ -26,6 +26,21 @@ namespace Merchandiser.App_Start
 
                 cfg.CreateMap<ProductViewModel, Product>();
                 cfg.CreateMap<Product, ProductViewModel>();
+
+                cfg.CreateMap<SurveyViewModel, Survey>();
+                cfg.CreateMap<Survey, SurveyViewModel>();
+
+                cfg.CreateMap<SurveyCustomerLocationViewModel, SurveyCustomerLocation>();
+                cfg.CreateMap<SurveyCustomerLocation, SurveyCustomerLocationViewModel>();
+
+                cfg.CreateMap<SurveyProductQuestionViewModel, SurveyProductQuestion>();
+                cfg.CreateMap<SurveyProductQuestion, SurveyProductQuestionViewModel>();
+
+                cfg.CreateMap<QuestionViewModel, Question>();
+                cfg.CreateMap<Question, QuestionViewModel>();
+
+                cfg.CreateMap<CompanyUserViewModel, CompanyUser>();
+                cfg.CreateMap<CompanyUser, CompanyUserViewModel>();
             });
             Mapper.Map<CompanyViewModel, Company>(new CompanyViewModel());
             Mapper.Map<Company, CompanyViewModel>(new Company());
@@ -41,6 +56,21 @@ namespace Merchandiser.App_Start
 
             Mapper.Map<ProductViewModel, Product>(new ProductViewModel());
             Mapper.Map<Product, ProductViewModel>(new Product());
+
+            Mapper.Map<SurveyViewModel, Survey>(new SurveyViewModel());
+            Mapper.Map<Survey, SurveyViewModel>(new Survey());
+
+            Mapper.Map<SurveyCustomerLocationViewModel, SurveyCustomerLocation>(new SurveyCustomerLocationViewModel());
+            Mapper.Map<SurveyCustomerLocation, SurveyCustomerLocationViewModel>(new SurveyCustomerLocation());
+
+            Mapper.Map<SurveyProductQuestionViewModel, SurveyProductQuestion>(new SurveyProductQuestionViewModel());
+            Mapper.Map<SurveyProductQuestion, SurveyProductQuestionViewModel>(new SurveyProductQuestion());
+
+            Mapper.Map<QuestionViewModel, Question>(new QuestionViewModel());
+            Mapper.Map<Question, QuestionViewModel>(new Question());
+
+            Mapper.Map<CompanyUserViewModel, CompanyUser>(new CompanyUserViewModel());
+            Mapper.Map<CompanyUser, CompanyUserViewModel>(new CompanyUser());
         }            
     }
 }

@@ -16,7 +16,7 @@
         $scope.Save = function () {
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 SurveyService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $state.go('main.customer.addedit', { }, { reload: true, inherit: false });
+                    $state.go('main.survey.addedit', { }, { reload: true, inherit: false });
                 }, function (error) {
                     alert(error);
                 });
@@ -24,7 +24,7 @@
             else {
                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
                 SurveyService.Create($scope.item).then(function (data) {
-                    $state.go('main.customer.addedit', {}, { reload: true, inherit: false });
+                    $state.go('main.survey.addedit', {}, { reload: true, inherit: false });
                 }, function (error) {
                     alert(error);
                 });

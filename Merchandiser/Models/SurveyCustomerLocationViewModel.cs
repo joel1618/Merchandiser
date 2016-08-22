@@ -14,6 +14,7 @@ namespace Merchandiser.Models
         public Guid CustomerId { get; set; }
         public Guid LocationId { get; set; }
         public string Name { get; set; }
+        public DateTime Modifed { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
