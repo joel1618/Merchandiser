@@ -36,5 +36,9 @@ namespace Merchandiser
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
+        public virtual DbSet<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
+        public virtual DbSet<SurveyProductQuestion> SurveyProductQuestions { get; set; }
     }
 }

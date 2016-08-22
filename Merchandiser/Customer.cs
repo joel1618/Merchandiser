@@ -14,6 +14,12 @@ namespace Merchandiser
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.SurveyCustomerLocations = new HashSet<SurveyCustomerLocation>();
+        }
+    
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
@@ -23,5 +29,7 @@ namespace Merchandiser
         public System.Guid CompanyId { get; set; }
     
         public virtual Company Company { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
     }
 }

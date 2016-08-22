@@ -25,6 +25,18 @@
         <AssociationConnector Association="MerchandiserModel.FK_Customer_Company" />
         <AssociationConnector Association="MerchandiserModel.FK_Product_Company" />
         <AssociationConnector Association="MerchandiserModel.FK_Location_Location" />
+        <EntityTypeShape EntityType="MerchandiserModel.Question" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="MerchandiserModel.Survey" Width="1.5" PointX="5.25" PointY="18.5" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyCustomerLocation" Width="1.5" PointX="10" PointY="9.375" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyProductQuestion" Width="1.5" PointX="10" PointY="13.875" />
+        <AssociationConnector Association="MerchandiserModel.FK_Question_Company" />
+        <AssociationConnector Association="MerchandiserModel.FK_Survey_Company" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Customer" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Location" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Product" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Question" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Survey" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Survey" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

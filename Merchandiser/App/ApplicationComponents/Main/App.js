@@ -41,4 +41,28 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/addedit/:id",
             templateUrl: "/App/ApplicationComponents/Location/Views/LocationAddEdit.html",
         })
+        .state('main.survey', {
+            url: "/survey",
+            templateUrl: "/App/ApplicationComponents/Survey/Views/Survey.html"
+        })
+        .state('main.survey.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "/App/ApplicationComponents/Survey/Views/SurveyAddEdit.html",
+        })
+        .state('main.companyuser', {
+            url: "/companyuser",
+            templateUrl: "/App/ApplicationComponents/CompanyUser/Views/CompanyUser.html"
+        })
+        .state('main.companyuser.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "/App/ApplicationComponents/CompanyUser/Views/CompanyUserAddEdit.html",
+        })
+        .state('main.question', {
+            url: "/question",
+            templateUrl: "/App/ApplicationComponents/Question/Views/Question.html"
+        })
+        .state('main.question.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "/App/ApplicationComponents/Question/Views/QuestionAddEdit.html",
+        })
 });
