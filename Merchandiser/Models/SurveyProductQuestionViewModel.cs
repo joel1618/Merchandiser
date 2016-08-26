@@ -18,5 +18,8 @@ namespace Merchandiser.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+
+        public virtual ProductViewModel Product { get; set; }
+        public virtual QuestionViewModel Question { get; set; }
     }
 }

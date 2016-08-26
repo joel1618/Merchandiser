@@ -358,6 +358,14 @@
     <Content Include="App\ApplicationComponents\Question\Controllers\QuestionController.js" />
     <Content Include="App\ApplicationComponents\Question\Views\Question.html" />
     <Content Include="App\ApplicationComponents\Question\Views\QuestionAddEdit.html" />
+    <Content Include="App\ApplicationComponents\SurveyCustomerLocation\Controllers\SurveyCustomerLocationAddEditController.js" />
+    <Content Include="App\ApplicationComponents\SurveyCustomerLocation\Controllers\SurveyCustomerLocationController.js" />
+    <Content Include="App\ApplicationComponents\SurveyCustomerLocation\Views\SurveyCustomerLocation.html" />
+    <Content Include="App\ApplicationComponents\SurveyCustomerLocation\Views\SurveyCustomerLocationAddEdit.html" />
+    <Content Include="App\ApplicationComponents\SurveyProductQuestion\Controllers\SurveyProductQuestionAddEditController.js" />
+    <Content Include="App\ApplicationComponents\SurveyProductQuestion\Controllers\SurveyProductQuestionController.js" />
+    <Content Include="App\ApplicationComponents\SurveyProductQuestion\Views\SurveyProductQuestion.html" />
+    <Content Include="App\ApplicationComponents\SurveyProductQuestion\Views\SurveyProductQuestionAddEdit.html" />
     <Content Include="App\ApplicationComponents\Survey\Controllers\SurveyAddEditController.js" />
     <Content Include="App\ApplicationComponents\Survey\Controllers\SurveyController.js" />
     <Content Include="App\ApplicationComponents\Survey\Views\Survey.html" />

@@ -1,0 +1,19 @@
+﻿<div ng-controller="SurveyCustomerLocationAddEditController">
+    <h3>Survey Customer Location Detail</h3>
+    <div class="col-md-4">
+        <div ng-form="form">
+            <fieldset class="form-group">
+                <label>Customer</label>
+                <input type="text" class="form-control" ng-model="item.Customer.Name" uib-typeahead="customer.Name for customer in SearchCustomers($viewValue)" 
+                       ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+                       typeahead-on-select="SelectCustomer($item, $model, $label)" required/>
+                <label>Location</label>
+                <input type="text" class="form-control" ng-model="item.Location.Name" typeahead="item.Name for item in SearchLocations($viewValue)" 
+                       ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+                       typeahead-on-select="SelectCustomer($item, $model, $label)" required />
+                <br />
+                <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
+            </fieldset>
+        </div>
+    </div>
+</div>

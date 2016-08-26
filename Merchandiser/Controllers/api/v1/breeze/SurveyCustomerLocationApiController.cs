@@ -27,6 +27,17 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return repository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new SurveyCustomerLocationViewModel()
             {
                 Id = x.Id,
+                SurveyId = x.SurveyId,
+                Customer = new CustomerViewModel()
+                {
+                    Id = x.Customer.Id,
+                    Name = x.Customer.Name
+                },
+                Location = new LocationViewModel()
+                {
+                    Id = x.Location.Id,
+                    Name = x.Location.Name
+                },
                 Created = x.Created
             });
         }
