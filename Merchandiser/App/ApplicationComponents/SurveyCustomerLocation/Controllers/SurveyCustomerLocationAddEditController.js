@@ -7,6 +7,7 @@
 
         CompanyApplicationService.NotifyObservers();
         SurveyApplicationService.NotifyObservers();
+
         $scope.item = { Id : null }
         $scope.Search = function () {
             if ($stateParams.id !== undefined && $stateParams.id !== "") {
@@ -19,9 +20,8 @@
 
         $scope.SearchCustomers = function (value) {
             var p1 = new breeze.Predicate('Name', "substringof", value);
-            //var p2 = new breeze.Predicate('Id', '==', value);
-            var p3 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            var predicate = new breeze.Predicate.or([p1]).and(p3);
+            var p2 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
+            var predicate = new breeze.Predicate.and([p1, p2]);
             return CustomerService.Search(predicate, 0, 20, false).then(function (data) {
                 return data;
             });
@@ -33,9 +33,8 @@
 
         $scope.SearchLocations = function (value) {
             var p1 = new breeze.Predicate('Name', "substringof", value);
-            //var p2 = new breeze.Predicate('Id', '==', value);
-            var p3 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            var predicate = new breeze.Predicate.or([p1]).and(p3);
+            var p2 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
+            var predicate = new breeze.Predicate.and([p1, p2]);
             return LocationService.Search(predicate, 0, 20, false).then(function (data) {
                 return data;
             });
@@ -55,6 +54,7 @@
             }
             else {
                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                $scope.item.SurveyId = SurveyApplicationService.SelectedSurvey.Id;
                 SurveyCustomerLocationService.Create($scope.item).then(function (data) {
                     $state.go('main.surveycustomerlocation.addedit', {}, { reload: true, inherit: false });
                 }, function (error) {
