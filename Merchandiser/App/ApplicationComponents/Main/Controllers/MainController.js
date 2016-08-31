@@ -12,6 +12,8 @@
         SurveyApplicationService.RegisterObserver(function(){
             $scope.SelectedSurvey = SurveyApplicationService.SelectedSurvey;
         })
+        
+        $scope.SelectedNavigation = "Companies";
     }]);
 
 })(moment);

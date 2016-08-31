@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -26,11 +27,16 @@ namespace Merchandiser.Repositories
 
         public SurveyCustomerLocation Create(SurveyCustomerLocation item)
         {
-            item.Id = Guid.NewGuid();
-            item.Created = DateTime.UtcNow;
-            context.SurveyCustomerLocations.Add(item);
+            var record = new SurveyCustomerLocation();
+            record.Id = Guid.NewGuid();
+            record.Created = DateTime.UtcNow;
+            record.CreatedBy = item.CreatedBy;
+            record.SurveyId = item.SurveyId;
+            record.LocationId = item.LocationId;
+            record.CustomerId = item.CustomerId;
+            context.SurveyCustomerLocations.Add(record);
             context.SaveChanges();
-            return item;
+            return record;
         }
 
         public SurveyCustomerLocation Update(Guid id, SurveyCustomerLocation item)

@@ -519,6 +519,10 @@
           <EntitySet Name="Customers" EntityType="MerchandiserModel.Customer" />
           <EntitySet Name="Locations" EntityType="MerchandiserModel.Location" />
           <EntitySet Name="Products" EntityType="MerchandiserModel.Product" />
+          <EntitySet Name="Questions" EntityType="MerchandiserModel.Question" />
+          <EntitySet Name="Surveys" EntityType="MerchandiserModel.Survey" />
+          <EntitySet Name="SurveyCustomerLocations" EntityType="MerchandiserModel.SurveyCustomerLocation" />
+          <EntitySet Name="SurveyProductQuestions" EntityType="MerchandiserModel.SurveyProductQuestion" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="MerchandiserModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -539,26 +543,18 @@
             <End Role="Company" EntitySet="Companies" />
             <End Role="CompanyUser" EntitySet="CompanyUsers" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="MerchandiserModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Customer_Company" Association="MerchandiserModel.FK_Customer_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Location" Association="MerchandiserModel.FK_Location_Location">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Location" EntitySet="Locations" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Company" Association="MerchandiserModel.FK_Product_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Location_Location" Association="MerchandiserModel.FK_Location_Location">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="Location1" EntitySet="Locations" />
-          </AssociationSet>
-          <EntitySet Name="Questions" EntityType="MerchandiserModel.Question" />
-          <EntitySet Name="Surveys" EntityType="MerchandiserModel.Survey" />
-          <EntitySet Name="SurveyCustomerLocations" EntityType="MerchandiserModel.SurveyCustomerLocation" />
-          <EntitySet Name="SurveyProductQuestions" EntityType="MerchandiserModel.SurveyProductQuestion" />
           <AssociationSet Name="FK_Question_Company" Association="MerchandiserModel.FK_Question_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Question" EntitySet="Questions" />
@@ -591,9 +587,9 @@
             <End Role="Survey" EntitySet="Surveys" />
             <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Location_Location1" Association="MerchandiserModel.FK_Location_Location1">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="Location" EntitySet="Locations" />
+          <AssociationSet Name="AspNetUserRoles" Association="MerchandiserModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -679,10 +675,10 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CompanyUsers" Relationship="MerchandiserModel.FK_CompanyUser_Company" FromRole="Company" ToRole="CompanyUser" />
           <NavigationProperty Name="Customers" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Company" ToRole="Customer" />
+          <NavigationProperty Name="Locations" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Company" ToRole="Location" />
           <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Company" ToRole="Product" />
           <NavigationProperty Name="Questions" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Company" ToRole="Question" />
           <NavigationProperty Name="Surveys" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Company" ToRole="Survey" />
-          <NavigationProperty Name="Locations" Relationship="MerchandiserModel.FK_Location_Location1" FromRole="Company" ToRole="Location" />
         </EntityType>
         <EntityType Name="CompanyUser">
           <Key>
@@ -703,12 +699,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Customer" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="Customer" ToRole="SurveyCustomerLocation" />
         </EntityType>
@@ -717,6 +713,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Store" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
@@ -727,25 +724,83 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Location1" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location" ToRole="Location1" />
-          <NavigationProperty Name="Location2" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location1" ToRole="Location" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="Location" ToRole="SurveyCustomerLocation" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Location_Location1" FromRole="Location" ToRole="Company" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Product" ToRole="Company" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="Product" ToRole="SurveyProductQuestion" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Question" ToRole="Company" />
+          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="Question" ToRole="SurveyProductQuestion" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Survey" ToRole="Company" />
+          <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="Survey" ToRole="SurveyCustomerLocation" />
+          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="Survey" ToRole="SurveyProductQuestion" />
+        </EntityType>
+        <EntityType Name="SurveyCustomerLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SurveyId" Type="Guid" Nullable="false" />
+          <Property Name="CustomerId" Type="Guid" Nullable="false" />
+          <Property Name="LocationId" Type="Guid" Nullable="false" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="SurveyCustomerLocation" ToRole="Customer" />
+          <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="SurveyCustomerLocation" ToRole="Location" />
+          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="SurveyCustomerLocation" ToRole="Survey" />
+        </EntityType>
+        <EntityType Name="SurveyProductQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SurveyId" Type="Guid" Nullable="false" />
+          <Property Name="ProductId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="SurveyProductQuestion" ToRole="Product" />
+          <NavigationProperty Name="Question" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="SurveyProductQuestion" ToRole="Question" />
+          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="SurveyProductQuestion" ToRole="Survey" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -811,10 +866,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
         <Association Name="FK_Customer_Company">
           <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
           <End Type="MerchandiserModel.Customer" Role="Customer" Multiplicity="*" />
@@ -823,6 +874,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Customer">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Location">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
               <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -839,79 +902,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Location_Location">
-          <End Type="MerchandiserModel.Location" Role="Location" Multiplicity="1" />
-          <End Type="MerchandiserModel.Location" Role="Location1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Location1">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Question">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Question" ToRole="Company" />
-          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="Question" ToRole="SurveyProductQuestion" />
-        </EntityType>
-        <EntityType Name="Survey">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Survey" ToRole="Company" />
-          <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="Survey" ToRole="SurveyCustomerLocation" />
-          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="Survey" ToRole="SurveyProductQuestion" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SurveyCustomerLocation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="SurveyId" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="LocationId" Type="Guid" Nullable="false" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="SurveyCustomerLocation" ToRole="Customer" />
-          <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="SurveyCustomerLocation" ToRole="Location" />
-          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="SurveyCustomerLocation" ToRole="Survey" />
-        </EntityType>
-        <EntityType Name="SurveyProductQuestion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="SurveyId" Type="Guid" Nullable="false" />
-          <Property Name="ProductId" Type="Guid" Nullable="false" />
-          <Property Name="QuestionId" Type="Guid" Nullable="false" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="SurveyProductQuestion" ToRole="Product" />
-          <NavigationProperty Name="Question" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="SurveyProductQuestion" ToRole="Question" />
-          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="SurveyProductQuestion" ToRole="Survey" />
-        </EntityType>
         <Association Name="FK_Question_Company">
           <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
           <End Type="MerchandiserModel.Question" Role="Question" Multiplicity="*" />
@@ -1008,17 +998,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Location_Location1">
-          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="MerchandiserModel.Location" Role="Location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="AspNetUserRoles">
+          <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1119,12 +1101,12 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="MerchandiserModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1132,7 +1114,6 @@
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="MerchandiserModel.Location">
               <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1143,6 +1124,7 @@
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Store" ColumnName="Store" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1150,24 +1132,16 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="MerchandiserModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MerchandiserModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="MerchandiserModel.Question">
               <MappingFragment StoreEntitySet="Question">
@@ -1184,11 +1158,11 @@
           <EntitySetMapping Name="Surveys">
             <EntityTypeMapping TypeName="MerchandiserModel.Survey">
               <MappingFragment StoreEntitySet="Survey">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1222,6 +1196,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MerchandiserModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -26,9 +26,14 @@ namespace Merchandiser.Repositories
 
         public SurveyProductQuestion Create(SurveyProductQuestion item)
         {
-            item.Id = Guid.NewGuid();
-            item.Created = DateTime.UtcNow;
-            context.SurveyProductQuestions.Add(item);
+            var record = new SurveyProductQuestion();
+            record.Id = Guid.NewGuid();
+            record.SurveyId = item.SurveyId;
+            record.ProductId = item.ProductId;
+            record.QuestionId = item.QuestionId;
+            record.CreatedBy = item.CreatedBy;
+            record.Created = DateTime.UtcNow;
+            context.SurveyProductQuestions.Add(record);
             context.SaveChanges();
             return item;
         }

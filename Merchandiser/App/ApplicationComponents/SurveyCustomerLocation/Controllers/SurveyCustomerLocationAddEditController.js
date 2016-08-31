@@ -47,7 +47,8 @@
         $scope.Save = function () {
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 SurveyCustomerLocationService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $state.go('main.surveycustomerlocation.addedit', { }, { reload: true, inherit: false });
+                    $scope.$parent.Search();
+                    //$state.go('main.surveycustomerlocation.addedit', { }, { reload: true, inherit: false });
                 }, function (error) {
                     alert(error);
                 });
@@ -56,7 +57,8 @@
                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
                 $scope.item.SurveyId = SurveyApplicationService.SelectedSurvey.Id;
                 SurveyCustomerLocationService.Create($scope.item).then(function (data) {
-                    $state.go('main.surveycustomerlocation.addedit', {}, { reload: true, inherit: false });
+                    $scope.$parent.Search();
+                    //$state.go('main.surveycustomerlocation.addedit', {}, { reload: true, inherit: false });
                 }, function (error) {
                     alert(error);
                 });

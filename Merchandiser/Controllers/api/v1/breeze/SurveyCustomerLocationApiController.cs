@@ -54,24 +54,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpPost]
         public SurveyCustomerLocationViewModel Create(SurveyCustomerLocationViewModel item)
         {
-            try
-            {
-                item.CreatedBy = User.Identity.GetUserId();
-                return repository.Create(item.ToEntity()).ToViewModel();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-                return null;
-            }
+            item.CreatedBy = User.Identity.GetUserId();
+            var entity = item.ToEntity();
+            return repository.Create(entity).ToViewModel();
         }
 
         [HttpPut]
