@@ -12,17 +12,13 @@
         }
         $scope.Search();
 
-        $scope.Create = function () {
-            $state.go('main.company.addedit', { id: null }, { reload: true });
-        }
-
         $scope.Edit = function (Id) {
-            $state.go('main.company.addedit', { id: Id }, { reload: true });
+            $state.go('main.company.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
             CompanyService.Delete(Id).then(function (data) {
-                $state.go('main.company.addedit', { id: Id }, { reload: true });
+                $scope.Search();
             })
         }
         

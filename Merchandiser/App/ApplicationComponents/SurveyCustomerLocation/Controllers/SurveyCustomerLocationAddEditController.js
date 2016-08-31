@@ -8,7 +8,9 @@
         CompanyApplicationService.NotifyObservers();
         SurveyApplicationService.NotifyObservers();
 
-        $scope.item = { Id : null }
+        $scope.Init = function(){
+            $scope.item = { Id : null }
+        }
         $scope.Search = function () {
             if ($stateParams.id !== undefined && $stateParams.id !== "") {
                 SurveyCustomerLocationService.Get($stateParams.id).then(function (data) {
@@ -48,6 +50,7 @@
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 SurveyCustomerLocationService.Update($scope.item.Id, $scope.item).then(function (data) {
                     $scope.$parent.Search();
+                    $scope.Init();
                     //$state.go('main.surveycustomerlocation.addedit', { }, { reload: true, inherit: false });
                 }, function (error) {
                     alert(error);
@@ -58,6 +61,7 @@
                 $scope.item.SurveyId = SurveyApplicationService.SelectedSurvey.Id;
                 SurveyCustomerLocationService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
+                    $scope.Init();
                     //$state.go('main.surveycustomerlocation.addedit', {}, { reload: true, inherit: false });
                 }, function (error) {
                     alert(error);

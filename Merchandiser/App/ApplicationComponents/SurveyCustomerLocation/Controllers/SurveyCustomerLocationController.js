@@ -19,7 +19,6 @@
         $scope.Delete = function (Id) {
             SurveyCustomerLocationService.Delete(Id).then(function (data) {
                 $scope.Search();
-                //$state.go('main.surveycustomerlocation.addedit', { id: Id }, { reload: true });
             })
         }
     }]);

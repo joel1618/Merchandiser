@@ -12,17 +12,13 @@
         }
         $scope.Search();
 
-        $scope.Create = function () {
-            $state.go('main.location.addedit', { id: null }, { reload: true });
-        }
-
         $scope.Edit = function (Id) {
-            $state.go('main.location.addedit', { id: Id }, { reload: true });
+            $state.go('main.location.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
             LocationService.Delete(Id).then(function (data) {
-                $state.go('main.location.addedit', { id: Id }, { reload: true });
+                $scope.Search();
             })
         }
     }]);

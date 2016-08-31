@@ -13,17 +13,13 @@
         }
         $scope.Search();
 
-        $scope.Create = function () {
-            $state.go('main.customer.addedit', { id: null }, { reload: true });
-        }
-
         $scope.Edit = function (Id) {
-            $state.go('main.customer.addedit', { id: Id }, { reload: true });
+            $state.go('main.customer.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
             CustomerService.Delete(Id).then(function (data) {
-                $state.go('main.customer.addedit', { id: Id }, { reload: true });
+                $scope.Search();
             })
         }
     }]);

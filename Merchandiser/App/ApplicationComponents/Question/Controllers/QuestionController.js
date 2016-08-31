@@ -12,17 +12,13 @@
         }
         $scope.Search();
 
-        $scope.Create = function () {
-            $state.go('main.question.addedit', { id: null }, { reload: true });
-        }
-
         $scope.Edit = function (Id) {
-            $state.go('main.question.addedit', { id: Id }, { reload: true });
+            $state.go('main.question.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
             QuestionService.Delete(Id).then(function (data) {
-                $state.go('main.question.addedit', { id: Id }, { reload: true });
+                $scope.Search();
             })
         }
     }]);

@@ -12,17 +12,13 @@
         }
         $scope.Search();
 
-        $scope.Create = function () {
-            $state.go('main.product.addedit', { id: null }, { reload: true });
-        }
-
         $scope.Edit = function (Id) {
-            $state.go('main.product.addedit', { id: Id }, { reload: true });
+            $state.go('main.product.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
             ProductService.Delete(Id).then(function (data) {
-                $state.go('main.product.addedit', { id: Id }, { reload: true });
+                $scope.Search();
             })
         }
     }]);

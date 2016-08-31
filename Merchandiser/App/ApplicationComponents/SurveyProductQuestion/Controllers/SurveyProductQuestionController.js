@@ -12,17 +12,13 @@
         }
         $scope.Search();
 
-        $scope.Create = function () {
-            $state.go('main.surveyproductquestion.addedit', { id: null }, { reload: true });
-        }
-
         $scope.Edit = function (Id) {
-            $state.go('main.surveyproductquestion.addedit', { id: Id }, { reload: true });
+            $state.go('main.surveyproductquestion.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
             SurveyProductQuestionService.Delete(Id).then(function (data) {
-                $state.go('main.surveyproductquestion.addedit', { id: Id }, { reload: true });
+                $scope.Search();
             })
         }
     }]);
