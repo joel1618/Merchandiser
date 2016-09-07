@@ -32,7 +32,6 @@ namespace Merchandiser
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUsersInfo> AspNetUsersInfoes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<CompanyUser> CompanyUsers { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -40,5 +39,7 @@ namespace Merchandiser
         public virtual DbSet<Survey> Surveys { get; set; }
         public virtual DbSet<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
         public virtual DbSet<SurveyProductQuestion> SurveyProductQuestions { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }

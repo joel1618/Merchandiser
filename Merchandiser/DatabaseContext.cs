@@ -27,6 +27,6 @@ namespace Merchandiser
 
         public DbSet<Company> Company { get; set; }
         public DbSet<CompanyViewModel> CompanyViewModel { get; set; }
-        public DbSet<CompanyUser> CompanyUser { get; set; }
+        public DbSet<User> CompanyUser { get; set; }
     }
 }

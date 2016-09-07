@@ -81,4 +81,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/addedit/:id",
             templateUrl: "/App/ApplicationComponents/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
         })
+        .state('merchandise.customerlocation', {
+            url: "/merchandise/customerlocation",
+            templateUrl: "/App/ApplicationComponents/Merchandise/CustomerLocation/MerchandiseCustomerLocation.html"
+        })
+        .state('merchandise.survey', {
+            url: "/merchandise/survey/:id",
+            templateUrl: "/App/ApplicationComponents/Merchandise/Survey/MerchandiseSurvey.html"
+        })
 });

@@ -7,19 +7,19 @@ namespace Merchandiser.Models.Extensions
 {
     public static class CompanyUserViewModelExtensions
     {
-        public static CompanyUser ToEntity(this CompanyUserViewModel item)
+        public static User ToEntity(this CompanyUserViewModel item)
         {
             if (item == null)
             {
                 return null;
             }
 
-            var model = AutoMapper.Mapper.Map<CompanyUser>(item);
+            var model = AutoMapper.Mapper.Map<User>(item);
 
             return model;
         }
 
-        public static CompanyUserViewModel ToViewModel(this CompanyUser item)
+        public static CompanyUserViewModel ToViewModel(this User item)
         {
             if (item == null)
             {

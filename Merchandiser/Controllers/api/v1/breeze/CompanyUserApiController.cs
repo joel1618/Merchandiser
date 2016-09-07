@@ -29,27 +29,27 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public CompanyUser Get(Guid id)
+        public User Get(Guid id)
         {
             return companyUserRepository.Get(id);
         }
 
         [HttpPost]
-        public CompanyUser Create(CompanyUser item)
+        public User Create(User item)
         {
             item.CreatedBy = User.Identity.GetUserId();
             return companyUserRepository.Create(item);
         }
 
         [HttpPut]
-        public CompanyUser Update(Guid id, CompanyUser item)
+        public User Update(Guid id, User item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
             return companyUserRepository.Update(id, item);
         }
 
         [HttpDelete]
-        public CompanyUser Delete(Guid id)
+        public User Delete(Guid id)
         {
             throw new NotImplementedException();
         }

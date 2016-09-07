@@ -13,28 +13,28 @@ namespace Merchandiser.Repositories
             this.context = new MerchandiserEntities();
         }
 
-        public IQueryable<CompanyUser> Search()
+        public IQueryable<User> Search()
         {
-            return context.CompanyUsers;
+            return context.Users;
         }
 
-        public CompanyUser Get(Guid id)
+        public User Get(Guid id)
         {
-            return context.CompanyUsers.Find(id);
+            return context.Users.Find(id);
         }
 
-        public CompanyUser Create(CompanyUser item)
+        public User Create(User item)
         {
             item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
-            context.CompanyUsers.Add(item);
+            context.Users.Add(item);
             context.SaveChanges();
             return item;
         }
 
-        public CompanyUser Update(Guid id, CompanyUser item)
+        public User Update(Guid id, User item)
         {
-            var entity = context.CompanyUsers.Find(id);
+            var entity = context.Users.Find(id);
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;
@@ -42,9 +42,9 @@ namespace Merchandiser.Repositories
 
         public void Delete(Guid id)
         {
-            var item = new CompanyUser { Id = id };
-            context.CompanyUsers.Attach(item);
-            context.CompanyUsers.Remove(item);
+            var item = new User { Id = id };
+            context.Users.Attach(item);
+            context.Users.Remove(item);
             context.SaveChanges();
         }
     }
