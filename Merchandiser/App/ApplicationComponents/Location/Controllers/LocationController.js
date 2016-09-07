@@ -1,12 +1,10 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService) {
+    angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService', 'CompanyApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService, CompanyApplicationService) {
         $scope.Search = function () {
-            var p1 = new breeze.Predicate('Quantity', '>', 1);
-            var p2 = new breeze.Predicate('Longitude', '<', 1);
-            var predicate = new breeze.Predicate.and([p1, p2]);
-            LocationService.Search(null, 0, 20, false).then(function (data) {
+            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
+            LocationService.Search(predicate, 0, 20, false).then(function (data) {
                 $scope.items = data;
             });
         }

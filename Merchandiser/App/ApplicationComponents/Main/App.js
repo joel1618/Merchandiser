@@ -1,5 +1,8 @@
-﻿var app = angular.module('Main', ['ngRoute', 'ui.grid', 'ui.bootstrap', 'ngAnimate', 'ui.router', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
-
+﻿var app = angular.module('Main', ['ngRoute', 'ui.grid', 'ui.bootstrap', 'ngAnimate', 'ui.router', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
+angular.module('Main').config(function (blockUIConfig) {
+    // Change the default delay to 100ms before the blocking is visible
+    blockUIConfig.delay = 0;
+});
 app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/main/company/addedit/")

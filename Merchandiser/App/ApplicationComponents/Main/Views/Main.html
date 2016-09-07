@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-class="{ 'active' : SelectedNavigation === 'Companies' }" ng-click="SelectedNavigation = 'Companies'"><a ui-sref="main.company.addedit">Companies</a></li>
-                <li ng-class="{ 'hidden' : SelectedCompany.Id === undefined, 'active' : SelectedNavigation === 'Customers' }" ng-click="SelectedNavigation = 'Customers'"><a ui-sref="main.customer.addedit">Customers</a></li>
-                <li ng-class="{ 'hidden' : SelectedCompany.Id === undefined, 'active' : SelectedNavigation === 'Locations' }" ng-click="SelectedNavigation = 'Locations'"><a ui-sref="main.location.addedit">Locations</a></li>
-                <li ng-class="{ 'hidden' : SelectedCompany.Id === undefined, 'active' : SelectedNavigation === 'Products' }" ng-click="SelectedNavigation = 'Products'"><a ui-sref="main.product.addedit">Products</a></li>
-                <li ng-class="{ 'hidden' : SelectedCompany.Id === undefined, 'active' : SelectedNavigation === 'Questions' }" ng-click="SelectedNavigation = 'Questions'"><a ui-sref="main.question.addedit">Questions</a></li>
-                <li ng-class="{ 'hidden' : SelectedCompany.Id === undefined, 'active' : SelectedNavigation === 'Users' }" ng-click="SelectedNavigation = 'Users'"><a ui-sref="main.companyuser.addedit">Users</a></li>
-                <li ng-class="{ 'hidden' : SelectedCompany.Id === undefined, 'active' : SelectedNavigation === 'Surveys' }" ng-click="SelectedNavigation = 'Surveys'"><a ui-sref="main.survey.addedit">Surveys</a></li>
-                <li ng-class="{ 'hidden' : SelectedSurvey.Id === undefined, 'active' : SelectedNavigation === 'Survey Customers and Locations' }" ng-click="SelectedNavigation = 'Survey Customers and Locations'"><a ui-sref="main.surveycustomerlocation.addedit">Survey Customers and Locations</a></li>
-                <li ng-class="{ 'hidden' : SelectedSurvey.Id === undefined, 'active' : SelectedNavigation === 'Survey Products and Questions' }" ng-click="SelectedNavigation = 'Survey Products and Questions'"><a ui-sref="main.surveyproductquestion.addedit">Survey Products and Questions</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.company.addedit">Companies</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.customer.addedit">Customers</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.location.addedit">Locations</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.product.addedit">Products</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.question.addedit">Questions</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.companyuser.addedit">Users</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.survey.addedit">Surveys</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.surveycustomerlocation.addedit">Survey Customers and Locations</a></li>
+                <li ui-sref-active="active"><a ui-sref="main.surveyproductquestion.addedit">Survey Products and Questions</a></li>
             </ul>
         </div>
         <div class="col-md-10">
