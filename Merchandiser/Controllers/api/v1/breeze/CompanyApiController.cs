@@ -27,12 +27,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
         {
             var currentUserId = User.Identity.GetUserId();
             var companies = companyUserRepository.Search().Where(e => e.UserId == currentUserId).Select(x => x.CompanyId).ToList();
-            return companyRepository.Search().Where(e => companies.Contains(e.Id) || e.CreatedBy == currentUserId).Select(x => new CompanyViewModel()
+            var companiesList = companyRepository.Search().Where(e => companies.Contains(e.Id) || e.CreatedBy.Equals(currentUserId)).Select(x => new CompanyViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
-                Created = x.Created
+                Created = x.Created,
+                CreatedBy = x.CreatedBy
             });
+            return companiesList;
         }
 
         [HttpGet]

@@ -30,7 +30,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return repository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new SurveyCustomerLocationViewModel()
             {
                 Id = x.Id,
+                CompanyId = x.CompanyId,
                 SurveyId = x.SurveyId,
+                LocationId = x.LocationId,
+                CustomerId = x.CustomerId,
                 Customer = new CustomerViewModel()
                 {
                     Id = x.Customer.Id,
@@ -40,6 +43,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.Location.Id,
                     Name = x.Location.Name
+                },
+                Survey = new SurveyViewModel()
+                {
+                    Id = x.Survey.Id,
+                    Name = x.Survey.Name
                 },
                 Created = x.Created
             });

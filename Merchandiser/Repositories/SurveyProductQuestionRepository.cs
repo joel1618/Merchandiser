@@ -33,6 +33,7 @@ namespace Merchandiser.Repositories
             record.QuestionId = item.QuestionId;
             record.CreatedBy = item.CreatedBy;
             record.Created = DateTime.UtcNow;
+            record.CompanyId = item.CompanyId;
             context.SurveyProductQuestions.Add(record);
             context.SaveChanges();
             return item;

@@ -10,6 +10,7 @@ namespace Merchandiser.Models
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid CompanyId { get; set; }
         public Guid SurveyId { get; set; }
         public Guid CustomerId { get; set; }
         public Guid LocationId { get; set; }
@@ -21,5 +22,7 @@ namespace Merchandiser.Models
 
         public virtual CustomerViewModel Customer {get; set;}
         public virtual LocationViewModel Location { get; set; }
+
+        public virtual SurveyViewModel Survey { get; set; }
     }
 }

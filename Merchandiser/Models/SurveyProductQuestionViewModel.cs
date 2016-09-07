@@ -10,6 +10,7 @@ namespace Merchandiser.Models
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid CompanyId { get; set; }
         public Guid SurveyId { get; set; }
         public Guid ProductId { get; set; }
         public Guid QuestionId { get; set; }

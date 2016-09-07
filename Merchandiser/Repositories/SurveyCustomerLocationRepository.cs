@@ -34,6 +34,7 @@ namespace Merchandiser.Repositories
             record.SurveyId = item.SurveyId;
             record.LocationId = item.LocationId;
             record.CustomerId = item.CustomerId;
+            record.CompanyId = item.CompanyId;
             context.SurveyCustomerLocations.Add(record);
             context.SaveChanges();
             return record;

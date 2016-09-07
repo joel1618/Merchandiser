@@ -38,6 +38,8 @@
         <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Survey" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Survey" />
         <AssociationConnector Association="MerchandiserModel.AspNetUserRoles" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Company" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Company" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
