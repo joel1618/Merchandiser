@@ -11,7 +11,7 @@
 
                 $http({
                     method: 'Get',
-                    url: 'api/UserApi/GetCurrentUser/',
+                    url: '/api/v1/UserApi/GetCurrentUser/',
                 }).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (msg, code) {

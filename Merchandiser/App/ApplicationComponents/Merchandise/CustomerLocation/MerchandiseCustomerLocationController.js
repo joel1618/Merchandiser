@@ -1,17 +1,16 @@
 ﻿(function (moment) {
     "use strict";
-    //angular.module('Main').config(function ($stateProvider) {
-    //    $stateProvider
-    //    .state('merchandise.customerlocation', {
-    //        url: "/merchandise/customerlocation",
-    //        templateUrl: "/App/ApplicationComponents/Merchandise/CustomerLocation/MerchandiseCustomerLocation.html"
-    //    })
-    //});
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('merchandise', {
+            url: "/merchandise",
+            templateUrl: "/App/ApplicationComponents/Merchandise/CustomerLocation/MerchandiseCustomerLocation.html"
+        })
+    });
     angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'CompanyApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, CompanyApplicationService) {
-        alert('hit');
         $scope.Search = function () {
             UserService.GetCurrentUser().then(function (data) {
                 var predicate = new breeze.Predicate('CreatedBy', '==', data);

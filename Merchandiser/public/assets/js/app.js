@@ -1021,7 +1021,7 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 
                 $http({
                     method: 'Get',
-                    url: 'api/UserApi/GetCurrentUser/',
+                    url: '/api/v1/UserApi/GetCurrentUser/',
                 }).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (msg, code) {
@@ -1117,14 +1117,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('main.surveyproductquestion.addedit', {
             url: "/addedit/:id",
             templateUrl: "/App/ApplicationComponents/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
-        })
-        .state('merchandise.customerlocation', {
-            url: "/merchandise/customerlocation",
-            templateUrl: "/App/ApplicationComponents/Merchandise/CustomerLocation/MerchandiseCustomerLocation.html"
-        })
-        .state('merchandise.survey', {
-            url: "/merchandise/survey/:id",
-            templateUrl: "/App/ApplicationComponents/Merchandise/Survey/MerchandiseSurvey.html"
         })
 });
 (function (moment) {
@@ -1395,31 +1387,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
 })(moment);
 (function (moment) {
-    "use strict";    
-    angular.module('Main').controller('MainController', ['$scope', 'CompanyApplicationService', 'SurveyApplicationService',
-    function controller($scope, CompanyApplicationService, SurveyApplicationService) {      
-        //TODO: If a regular user go to company, if a company customer assigned to a survey, go to the survey data page.
-        $scope.SelectedCompany = null;
-        CompanyApplicationService.RegisterObserver(function () { 
-            $scope.SelectedCompany = CompanyApplicationService.SelectedCompany;
-        })
-
-        $scope.SelectedSurvey = null;
-        SurveyApplicationService.RegisterObserver(function(){
-            $scope.SelectedSurvey = SurveyApplicationService.SelectedSurvey;
-        })
-    }]);
-
-})(moment);
-(function (moment) {
     "use strict";
-    //angular.module('Main').config(function ($stateProvider) {
-    //    $stateProvider
-    //    .state('merchandise.customerlocation', {
-    //        url: "/merchandise/customerlocation",
-    //        templateUrl: "/App/ApplicationComponents/Merchandise/CustomerLocation/MerchandiseCustomerLocation.html"
-    //    })
-    //});
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('merchandise', {
+            url: "/merchandise",
+            templateUrl: "/App/ApplicationComponents/Merchandise/CustomerLocation/MerchandiseCustomerLocation.html"
+        })
+    });
     angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'CompanyApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze,
@@ -1435,6 +1410,24 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         }
         $scope.Search();
     }]);
+})(moment);
+
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('MainController', ['$scope', 'CompanyApplicationService', 'SurveyApplicationService',
+    function controller($scope, CompanyApplicationService, SurveyApplicationService) {      
+        //TODO: If a regular user go to company, if a company customer assigned to a survey, go to the survey data page.
+        $scope.SelectedCompany = null;
+        CompanyApplicationService.RegisterObserver(function () { 
+            $scope.SelectedCompany = CompanyApplicationService.SelectedCompany;
+        })
+
+        $scope.SelectedSurvey = null;
+        SurveyApplicationService.RegisterObserver(function(){
+            $scope.SelectedSurvey = SurveyApplicationService.SelectedSurvey;
+        })
+    }]);
+
 })(moment);
 (function (moment) {
     "use strict";    
@@ -1501,7 +1494,70 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     }]);
 
 })(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('QuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'CompanyApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, CompanyApplicationService) {
+        CompanyApplicationService.NotifyObservers();        
+        
+        $scope.Init = function () {
+            $scope.item = { Id: null, Name: "" }
+        }
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                QuestionService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
 
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                QuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    alert(error);
+                });
+            }
+            else {
+                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                QuestionService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    alert(error);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('QuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'CompanyApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, CompanyApplicationService) {
+        $scope.Search = function () {
+            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
+            QuestionService.Search(predicate, 0, 20, false).then(function (data) {
+                $scope.items = data;
+            });
+        }
+        $scope.Search();
+
+        $scope.Edit = function (Id) {
+            $state.go('main.question.addedit', { id: Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            QuestionService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+    }]);
+
+})(moment);
 (function (moment) {
     "use strict";    
     angular.module('Main').controller('SurveyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'CompanyApplicationService',
@@ -1568,70 +1624,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             SurveyService.Get(Id).then(function (data) {
                 SurveyApplicationService.SetSelectedSurvey(data);
             });
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('QuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'CompanyApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, CompanyApplicationService) {
-        CompanyApplicationService.NotifyObservers();        
-        
-        $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
-        }
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                QuestionService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                QuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    alert(error);
-                });
-            }
-            else {
-                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
-                QuestionService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    alert(error);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('QuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, CompanyApplicationService) {
-        $scope.Search = function () {
-            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            QuestionService.Search(predicate, 0, 20, false).then(function (data) {
-                $scope.items = data;
-            });
-        }
-        $scope.Search();
-
-        $scope.Edit = function (Id) {
-            $state.go('main.question.addedit', { id: Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            QuestionService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
         }
     }]);
 
