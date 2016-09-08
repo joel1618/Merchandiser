@@ -370,6 +370,8 @@
     <Content Include="App\ApplicationComponents\Main\Views\Main.html" />
     <Content Include="App\ApplicationComponents\Merchandise\CustomerLocation\MerchandiseCustomerLocation.html" />
     <Content Include="App\ApplicationComponents\Merchandise\CustomerLocation\MerchandiseCustomerLocationController.js" />
+    <Content Include="App\ApplicationComponents\Merchandise\SurveyData\MerchandiseSurveyData.html" />
+    <Content Include="App\ApplicationComponents\Merchandise\SurveyData\MerchandiseSurveyData.js" />
     <Content Include="App\ApplicationComponents\Merchandise\Survey\MerchandiseSurvey.html" />
     <Content Include="App\ApplicationComponents\Merchandise\Survey\MerchandiseSurveyController.js" />
     <Content Include="App\ApplicationComponents\Product\Controllers\ProductAddEditController.js" />
