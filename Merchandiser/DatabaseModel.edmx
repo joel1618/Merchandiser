@@ -165,6 +165,31 @@
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="SurveyDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SurveyHeaderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SurveyProductQuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SurveyHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SurveyId" Type="uniqueidentifier" />
+          <Property Name="SurveyCustomerLocationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
             <PropertyRef Name="Id" />
@@ -399,6 +424,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyDetail_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="SurveyDetail" Type="Self.SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyDetail_SurveyHeader">
+          <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="1" />
+          <End Role="SurveyDetail" Type="Self.SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="SurveyHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyDetail_SurveyProductQuestion">
+          <End Role="SurveyProductQuestion" Type="Self.SurveyProductQuestion" Multiplicity="1" />
+          <End Role="SurveyDetail" Type="Self.SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyProductQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="SurveyProductQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_Survey">
+          <End Role="Survey" Type="Self.Survey" Multiplicity="0..1" />
+          <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Survey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="SurveyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_SurveyCustomerLocation">
+          <End Role="SurveyCustomerLocation" Type="Self.SurveyCustomerLocation" Multiplicity="1" />
+          <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyCustomerLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="SurveyCustomerLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyProductQuestion_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="SurveyProductQuestion" Type="Self.SurveyProductQuestion" Multiplicity="*" />
@@ -462,6 +559,8 @@
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Survey" EntityType="Self.Survey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyCustomerLocation" EntityType="Self.SurveyCustomerLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyDetail" EntityType="Self.SurveyDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyHeader" EntityType="Self.SurveyHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyProductQuestion" EntityType="Self.SurveyProductQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
@@ -528,6 +627,30 @@
           <AssociationSet Name="FK_SurveyCustomerLocation_Survey" Association="Self.FK_SurveyCustomerLocation_Survey">
             <End Role="Survey" EntitySet="Survey" />
             <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_Company" Association="Self.FK_SurveyDetail_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_SurveyHeader" Association="Self.FK_SurveyDetail_SurveyHeader">
+            <End Role="SurveyHeader" EntitySet="SurveyHeader" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_SurveyProductQuestion" Association="Self.FK_SurveyDetail_SurveyProductQuestion">
+            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestion" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_Company" Association="Self.FK_SurveyHeader_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_Survey" Association="Self.FK_SurveyHeader_Survey">
+            <End Role="Survey" EntitySet="Survey" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_SurveyCustomerLocation" Association="Self.FK_SurveyHeader_SurveyCustomerLocation">
+            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocation" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeader" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyProductQuestion_Company" Association="Self.FK_SurveyProductQuestion_Company">
             <End Role="Company" EntitySet="Company" />
@@ -643,6 +766,32 @@
             <End Role="Company" EntitySet="Companies" />
             <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
           </AssociationSet>
+          <EntitySet Name="SurveyDetails" EntityType="MerchandiserModel.SurveyDetail" />
+          <EntitySet Name="SurveyHeaders" EntityType="MerchandiserModel.SurveyHeader" />
+          <AssociationSet Name="FK_SurveyDetail_Company" Association="MerchandiserModel.FK_SurveyDetail_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_Company" Association="MerchandiserModel.FK_SurveyHeader_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_SurveyCustomerLocation" Association="MerchandiserModel.FK_SurveyHeader_SurveyCustomerLocation">
+            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocations" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_SurveyHeader" Association="MerchandiserModel.FK_SurveyDetail_SurveyHeader">
+            <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_SurveyProductQuestion" Association="MerchandiserModel.FK_SurveyDetail_SurveyProductQuestion">
+            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_Survey" Association="MerchandiserModel.FK_SurveyHeader_Survey">
+            <End Role="Survey" EntitySet="Surveys" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -733,6 +882,8 @@
           <NavigationProperty Name="Surveys" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Company" ToRole="Survey" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Company" FromRole="Company" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Company" FromRole="Company" ToRole="SurveyProductQuestion" />
+          <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Company" FromRole="Company" ToRole="SurveyDetail" />
+          <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="Company" ToRole="SurveyHeader" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -809,6 +960,7 @@
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Survey" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="Survey" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="Survey" ToRole="SurveyProductQuestion" />
+          <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="Survey" ToRole="SurveyHeader" />
         </EntityType>
         <EntityType Name="SurveyCustomerLocation">
           <Key>
@@ -827,6 +979,7 @@
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="SurveyCustomerLocation" ToRole="Survey" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Company" FromRole="SurveyCustomerLocation" ToRole="Company" />
+          <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_SurveyCustomerLocation" FromRole="SurveyCustomerLocation" ToRole="SurveyHeader" />
         </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
@@ -845,6 +998,7 @@
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="SurveyProductQuestion" ToRole="Survey" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Company" FromRole="SurveyProductQuestion" ToRole="Company" />
+          <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyProductQuestion" FromRole="SurveyProductQuestion" ToRole="SurveyDetail" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1092,6 +1246,110 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SurveyDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="SurveyHeaderId" Type="Guid" Nullable="false" />
+          <Property Name="SurveyProductQuestionId" Type="Guid" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyDetail_Company" FromRole="SurveyDetail" ToRole="Company" />
+          <NavigationProperty Name="SurveyHeader" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyDetail" ToRole="SurveyHeader" />
+          <NavigationProperty Name="SurveyProductQuestion" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyProductQuestion" FromRole="SurveyDetail" ToRole="SurveyProductQuestion" />
+        </EntityType>
+        <EntityType Name="SurveyHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="SurveyCustomerLocationId" Type="Guid" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="SurveyHeader" ToRole="Company" />
+          <NavigationProperty Name="SurveyCustomerLocation" Relationship="MerchandiserModel.FK_SurveyHeader_SurveyCustomerLocation" FromRole="SurveyHeader" ToRole="SurveyCustomerLocation" />
+          <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
+          <Property Name="SurveyId" Type="Guid" />
+          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
+        </EntityType>
+        <Association Name="FK_SurveyDetail_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.SurveyDetail" Role="SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_SurveyCustomerLocation">
+          <End Type="MerchandiserModel.SurveyCustomerLocation" Role="SurveyCustomerLocation" Multiplicity="1" />
+          <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyCustomerLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="SurveyCustomerLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyDetail_SurveyHeader">
+          <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="1" />
+          <End Type="MerchandiserModel.SurveyDetail" Role="SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="SurveyHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyDetail_SurveyProductQuestion">
+          <End Type="MerchandiserModel.SurveyProductQuestion" Role="SurveyProductQuestion" Multiplicity="1" />
+          <End Type="MerchandiserModel.SurveyDetail" Role="SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyProductQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="SurveyProductQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_Survey">
+          <End Type="MerchandiserModel.Survey" Role="Survey" Multiplicity="0..1" />
+          <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Survey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="SurveyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1305,6 +1563,33 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SurveyDetails">
+            <EntityTypeMapping TypeName="MerchandiserModel.SurveyDetail">
+              <MappingFragment StoreEntitySet="SurveyDetail">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="SurveyProductQuestionId" ColumnName="SurveyProductQuestionId" />
+                <ScalarProperty Name="SurveyHeaderId" ColumnName="SurveyHeaderId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyHeaders">
+            <EntityTypeMapping TypeName="MerchandiserModel.SurveyHeader">
+              <MappingFragment StoreEntitySet="SurveyHeader">
+                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="SurveyCustomerLocationId" ColumnName="SurveyCustomerLocationId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

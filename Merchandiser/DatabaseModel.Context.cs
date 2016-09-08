@@ -41,5 +41,7 @@ namespace Merchandiser
         public virtual DbSet<SurveyProductQuestion> SurveyProductQuestions { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<SurveyDetail> SurveyDetails { get; set; }
+        public virtual DbSet<SurveyHeader> SurveyHeaders { get; set; }
     }
 }

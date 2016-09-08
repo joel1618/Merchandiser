@@ -245,6 +245,8 @@
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\SurveyDetailApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\SurveyHeaderApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyProductQuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\UserApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -294,6 +296,8 @@
     <Compile Include="Models\Extensions\ProductViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\QuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyCustomerLocationViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\SurveyDetailViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\SurveyHeaderViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyProductQuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyViewModelExtension.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -302,6 +306,8 @@
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\SurveyCustomerLocationViewModel.cs" />
+    <Compile Include="Models\SurveyDetailViewModel.cs" />
+    <Compile Include="Models\SurveyHeaderViewModel.cs" />
     <Compile Include="Models\SurveyProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
     <Compile Include="Product.cs">
@@ -319,6 +325,8 @@
     <Compile Include="Repositories\CompanyUserRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\SurveyCustomerLocationRepository.cs" />
+    <Compile Include="Repositories\SurveyDetailRepository.cs" />
+    <Compile Include="Repositories\SurveyHeaderRepository.cs" />
     <Compile Include="Repositories\SurveyProductQuestionRepository.cs" />
     <Compile Include="Repositories\SurveyRepository.cs" />
     <Compile Include="Startup.cs" />
@@ -326,6 +334,12 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SurveyCustomerLocation.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyDetail.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyHeader.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SurveyProductQuestion.cs">
@@ -395,6 +409,8 @@
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
+    <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />
+    <Content Include="App\DatabaseServices\SurveyHeader\SurveyHeaderService.js" />
     <Content Include="App\DatabaseServices\SurveyProductQuestion\SurveyProductQuestionService.js" />
     <Content Include="App\DatabaseServices\Survey\SurveyService.js" />
     <Content Include="App\DatabaseServices\User\UserService.js" />
