@@ -10,78 +10,78 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('main', {
             url: "/main",
-            templateUrl: "/App/ApplicationComponents/Main/Views/Main.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Main/Views/Main.html"
         })
         .state('main.company', {
             url: "/company",
-            templateUrl: "/App/ApplicationComponents/Company/Views/Company.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Company/Views/Company.html"
         })
         .state('main.company.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Company/Views/CompanyAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/Company/Views/CompanyAddEdit.html",
         })
         .state('main.customer', {
             url: "/customer",
-            templateUrl: "/App/ApplicationComponents/Customer/Views/Customer.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Customer/Views/Customer.html"
         })
         .state('main.customer.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Customer/Views/CustomerAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/Customer/Views/CustomerAddEdit.html",
         })
         .state('main.product', {
             url: "/product",
-            templateUrl: "/App/ApplicationComponents/Product/Views/Product.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Product/Views/Product.html"
         })
         .state('main.product.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Product/Views/ProductAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/Product/Views/ProductAddEdit.html",
         })
         .state('main.location', {
             url: "/location",
-            templateUrl: "/App/ApplicationComponents/Location/Views/Location.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Location/Views/Location.html"
         })
         .state('main.location.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Location/Views/LocationAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/Location/Views/LocationAddEdit.html",
         })
         .state('main.survey', {
             url: "/survey",
-            templateUrl: "/App/ApplicationComponents/Survey/Views/Survey.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Survey/Views/Survey.html"
         })
         .state('main.survey.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Survey/Views/SurveyAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/Survey/Views/SurveyAddEdit.html",
         })
         .state('main.companyuser', {
             url: "/companyuser",
-            templateUrl: "/App/ApplicationComponents/CompanyUser/Views/CompanyUser.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/CompanyUser/Views/CompanyUser.html"
         })
         .state('main.companyuser.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/CompanyUser/Views/CompanyUserAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/CompanyUser/Views/CompanyUserAddEdit.html",
         })
         .state('main.question', {
             url: "/question",
-            templateUrl: "/App/ApplicationComponents/Question/Views/Question.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/Question/Views/Question.html"
         })
         .state('main.question.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Question/Views/QuestionAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/Question/Views/QuestionAddEdit.html",
         })
         .state('main.surveycustomerlocation', {
             url: "/survey/customerlocation",
-            templateUrl: "/App/ApplicationComponents/SurveyCustomerLocation/Views/SurveyCustomerLocation.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocation.html"
         })
         .state('main.surveycustomerlocation.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/SurveyCustomerLocation/Views/SurveyCustomerLocationAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocationAddEdit.html",
         })
         .state('main.surveyproductquestion', {
             url: "/survey/productquestion",
-            templateUrl: "/App/ApplicationComponents/SurveyProductQuestion/Views/SurveyProductQuestion.html"
+            templateUrl: "/App/ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestion.html"
         })
         .state('main.surveyproductquestion.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
+            templateUrl: "/App/ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
         })
 });
