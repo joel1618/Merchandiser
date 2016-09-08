@@ -71,8 +71,10 @@
         }
 
         $scope.SelectSurvey = function () {
-            $state.go('survey', { id: $scope.SelectedSurvey.Survey.Id });
-            //TODO: Route to survey with surveyid 
+            $state.go('survey', {
+                companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
+                customerId: $scope.SelectedCustomer.Id, locationId: $scope.SelectedLocation.Id, ''
+            });
         }
     }]);
 })(moment);

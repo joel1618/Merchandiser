@@ -12,6 +12,13 @@ namespace Merchandiser.Models
         public Guid Id { get; set; }
         [Required]
         public Guid CompanyId { get; set; }
+        [Required]
+        public Guid SurveyHeaderId { get; set; }
+        [Required]
+        public Guid ProductId { get; set; }
+        [Required]
+        public Guid QuestionId { get; set; }
+        public string Answer { get; set; }
         public DateTime Modifed { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
