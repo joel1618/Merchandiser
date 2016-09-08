@@ -1,3 +1,50 @@
 ﻿<div ng-controller="MerchandiseSurveyController">
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Before Image</label>
+                <br />
+                <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
+                <label class="btn btn-primary btn-sm btn-file">
+                    Choose File <input type="file" accept="image/*" style="display: none;">
+                </label>
+                <br />
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Question
+                            </th>
+                            <th>
+                                Answer
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in ProductQuestion">
+                            <td>
+                                {{item.Product.Name}}
+                            </td>
+                            <td>
+                                {{item.Question.Name}}
+                            </td>
+                            <td>
+                                <input type="text" placeholder="Answer..." class="form-control input-sm" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <label>After Image</label>
+                <br />
+                <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
+                <label class="btn btn-primary btn-sm btn-file">
+                    Choose File <input type="file" accept="image/*" style="display: none;">
+                </label>
+                <button class="btn btn-primary btn-sm pull-right">Save</button>
+            </div>
+        </div>
+    </div>
 </div>

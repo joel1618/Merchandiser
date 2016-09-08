@@ -27,7 +27,8 @@
                 });
             }
             else {
-                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                debugger;
                 ProductService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();
