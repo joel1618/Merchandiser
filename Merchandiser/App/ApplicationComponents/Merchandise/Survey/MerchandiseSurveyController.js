@@ -14,6 +14,7 @@
         $scope.Search = function () {
             var predicate = new breeze.Predicate('SurveyId', '==', $stateParams.id);
             SurveyProductQuestionService.Search(predicate, 0, 100, false).then(function (data) {
+                debugger;
                 $scope.ProductQuestion = data;
             });
         }

@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in ProductQuestion">
+                        <tr ng-repeat="item in ProductQuestion | orderBy: ['Product.Name','Question.Name'] ">
                             <td>
                                 {{item.Product.Name}}
                             </td>
@@ -32,7 +32,7 @@
                                 {{item.Question.Name}}
                             </td>
                             <td>
-                                <input type="text" placeholder="Answer..." class="form-control input-sm" />
+                                <input ng-model="item.Answer" type="text" placeholder="Answer..." class="form-control input-sm" />
                             </td>
                         </tr>
                     </tbody>
