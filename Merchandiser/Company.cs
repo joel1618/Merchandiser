@@ -17,16 +17,16 @@ namespace Merchandiser
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Company()
         {
-            this.Users = new HashSet<User>();
+            this.AspNetUserRoles = new HashSet<AspNetUserRole>();
             this.Customers = new HashSet<Customer>();
             this.Locations = new HashSet<Location>();
             this.Products = new HashSet<Product>();
             this.Questions = new HashSet<Question>();
             this.Surveys = new HashSet<Survey>();
             this.SurveyCustomerLocations = new HashSet<SurveyCustomerLocation>();
-            this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
             this.SurveyDetails = new HashSet<SurveyDetail>();
             this.SurveyHeaders = new HashSet<SurveyHeader>();
+            this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
         }
     
         public System.Guid Id { get; set; }
@@ -37,7 +37,7 @@ namespace Merchandiser
         public string CreatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -51,10 +51,10 @@ namespace Merchandiser
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyDetail> SurveyDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyHeader> SurveyHeaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
     }
 }

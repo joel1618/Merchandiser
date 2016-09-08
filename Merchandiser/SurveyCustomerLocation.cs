@@ -15,6 +15,7 @@ namespace Merchandiser
     public partial class SurveyCustomerLocation
     {
         public System.Guid Id { get; set; }
+        public System.Guid CompanyId { get; set; }
         public System.Guid SurveyId { get; set; }
         public System.Guid CustomerId { get; set; }
         public System.Guid LocationId { get; set; }
@@ -22,11 +23,10 @@ namespace Merchandiser
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public System.Guid CompanyId { get; set; }
     
+        public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Location Location { get; set; }
         public virtual Survey Survey { get; set; }
-        public virtual Company Company { get; set; }
     }
 }

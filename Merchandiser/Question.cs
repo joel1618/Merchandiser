@@ -17,8 +17,8 @@ namespace Merchandiser
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Question()
         {
-            this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
             this.SurveyDetails = new HashSet<SurveyDetail>();
+            this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
         }
     
         public System.Guid Id { get; set; }
@@ -31,8 +31,8 @@ namespace Merchandiser
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyDetail> SurveyDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
     }
 }

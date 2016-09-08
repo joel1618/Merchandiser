@@ -18,8 +18,8 @@ namespace Merchandiser
         public Survey()
         {
             this.SurveyCustomerLocations = new HashSet<SurveyCustomerLocation>();
-            this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
             this.SurveyHeaders = new HashSet<SurveyHeader>();
+            this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
         }
     
         public System.Guid Id { get; set; }
@@ -34,8 +34,8 @@ namespace Merchandiser
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyHeader> SurveyHeaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
     }
 }

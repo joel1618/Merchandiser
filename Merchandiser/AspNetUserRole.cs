@@ -12,10 +12,14 @@ namespace Merchandiser
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class AspNetUserRole
     {
-        public System.Guid Id { get; set; }
-        public System.Guid UserId { get; set; }
-        public System.Guid RoleId { get; set; }
+        public string UserId { get; set; }
+        public string RoleId { get; set; }
+        public System.Guid CompanyId { get; set; }
+    
+        public virtual AspNetRole AspNetRole { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
