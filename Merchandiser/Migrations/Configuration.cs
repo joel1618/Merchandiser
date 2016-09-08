@@ -20,10 +20,18 @@ namespace Merchandiser.Migrations
                 {
                     context.Database.Create();
                     context.Database.Connection.Open();
+                    AddRoles(context);
                     context.SaveChanges();
                     context.Database.Connection.Close();
                 }
             }
+        }
+
+        public void AddRoles(MerchandiserEntities context)
+        {
+            context.AspNetRoles.Add(new AspNetRole() { Name = "Administrator" });
+            context.AspNetRoles.Add(new AspNetRole() { Name = "Customer" });
+            context.AspNetRoles.Add(new AspNetRole() { Name = "Data Entry" });
         }
     }
 }
