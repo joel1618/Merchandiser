@@ -14,12 +14,6 @@ namespace Merchandiser
     
     public partial class SurveyProductQuestion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SurveyProductQuestion()
-        {
-            this.SurveyDetails = new HashSet<SurveyDetail>();
-        }
-    
         public System.Guid Id { get; set; }
         public System.Guid SurveyId { get; set; }
         public System.Guid ProductId { get; set; }
@@ -34,7 +28,5 @@ namespace Merchandiser
         public virtual Question Question { get; set; }
         public virtual Survey Survey { get; set; }
         public virtual Company Company { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyDetail> SurveyDetails { get; set; }
     }
 }

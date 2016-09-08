@@ -40,15 +40,17 @@
         <AssociationConnector Association="MerchandiserModel.AspNetUserRoles" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyCustomerLocation_Company" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Company" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyDetail" Width="1.5" PointX="9.75" PointY="16.5" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyHeader" Width="1.5" PointX="7.5" PointY="15.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyDetail" Width="1.5" PointX="10.5" PointY="16.25" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyHeader" Width="1.5" PointX="8.25" PointY="15.125" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_Company" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_Company" />
-        <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_SurveyCustomerLocation" />
-        <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_SurveyHeader" />
-        <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_SurveyProductQuestion" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_Customer" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_Location" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_Product" />
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_Question" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_Survey" />
-      </Diagram>
+        <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_SurveyHeader" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

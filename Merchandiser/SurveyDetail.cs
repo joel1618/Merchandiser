@@ -17,7 +17,8 @@ namespace Merchandiser
         public System.Guid Id { get; set; }
         public System.Guid CompanyId { get; set; }
         public System.Guid SurveyHeaderId { get; set; }
-        public System.Guid SurveyProductQuestionId { get; set; }
+        public System.Guid ProductId { get; set; }
+        public System.Guid QuestionId { get; set; }
         public string Answer { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
@@ -25,7 +26,8 @@ namespace Merchandiser
         public string CreatedBy { get; set; }
     
         public virtual Company Company { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Question Question { get; set; }
         public virtual SurveyHeader SurveyHeader { get; set; }
-        public virtual SurveyProductQuestion SurveyProductQuestion { get; set; }
     }
 }

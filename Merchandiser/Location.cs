@@ -18,6 +18,7 @@ namespace Merchandiser
         public Location()
         {
             this.SurveyCustomerLocations = new HashSet<SurveyCustomerLocation>();
+            this.SurveyHeaders = new HashSet<SurveyHeader>();
         }
     
         public System.Guid Id { get; set; }
@@ -36,5 +37,7 @@ namespace Merchandiser
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyHeader> SurveyHeaders { get; set; }
     }
 }
