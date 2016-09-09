@@ -45,9 +45,10 @@
         <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_Survey" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Survey" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_SurveyHeader" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserRole" Width="1.5" PointX="9" PointY="8.125" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserRole" Width="1.5" PointX="6" PointY="14.25" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
         <AssociationConnector Association="MerchandiserModel.FK_AspNetUserRoles_Company" />
+        <AssociationConnector Association="MerchandiserModel.FK_AspNetUserRoles_Customer" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
       </Diagram>
     </edmx:Diagrams>

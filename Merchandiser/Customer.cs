@@ -19,6 +19,7 @@ namespace Merchandiser
         {
             this.SurveyCustomerLocations = new HashSet<SurveyCustomerLocation>();
             this.SurveyHeaders = new HashSet<SurveyHeader>();
+            this.AspNetUserRoles = new HashSet<AspNetUserRole>();
         }
     
         public System.Guid Id { get; set; }
@@ -34,5 +35,7 @@ namespace Merchandiser
         public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyHeader> SurveyHeaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }

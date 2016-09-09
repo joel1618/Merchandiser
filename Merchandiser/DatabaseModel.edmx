@@ -49,6 +49,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -216,6 +217,18 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -561,6 +574,10 @@
             <End Role="Company" EntitySet="Company" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_Customer" Association="Self.FK_AspNetUserRoles_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_AspNetUsersInfo_AspNetUsers" Association="Self.FK_AspNetUsersInfo_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUsersInfo" EntitySet="AspNetUsersInfo" />
@@ -792,11 +809,15 @@
             <End Role="Company" EntitySet="Companies" />
             <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_Customer" Association="MerchandiserModel.FK_AspNetUserRoles_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -902,6 +923,7 @@
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Customer" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="Customer" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="Customer" ToRole="SurveyHeader" />
+          <NavigationProperty Name="AspNetUserRoles" Relationship="MerchandiserModel.FK_AspNetUserRoles_Customer" FromRole="Customer" ToRole="AspNetUserRole" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -1341,8 +1363,10 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="CustomerId" Type="Guid" />
           <NavigationProperty Name="AspNetRole" Relationship="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" FromRole="AspNetUserRole" ToRole="AspNetRole" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_AspNetUserRoles_Company" FromRole="AspNetUserRole" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_AspNetUserRoles_Customer" FromRole="AspNetUserRole" ToRole="Customer" />
           <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUserRole" ToRole="AspNetUser" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
@@ -1368,6 +1392,18 @@
             </Principal>
             <Dependent Role="AspNetUserRole">
               <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_Customer">
+          <End Type="MerchandiserModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="MerchandiserModel.AspNetUserRole" Role="AspNetUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRole">
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1600,6 +1636,7 @@
           <EntitySetMapping Name="AspNetUserRoles">
             <EntityTypeMapping TypeName="MerchandiserModel.AspNetUserRole">
               <MappingFragment StoreEntitySet="AspNetUserRoles">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

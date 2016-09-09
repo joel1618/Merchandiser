@@ -12,8 +12,12 @@ namespace Merchandiser.Models
         public string RoleId { get; set; }
         public Guid CompanyId { get; set; }
 
+        public Guid? CustomerId { get; set; }
+
         public virtual AspNetUser User {get; set;}
         public virtual AspNetRole Role { get; set; }
         public virtual CompanyViewModel Company { get; set; }
+
+        public virtual CustomerViewModel Customer { get; set; }
     }
 }

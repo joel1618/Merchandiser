@@ -18,9 +18,11 @@ namespace Merchandiser
         public string UserId { get; set; }
         public string RoleId { get; set; }
         public System.Guid CompanyId { get; set; }
+        public Nullable<System.Guid> CustomerId { get; set; }
     
         public virtual AspNetRole AspNetRole { get; set; }
         public virtual Company Company { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
     }
 }
