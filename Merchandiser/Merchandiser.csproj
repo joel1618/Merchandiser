@@ -251,6 +251,7 @@
     <Compile Include="Controllers\api\v1\breeze\SurveyDetailApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyHeaderApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyProductQuestionApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\UserRoleApiController.cs" />
     <Compile Include="Controllers\api\v1\UserApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="Models\Extensions\SurveyHeaderViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyProductQuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\UserRoleViewModelExtension.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
@@ -311,6 +313,7 @@
     <Compile Include="Models\SurveyHeaderViewModel.cs" />
     <Compile Include="Models\SurveyProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
+    <Compile Include="Models\UserRoleViewModel.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
@@ -329,6 +332,7 @@
     <Compile Include="Repositories\SurveyHeaderRepository.cs" />
     <Compile Include="Repositories\SurveyProductQuestionRepository.cs" />
     <Compile Include="Repositories\SurveyRepository.cs" />
+    <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Survey.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
@@ -362,6 +366,10 @@
     <Content Include="App\ApplicationComponents\Administrator\App.js" />
     <Content Include="App\ApplicationComponents\Administrator\Main\Controllers\MainController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Main\Views\Main.html" />
+    <Content Include="App\ApplicationComponents\Administrator\UserRole\Controllers\UserRoleController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\UserRole\Controllers\UserRoleAddEditController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\UserRole\Views\UserRole.html" />
+    <Content Include="App\ApplicationComponents\Administrator\UserRole\Views\UserRoleAddEdit.html" />
     <Content Include="App\ApplicationComponents\DataEntry\CustomerLocation\MerchandiseCustomerLocation.html" />
     <Content Include="App\ApplicationComponents\DataEntry\CustomerLocation\MerchandiseCustomerLocationController.js" />
     <Content Include="App\ApplicationComponents\DataEntry\SurveyData\MerchandiseSurveyData.html" />
@@ -405,6 +413,7 @@
     <Content Include="App\DatabaseServices\SurveyHeader\SurveyHeaderService.js" />
     <Content Include="App\DatabaseServices\SurveyProductQuestion\SurveyProductQuestionService.js" />
     <Content Include="App\DatabaseServices\Survey\SurveyService.js" />
+    <Content Include="App\DatabaseServices\UserRole\UserRoleService.js" />
     <Content Include="App\DatabaseServices\User\UserService.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Scripts\Dependencies\angular-ui-router\0.2.18\angular-ui-router.js" />

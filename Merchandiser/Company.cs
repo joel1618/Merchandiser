@@ -17,7 +17,6 @@ namespace Merchandiser
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Company()
         {
-            this.AspNetUserRoles = new HashSet<AspNetUserRole>();
             this.Customers = new HashSet<Customer>();
             this.Locations = new HashSet<Location>();
             this.Products = new HashSet<Product>();
@@ -27,6 +26,7 @@ namespace Merchandiser
             this.SurveyDetails = new HashSet<SurveyDetail>();
             this.SurveyHeaders = new HashSet<SurveyHeader>();
             this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
+            this.AspNetUserRoles = new HashSet<AspNetUserRole>();
         }
     
         public System.Guid Id { get; set; }
@@ -36,8 +36,6 @@ namespace Merchandiser
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,5 +54,7 @@ namespace Merchandiser
         public virtual ICollection<SurveyHeader> SurveyHeaders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyProductQuestion> SurveyProductQuestions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
     }
 }

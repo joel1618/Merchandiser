@@ -25,7 +25,7 @@
                     $scope.gridApi = gridApi;
                 },
                 enableGridMenu: true,
-                exporterCsvFilename: 'TaxElection.csv',
+                exporterCsvFilename: 'data.csv',
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 450,

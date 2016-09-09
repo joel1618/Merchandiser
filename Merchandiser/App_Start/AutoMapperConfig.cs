@@ -35,6 +35,9 @@ namespace Merchandiser.App_Start
 
                 cfg.CreateMap<QuestionViewModel, Question>();
                 cfg.CreateMap<Question, QuestionViewModel>();
+
+                cfg.CreateMap<UserRoleViewModel, AspNetUserRole>();
+                cfg.CreateMap<AspNetUserRole, UserRoleViewModel>();
             });
             Mapper.Map<CompanyViewModel, Company>(new CompanyViewModel());
             Mapper.Map<Company, CompanyViewModel>(new Company());
@@ -59,6 +62,9 @@ namespace Merchandiser.App_Start
 
             Mapper.Map<QuestionViewModel, Question>(new QuestionViewModel());
             Mapper.Map<Question, QuestionViewModel>(new Question());
+
+            Mapper.Map<UserRoleViewModel, AspNetUserRole>(new UserRoleViewModel());
+            Mapper.Map<AspNetUserRole, UserRoleViewModel>(new AspNetUserRole());
         }            
     }
 }
