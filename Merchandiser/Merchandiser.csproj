@@ -245,7 +245,6 @@
     <Compile Include="Controllers\api\v1\breeze\ProductApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
-    <Compile Include="Controllers\api\v1\breeze\CompanyUserApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationApiController.cs" />
@@ -290,10 +289,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CompanyUserViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
-    <Compile Include="Models\Extensions\CompanyUserViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\CompanyViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\CustomerViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\LocationViewModelExtension.cs" />
@@ -326,7 +323,6 @@
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
-    <Compile Include="Repositories\CompanyUserRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\SurveyCustomerLocationRepository.cs" />
     <Compile Include="Repositories\SurveyDetailRepository.cs" />
@@ -392,10 +388,6 @@
     <Content Include="App\ApplicationComponents\Administrator\Survey\Controllers\SurveyController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\Survey.html" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\SurveyAddEdit.html" />
-    <Content Include="App\ApplicationComponents\Administrator\CompanyUser\Controllers\CompanyUserAddEditController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\CompanyUser\Controllers\CompanyUserController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\CompanyUser\Views\CompanyUser.html" />
-    <Content Include="App\ApplicationComponents\Administrator\CompanyUser\Views\CompanyUserAddEdit.html" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />
     <Content Include="App\ApplicationServices\Company\CompanyApplicationService.js" />
     <Content Include="App\ApplicationServices\Survey\SurveyApplicationService.js" />

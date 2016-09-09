@@ -23,10 +23,10 @@ namespace Merchandiser
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Configurations.Add(new ConflictDtoConfiguration());
+            modelBuilder.Entity<AspNetUserRole>().HasKey(t => new { t.UserId, t.RoleId, t.CompanyId });
         }
 
         public DbSet<Company> Company { get; set; }
         public DbSet<CompanyViewModel> CompanyViewModel { get; set; }
-        public DbSet<User> CompanyUser { get; set; }
     }
 }

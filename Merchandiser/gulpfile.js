@@ -43,7 +43,7 @@ gulp.task("vendorJs", function () {
             //path.components + "angular-input-masks/angular-input-masks-standalone.min.js",
             path.components + "moment/min/moment.min.js",
             path.components + "angular-moment/angular-moment.min.js",
-            path.components + "ui-router/release/angular-ui-router.min.js",
+            path.components + "angular-ui-router/release/angular-ui-router.min.js",
             //path.components + "bootstrap/dist/js/bootstrap.min.js",
             path.components + 'toastr/toastr.min.js',
             path.components + "angular-bootstrap/ui-bootstrap.min.js",
@@ -73,9 +73,11 @@ gulp.task('app', function () {
         path.app + "ApplicationServices/**/*.js",
         path.app + "DatabaseServices/DatabaseServices.js",
         path.app + "DatabaseServices/**/*.js",
-        path.app + "ApplicationComponents/Main/App.js",
-        path.app + "ApplicationComponents/**/*.js",
-        path.app + "ApplicationComponents/**/**/*.js",
+        path.app + "ApplicationComponents/Administrator/App.js",        
+        path.app + "ApplicationComponents/Administrator/Main/Controllers/*.js",
+        path.app + "ApplicationComponents/Administrator/Company/Controllers/*.js",
+        path.app + "ApplicationComponents/Administrator/**/**/*.js",
+        path.app + "ApplicationComponents/DataEntry/**/**/*.js"
     ])
            .pipe(sourcemaps.init())
            .pipe(concat("app.js"))

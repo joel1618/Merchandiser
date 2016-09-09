@@ -52,14 +52,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/addedit/:id",
             templateUrl: "/App/ApplicationComponents/Administrator/Survey/Views/SurveyAddEdit.html",
         })
-        .state('main.companyuser', {
-            url: "/companyuser",
-            templateUrl: "/App/ApplicationComponents/Administrator/CompanyUser/Views/CompanyUser.html"
-        })
-        .state('main.companyuser.addedit', {
-            url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/CompanyUser/Views/CompanyUserAddEdit.html",
-        })
+        //.state('main.companyuser', {
+        //    url: "/companyuser",
+        //    templateUrl: "/App/ApplicationComponents/Administrator/CompanyUser/Views/CompanyUser.html"
+        //})
+        //.state('main.companyuser.addedit', {
+        //    url: "/addedit/:id",
+        //    templateUrl: "/App/ApplicationComponents/Administrator/CompanyUser/Views/CompanyUserAddEdit.html",
+        //})
         .state('main.question', {
             url: "/question",
             templateUrl: "/App/ApplicationComponents/Administrator/Question/Views/Question.html"
