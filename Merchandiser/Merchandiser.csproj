@@ -246,6 +246,7 @@
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\RoleApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyDetailApiController.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SurveyCustomerLocationViewModel.cs" />
     <Compile Include="Models\SurveyDetailViewModel.cs" />
     <Compile Include="Models\SurveyHeaderViewModel.cs" />
@@ -321,6 +323,7 @@
     <Compile Include="Question.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AspNetRoleRepository.cs" />
     <Compile Include="Repositories\AspNetUsersInfoRepository.cs" />
     <Compile Include="Repositories\LocationRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
@@ -408,6 +411,7 @@
     <Content Include="App\DatabaseServices\Product\ProductService.js" />
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
+    <Content Include="App\DatabaseServices\Role\RoleService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />
     <Content Include="App\DatabaseServices\SurveyHeader\SurveyHeaderService.js" />

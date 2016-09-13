@@ -3,8 +3,10 @@
     <div class="col-md-4">
         <div ng-form="form">
             <fieldset class="form-group">
-                <label>Product Name</label>
-                <input type="text" class="form-control" ng-model="item.Name" required />
+                <label>User Name</label>
+                <input type="text" class="form-control" ng-model="item.User.Name" required />
+                <label>Role</label>
+                <select class="form-control" ng-model="item.Role" ng-options="x.Name for x in Roles"></select>
                 <br />
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>

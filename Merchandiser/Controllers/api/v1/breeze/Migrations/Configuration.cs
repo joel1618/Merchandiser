@@ -29,9 +29,9 @@ namespace Merchandiser.Migrations
 
         public void AddRoles(MerchandiserEntities context)
         {
-            context.AspNetRoles.Add(new AspNetRole() { Name = "Administrator" });
-            context.AspNetRoles.Add(new AspNetRole() { Name = "Customer" });
-            context.AspNetRoles.Add(new AspNetRole() { Name = "Data Entry" });
+            context.AspNetRoles.Add(new AspNetRole() { Id = Guid.NewGuid().ToString(), Name = "Administrator" });
+            context.AspNetRoles.Add(new AspNetRole() { Id = Guid.NewGuid().ToString(), Name = "Customer" });
+            context.AspNetRoles.Add(new AspNetRole() { Id = Guid.NewGuid().ToString(), Name = "Data Entry" });
         }
     }
 }

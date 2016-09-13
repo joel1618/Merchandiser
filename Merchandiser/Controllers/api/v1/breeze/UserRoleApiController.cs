@@ -26,7 +26,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 UserId = x.UserId,
                 RoleId = x.RoleId,
                 CompanyId = x.CompanyId,
-                Company = x.Company.ToViewModel(),
+                Company = new CompanyViewModel()
+                {
+                    Id = x.Company.Id,
+                    Name = x.Company.Name
+                },
                 User = x.AspNetUser,
                 Role = x.AspNetRole
             });
