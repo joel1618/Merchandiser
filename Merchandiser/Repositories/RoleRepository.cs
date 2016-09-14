@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Merchandiser.Repositories
 {
-    public class AspNetRoleRepository
+    public class RoleRepository
     {
         MerchandiserEntities context;
-        public AspNetRoleRepository()
+        public RoleRepository()
         {
             this.context = new MerchandiserEntities();
         }

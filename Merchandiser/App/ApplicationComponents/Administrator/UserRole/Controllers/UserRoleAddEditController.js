@@ -12,6 +12,7 @@
         $scope.Init();
         $scope.Search = function () {
             if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                debugger;
                 UserRoleService.Get($stateParams.id).then(function (data) {
                     $scope.item = data;
                 });
@@ -38,7 +39,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    alert(error);
+                    toastr.error("The username does not exist.");
                 });
             }
         }

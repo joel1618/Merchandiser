@@ -5,16 +5,20 @@
             <table>
                 <thead>
                     <tr>
+                        <!--<th></th>-->
                         <th></th>
-                        <th></th>
-                        <th>&nbsp;User Name</th>
+                        <th>&nbsp;User</th>
+                        <th>&nbsp;Role</th>
+                        <th>&nbsp;Customer</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="item in items">
                     <tr>
-                        <td><button class="btn btn-primary btn-sm" ng-click="Edit(item.Id)">Edit</button></td>
+                        <!--<td><button class="btn btn-primary btn-sm" ng-click="Edit(item.Id)">Edit</button></td>-->
                         <td><button class="btn btn-danger btn-sm" ng-click="Delete(item.Id)">Delete</button></td>
                         <td>&nbsp;{{item.User.UserName}}</td>
+                        <td>&nbsp;{{item.Role.Name}}</td>
+                        <td>&nbsp;{{item.Customer.Name}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -285,11 +285,11 @@
     <Compile Include="Location.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\api\v1\breeze\Migrations\201605180348324_InitialCreate.cs" />
-    <Compile Include="Controllers\api\v1\breeze\Migrations\201605180348324_InitialCreate.Designer.cs">
+    <Compile Include="Migrations\201605180348324_InitialCreate.cs" />
+    <Compile Include="Migrations\201605180348324_InitialCreate.Designer.cs">
       <DependentUpon>201605180348324_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\api\v1\breeze\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
@@ -326,13 +326,13 @@
     <Compile Include="Question.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\AspNetRoleRepository.cs" />
     <Compile Include="Repositories\AspNetUsersInfoRepository.cs" />
     <Compile Include="Repositories\LocationRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SurveyCustomerLocationRepository.cs" />
     <Compile Include="Repositories\SurveyDetailRepository.cs" />
     <Compile Include="Repositories\SurveyHeaderRepository.cs" />
@@ -526,7 +526,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\api\v1\breeze\Migrations\201605180348324_InitialCreate.resx">
+    <EmbeddedResource Include="Migrations\201605180348324_InitialCreate.resx">
       <DependentUpon>201605180348324_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

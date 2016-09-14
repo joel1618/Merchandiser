@@ -16,9 +16,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
     public class UserRoleApiController : ApiController
     {
         UserRoleRepository repository;
+        ApplicationUserManager userManager;
+        RoleRepository roleRepository;
         public UserRoleApiController()
         {
             this.repository = new UserRoleRepository();
+            this.userManager = System.Web.HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            this.roleRepository = new RoleRepository();
         }
 
         [HttpGet]
@@ -52,14 +56,18 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public UserRoleViewModel Get(Guid id)
         {
-            return repository.Get(id).ToViewModel();
+            var item = repository.Get(id);
+            var user = userManager.FindById(item.UserId);
+            item.AspNetUser = new AspNetUser() { Id = user.Id, UserName = user.UserName };
+            item.AspNetRole = roleRepository.Search().Where(e => e.Id == item.RoleId).FirstOrDefault();
+            var response = item.ToViewModel();
+            return response;
         }
 
         [HttpPost]
         public UserRoleViewModel Create(UserRoleViewModel item)
         {
-            var manager = System.Web.HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = manager.FindByEmail(item.User.UserName);
+            var user = userManager.FindByEmail(item.User.UserName);
             item.UserId = user.Id;
             return repository.Create(item.ToEntity()).ToViewModel();
         }

@@ -12,10 +12,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
     [BreezeController]
     public class RoleApiController : ApiController
     {
-        AspNetRoleRepository repository;
+        RoleRepository repository;
         public RoleApiController()
         {
-            this.repository = new AspNetRoleRepository();
+            this.repository = new RoleRepository();
         }
 
         [HttpGet]
