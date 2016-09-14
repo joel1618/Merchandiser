@@ -1,6 +1,9 @@
-﻿using Merchandiser.Models;
+﻿using Breeze.WebApi2;
+using Merchandiser.Models;
 using Merchandiser.Models.Extensions;
 using Merchandiser.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,7 @@ using System.Web.Http;
 
 namespace Merchandiser.Controllers.api.v1.breeze
 {
+    [BreezeController]
     public class UserRoleApiController : ApiController
     {
         UserRoleRepository repository;
@@ -20,7 +24,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<UserRoleViewModel> Search()
         {
-            return repository.Search().Select(x => new UserRoleViewModel()
+            var response = repository.Search().Select(x => new UserRoleViewModel()
             {
                 Id = x.Id,
                 UserId = x.UserId,
@@ -31,9 +35,18 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     Id = x.Company.Id,
                     Name = x.Company.Name
                 },
-                User = x.AspNetUser,
-                Role = x.AspNetRole
+                User = new UserViewModel()
+                {
+                    Id = x.AspNetUser.Id,
+                    UserName = x.AspNetUser.UserName
+                },
+                Role = new RoleViewModel()
+                {
+                    Id = x.AspNetRole.Id,
+                    Name = x.AspNetRole.Name
+                }
             });
+            return response;
         }
 
         [HttpGet]
@@ -45,6 +58,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpPost]
         public UserRoleViewModel Create(UserRoleViewModel item)
         {
+            var manager = System.Web.HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = manager.FindByEmail(item.User.UserName);
+            item.UserId = user.Id;
             return repository.Create(item.ToEntity()).ToViewModel();
         }
 

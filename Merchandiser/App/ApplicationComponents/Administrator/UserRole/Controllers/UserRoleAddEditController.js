@@ -33,7 +33,7 @@
             }
             else {
                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
-                debugger;
+                $scope.item.RoleId = $scope.item.Role.Id;
                 UserRoleService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();

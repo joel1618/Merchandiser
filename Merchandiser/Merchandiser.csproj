@@ -298,12 +298,14 @@
     <Compile Include="Models\Extensions\LocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\ProductViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\QuestionViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\RoleViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyCustomerLocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyDetailViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyHeaderViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyProductQuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyViewModelExtension.cs" />
     <Compile Include="Models\Extensions\UserRoleViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\UserViewModelExtension.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
@@ -316,6 +318,7 @@
     <Compile Include="Models\SurveyProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
     <Compile Include="Models\UserRoleViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>

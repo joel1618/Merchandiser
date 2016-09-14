@@ -27,6 +27,7 @@ namespace Merchandiser.Repositories
 
         public AspNetUserRole Create(AspNetUserRole item)
         {
+            item.Id = Guid.NewGuid();
             context.AspNetUserRoles.Add(item);
             context.SaveChanges();
             return item;
