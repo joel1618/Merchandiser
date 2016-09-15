@@ -191,8 +191,14 @@
           <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BeforeImage" Type="varbinary(max)" />
+          <Property Name="BeforeImageId" Type="uniqueidentifier" />
+          <Property Name="AfterImage" Type="varbinary(max)" />
+          <Property Name="AfterImageId" Type="uniqueidentifier" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
@@ -1044,6 +1050,12 @@
           <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="SurveyHeader" ToRole="Location" />
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
+          <Property Name="BeforeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="BeforeImageId" Type="Guid" />
+          <Property Name="AfterImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AfterImageId" Type="Guid" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
@@ -1608,6 +1620,12 @@
           <EntitySetMapping Name="SurveyHeaders">
             <EntityTypeMapping TypeName="MerchandiserModel.SurveyHeader">
               <MappingFragment StoreEntitySet="SurveyHeader">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="AfterImageId" ColumnName="AfterImageId" />
+                <ScalarProperty Name="AfterImage" ColumnName="AfterImage" />
+                <ScalarProperty Name="BeforeImageId" ColumnName="BeforeImageId" />
+                <ScalarProperty Name="BeforeImage" ColumnName="BeforeImage" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />

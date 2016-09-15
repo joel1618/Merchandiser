@@ -6,8 +6,10 @@
                 <br />
                 <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                 <label class="btn btn-primary btn-sm btn-file">
-                    Choose File <input type="file" accept="image/*" style="display: none;">
+                    Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setBeforeImage(this)" >
                 </label>
+                <br/>
+                <img ng-src="{{Header.BeforeImage}}" style="max-width:200px; max-height:200px"/>
                 <br />
                 <table border="1">
                     <thead>
@@ -24,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in ProductQuestion | orderBy: ['Product.Name','Question.Name'] ">
+                        <tr ng-repeat="item in Detail | orderBy: ['Product.Name','Question.Name'] ">
                             <td>
                                 {{item.Product.Name}}
                             </td>
@@ -41,9 +43,12 @@
                 <br />
                 <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                 <label class="btn btn-primary btn-sm btn-file">
-                    Choose File <input type="file" accept="image/*" style="display: none;">
+                    Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setAfterImage(this)">
                 </label>
-                <button class="btn btn-primary btn-sm pull-right">Save</button>
+                <br />
+                <img ng-src="{{Header.AfterImage}}" style="max-width:200px; max-height:200px" />
+                <br/>
+                <button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>
             </div>
         </div>
     </div>

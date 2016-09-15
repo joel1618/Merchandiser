@@ -27,6 +27,12 @@ namespace Merchandiser
         public System.Guid LocationId { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public byte[] BeforeImage { get; set; }
+        public Nullable<System.Guid> BeforeImageId { get; set; }
+        public byte[] AfterImage { get; set; }
+        public Nullable<System.Guid> AfterImageId { get; set; }
+        public Nullable<System.DateTime> Modified { get; set; }
+        public string ModifiedBy { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }

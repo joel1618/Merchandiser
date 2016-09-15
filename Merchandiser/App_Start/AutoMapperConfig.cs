@@ -3,6 +3,7 @@ using Merchandiser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Merchandiser.App_Start
@@ -11,7 +12,11 @@ namespace Merchandiser.App_Start
     {
         public static void RegisterMappings()
         {
-            Mapper.Initialize(cfg => {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<byte[], string>().ConvertUsing(new ByteArrayToStringTypeConverter());
+                cfg.CreateMap<string, byte[]>().ConvertUsing(new StringToByteArrayTypeConverter());
+
                 cfg.CreateMap<CompanyViewModel, Company>();
                 cfg.CreateMap<Company, CompanyViewModel>();
 
@@ -38,33 +43,46 @@ namespace Merchandiser.App_Start
 
                 cfg.CreateMap<UserRoleViewModel, AspNetUserRole>();
                 cfg.CreateMap<AspNetUserRole, UserRoleViewModel>();
+
+                cfg.CreateMap<SurveyHeaderViewModel, SurveyHeader>();
+                //.ForMember(p => p.BeforeImage, o=> o.Ignore())
+                //.ForMember(p => p.AfterImage, o=> o.Ignore());
+                cfg.CreateMap<SurveyHeader, SurveyHeaderViewModel>();
+                //.ForMember(p => p.BeforeImage, o => o.Ignore())
+                //.ForMember(p => p.AfterImage, o => o.Ignore());
+
+                cfg.CreateMap<SurveyDetailViewModel, SurveyDetail>();
+                cfg.CreateMap<SurveyDetail, SurveyDetailViewModel>();
             });
-            Mapper.Map<CompanyViewModel, Company>(new CompanyViewModel());
-            Mapper.Map<Company, CompanyViewModel>(new Company());
+        }
+    }
 
-            Mapper.Map<CustomerViewModel, Customer>(new CustomerViewModel());
-            Mapper.Map<Customer, CustomerViewModel>(new Customer());
+    public class StringToByteArrayTypeConverter : ITypeConverter<string, byte[]>
+    {
+        public byte[] Convert(string source, byte[] destination, ResolutionContext context)
+        {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return null;
+            }
+            else {
+                return System.Text.ASCIIEncoding.Default.GetBytes(source);
+            }
+        }
+    }
 
-            Mapper.Map<LocationViewModel, Location>(new LocationViewModel());
-            Mapper.Map<Location, LocationViewModel>(new Location());
-
-            Mapper.Map<ProductViewModel, Product>(new ProductViewModel());
-            Mapper.Map<Product, ProductViewModel>(new Product());
-
-            Mapper.Map<SurveyViewModel, Survey>(new SurveyViewModel());
-            Mapper.Map<Survey, SurveyViewModel>(new Survey());
-
-            Mapper.Map<SurveyCustomerLocationViewModel, SurveyCustomerLocation>(new SurveyCustomerLocationViewModel());
-            Mapper.Map<SurveyCustomerLocation, SurveyCustomerLocationViewModel>(new SurveyCustomerLocation());
-
-            Mapper.Map<SurveyProductQuestionViewModel, SurveyProductQuestion>(new SurveyProductQuestionViewModel());
-            Mapper.Map<SurveyProductQuestion, SurveyProductQuestionViewModel>(new SurveyProductQuestion());
-
-            Mapper.Map<QuestionViewModel, Question>(new QuestionViewModel());
-            Mapper.Map<Question, QuestionViewModel>(new Question());
-
-            Mapper.Map<UserRoleViewModel, AspNetUserRole>(new UserRoleViewModel());
-            Mapper.Map<AspNetUserRole, UserRoleViewModel>(new AspNetUserRole());
-        }            
+    public class ByteArrayToStringTypeConverter : ITypeConverter<byte[], string>
+    {
+        public string Convert(byte[] source, string destination, ResolutionContext context)
+        {
+            if(source != null)
+            {
+                return source.ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

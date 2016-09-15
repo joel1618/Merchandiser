@@ -73,7 +73,7 @@
         $scope.SelectSurvey = function () {
             $state.go('survey', {
                 companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
-                customerId: $scope.SelectedCustomer.Id, locationId: $scope.SelectedLocation.Id });
+                customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id });
         }
     }]);
 })(moment);

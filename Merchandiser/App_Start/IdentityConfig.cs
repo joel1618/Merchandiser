@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using Merchandiser.Models;
 using System.Net.Mail;
 using System.Net;
+using System.Configuration;
 
 namespace Merchandiser
 {
@@ -21,21 +22,24 @@ namespace Merchandiser
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            //return Task.FromResult(0);
 
             //http://yourbusiness.azcentral.com/use-gmail-smtp-server-18874.html
             //http://stackoverflow.com/questions/18449935/only-getting-no-connection-could-be-made-because-the-target-machine-actively-re
             //https://www.quora.com/How-should-I-setup-Gmail-to-create-info-and-support-addresses-for-a-startup
-            //SmtpClient client = new SmtpClient();
-            //client.Port = 587;
-            //client.Host = "smtp.gmail.com";
-            //client.EnableSsl = true;
-            ////client.Timeout = 10000;
-            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //client.UseDefaultCredentials = false;
-            //client.Credentials = new NetworkCredential("joel1618@gmail.com", "$$%ini4JShH9k4Zl");
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["EmailUsername"], ConfigurationManager.AppSettings["EmailPassword"]);
+            MailMessage _message = new MailMessage(ConfigurationManager.AppSettings["EmailFrom"], message.Destination);
+            _message.Subject = message.Subject;
+            _message.Body = message.Body;
+            _message.IsBodyHtml = true;
 
-            //return client.SendMailAsync("joel1618@gmail.com", message.Destination, message.Subject, message.Body);
+            return client.SendMailAsync(_message);
         }
     }
 
