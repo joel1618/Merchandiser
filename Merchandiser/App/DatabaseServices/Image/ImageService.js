@@ -37,7 +37,6 @@
             };
 
             this.CreateBeforeImage = function (image, id) {
-                debugger;
                 var deferred = $q.defer();
 
                 $http.post('/api/v1/ImageApi/CreateBeforeImage/' + id, image)

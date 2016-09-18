@@ -13,14 +13,18 @@
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
         UserService, SurveyCustomerLocationService, SurveyProductQuestionService, CompanyApplicationService, SurveyHeaderService, SurveyDetailService, ImageService) {
-        
-        $scope.beforeImageIsChanged = false;
-        $scope.afterImageIsChanged = false;
+        $scope.beforeImageIsChanged = false; $scope.BeforeImage = null;
+        $scope.afterImageIsChanged = false; $scope.AfterImage = null;
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $scope.Header.Latitude = position.coords.latitude;
+            $scope.Header.Longitude = position.coords.longitude;
+        });
         $scope.Header = {
             CompanyId: $stateParams.companyId, SurveyId: $stateParams.surveyId,
             CustomerId: $stateParams.customerId, LocationId: $stateParams.locationId
         }
         $scope.Detail = [];
+
         $scope.Search = function () {
             if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
                 var predicate = new breeze.Predicate('Id', '==', $stateParams.surveyHeaderId);
@@ -32,10 +36,9 @@
                     $scope.Detail = data;
                 });
                 $scope.BeforeImage = "/api/v1/ImageApi/GetBeforeImage/" + $stateParams.surveyHeaderId;
-                $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + $stateParams.surveyHeaderId;                
+                $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + $stateParams.surveyHeaderId;
             }
-            else
-            {
+            else {
                 var predicate = new breeze.Predicate('SurveyId', '==', $stateParams.surveyId);
                 SurveyProductQuestionService.Search(predicate, 0, 100, false).then(function (data) {
                     $scope.Detail = data;
@@ -73,7 +76,7 @@
                 return false;
             }
             if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
-                SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function (data) {
+                promises.push(SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function (data) {
                     angular.forEach($scope.Detail, function (value, key) {
                         promise = SurveyDetailService.Update(value.Id, {
                             Id: value.Id,
@@ -89,10 +92,13 @@
                         promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
                         promises.push(promise);
                     }
-                });
+                    $q.all([promises]).then(function () {
+                        toastr.success("Save successful.");
+                    });
+                }));
             }
             else {
-                SurveyHeaderService.Create($scope.Header).then(function (data) {
+                promises.push(SurveyHeaderService.Create($scope.Header).then(function (data) {
                     angular.forEach($scope.Detail, function (value, key) {
                         promise = SurveyDetailService.Create({
                             CompanyId: $stateParams.companyId, SurveyHeaderId: data.data.Id,
@@ -101,14 +107,23 @@
                         });
                         promises.push(promise);
                     });
-                    promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
-                    promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
-                    promises.push(promise);
-                });
+                    if ($scope.Header.BeforeImage != undefined && $scope.Header.BeforeImage != null) {
+                        promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
+                        promises.push(promise);
+                    }
+                    if ($scope.Header.AfterImage != undefined && $scope.Header.AfterImage != null) {
+                        promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
+                        promises.push(promise);
+                    }
+                    $q.all([promises]).then(function () {
+                        toastr.success("Save successful.");
+                        $state.go('survey', {
+                            companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
+                            customerId: $stateParams.customerId, locationId: $stateParams.locationId, surveyHeaderId: data.data.Id
+                        });
+                    });
+                }));
             }
-            $q.all([promises]).then(function () {
-                toastr.success("Save successful.");
-            })
         }
 
         $scope.Validate = function () {
