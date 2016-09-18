@@ -20,10 +20,6 @@ namespace Merchandiser.Models
         [Required]
         public Guid LocationId { get; set; }
 
-        public Guid BeforeImageId { get; set; }
-        public Guid AfterImageId { get; set; }
-        public string BeforeImage { get; set; }
-        public string AfterImage { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public DateTime Modified { get; set; }

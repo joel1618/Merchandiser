@@ -6,10 +6,10 @@
                 <br />
                 <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                 <label class="btn btn-primary btn-sm btn-file">
-                    Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setBeforeImage(this)" >
+                    Choose File <input id="BeforeImage" type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setBeforeImage(this)" >
                 </label>
                 <br/>
-                <img ng-src="{{Header.BeforeImage}}" style="max-width:200px; max-height:200px"/>
+                <img ng-src="{{BeforeImage}}" alt="No Image Found" data-max-size="2048" style="max-width:400px; max-height:400px"/>
                 <br />
                 <table border="1">
                     <thead>
@@ -43,10 +43,10 @@
                 <br />
                 <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                 <label class="btn btn-primary btn-sm btn-file">
-                    Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setAfterImage(this)">
+                    Choose File <input id="AfterImage" type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setAfterImage(this)">
                 </label>
                 <br />
-                <img ng-src="{{Header.AfterImage}}" style="max-width:200px; max-height:200px" />
+                <img ng-src="{{AfterImage}}" alt="No Image Found" style="max-width:400px; max-height:400px" />
                 <br/>
                 <button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>
             </div>

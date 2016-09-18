@@ -5,6 +5,7 @@ using Merchandiser.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -26,7 +27,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var currentUserId = User.Identity.GetUserId();
             return repository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new SurveyHeaderViewModel()
             {
-                Id = x.Id
+                Id = x.Id,
+                Created = x.Created
             });
         }
 
@@ -54,6 +56,22 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public void Delete(Guid id)
         {
             repository.Delete(id);
+        }
+
+        [HttpPost]
+        public void CreateBeforeImage()
+        {
+            var file = HttpContext.Current.Request.Files[0];
+            var fileName = file.FileName;
+            var fileStream = File.Create("c:\\image.jpg");
+            file.InputStream.CopyTo(fileStream);
+            fileStream.Close();
+        }
+
+        [HttpPost]
+        public void CreateAfterImage()
+        {
+
         }
     }
 }

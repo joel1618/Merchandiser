@@ -26,6 +26,7 @@ namespace Merchandiser.Repositories
         public SurveyHeader Create(SurveyHeader item)
         {
             item.Id = Guid.NewGuid();
+            item.Modified = new Nullable<DateTime>();
             item.Created = DateTime.UtcNow;
             context.SurveyHeaders.Add(item);
             context.SaveChanges();

@@ -25,12 +25,10 @@ namespace Merchandiser
         public System.Guid SurveyId { get; set; }
         public System.Guid CustomerId { get; set; }
         public System.Guid LocationId { get; set; }
+        public Nullable<decimal> Latitude { get; set; }
+        public Nullable<decimal> Longitude { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public byte[] BeforeImage { get; set; }
-        public Nullable<System.Guid> BeforeImageId { get; set; }
-        public byte[] AfterImage { get; set; }
-        public Nullable<System.Guid> AfterImageId { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
     

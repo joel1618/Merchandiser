@@ -26,6 +26,7 @@ namespace Merchandiser.Repositories
         public SurveyDetail Create(SurveyDetail item)
         {
             item.Id = Guid.NewGuid();
+            item.Modified = new Nullable<DateTime>();
             item.Created = DateTime.UtcNow;
             context.SurveyDetails.Add(item);
             context.SaveChanges();
@@ -35,6 +36,7 @@ namespace Merchandiser.Repositories
         public SurveyDetail Update(Guid id, SurveyDetail item)
         {
             var entity = context.SurveyDetails.Find(id);
+            entity.Answer = item.Answer;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;

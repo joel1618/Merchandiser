@@ -26,7 +26,20 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var currentUserId = User.Identity.GetUserId();
             return repository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new SurveyDetailViewModel()
             {
-                Id = x.Id
+                Id = x.Id,
+                Created = x.Created,
+                SurveyHeaderId = x.SurveyHeaderId,
+                Product = new ProductViewModel()
+                {
+                    Id = x.Product.Id,
+                    Name = x.Product.Name
+                },
+                Answer = x.Answer,
+                Question = new QuestionViewModel()
+                {
+                    Id = x.Question.Id,
+                    Name = x.Question.Name
+                }
             });
         }
 
