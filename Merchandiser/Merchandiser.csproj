@@ -261,6 +261,7 @@
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\ReportApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\RoleApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationApiController.cs" />
@@ -347,6 +348,7 @@
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
+    <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SurveyCustomerLocationRepository.cs" />
     <Compile Include="Repositories\SurveyDetailRepository.cs" />
@@ -417,6 +419,8 @@
     <Content Include="App\ApplicationComponents\Administrator\Survey\Controllers\SurveyController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\Survey.html" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\SurveyAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Report\Main\ReportMain.html" />
+    <Content Include="App\ApplicationComponents\Report\Main\ReportMainController.js" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />
     <Content Include="App\ApplicationServices\Company\CompanyApplicationService.js" />
     <Content Include="App\ApplicationServices\Survey\SurveyApplicationService.js" />
@@ -430,6 +434,7 @@
     <Content Include="App\DatabaseServices\Product\ProductService.js" />
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
+    <Content Include="App\DatabaseServices\Report\ReportService.js" />
     <Content Include="App\DatabaseServices\Role\RoleService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />
@@ -530,7 +535,6 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\ApplicationComponents\Customer\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

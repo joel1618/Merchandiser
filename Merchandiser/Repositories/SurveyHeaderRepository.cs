@@ -47,5 +47,10 @@ namespace Merchandiser.Repositories
             context.SurveyHeaders.Remove(item);
             context.SaveChanges();
         }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+        }
     }
 }
