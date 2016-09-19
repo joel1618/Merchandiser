@@ -16,7 +16,7 @@ angular.module('ApplicationServices').service('CompanyApplicationService', funct
         });
     };
 
-    this.SelectedCompany = {};
+    this.SelectedCompany = null;
     this.GetSelectedCompany = function () {
         return SelectedCompany;
     };
@@ -39,7 +39,7 @@ angular.module('ApplicationServices').service('SurveyApplicationService', functi
         });
     };
 
-    this.SelectedSurvey = {};
+    this.SelectedSurvey = null;
     this.GetSelectedCompany = function () {
         return SelectedSurvey;
     };
@@ -1321,30 +1321,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('UserService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.GetCurrentUser = function (id) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'Get',
-                    url: '/api/v1/UserApi/GetCurrentUser/',
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
-
-                return deferred.promise;
-            };
-        }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
     .service('SurveyProductQuestionService', ['$http', '$q', 'breeze', 'breezeservice',
         function ($http, $q, breeze, breezeservice) {
         var _self = this;
@@ -1442,6 +1418,30 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             return deferred.promise;
         }
     }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('UserService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.GetCurrentUser = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/UserApi/GetCurrentUser/',
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+        }]);
 })();
 (function () {
     "use strict";
@@ -1618,8 +1618,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 });
 (function (moment) {
     "use strict";    
-    angular.module('Main').controller('MainController', ['$scope', 'CompanyApplicationService', 'SurveyApplicationService',
-    function controller($scope, CompanyApplicationService, SurveyApplicationService) {      
+    angular.module('Main').controller('MainController', ['$scope', '$state', 'CompanyApplicationService', 'SurveyApplicationService',
+    function controller($scope, $state, CompanyApplicationService, SurveyApplicationService) {      
         //TODO: If a regular user go to company, if a company customer assigned to a survey, go to the survey data page.
         $scope.SelectedCompany = null;
         CompanyApplicationService.RegisterObserver(function () { 
@@ -1630,6 +1630,31 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         SurveyApplicationService.RegisterObserver(function(){
             $scope.SelectedSurvey = SurveyApplicationService.SelectedSurvey;
         })
+
+        $scope.Route = function (state) {
+            debugger;
+            if (state == "main.company.addedit") {
+                $state.go(state);
+            }
+            else {
+                if (state == "main.surveycustomerlocation.addedit" || state == "main.surveyproductquestion.addedit") {
+                    if (SurveyApplicationService.SelectedSurvey == undefined || SurveyApplicationService.SelectedSurvey == null || SurveyApplicationService.SelectedSurvey == "") {
+                        toastr.error("A survey must be selected first.");
+                    }
+                    else {
+                        $state.go(state);
+                    }
+                }
+                else {
+                    if (CompanyApplicationService.SelectedCompany == undefined || CompanyApplicationService.SelectedCompany == null || CompanyApplicationService.SelectedCompany == "") {
+                        toastr.error("A company must be selected first.");
+                    }
+                    else {
+                        $state.go(state);
+                    }
+                }
+            }
+        }
     }]);
 
 })(moment);
@@ -2306,85 +2331,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('merchandise', {
-            url: "/merchandise",
-            templateUrl: "/App/ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
-        })
-    });
-    angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, SurveyCustomerLocationService, CompanyApplicationService) {
-        $scope.SelectedCompany = null;
-        $scope.SelectedLocation = null;
-        $scope.SelectedCustomer = null;
-        $scope.SelectedSurvey = null;
-        $scope.Search = function () {
-            UserService.GetCurrentUser().then(function (data) {
-                var predicate = new breeze.Predicate('CreatedBy', '==', data);
-                CompanyService.Search(null, 0, 20, false).then(function (data) {
-                    if (data.length == 1) {
-                        $scope.Company = data;
-                        $scope.SelectedCompany = data[0];
-                        $scope.SelectCompany();
-                    }
-                    else {
-                        $scope.Company = data;
-                    }
-                });
-            });
-        }
-        $scope.Search();
-
-        $scope.SelectCompany = function () {
-            $scope.LocationSearch($scope.SelectedCompany.Id);
-        }
-
-        $scope.LocationSearch = function (companyId) {
-            var predicate = new breeze.Predicate('CompanyId', '==', companyId);
-            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.Location = data;
-            });
-        }
-
-        $scope.SelectLocation = function () {
-            $scope.CustomerSearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id);
-        }
-
-        $scope.CustomerSearch = function (companyId, locationId) {
-            var p1 = new breeze.Predicate('CompanyId', '==', companyId);
-            var p2 = new breeze.Predicate('LocationId', '==', locationId);
-            var predicate = new breeze.Predicate.and([p1, p2]);
-            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.Customer = data;
-            });
-        }
-
-        $scope.SelectCustomer = function () {
-            $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Customer.Id);
-        }
-
-        $scope.SurveySearch = function (companyId, locationId, customerId) {
-            var p1 = new breeze.Predicate('CompanyId', '==', companyId);
-            var p2 = new breeze.Predicate('LocationId', '==', locationId);
-            var p3 = new breeze.Predicate('CustomerId', '==', customerId);
-            var predicate = new breeze.Predicate.and([p1, p2, p3]);
-            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.Survey = data;
-            });
-        }
-
-        $scope.SelectSurvey = function () {
-            $state.go('survey', {
-                companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
-                customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id });
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
         .state('survey', {
             url: "/survey/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
             templateUrl: "/App/ApplicationComponents/DataEntry/Survey/MerchandiseSurvey.html"
@@ -2539,6 +2485,85 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
                 });
             }
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('merchandise', {
+            url: "/merchandise",
+            templateUrl: "/App/ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
+        })
+    });
+    angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, SurveyCustomerLocationService, CompanyApplicationService) {
+        $scope.SelectedCompany = null;
+        $scope.SelectedLocation = null;
+        $scope.SelectedCustomer = null;
+        $scope.SelectedSurvey = null;
+        $scope.Search = function () {
+            UserService.GetCurrentUser().then(function (data) {
+                var predicate = new breeze.Predicate('CreatedBy', '==', data);
+                CompanyService.Search(null, 0, 20, false).then(function (data) {
+                    if (data.length == 1) {
+                        $scope.Company = data;
+                        $scope.SelectedCompany = data[0];
+                        $scope.SelectCompany();
+                    }
+                    else {
+                        $scope.Company = data;
+                    }
+                });
+            });
+        }
+        $scope.Search();
+
+        $scope.SelectCompany = function () {
+            $scope.LocationSearch($scope.SelectedCompany.Id);
+        }
+
+        $scope.LocationSearch = function (companyId) {
+            var predicate = new breeze.Predicate('CompanyId', '==', companyId);
+            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+                $scope.Location = data;
+            });
+        }
+
+        $scope.SelectLocation = function () {
+            $scope.CustomerSearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id);
+        }
+
+        $scope.CustomerSearch = function (companyId, locationId) {
+            var p1 = new breeze.Predicate('CompanyId', '==', companyId);
+            var p2 = new breeze.Predicate('LocationId', '==', locationId);
+            var predicate = new breeze.Predicate.and([p1, p2]);
+            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+                $scope.Customer = data;
+            });
+        }
+
+        $scope.SelectCustomer = function () {
+            $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Customer.Id);
+        }
+
+        $scope.SurveySearch = function (companyId, locationId, customerId) {
+            var p1 = new breeze.Predicate('CompanyId', '==', companyId);
+            var p2 = new breeze.Predicate('LocationId', '==', locationId);
+            var p3 = new breeze.Predicate('CustomerId', '==', customerId);
+            var predicate = new breeze.Predicate.and([p1, p2, p3]);
+            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+                $scope.Survey = data;
+            });
+        }
+
+        $scope.SelectSurvey = function () {
+            $state.go('survey', {
+                companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
+                customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id });
         }
     }]);
 })(moment);

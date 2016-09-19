@@ -11,7 +11,7 @@
         });
     };
 
-    this.SelectedCompany = {};
+    this.SelectedCompany = null;
     this.GetSelectedCompany = function () {
         return SelectedCompany;
     };
