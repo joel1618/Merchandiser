@@ -75,21 +75,10 @@
                 return false;
             }
             if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
-                //promises.push(SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function (data) {
-                //    angular.forEach($scope.Detail, function (value, key) {
-                //        promise = SurveyDetailService.Update(value.Id, {
-                //            Id: value.Id,
-                //            Answer: value.Answer
-                //        });
-                //        promises.push(promise);
-                //    });
                 var details = [];
                 angular.forEach($scope.Detail, function (value, key) {
                     details.push({
                         Id: value.Id,
-                        CompanyId: $stateParams.companyId,
-                        ProductId: value.Product.Id,
-                        QuestionId: value.Question.Id,
                         Answer: value.Answer
                     })
                 });
@@ -104,18 +93,8 @@
                         toastr.success("Save successful.");
                     });
                 });
-                //}));
             }
             else {
-                //promises.push(SurveyHeaderService.Create($scope.Header).then(function (data) {
-                //    angular.forEach($scope.Detail, function (value, key) {
-                //        promise = SurveyDetailService.Create({
-                //            CompanyId: $stateParams.companyId, SurveyHeaderId: data.data.Id,
-                //            ProductId: value.Product.Id, QuestionId: value.Question.Id,
-                //            Answer: value.Answer
-                //        });
-                //        promises.push(promise);
-                //    });
                 var details = [];
                 angular.forEach($scope.Detail, function (value, key) {
                     details.push({
@@ -139,8 +118,7 @@
                         });
                     });
                 });
-                promises.push(promise);                
-                //}));
+                promises.push(promise);  
             }
         }
 
