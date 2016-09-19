@@ -15,16 +15,22 @@ namespace Merchandiser.Controllers.api.v1.breeze
     public class CompanyApiController : ApiController
     {
         CompanyRepository companyRepository;
+        UserRoleRepository userRoleRepository;
+        RoleRepository roleRepository;
         public CompanyApiController()
         {
             this.companyRepository = new CompanyRepository();
+            this.userRoleRepository = new UserRoleRepository();
+            this.roleRepository = new RoleRepository();
         }
 
         [HttpGet]
         public IQueryable<CompanyViewModel> Search()
         {
             var currentUserId = User.Identity.GetUserId();
-            var companiesList = companyRepository.Search().Where(e => e.CreatedBy.Equals(currentUserId)).Select(x => new CompanyViewModel()
+            var roleId = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault().Id;
+            var companies = userRoleRepository.Search().Where(e => e.UserId == currentUserId && e.RoleId == roleId).Select(x => x.Id);
+            var companiesList = companyRepository.Search().Where(e => companies.Contains(e.Id)).Select(x => new CompanyViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
