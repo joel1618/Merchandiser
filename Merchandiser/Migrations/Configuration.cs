@@ -35,6 +35,7 @@ namespace Merchandiser.Migrations
                     AddRoles(context);
 
                     AddUser(context);
+                    AddUserInfo(context)
                     AddRoles(context);
                     AddCompany(context);
                     AddCustomers(context);
@@ -61,6 +62,13 @@ namespace Merchandiser.Migrations
                 AccessFailedCount = 0 });
             context.SaveChanges();
             user = context.AspNetUsers.Where(e => e.Email == "joel1618@gmail.com").FirstOrDefault();
+        }
+
+        public void AddUserInfo(MerchandiserEntities context)
+        {
+
+            context.AspNetUsersInfoes.Add(new AspNetUsersInfo() { FirstName = "Joel", LastName = "Schiffer", Id = Guid.NewGuid().ToString(), UserId = user.Id });
+            context.SaveChanges();
         }
         public void AddRoles(MerchandiserEntities context)
         {
