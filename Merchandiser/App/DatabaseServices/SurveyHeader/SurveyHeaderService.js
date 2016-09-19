@@ -65,22 +65,21 @@
                 return deferred.promise;
             };
 
-            //this.CreateBulk = function (header, details) {
-            //    var deferred = $q.defer();
+            this.CreateBulk = function (item) {
+                var deferred = $q.defer();
+                $http.post('/breeze/SurveyHeaderApi/CreateBulk', item)
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (response) {
+                    if (response.statusText.length > 0) {
+                        deferred.reject(response.statusText);
+                    } else {
+                        deferred.reject("Failed to create the record.");
+                    }
+                });
 
-            //    $http.post('/breeze/SurveyHeaderApi/CreateBulk', header, details)
-            //    .then(function (response) {
-            //        deferred.resolve(response);
-            //    }, function (response) {
-            //        if (response.statusText.length > 0) {
-            //            deferred.reject(response.statusText);
-            //        } else {
-            //            deferred.reject("Failed to create the record.");
-            //        }
-            //    });
-
-            //    return deferred.promise;
-            //};
+                return deferred.promise;
+            };
 
 
 
@@ -100,21 +99,21 @@
                 return deferred.promise;
             }
 
-            //this.UpdateBulk = function (id, header, details) {
-            //    var deferred = $q.defer();
-            //    $http.put('/breeze/SurveyHeaderApi/UpdateBulk/' + id, header, details)
-            //    .then(function (response) {
-            //        deferred.resolve(response);
-            //    }, function (response) {
-            //        if (response.statusText.length > 0) {
-            //            deferred.reject(response);
-            //        } else {
-            //            deferred.reject("Failed to update the record.");
-            //        }
-            //    });
+            this.UpdateBulk = function (id, item) {
+                var deferred = $q.defer();
+                $http.put('/breeze/SurveyHeaderApi/UpdateBulk/' + id, item)
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (response) {
+                    if (response.statusText.length > 0) {
+                        deferred.reject(response);
+                    } else {
+                        deferred.reject("Failed to update the record.");
+                    }
+                });
 
-            //    return deferred.promise;
-            //}
+                return deferred.promise;
+            }
 
             this.Delete = function (id) {
                 var deferred = $q.defer();

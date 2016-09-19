@@ -8,9 +8,9 @@ namespace Merchandiser.Repositories
     public class SurveyHeaderRepository
     {
         MerchandiserEntities context;
-        public SurveyHeaderRepository()
+        public SurveyHeaderRepository(MerchandiserEntities context)
         {
-            this.context = new MerchandiserEntities();
+            this.context = context;
         }
 
         public IQueryable<SurveyHeader> Search()
@@ -25,18 +25,15 @@ namespace Merchandiser.Repositories
 
         public SurveyHeader Create(SurveyHeader item)
         {
-            item.Id = Guid.NewGuid();
             item.Modified = new Nullable<DateTime>();
             item.Created = DateTime.UtcNow;
             context.SurveyHeaders.Add(item);
-            context.SaveChanges();
             return item;
         }
 
         public SurveyHeader Update(Guid id, SurveyHeader item)
         {
             var entity = context.SurveyHeaders.Find(id);
-            context.SaveChanges();
             return entity;
         }
 

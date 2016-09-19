@@ -14,10 +14,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
     [BreezeController]
     public class SurveyDetailApiController : ApiController
     {
+        MerchandiserEntities context;
         SurveyDetailRepository repository;
         public SurveyDetailApiController()
         {
-            this.repository = new SurveyDetailRepository();
+            this.context = new MerchandiserEntities();
+            this.repository = new SurveyDetailRepository(context);
         }
 
         [HttpGet]

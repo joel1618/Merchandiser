@@ -21,7 +21,6 @@
             CustomerId: $stateParams.customerId, LocationId: $stateParams.locationId
         }
         navigator.geolocation.getCurrentPosition(function (position) {
-            debugger;
             $scope.Header.Latitude = position.coords.latitude;
             $scope.Header.Longitude = position.coords.longitude;
         });
@@ -31,7 +30,6 @@
             if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
                 var predicate = new breeze.Predicate('Id', '==', $stateParams.surveyHeaderId);
                 SurveyHeaderService.Search(predicate, 0, 1, false).then(function (data) {
-                    debugger;
                     $scope.Header = data[0];
                 })
                 predicate = new breeze.Predicate('SurveyHeaderId', '==', $stateParams.surveyHeaderId);
@@ -77,14 +75,27 @@
                 return false;
             }
             if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
-                promises.push(SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function (data) {
-                    angular.forEach($scope.Detail, function (value, key) {
-                        promise = SurveyDetailService.Update(value.Id, {
-                            Id: value.Id,
-                            Answer: value.Answer
-                        });
-                        promises.push(promise);
+                //promises.push(SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function (data) {
+                //    angular.forEach($scope.Detail, function (value, key) {
+                //        promise = SurveyDetailService.Update(value.Id, {
+                //            Id: value.Id,
+                //            Answer: value.Answer
+                //        });
+                //        promises.push(promise);
+                //    });
+                var details = [];
+                angular.forEach($scope.Detail, function (value, key) {
+                    details.push({
+                        Id: value.Id,
+                        CompanyId: $stateParams.companyId,
+                        ProductId: value.Product.Id,
+                        QuestionId: value.Question.Id,
+                        Answer: value.Answer
                     })
+                });
+                var item = { Header: $scope.Header, Details: details };
+                promise = SurveyHeaderService.UpdateBulk($scope.Header.Id, item).then(function(data){
+                    promises.push(promise);
                     promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
                     promises.push(promise);
                     promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
@@ -92,32 +103,44 @@
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
                     });
-                }));
+                });
+                //}));
             }
             else {
-                promises.push(SurveyHeaderService.Create($scope.Header).then(function (data) {
-                    debugger;
-                    angular.forEach($scope.Detail, function (value, key) {
-                        promise = SurveyDetailService.Create({
-                            CompanyId: $stateParams.companyId, SurveyHeaderId: data.data.Id,
-                            ProductId: value.Product.Id, QuestionId: value.Question.Id,
-                            Answer: value.Answer
-                        });
-                        promises.push(promise);
-                    });
+                //promises.push(SurveyHeaderService.Create($scope.Header).then(function (data) {
+                //    angular.forEach($scope.Detail, function (value, key) {
+                //        promise = SurveyDetailService.Create({
+                //            CompanyId: $stateParams.companyId, SurveyHeaderId: data.data.Id,
+                //            ProductId: value.Product.Id, QuestionId: value.Question.Id,
+                //            Answer: value.Answer
+                //        });
+                //        promises.push(promise);
+                //    });
+                var details = [];
+                angular.forEach($scope.Detail, function (value, key) {
+                    details.push({
+                        CompanyId: $stateParams.companyId,
+                        ProductId: value.Product.Id,
+                        QuestionId: value.Question.Id,
+                        Answer: value.Answer
+                    })
+                });
+                var item = { Header: $scope.Header, Details: details };
+                promise = SurveyHeaderService.CreateBulk(item).then(function (data) {
                     promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
                     promises.push(promise);
                     promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
                     promises.push(promise);
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
-                        debugger;
                         $state.go('survey', {
                             companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
                             customerId: $stateParams.customerId, locationId: $stateParams.locationId, surveyHeaderId: data.data.Id
                         });
                     });
-                }));
+                });
+                promises.push(promise);                
+                //}));
             }
         }
 

@@ -15,12 +15,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
     [BreezeController]
     public class SurveyHeaderApiController : ApiController
     {
+        MerchandiserEntities context;
         SurveyHeaderRepository repository;
         SurveyDetailRepository detailRepository;
         public SurveyHeaderApiController()
         {
-            this.repository = new SurveyHeaderRepository();
-            this.detailRepository = new SurveyDetailRepository();
+            this.context = new MerchandiserEntities();
+            this.repository = new SurveyHeaderRepository(context);
+            this.detailRepository = new SurveyDetailRepository(context);
         }
 
         [HttpGet]
@@ -47,19 +49,22 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return repository.Create(item.ToEntity()).ToViewModel();
         }
 
-        //[HttpPost]
-        //public SurveyHeaderViewModel CreateBulk(SurveyHeaderViewModel header, List<SurveyDetailViewModel> details)
-        //{
-        //    header.CreatedBy = User.Identity.GetUserId();
-        //    var response = repository.Create(header.ToEntity()).ToViewModel();
-        //    foreach(var detail in details)
-        //    {
-        //        detail.CreatedBy = User.Identity.GetUserId();
-        //        detailRepository.Create(detail.ToEntity()).ToViewModel();
-        //    }
-        //    repository.SaveChanges();
-        //    return response;
-        //}
+        [HttpPost]
+        public SurveyHeaderViewModel CreateBulk([FromBody()]SurveyHeaderDetailViewModel item)
+        {
+            var id = Guid.NewGuid();
+            item.Header.Id = id;
+            item.Header.CreatedBy = User.Identity.GetUserId();
+            var response = repository.Create(item.Header.ToEntity()).ToViewModel();
+            foreach (var detail in item.Details)
+            {
+                detail.SurveyHeaderId = id;
+                detail.CreatedBy = User.Identity.GetUserId();
+                detailRepository.Create(detail.ToEntity()).ToViewModel();
+            }
+            repository.SaveChanges();
+            return response;
+        }
 
         [HttpPut]
         public SurveyHeaderViewModel Update(Guid id, SurveyHeaderViewModel item)
@@ -68,19 +73,19 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return repository.Update(id, item.ToEntity()).ToViewModel();
         }
 
-        //[HttpPut]
-        //public SurveyHeaderViewModel UpdateBulk(Guid id, SurveyHeaderViewModel header, List<SurveyDetailViewModel> details)
-        //{
-        //    header.ModifiedBy = User.Identity.GetUserId();
-        //    var response = repository.Update(id, header.ToEntity()).ToViewModel();
-        //    foreach (var detail in details)
-        //    {
-        //        detail.CreatedBy = User.Identity.GetUserId();
-        //        detailRepository.Update(detail.Id, detail.ToEntity()).ToViewModel();
-        //    }
-        //    repository.SaveChanges();
-        //    return response;
-        //}
+        [HttpPut]
+        public SurveyHeaderViewModel UpdateBulk([FromUri()]Guid id, [FromBody()]SurveyHeaderDetailViewModel item)
+        {
+            item.Header.ModifiedBy = User.Identity.GetUserId();
+            var response = repository.Update(id, item.Header.ToEntity()).ToViewModel();
+            foreach (var detail in item.Details)
+            {
+                detail.ModifiedBy = User.Identity.GetUserId();
+                detailRepository.Update(detail.Id, detail.ToEntity()).ToViewModel();
+            }
+            repository.SaveChanges();
+            return response;
+        }
 
         [HttpDelete]
         public void Delete(Guid id)

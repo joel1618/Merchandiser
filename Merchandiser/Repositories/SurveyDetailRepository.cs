@@ -8,9 +8,9 @@ namespace Merchandiser.Repositories
     public class SurveyDetailRepository
     {
         MerchandiserEntities context;
-        public SurveyDetailRepository()
+        public SurveyDetailRepository(MerchandiserEntities context)
         {
-            this.context = new MerchandiserEntities();
+            this.context = context;
         }
 
         public IQueryable<SurveyDetail> Search()
@@ -29,7 +29,6 @@ namespace Merchandiser.Repositories
             item.Modified = new Nullable<DateTime>();
             item.Created = DateTime.UtcNow;
             context.SurveyDetails.Add(item);
-            context.SaveChanges();
             return item;
         }
 
@@ -38,7 +37,6 @@ namespace Merchandiser.Repositories
             var entity = context.SurveyDetails.Find(id);
             entity.Answer = item.Answer;
             entity.Modified = DateTime.UtcNow;
-            context.SaveChanges();
             return entity;
         }
 

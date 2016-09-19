@@ -35,7 +35,7 @@ namespace Merchandiser.Migrations
                     AddRoles(context);
 
                     AddUser(context);
-                    AddUserInfo(context)
+                    AddUserInfo(context);
                     AddRoles(context);
                     AddCompany(context);
                     AddCustomers(context);

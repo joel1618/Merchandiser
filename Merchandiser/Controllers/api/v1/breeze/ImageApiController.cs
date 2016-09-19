@@ -20,21 +20,26 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public HttpResponseMessage GetBeforeImage(Guid id)
         {
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
-
-            // Photo.Resize is a static method to resize the image
-            //Image image = Photo.Resize(Image.FromFile("C:\\Merchandiser\\BeforeImages\\" + id.ToString() + ".jpg"), 200, 200);
-            using (Image image = Image.FromFile("C:\\Merchandiser\\BeforeImages\\" + id.ToString() + ".jpg"))
-            using (MemoryStream memoryStream = new MemoryStream())
+            try
             {
-                image.Save(memoryStream, ImageFormat.Jpeg);
+                // Photo.Resize is a static method to resize the image
+                //Image image = Photo.Resize(Image.FromFile("C:\\Merchandiser\\BeforeImages\\" + id.ToString() + ".jpg"), 200, 200);
+                using (Image image = Image.FromFile("C:\\Merchandiser\\BeforeImages\\" + id.ToString() + ".jpg"))
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    image.Save(memoryStream, ImageFormat.Jpeg);
 
-                httpResponseMessage.Content = new ByteArrayContent(memoryStream.ToArray());
+                    httpResponseMessage.Content = new ByteArrayContent(memoryStream.ToArray());
 
-                httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                httpResponseMessage.StatusCode = HttpStatusCode.OK;
-
-                return httpResponseMessage;
+                    httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                    httpResponseMessage.StatusCode = HttpStatusCode.OK;
+                }
             }
+            catch (Exception)
+            {
+                httpResponseMessage.StatusCode = HttpStatusCode.NotFound;
+            }
+            return httpResponseMessage;
         }
 
         [Route("api/v1/imageapi/GetAfterImage/{id}")]
@@ -42,21 +47,26 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public HttpResponseMessage GetAfterImage(Guid id)
         {
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
-
-            // Photo.Resize is a static method to resize the image
-            //Image image = Photo.Resize(Image.FromFile("C:\\Merchandiser\\BeforeImages\\" + id.ToString() + ".jpg"), 200, 200);
-            using(Image image = Image.FromFile("C:\\Merchandiser\\AfterImages\\" + id.ToString() + ".jpg"))
-            using(MemoryStream memoryStream = new MemoryStream())
+            try
             {
-                image.Save(memoryStream, ImageFormat.Jpeg);
+                // Photo.Resize is a static method to resize the image
+                //Image image = Photo.Resize(Image.FromFile("C:\\Merchandiser\\BeforeImages\\" + id.ToString() + ".jpg"), 200, 200);
+                using (Image image = Image.FromFile("C:\\Merchandiser\\AfterImages\\" + id.ToString() + ".jpg"))
+                using(MemoryStream memoryStream = new MemoryStream())
+                {
+                    image.Save(memoryStream, ImageFormat.Jpeg);
 
-                httpResponseMessage.Content = new ByteArrayContent(memoryStream.ToArray());
+                    httpResponseMessage.Content = new ByteArrayContent(memoryStream.ToArray());
 
-                httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                httpResponseMessage.StatusCode = HttpStatusCode.OK;
-
-                return httpResponseMessage;
+                    httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                    httpResponseMessage.StatusCode = HttpStatusCode.OK;
+                }
             }
+            catch (Exception)
+            {
+                httpResponseMessage.StatusCode = HttpStatusCode.NotFound;
+            }
+            return httpResponseMessage;
         }
 
         [Route("api/v1/imageapi/CreateBeforeImage/{id}")]

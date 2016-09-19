@@ -332,6 +332,7 @@
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SurveyCustomerLocationViewModel.cs" />
     <Compile Include="Models\SurveyDetailViewModel.cs" />
+    <Compile Include="Models\SurveyHeaderDetailViewModel.cs" />
     <Compile Include="Models\SurveyHeaderViewModel.cs" />
     <Compile Include="Models\SurveyProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
