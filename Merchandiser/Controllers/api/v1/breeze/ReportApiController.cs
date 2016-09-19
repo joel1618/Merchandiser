@@ -1,4 +1,5 @@
 ﻿using Merchandiser.Repositories;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,21 @@ namespace Merchandiser.Controllers.api.v1.breeze
     {
         ReportRepository repository;
         CompanyRepository companyRepository;
+        UserRoleRepository userRoleRepository;
         public ReportApiController()
         {
             this.repository = new ReportRepository();
             this.companyRepository = new CompanyRepository();
+            this.userRoleRepository = new UserRoleRepository();
         }
 
         [Route("api/v1/ReportApi/Search")]
         [HttpGet]
         public dynamic Search()
         {
-            var response = repository.Search(new Guid("2FE7A26E-9EF0-4043-87C3-066954B9B8F3"), null, null, null, null, null, null, 0, 1000);
+            var currentUserId = User.Identity.GetUserId();
+            var companies = userRoleRepository.Search().Where(e => e.UserId == currentUserId);
+            var response = repository.Search(companies.FirstOrDefault().CompanyId, null, null, null, null, null, null, 0, 1000);
             return response;
         }
     }

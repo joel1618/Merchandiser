@@ -18,7 +18,7 @@
                     keys.push(key)
                     if (key != 'Created' && !key.includes("Id")) {
                         $scope.gridOptions.columnDefs.push({
-                            name: key
+                            name: key, cellTooltip: true
                         });
                     }
                 }

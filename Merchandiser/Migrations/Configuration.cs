@@ -39,6 +39,7 @@ namespace Merchandiser.Migrations
                     AddRoles(context);
                     AddCompany(context);
                     AddCustomers(context);
+                    AddUserRole(context);
                     AddLocations(context);
                     AddProducts(context);
                     AddQuestions(context);
@@ -66,10 +67,10 @@ namespace Merchandiser.Migrations
 
         public void AddUserInfo(MerchandiserEntities context)
         {
-
             context.AspNetUsersInfoes.Add(new AspNetUsersInfo() { FirstName = "Joel", LastName = "Schiffer", Id = Guid.NewGuid().ToString(), UserId = user.Id });
             context.SaveChanges();
         }
+
         public void AddRoles(MerchandiserEntities context)
         {
             context.AspNetRoles.Add(new AspNetRole() { Id = Guid.NewGuid().ToString(), Name = "Administrator" });
@@ -82,6 +83,12 @@ namespace Merchandiser.Migrations
             context.Companies.Add(new Company() { Id = Guid.NewGuid(), Name = "Company 1", CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
             company = context.Companies.Where(e => e.Name == "Company 1").FirstOrDefault();
+        }
+        public void AddUserRole(MerchandiserEntities context)
+        {
+            var administratorRole = context.AspNetRoles.Where(e => e.Name == "Administrator").FirstOrDefault();
+            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = user.Id, RoleId = administratorRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = new Nullable<Guid>() });
+            context.SaveChanges();
         }
         public void AddCustomers(MerchandiserEntities context)
         {
