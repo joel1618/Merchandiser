@@ -3,7 +3,7 @@
     angular.module('Main').controller('UserRoleAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'RoleService', 'CompanyApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, UserRoleService, RoleService, CompanyApplicationService) {
+        $timeout, breezeservice, breeze, UserRoleService, CustomerService, RoleService, CompanyApplicationService) {
         CompanyApplicationService.NotifyObservers();
 
         $scope.Init = function () {
@@ -19,10 +19,17 @@
             RoleService.Search(null, 0, 5, false).then(function (data) {
                 $scope.Roles = data;
             });
+            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
+            CustomerService.Search(predicate, 0, 100, false).then(function (data) {
+                $scope.Customers = data;
+            });
         }
         $scope.Search();
 
         $scope.Save = function () {
+            if (!$scope.Validate()) {
+                return false;
+            }
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 UserRoleService.Update($scope.item.Id, $scope.item).then(function (data) {
                     $scope.$parent.Search();
@@ -41,6 +48,14 @@
                     toastr.error("The username does not exist.");
                 });
             }
+        }
+
+        $scope.Validate = function () {
+            if ($scope.item.Role.Name == "Customer" && $scope.item.Customer == null) {
+                toastr.error("A customer must be selected.");
+                return false;
+            }
+            return true;
         }
     }]);
 
