@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
-                <li ui-sref-active="active"><a ng-click="Route('main.company.addedit')">Companies</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.customer.addedit')">Customers</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.location.addedit')">Locations</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.product.addedit')">Products</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.question.addedit')">Questions</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.userrole.addedit')">Users</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.survey.addedit')">Surveys</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.surveycustomerlocation.addedit')">Survey Customers and Locations</a></li>
-                <li ui-sref-active="active"><a ng-click="Route('main.surveyproductquestion.addedit')">Survey Products and Questions</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.company.addedit')" ui-sref="main.company.addedit">Companies</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.customer.addedit')" ui-sref="main.customer.addedit">Customers</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.location.addedit')" ui-sref="main.location.addedit">Locations</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.product.addedit')" ui-sref="main.product.addedit">Products</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.question.addedit')" ui-sref="main.question.addedit">Questions</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.userrole.addedit')" ui-sref="main.userrole.addedit">Users</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.survey.addedit')" ui-sref="main.survey.addedit">Surveys</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.surveycustomerlocation.addedit')" ui-sref="main.surveycustomerlocation.addedit">Survey Customers and Locations</a></li>
+                <li ui-sref-active="active"><a ng-click="Route('main.surveyproductquestion.addedit')" ui-sref="main.surveyproductquestion.addedit">Survey Products and Questions</a></li>
             </ul>
         </div>
         <div class="col-md-10">
@@ -18,11 +18,27 @@
                 <div class="col-md-10">
                     <div ui-view></div>
                 </div>
-                <div class="col-md-2">
-                    <label ng-show="SelectedCompany.Id !== undefined">Company</label>
-                    <h5>{{SelectedCompany.Name}}</h5>
-                    <label ng-show="SelectedSurvey.Id !== undefined">Survey</label>
-                    <h5>{{SelectedSurvey.Name}} </h5>
+                <div class="col-md-2" style="padding-right:20px;">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a ui-sref="merchandise">Merchandise</a></li>
+                        <li class="list-group-item"><a ui-sref="reportmain">Report</a></li>
+                    </ul>
+                    <div class="panel panel-primary" ng-show="SelectedCompany.Id !== undefined">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Selected Company</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{SelectedCompany.Name}}
+                        </div>
+                    </div>
+                    <div class="panel panel-primary" ng-show="SelectedSurvey.Id !== undefined">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Selected Survey</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{SelectedSurvey.Name}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

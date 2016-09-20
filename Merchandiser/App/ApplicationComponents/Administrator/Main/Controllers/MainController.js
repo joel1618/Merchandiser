@@ -14,7 +14,6 @@
         })
 
         $scope.Route = function (state) {
-            debugger;
             if (state == "main.company.addedit") {
                 $state.go(state);
             }
