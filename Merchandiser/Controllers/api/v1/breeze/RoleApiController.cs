@@ -21,11 +21,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<RoleViewModel> Search()
         {
-            return repository.Search().Select(x => new RoleViewModel()
+            var response = repository.Search().Select(x => new RoleViewModel()
             {
                 Id = x.Id,
                 Name = x.Name
             });
+            return response;
         }
     }
 }

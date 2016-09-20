@@ -12,7 +12,6 @@
         $scope.Init();
         $scope.Search = function () {
             if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                debugger;
                 UserRoleService.Get($stateParams.id).then(function (data) {
                     $scope.item = data;
                 });

@@ -6,7 +6,7 @@
                 <label>User Name</label>
                 <input type="text" class="form-control" ng-model="item.User.UserName" required />
                 <label>Role</label>
-                <select class="form-control" ng-model="item.Role" ng-options="x.Name for x in Roles"></select>
+                <select required class="form-control" ng-model="item.Role" ng-options="x.Name for x in Roles"></select>
                 <br />
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>
