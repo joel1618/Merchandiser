@@ -7,11 +7,16 @@
             templateUrl: "/App/ApplicationComponents/Report/Main/ReportMain.html"
         })
     });
-    angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ReportService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, ReportService) {
+    angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$routeParams', '$http', '$location',
+        '$timeout', 'breezeservice', 'breeze', 'ReportService','SurveyHeaderService',
+    function controller($scope, $state, $routeParams, $http, $location,
+        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService) {
         $scope.Search = function () {
             ReportService.Search().then(function (data) {
                 $scope.gridOptions.data = data;
+                $scope.gridOptions.columnDefs.push({
+                    name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
+                });
                 var keys = []
                 var obj = $scope.gridOptions.data[0];
                 for (var key in obj) {
@@ -50,5 +55,17 @@
               //{ name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, row)}}</div>' }
             ]
         };
+
+        $scope.Edit = function (row) {
+            debugger;
+            $state.go('survey', {
+                companyId: row.CompanyId, surveyId: row.SurveyId,
+                customerId: row.CustomerId, locationId: row.LocationId, surveyHeaderId: row.Id
+            });
+        }
+
+        $scope.Delete = function(id){
+            SurveyHeaderService.DeleteBulk(id);
+        }
     }]);
 })(moment);

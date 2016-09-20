@@ -42,7 +42,6 @@ namespace Merchandiser.Repositories
             var item = new SurveyHeader { Id = id };
             context.SurveyHeaders.Attach(item);
             context.SurveyHeaders.Remove(item);
-            context.SaveChanges();
         }
 
         public void SaveChanges()

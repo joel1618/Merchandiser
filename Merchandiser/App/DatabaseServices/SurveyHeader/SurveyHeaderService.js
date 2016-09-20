@@ -131,5 +131,22 @@
 
                 return deferred.promise;
             }
+
+            this.DeleteBulk = function (id) {
+                var deferred = $q.defer();
+
+                $http.delete('/breeze/SurveyHeaderApi/DeleteBulk/' + id)
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (response) {
+                    if (response.statusText.length > 0) {
+                        deferred.reject(response);
+                    } else {
+                        deferred.reject("Failed to delete the record.");
+                    }
+                });
+
+                return deferred.promise;
+            }
         }]);
 })();

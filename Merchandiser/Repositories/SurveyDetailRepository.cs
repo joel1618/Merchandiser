@@ -45,7 +45,6 @@ namespace Merchandiser.Repositories
             var item = new SurveyDetail { Id = id };
             context.SurveyDetails.Attach(item);
             context.SurveyDetails.Remove(item);
-            context.SaveChanges();
         }
     }
 }

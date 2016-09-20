@@ -93,6 +93,18 @@ namespace Merchandiser.Controllers.api.v1.breeze
             repository.Delete(id);
         }
 
+        [HttpDelete]
+        public void DeleteBulk(Guid id)
+        {
+            var details = detailRepository.Search().Where(e => e.SurveyHeaderId == id);
+            foreach (var detail in details)
+            {
+                detailRepository.Delete(detail.Id);
+            }
+            repository.Delete(id);
+            repository.SaveChanges();
+        }
+
         [HttpPost]
         public void CreateBeforeImage()
         {

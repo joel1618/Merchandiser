@@ -422,6 +422,7 @@
     <Content Include="App\ApplicationComponents\Administrator\Survey\Controllers\SurveyController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\Survey.html" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\SurveyAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Report\Main\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Report\Main\ReportMain.html" />
     <Content Include="App\ApplicationComponents\Report\Main\ReportMainController.js" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />

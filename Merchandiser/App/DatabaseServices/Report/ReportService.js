@@ -11,7 +11,7 @@
 
                 $http({
                     method: 'Get',
-                    url: '/api/v1/ReportApi/Search/',
+                    url: '/api/v1/ReportApi/Search/null/null/null',
                 }).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (msg, code) {
