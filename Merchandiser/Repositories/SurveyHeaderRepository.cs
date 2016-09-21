@@ -39,9 +39,11 @@ namespace Merchandiser.Repositories
 
         public void Delete(Guid id)
         {
-            var item = new SurveyHeader { Id = id };
-            context.SurveyHeaders.Attach(item);
-            context.SurveyHeaders.Remove(item);
+            var item = Get(id);
+            if (item != null)
+            {
+                context.SurveyHeaders.Remove(item);
+            }
         }
 
         public void SaveChanges()

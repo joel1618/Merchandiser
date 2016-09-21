@@ -94,7 +94,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void DeleteBulk(Guid id)
+        public IHttpActionResult DeleteBulk(Guid id)
         {
             var details = detailRepository.Search().Where(e => e.SurveyHeaderId == id);
             foreach (var detail in details)
@@ -103,22 +103,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             }
             repository.Delete(id);
             repository.SaveChanges();
-        }
-
-        [HttpPost]
-        public void CreateBeforeImage()
-        {
-            var file = HttpContext.Current.Request.Files[0];
-            var fileName = file.FileName;
-            var fileStream = File.Create("c:\\image.jpg");
-            file.InputStream.CopyTo(fileStream);
-            fileStream.Close();
-        }
-
-        [HttpPost]
-        public void CreateAfterImage()
-        {
-
+            return Ok();
         }
     }
 }

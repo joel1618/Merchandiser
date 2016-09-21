@@ -28,7 +28,7 @@
                     }
                 }
                 $scope.gridOptions.columnDefs.push({
-                    name: 'Created', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
+                    name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
                 });
             });
         }
@@ -65,7 +65,13 @@
         }
 
         $scope.Delete = function(id){
-            SurveyHeaderService.DeleteBulk(id);
+            SurveyHeaderService.DeleteBulk(id).then(function (data) {
+                var index = $scope.gridOptions.data.map(function (e) { return e.Id; }).indexOf(id);
+                debugger;
+                $scope.gridOptions.data.splice(index, 1);
+            }, function (error) {
+                toastr.error("There was an error deleting the survey data.");
+            });
         }
     }]);
 })(moment);
