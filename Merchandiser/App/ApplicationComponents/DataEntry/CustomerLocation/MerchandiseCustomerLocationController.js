@@ -8,25 +8,38 @@
         })
     });
     angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, SurveyCustomerLocationService, CompanyApplicationService) {
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService, SurveyCustomerLocationService, CompanyApplicationService) {
         $scope.SelectedCompany = null;
         $scope.SelectedLocation = null;
         $scope.SelectedCustomer = null;
         $scope.SelectedSurvey = null;
         $scope.Search = function () {
             UserService.GetCurrentUser().then(function (data) {
-                var predicate = new breeze.Predicate('CreatedBy', '==', data);
-                CompanyService.Search(null, 0, 20, false).then(function (data) {
-                    if (data.length == 1) {
-                        $scope.Company = data;
-                        $scope.SelectedCompany = data[0];
-                        $scope.SelectCompany();
+                //http://stackoverflow.com/questions/18918470/breezejs-where-value-in-array
+                var predicate = { "UserId": { "==": data } };
+                UserRoleService.Search(predicate, 0, 100, false).then(function (data) {
+                    debugger;
+                    var companies = data.map(function (e) { return e.CompanyId; });
+                    var query = {
+                        from: 'Companies',
+                        where: {
+                            'Id': { in: companies }
+                        }
                     }
-                    else {
-                        $scope.Company = data;
-                    }
+                    CompanyService.Search(query, 0, 20, false).then(function (data) {
+                        if (data.length == 1) {
+                            $scope.Company = data;
+                            $scope.SelectedCompany = data[0];
+                            $scope.SelectCompany();
+                        }
+                        else {
+                            $scope.Company = data;
+                        }
+                    });
+                }, function (error) {
+                    debugger;
                 });
             });
         }

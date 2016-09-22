@@ -28,5 +28,7 @@ namespace Merchandiser
 
         public DbSet<Company> Company { get; set; }
         public DbSet<CompanyViewModel> CompanyViewModel { get; set; }
+
+        public DbSet<AspNetUserRole> AspNetUserRole { get; set; }
     }
 }
