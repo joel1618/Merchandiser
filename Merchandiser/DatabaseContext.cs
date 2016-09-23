@@ -25,10 +25,10 @@ namespace Merchandiser
             //modelBuilder.Configurations.Add(new ConflictDtoConfiguration());
             //modelBuilder.Entity<AspNetUserRole>().HasKey(t => new { t.UserId, t.CompanyId, t.RoleId });
         }
-
-        public DbSet<Company> Company { get; set; }
         public DbSet<CompanyViewModel> CompanyViewModel { get; set; }
 
-        public DbSet<AspNetUserRole> AspNetUserRole { get; set; }
+        public DbSet<RoleViewModel> RoleViewModel { get; set; }
+
+        public DbSet<UserRoleViewModel> UserRoleViewModel { get; set; }
     }
 }

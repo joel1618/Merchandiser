@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";
     angular.module('Main').controller('UserRoleAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'RoleService', 'CompanyApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'CustomerService', 'RoleService', 'CompanyApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
         $timeout, breezeservice, breeze, UserRoleService, CustomerService, RoleService, CompanyApplicationService) {
         CompanyApplicationService.NotifyObservers();

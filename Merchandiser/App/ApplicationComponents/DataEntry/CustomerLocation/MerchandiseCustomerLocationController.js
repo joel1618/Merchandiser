@@ -19,16 +19,10 @@
             UserService.GetCurrentUser().then(function (data) {
                 //http://stackoverflow.com/questions/18918470/breezejs-where-value-in-array
                 var predicate = { "UserId": { "==": data } };
-                UserRoleService.Search(predicate, 0, 100, false).then(function (data) {
-                    debugger;
+                //var predicate = { "UserId": { eq: { value: data, dataType: "Guid", isProperty: true } } };
+                UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                     var companies = data.map(function (e) { return e.CompanyId; });
-                    var query = {
-                        from: 'Companies',
-                        where: {
-                            'Id': { in: companies }
-                        }
-                    }
-                    CompanyService.Search(query, 0, 20, false).then(function (data) {
+                    CompanyService.SearchJson({ "Id": { in: companies } }, 0, 20, false).then(function (data) {
                         if (data.length == 1) {
                             $scope.Company = data;
                             $scope.SelectedCompany = data[0];
@@ -37,6 +31,8 @@
                         else {
                             $scope.Company = data;
                         }
+                    }, function (error) {
+                        debugger;
                     });
                 }, function (error) {
                     debugger;

@@ -37,7 +37,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Company = new CompanyViewModel()
                 {
                     Id = x.Company.Id,
-                    Name = x.Company.Name
+                    Name = x.Company.Name,
+                    Created = x.Company.Created,
+                    CreatedBy = x.Company.CreatedBy
                 },
                 User = new UserViewModel()
                 {
