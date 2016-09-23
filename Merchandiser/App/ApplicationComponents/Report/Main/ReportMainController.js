@@ -7,12 +7,12 @@
             templateUrl: "/App/ApplicationComponents/Report/Main/ReportMain.html"
         })
     });
-    angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$routeParams', '$http', '$location',
+    angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$stateParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'ReportService','SurveyHeaderService',
-    function controller($scope, $state, $routeParams, $http, $location,
+    function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService) {
         $scope.Search = function () {
-            ReportService.Search(null, null, null, null, null, null, null, 0, 10000).then(function (data) {
+            ReportService.Search($stateParams.companyId, $stateParams.surveyHeaderId, $stateParams.customerId, $stateParams.locationId, null, $stateParams.surveyHeaderId, null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 $scope.gridOptions.columnDefs.push({
                     name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'

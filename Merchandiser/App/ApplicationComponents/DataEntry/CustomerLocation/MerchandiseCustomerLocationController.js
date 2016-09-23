@@ -3,13 +3,13 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('merchandise', {
-            url: "/merchandise",
+            url: "/merchandise/:redirectState",
             templateUrl: "/App/ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
         })
     });
-    angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+    angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze,
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService, SurveyCustomerLocationService, CompanyApplicationService) {
         $scope.SelectedCompany = null;
         $scope.SelectedLocation = null;
@@ -80,9 +80,11 @@
         }
 
         $scope.SelectSurvey = function () {
-            $state.go('survey', {
+            $state.go($stateParams.redirectState, {
                 companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
-                customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id });
+                customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id
+            });
+
         }
     }]);
 })(moment);
