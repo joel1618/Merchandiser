@@ -4,12 +4,11 @@
         <div ng-form="form">
             <fieldset class="form-group">
                 <label>User Name</label>
-                <input type="text" class="form-control" ng-model="item.User.UserName" required />
+                <input required type="text" class="form-control" ng-model="item.User.UserName" />
                 <label>Role</label>
                 <select required class="form-control" ng-model="item.Role" ng-options="x.Name for x in Roles"></select>
-                <br />
                 <label>Customer</label>
-                <select required class="form-control" ng-model="item.Customer" ng-options="x.Name for x in Customers"></select>
+                <select class="form-control" ng-model="item.Customer" ng-options="x.Name for x in Customers"></select>
                 <br />
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>

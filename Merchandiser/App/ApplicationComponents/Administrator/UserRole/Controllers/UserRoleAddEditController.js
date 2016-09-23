@@ -41,6 +41,7 @@
             else {
                 $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
                 $scope.item.RoleId = $scope.item.Role.Id;
+                $scope.item.CustomerId = $scope.item.Customer.Id;
                 UserRoleService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();
