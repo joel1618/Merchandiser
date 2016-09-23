@@ -6,6 +6,9 @@
             var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
             SurveyService.Search(predicate, 0, 20, false).then(function (data) {
                 $scope.items = data;
+                if (data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
             });
         }
         $scope.Search();

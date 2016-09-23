@@ -8,6 +8,9 @@
             var predicate = new breeze.Predicate.and([p1, p2]);
             CompanyService.Search(null, 0, 20, false).then(function (data) {
                 $scope.items = data;
+                if (data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
             });
         }
         $scope.Search();

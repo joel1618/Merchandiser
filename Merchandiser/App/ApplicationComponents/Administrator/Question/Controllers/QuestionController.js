@@ -4,7 +4,7 @@
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, CompanyApplicationService) {
         $scope.Search = function () {
             var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            QuestionService.Search(predicate, 0, 20, false).then(function (data) {
+            QuestionService.Search(predicate, 0, 100, false).then(function (data) {
                 $scope.items = data;
             });
         }

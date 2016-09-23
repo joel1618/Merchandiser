@@ -6,7 +6,7 @@
             var p1 = new breeze.Predicate('SurveyId', '==', SurveyApplicationService.SelectedSurvey.Id);
             //var p2 = new breeze.Predicate('Longitude', '<', 1);
             //var predicate = new breeze.Predicate.and([p1, p2]);
-            SurveyCustomerLocationService.Search(p1, 0, 20, false).then(function (data) {
+            SurveyCustomerLocationService.Search(p1, 0, 100, false).then(function (data) {
                 $scope.items = data;
             });
         }
