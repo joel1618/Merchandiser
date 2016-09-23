@@ -3,7 +3,7 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('reportmain', {
-            url: "/reportmain",
+            url: "/reportmain/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
             templateUrl: "/App/ApplicationComponents/Report/Main/ReportMain.html"
         })
     });
@@ -12,7 +12,7 @@
     function controller($scope, $state, $routeParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService) {
         $scope.Search = function () {
-            ReportService.Search().then(function (data) {
+            ReportService.Search(null, null, null, null, null, null, null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 $scope.gridOptions.columnDefs.push({
                     name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'

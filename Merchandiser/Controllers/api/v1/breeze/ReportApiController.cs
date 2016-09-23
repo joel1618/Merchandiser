@@ -23,13 +23,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
             this.roleRepository = new RoleRepository();
         }
 
-        [Route("api/v1/ReportApi/Search/{companyId}/{page}/{pageSize}")]
+        [Route("api/v1/ReportApi/Search/{companyId}/{surveyHeaderId}/{customerId}/{locationId}/{productId}/{surveyId}/{userId}/{page}/{pageSize}")]
         [HttpGet]
-        //public IHttpActionResult Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, Guid? locationId, Guid? productId, Guid? surveyId, string userId, int? page, int? pageSize)
-        public IHttpActionResult Search(Guid? companyId, int? page, int? pageSize)
+        public IHttpActionResult Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, Guid? locationId, Guid? productId, Guid? surveyId, string userId, int? page, int? pageSize)
         {
             Guid? _companyId = null, _surveyHeaderId = null, _customerId = null, _locationId = null, _productId = null, _surveyId = null;
-            int? _page = null, _pageSize = null;
+            int? _page = page, _pageSize = pageSize;
             string _userId = null;
             var _currentUserId = User.Identity.GetUserId();            
             if (page == null) { _page = 0; }
