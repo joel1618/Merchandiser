@@ -27,7 +27,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IHttpActionResult Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, Guid? locationId, Guid? productId, Guid? surveyId, string userId, int? page, int? pageSize)
         {
-            Guid? _companyId = null, _surveyHeaderId = null, _customerId = null, _locationId = null, _productId = null, _surveyId = null;
+            Guid? _companyId = companyId, _surveyHeaderId = surveyHeaderId, _customerId = customerId, _locationId = locationId, _productId = productId, _surveyId = surveyId;
             int? _page = page, _pageSize = pageSize;
             string _userId = null;
             var _currentUserId = User.Identity.GetUserId();            

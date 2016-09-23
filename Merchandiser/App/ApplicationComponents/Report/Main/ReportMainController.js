@@ -12,7 +12,8 @@
     function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService) {
         $scope.Search = function () {
-            ReportService.Search($stateParams.companyId, $stateParams.surveyHeaderId, $stateParams.customerId, $stateParams.locationId, null, $stateParams.surveyHeaderId, null, 0, 10000).then(function (data) {
+            debugger;
+            ReportService.Search($stateParams.companyId, null, $stateParams.customerId, $stateParams.locationId, null, null, null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 $scope.gridOptions.columnDefs.push({
                     name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
