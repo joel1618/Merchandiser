@@ -259,6 +259,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ImageApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\LocationApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\MapApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ProductApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
@@ -303,6 +304,9 @@
     <Compile Include="Location.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Map.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201605180348324_InitialCreate.cs" />
     <Compile Include="Migrations\201605180348324_InitialCreate.Designer.cs">
       <DependentUpon>201605180348324_InitialCreate.cs</DependentUpon>
@@ -327,6 +331,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
+    <Compile Include="Models\MapViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
@@ -347,6 +352,7 @@
     </Compile>
     <Compile Include="Repositories\AspNetUsersInfoRepository.cs" />
     <Compile Include="Repositories\LocationRepository.cs" />
+    <Compile Include="Repositories\MapRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
@@ -425,6 +431,8 @@
     <Content Include="App\ApplicationComponents\Report\Main\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Report\Main\ReportMain.html" />
     <Content Include="App\ApplicationComponents\Report\Main\ReportMainController.js" />
+    <Content Include="App\ApplicationComponents\Report\Map\Map.html" />
+    <Content Include="App\ApplicationComponents\Report\Map\MapController.js" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />
     <Content Include="App\ApplicationServices\Company\CompanyApplicationService.js" />
     <Content Include="App\ApplicationServices\Survey\SurveyApplicationService.js" />
@@ -435,6 +443,7 @@
     <Content Include="App\DatabaseServices\Customer\CustomerService.js" />
     <Content Include="App\DatabaseServices\Image\ImageService.js" />
     <Content Include="App\DatabaseServices\Location\LocationService.js" />
+    <Content Include="App\DatabaseServices\Map\MapService.js" />
     <Content Include="App\DatabaseServices\Product\ProductService.js" />
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />

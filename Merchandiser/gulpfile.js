@@ -60,7 +60,8 @@ gulp.task("vendorJs", function () {
             path.components + "angular-ui-grid/ui-grid.min.js",
             path.components + "csv/lib/csv.js",
             path.components + "pdfmake/build/pdfmake.js",
-            path.components + "pdfmake/build/vfs_fonts.js"
+            path.components + "pdfmake/build/vfs_fonts.js",
+            path.components + "ngmap/build/scripts/ng-map.min.js"
     ])
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest(path.pub.libs))

@@ -212,6 +212,20 @@
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Created" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -574,6 +588,16 @@
           <EntitySet Name="SurveyDetail" EntityType="Self.SurveyDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyHeader" EntityType="Self.SurveyHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyProductQuestion" EntityType="Self.SurveyProductQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Map" EntityType="Self.Map" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Map].[Id] AS [Id], 
+    [Map].[Latitude] AS [Latitude], 
+    [Map].[Longitude] AS [Longitude], 
+    [Map].[Created] AS [Created], 
+    [Map].[FirstName] AS [FirstName], 
+    [Map].[LastName] AS [LastName]
+    FROM [dbo].[Map] AS [Map]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AspNetUserRoles_Company" Association="Self.FK_AspNetUserRoles_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -821,6 +845,7 @@
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
             <End Role="SurveyDetail" EntitySet="SurveyDetails" />
           </AssociationSet>
+          <EntitySet Name="Maps" EntityType="MerchandiserModel.Map" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -1429,6 +1454,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Created" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1652,6 +1689,18 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maps">
+            <EntityTypeMapping TypeName="MerchandiserModel.Map">
+              <MappingFragment StoreEntitySet="Map">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

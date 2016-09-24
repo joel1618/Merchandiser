@@ -12,7 +12,8 @@
     function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService) {
         $scope.Search = function () {
-            debugger;
+            if ($stateParams.customerId == "") { $stateParams.customerId = null }
+            if ($stateParams.locationId == "") { $stateParams.locationId = null }
             ReportService.Search($stateParams.companyId, null, $stateParams.customerId, $stateParams.locationId, null, null, null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 $scope.gridOptions.columnDefs.push({

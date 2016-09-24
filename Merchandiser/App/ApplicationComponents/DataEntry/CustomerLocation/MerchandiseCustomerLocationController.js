@@ -11,10 +11,11 @@
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService, SurveyCustomerLocationService, CompanyApplicationService) {
-        $scope.SelectedCompany = null;
-        $scope.SelectedLocation = null;
-        $scope.SelectedCustomer = null;
-        $scope.SelectedSurvey = null;
+        $scope.RedirectState = $stateParams.redirectState;
+        $scope.SelectedCompany = { Id: null };
+        $scope.SelectedLocation = { Location: { Id: null }, Id: null };
+        $scope.SelectedCustomer = { Customer: { Id: null }, Id: null };
+        $scope.SelectedSurvey = { Survey: { Id: null }, Id: null };
         $scope.Search = function () {
             UserService.GetCurrentUser().then(function (data) {
                 //http://stackoverflow.com/questions/18918470/breezejs-where-value-in-array
@@ -42,30 +43,30 @@
         $scope.Search();
 
         $scope.SelectCompany = function () {
-            $scope.LocationSearch($scope.SelectedCompany.Id);
+            $scope.CustomerSearch($scope.SelectedCompany.Id);
         }
 
-        $scope.LocationSearch = function (companyId) {
+        $scope.CustomerSearch = function (companyId) {
             var predicate = new breeze.Predicate('CompanyId', '==', companyId);
-            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.Location = data;
-            });
-        }
-
-        $scope.SelectLocation = function () {
-            $scope.CustomerSearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id);
-        }
-
-        $scope.CustomerSearch = function (companyId, locationId) {
-            var p1 = new breeze.Predicate('CompanyId', '==', companyId);
-            var p2 = new breeze.Predicate('LocationId', '==', locationId);
-            var predicate = new breeze.Predicate.and([p1, p2]);
             SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
                 $scope.Customer = data;
             });
         }
 
         $scope.SelectCustomer = function () {
+            $scope.LocationSearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Customer.Id);
+        }
+
+        $scope.LocationSearch = function (companyId, customerId) {
+            var p1 = new breeze.Predicate('CompanyId', '==', companyId);
+            var p2 = new breeze.Predicate('CustomerId', '==', customerId);
+            var predicate = new breeze.Predicate.and([p1, p2]);
+            SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+                $scope.Location = data;
+            });
+        }
+
+        $scope.SelectLocation = function () {
             $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Customer.Id);
         }
 
