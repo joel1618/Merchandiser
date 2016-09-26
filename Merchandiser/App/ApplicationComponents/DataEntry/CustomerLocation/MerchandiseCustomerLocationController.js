@@ -46,47 +46,44 @@
         }
 
         $scope.CustomerSearch = function (companyId) {
-            var predicate = {
-                or: [
-                   { "Name": { '==': "Administrator" } },
-                   { "Name": { '==': "Data Entry" } }
-                ]
-            }
-            RoleService.SearchJson(predicate, 0, 2, false).then(function (data) {
-                var roles = data.map(function (e) { return e.Id; });
-                var predicate = {
-                    and: [
-                       { "UserId": { '==': $scope.UserId } },
-                       { "RoleId": { in: roles } },
-                       { "CompanyId": { '==': companyId } }
-                    ]
+            //Admin for the selected company show all customers
+            var promise = UserService.IsAdministrator(companyId);
+            promise.then(function (data) {
+                if (data == true) {
+                    $scope.IsAdministrator = true;
+                    var predicate = new breeze.Predicate('CompanyId', '==', companyId);
+                    SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+                        $scope.Customer = data;
+                    });
                 }
-                UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
-                    //Admin for the selected company show all customers
-                    if (data.length > 0) {
-                        $scope.IsAdministrator = true;
-                        var predicate = new breeze.Predicate('CompanyId', '==', companyId);
-                        SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+            });
+            var promise2 = UserService.IsDataEntry(companyId);
+            promise2.then(function (data) {
+                if (data == true) {
+                    $scope.IsAdministrator = true;
+                    var predicate = new breeze.Predicate('CompanyId', '==', companyId);
+                    SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
+                        $scope.Customer = data;
+                    });
+                }
+            });
+            var promise3 = UserService.IsCustomer(companyId);
+            promise3.then(function (data) {
+                if (data == true) {
+                    var predicate = {
+                        and: [
+                           { "UserId": { "==": $scope.UserId } },
+                           { "CompanyId": { '==': companyId } }
+                        ]
+                    }
+                    UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
+                        var customers = data.map(function (e) { return e.CustomerId; });
+                        SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, 0, 20, false).then(function (data) {
                             $scope.Customer = data;
                         });
-                    }
-                    //Not an admin so must be a customer so only show customers they are associated with.
-                    else {
-                        var predicate = {
-                            and: [
-                               { "UserId": { "==": $scope.UserId } },
-                               { "CompanyId": { '==': companyId } }
-                            ]
-                        }
-                        UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
-                            var customers = data.map(function (e) { return e.CustomerId; });
-                            SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, 0, 20, false).then(function (data) {
-                                $scope.Customer = data;
-                            });
-                        });
-                    }
-                });
-            });         
+                    });
+                }
+            });
         }
 
         $scope.SelectCustomer = function () {

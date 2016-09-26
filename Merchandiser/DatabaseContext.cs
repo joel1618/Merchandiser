@@ -32,6 +32,7 @@ namespace Merchandiser
         public DbSet<RoleViewModel> RoleViewModel { get; set; }
 
         public DbSet<UserRoleViewModel> UserRoleViewModel { get; set; }
+        public DbSet<MapViewModel> MapViewModel { get; set; }
 
         public DbSet<SurveyCustomerLocationViewModel> SurveyCustomerLocationViewModel { get; set; }
     }

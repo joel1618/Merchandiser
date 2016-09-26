@@ -97,6 +97,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                 ]
             }
             UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
+  
                 if (data.length > 0) {
                     $state.go('main.company.addedit');
                 }

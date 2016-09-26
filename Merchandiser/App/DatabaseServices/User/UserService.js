@@ -6,7 +6,7 @@
             var _self = this;
             this.deferredRequest = null;
 
-            this.GetCurrentUser = function (id) {
+            this.GetCurrentUser = function () {
                 var deferred = $q.defer();
 
                 $http({
@@ -22,73 +22,115 @@
             };
 
             this.IsAdministrator = function (companyId) {
-                var userId = GetCurrentUser();
-                var predicate = { "Name": { '==': "Administrator" } }
-                RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                    var roles = data.map(function (e) { return e.Id; });
-                    var predicate = {
-                        and: [
-                           { "UserId": { '==': userId } },
-                           { "RoleId": { '==': data[0].Id } },
-                           { "CompanyId": { '==': companyId } }
-                        ]
-                    }
-                    UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                        if (data.length > 0) {
-                            return true;
+                var deferred = $q.defer();
+
+                this.GetCurrentUser().then(function (data) {
+                    var userId = data;
+                    var predicate = { "Name": { '==': "Administrator" } }
+                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                        var roles = data.map(function (e) { return e.Id; });
+                        var predicate = {
+                            and: [
+                               { "UserId": { '==': userId } },
+                               { "RoleId": { '==': data[0].Id } },
+                               { "CompanyId": { '==': companyId } }
+                            ]
                         }
-                        else {
-                            return false;
-                        }
+                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                            if (data.length > 0) {
+                                deferred.resolve(true);
+                            }
+                            else {
+                                deferred.resolve(false);
+                            }
+                        });
                     });
                 });
+
+                return deferred.promise;
+            }
+
+            this.IsCustomer = function (companyId) {
+                var deferred = $q.defer();
+
+                this.GetCurrentUser().then(function (data) {
+                    var userId = data;
+                    var predicate = { "Name": { '==': "Customer" } }
+                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                        var roles = data.map(function (e) { return e.Id; });
+                        var predicate = {
+                            and: [
+                               { "UserId": { '==': userId } },
+                               { "RoleId": { '==': data[0].Id } },
+                               { "CompanyId": { '==': companyId } }
+                            ]
+                        }
+                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                            if (data.length > 0) {
+                                deferred.resolve(true);
+                            }
+                            else {
+                                deferred.resolve(false);
+                            }
+                        });
+                    });
+                });
+                return deferred.promise;
             }
 
             this.IsCustomer = function (companyId, customerId) {
-                var userId = GetCurrentUser();
-                var predicate = { "Name": { '==': "Customer" } }
-                RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                    var roles = data.map(function (e) { return e.Id; });
-                    var predicate = {
-                        and: [
-                           { "UserId": { '==': userId } },
-                           { "RoleId": { '==': data[0].Id } },
-                           { "CustomerId": { '==': customerId } },
-                           { "CompanyId": { '==': companyId } }
-                        ]
-                    }
-                    UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                        if (data.length > 0) {
-                            return true;
+                var deferred = $q.defer();
+                this.GetCurrentUser().then(function (data) {
+                    var userId = data;
+                    var predicate = { "Name": { '==': "Customer" } }
+                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                        var roles = data.map(function (e) { return e.Id; });
+                        var predicate = {
+                            and: [
+                               { "UserId": { '==': userId } },
+                               { "RoleId": { '==': data[0].Id } },
+                               { "CustomerId": { '==': customerId } },
+                               { "CompanyId": { '==': companyId } }
+                            ]
                         }
-                        else {
-                            return false;
-                        }
+                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                            if (data.length > 0) {
+                                deferred.resolve(true);
+                            }
+                            else {
+                                deferred.resolve(false);
+                            }
+                        });
                     });
                 });
+                return deferred.promise;
             }
 
             this.IsDataEntry = function (companyId) {
-                var userId = GetCurrentUser();
-                var predicate = { "Name": { '==': "Data Entry" } }
-                RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                    var roles = data.map(function (e) { return e.Id; });
-                    var predicate = {
-                        and: [
-                           { "UserId": { '==': userId } },
-                           { "RoleId": { '==': data[0].Id } },
-                           { "CompanyId": { '==': companyId } }
-                        ]
-                    }
-                    UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                        if (data.length > 0) {
-                            return true;
+                var deferred = $q.defer();
+                this.GetCurrentUser().then(function (data) {
+                    var userId = data;
+                    var predicate = { "Name": { '==': "Data Entry" } }
+                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                        var roles = data.map(function (e) { return e.Id; });
+                        var predicate = {
+                            and: [
+                               { "UserId": { '==': userId } },
+                               { "RoleId": { '==': data[0].Id } },
+                               { "CompanyId": { '==': companyId } }
+                            ]
                         }
-                        else {
-                            return false;
-                        }
+                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                            if (data.length > 0) {
+                                deferred.resolve(true);
+                            }
+                            else {
+                                deferred.resolve(false);
+                            }
+                        });
                     });
                 });
+                return deferred.promise;
             }
         }]);
 })();
