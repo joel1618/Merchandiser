@@ -2,29 +2,23 @@
 <div ng-controller="MapController">
     <div class="row">
         <div class="col-md-2">
-            <div ng-repeat="position in positions" ng-click="SetPosition(position)">
-                {{Position.FirstName}} {{Position.LastName}} {{Position.Created | date: 'MM/dd/yyyy'}}
-            </div>
+            <h4>Positions</h4>
+            <ul class="list-group" style="height: 75vh; overflow: hidden; overflow-y: scroll;">
+                <li class="list-group-item" ng-repeat="position in positions" ng-click="SelectPosition(position)" ng-style="position.Id === SelectedPosition.Id ? {'background-color': '#428bca'} : { 'background-color': 'white'} ">
+                    {{position.FirstName}} {{position.LastName}} {{position.Created | date: 'MM/dd/yyyy'}}
+                </li>
+            </ul>
         </div>
         <div class="col-md-10">
-            <ng-map zoom="11" center="[40.74, -74.18]">
-
-                <!--<custom-marker ng-repeat="p in vm.positions track by $index"
-                       id="custom-marker-{{$index}}"
-                       on-click="vm.map.showInfoWindow('foo', 'custom-marker-'+$index)"
-                       position="{{p.pos}}">
-                <div>
-                    position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
+            <ng-map zoom="8" center="current-location" style="height: 85vh; ">
+                <info-window id="myInfoWindow">
+                    <div ng-non-bindable>
+                        {{position.FirstName}} {{position.LastName}}
+                    </div>
+                </info-window>
+                <div ng-repeat="position in positions track by $index">
+                    <marker id="{{$index}}" position="{{position.Latitude}}, {{position.Longitude}}" on-click="SelectMarker(event, position)"></marker>
                 </div>
-            </custom-marker>
-
-            <info-window id="foo" on-mouseover="vm.mouseover()">
-                <div ng-non-bindable="">
-                    Lat: {{anchor.getPosition().lat()}}<br />
-                    Lng: {{anchor.getPosition().lng()}}<br />
-                </div>
-                </info-window>-->
-
             </ng-map>
         </div>
     </div>

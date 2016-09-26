@@ -18,6 +18,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             this.repository = new MapRepository();
         }
 
+        [HttpGet]
         public IQueryable<MapViewModel> Search()
         {
             return repository.Search().Select(x => new MapViewModel()
@@ -28,7 +29,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Created = x.Created,
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
-                Position = new decimal[] { x.Latitude.Value, x.Longitude.Value }
+                CompanyId = x.CompanyId,
+                CustomerId = x.CustomerId,
+                SurveyId = x.SurveyId,
+                LocationId = x.LocationId
             });
         }
     }

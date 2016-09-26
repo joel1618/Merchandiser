@@ -20,5 +20,9 @@ namespace Merchandiser
         public System.DateTime Created { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public System.Guid CompanyId { get; set; }
+        public System.Guid CustomerId { get; set; }
+        public System.Guid LocationId { get; set; }
+        public System.Guid SurveyId { get; set; }
     }
 }

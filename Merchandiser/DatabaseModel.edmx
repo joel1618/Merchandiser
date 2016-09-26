@@ -218,6 +218,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Created" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="SurveyId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
@@ -225,6 +229,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
@@ -595,7 +603,11 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
     [Map].[Longitude] AS [Longitude], 
     [Map].[Created] AS [Created], 
     [Map].[FirstName] AS [FirstName], 
-    [Map].[LastName] AS [LastName]
+    [Map].[LastName] AS [LastName], 
+    [Map].[CompanyId] AS [CompanyId], 
+    [Map].[CustomerId] AS [CustomerId], 
+    [Map].[LocationId] AS [LocationId], 
+    [Map].[SurveyId] AS [SurveyId]
     FROM [dbo].[Map] AS [Map]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AspNetUserRoles_Company" Association="Self.FK_AspNetUserRoles_Company">
@@ -1458,6 +1470,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Created" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="SurveyId" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
@@ -1465,6 +1481,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="CustomerId" Type="Guid" Nullable="false" />
+          <Property Name="LocationId" Type="Guid" Nullable="false" />
+          <Property Name="SurveyId" Type="Guid" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1696,6 +1716,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Maps">
             <EntityTypeMapping TypeName="MerchandiserModel.Map">
               <MappingFragment StoreEntitySet="Map">
+                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
