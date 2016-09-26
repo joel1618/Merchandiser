@@ -19,11 +19,14 @@
                 $scope.gridOptions.columnDefs.push({
                     name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
                 });
+                $scope.gridOptions.columnDefs.push({
+                    field: 'ProductName', name: 'Product Name', cellTooltip: true
+                });
                 var keys = []
                 var obj = $scope.gridOptions.data[0];
                 for (var key in obj) {
                     keys.push(key)
-                    if (key != 'Created' && !key.includes("Id")) {
+                    if ((key != 'Created' && !key.includes("Id") && !key.includes("Name"))) {
                         $scope.gridOptions.columnDefs.push({
                             name: key, cellTooltip: true
                         });

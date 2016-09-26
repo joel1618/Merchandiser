@@ -27,10 +27,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<CompanyViewModel> Search()
         {
-            var currentUserId = User.Identity.GetUserId();
-            var roleId = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault().Id;
-            var companies = userRoleRepository.Search().Where(e => e.UserId == currentUserId && e.RoleId == roleId).Select(x => x.CompanyId).ToList();
-            var companiesList = companyRepository.Search().Where(e => companies.Contains(e.Id)).Select(x => new CompanyViewModel()
+            //var currentUserId = User.Identity.GetUserId();
+            //var roleId = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault().Id;
+            //var companies = userRoleRepository.Search().Where(e => e.UserId == currentUserId && e.RoleId == roleId).Select(x => x.CompanyId).ToList();
+            var companiesList = companyRepository.Search().Select(x => new CompanyViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
