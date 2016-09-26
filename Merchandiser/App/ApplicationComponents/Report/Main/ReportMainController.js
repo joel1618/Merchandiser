@@ -22,6 +22,9 @@
                 $scope.gridOptions.columnDefs.push({
                     field: 'ProductName', name: 'Product Name', cellTooltip: true
                 });
+                $scope.gridOptions.columnDefs.push({
+                    field: 'SurveyName', name: 'Survey Name', cellTooltip: true
+                });
                 var keys = []
                 var obj = $scope.gridOptions.data[0];
                 for (var key in obj) {
@@ -76,6 +79,13 @@
                 $scope.gridOptions.data.splice(index, 1);
             }, function (error) {
                 toastr.error("There was an error deleting the survey data.");
+            });
+        }
+
+        $scope.GoTo = function (state) {
+            $state.go(state, {
+                companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
+                customerId: $stateParams.customerId, locationId: $stateParams.locationId
             });
         }
     }]);

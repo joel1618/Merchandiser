@@ -1,6 +1,6 @@
-﻿
-<div ng-controller="MapController">
-    <div class="row">
+﻿<div ng-controller="MapController">
+    <!--<div class="pull-right"><a ng-click="GoTo('reportmain')">Report</a></div>-->
+    <div>
         <div class="col-md-2">
             <h4>Positions</h4>
             <ul class="list-group" style="height: 75vh; overflow: hidden; overflow-y: scroll;">
@@ -10,7 +10,7 @@
             </ul>
         </div>
         <div class="col-md-10">
-            <ng-map zoom="8" center="current-location" style="height: 85vh; ">
+            <ng-map zoom="10" center="current-location" style="height: 75vh; ">
                 <info-window id="myInfoWindow">
                     <div ng-non-bindable>
                         {{position.FirstName}} {{position.LastName}}
@@ -21,6 +21,5 @@
                 </div>
             </ng-map>
         </div>
-    </div>
-    
+    </div>    
 </div>

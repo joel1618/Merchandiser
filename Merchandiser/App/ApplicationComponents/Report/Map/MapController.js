@@ -35,5 +35,12 @@
         $scope.SelectMarker = function (event, marker) {
             $scope.SelectedPosition = marker;
         }
+
+        $scope.GoTo = function (state) {
+            $state.go(state, {
+                companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
+                customerId: $stateParams.customerId, locationId: $stateParams.locationId
+            });
+        }
     }]);
 })(moment);

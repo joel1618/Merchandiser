@@ -86,7 +86,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
 });
 app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
-    debugger;
     UserService.GetCurrentUser().then(function (data) {
         $rootScope.UserId = data;
         var predicate = { "Name": { "==": "Administrator" } };

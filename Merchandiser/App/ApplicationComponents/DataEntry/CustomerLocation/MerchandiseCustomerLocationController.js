@@ -15,6 +15,7 @@
         RoleService, SurveyCustomerLocationService, CompanyApplicationService) {
         $scope.RedirectState = $stateParams.redirectState;
         $scope.SelectedCompany = { Id: null };
+        $scope.IsAdministrator = false;
         $scope.SelectedLocation = { Location: { Id: null }, Id: null };
         $scope.SelectedCustomer = { Customer: { Id: null }, Id: null };
         $scope.SelectedSurvey = { Survey: { Id: null }, Id: null };
@@ -45,18 +46,25 @@
         }
 
         $scope.CustomerSearch = function (companyId) {
-            var predicate = { "Name": { "==": "Customer" } };
-            RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+            var predicate = {
+                or: [
+                   { "Name": { '==': "Administrator" } },
+                   { "Name": { '==': "Data Entry" } }
+                ]
+            }
+            RoleService.SearchJson(predicate, 0, 2, false).then(function (data) {
+                var roles = data.map(function (e) { return e.Id; });
                 var predicate = {
                     and: [
-                       { "UserId": { "==": $scope.UserId } },
-                       { "RoleId": { '!=': data[0].Id } },
+                       { "UserId": { '==': $scope.UserId } },
+                       { "RoleId": { in: roles } },
                        { "CompanyId": { '==': companyId } }
                     ]
                 }
                 UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                     //Admin for the selected company show all customers
                     if (data.length > 0) {
+                        $scope.IsAdministrator = true;
                         var predicate = new breeze.Predicate('CompanyId', '==', companyId);
                         SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
                             $scope.Customer = data;
@@ -113,7 +121,34 @@
                 companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
                 customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id
             });
+        }
 
+        $scope.IsGoShown = function () {
+            if ($stateParams.redirectState == 'reportmain' || $stateParams.redirectState == 'map') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        $scope.IsGoDisabled = function () {
+            if ($scope.SelectedCompany.Id != null) {
+                if ($scope.IsAdministrator == true) {
+                    return false;
+                }
+                else {
+                    if ($scope.SelectCustomer.Id != null) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+            else {
+                return true;
+            }
         }
     }]);
 })(moment);
