@@ -3,29 +3,6 @@
     'use strict';
     var services = angular.module('ApplicationServices', []);
 })();
-angular.module('ApplicationServices').service('CompanyApplicationService', function () {
-    
-    var observers = [];
-    this.RegisterObserver = function (callback) {
-        observers.push(callback);
-    }
-
-    this.NotifyObservers = function () {
-        angular.forEach(observers, function (callback) {
-            callback();
-        });
-    };
-
-    this.SelectedCompany = null;
-    this.GetSelectedCompany = function () {
-        return SelectedCompany;
-    };
-
-    this.SetSelectedCompany = function (company) {
-        this.SelectedCompany = company;
-        this.NotifyObservers();
-    }
-});
 angular.module('ApplicationServices').service('SurveyApplicationService', function () {
     
     var observers = [];
@@ -46,6 +23,29 @@ angular.module('ApplicationServices').service('SurveyApplicationService', functi
 
     this.SetSelectedSurvey = function (survey) {
         this.SelectedSurvey = survey;
+        this.NotifyObservers();
+    }
+});
+angular.module('ApplicationServices').service('CompanyApplicationService', function () {
+    
+    var observers = [];
+    this.RegisterObserver = function (callback) {
+        observers.push(callback);
+    }
+
+    this.NotifyObservers = function () {
+        angular.forEach(observers, function (callback) {
+            callback();
+        });
+    };
+
+    this.SelectedCompany = null;
+    this.GetSelectedCompany = function () {
+        return SelectedCompany;
+    };
+
+    this.SetSelectedCompany = function (company) {
+        this.SelectedCompany = company;
         this.NotifyObservers();
     }
 });
@@ -78,8 +78,9 @@ angular.module('ApplicationServices').service('SurveyApplicationService', functi
         //meta.setEntityTypeForResourceName("UserRoleApi/Search", "Company");
         //meta.setEntityTypeForResourceName("UserRoleApi/Search", "AspNetUser");
         //meta.setEntityTypeForResourceName("UserRoleApi/Search", "AspNetRole");
-
         meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
+        meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
+        meta.setEntityTypeForResourceName("SurveyCustomerLocationApi/Search", "SurveyCustomerLocationViewModel");
         meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
         var service = {
             executeQuery: executeQuery,
@@ -102,140 +103,9 @@ angular.module('ApplicationServices').service('SurveyApplicationService', functi
     }
 })();
 window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
-{"schema":{"namespace":"Merchandiser","alias":"Self","annotation:UseStrongSpatialTypes":"false","xmlns:annotation":"http://schemas.microsoft.com/ado/2009/02/edm/annotation","xmlns:customannotation":"http://schemas.microsoft.com/ado/2013/11/edm/customannotation","xmlns":"http://schemas.microsoft.com/ado/2009/11/edm","cSpaceOSpaceMapping":"[[\"Merchandiser.CompanyViewModel\",\"Merchandiser.Models.CompanyViewModel\"],[\"Merchandiser.RoleViewModel\",\"Merchandiser.Models.RoleViewModel\"],[\"Merchandiser.UserRoleViewModel\",\"Merchandiser.Models.UserRoleViewModel\"],[\"Merchandiser.CustomerViewModel\",\"Merchandiser.Models.CustomerViewModel\"],[\"Merchandiser.UserViewModel\",\"Merchandiser.Models.UserViewModel\"]]","entityType":[{"name":"CompanyViewModel","customannotation:ClrType":"Merchandiser.Models.CompanyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"RoleViewModel","customannotation:ClrType":"Merchandiser.Models.RoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserRoleViewModel","customannotation:ClrType":"Merchandiser.Models.UserRoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"Company","relationship":"Self.UserRoleViewModel_Company","fromRole":"UserRoleViewModel_Company_Source","toRole":"UserRoleViewModel_Company_Target"},{"name":"Customer","relationship":"Self.UserRoleViewModel_Customer","fromRole":"UserRoleViewModel_Customer_Source","toRole":"UserRoleViewModel_Customer_Target"},{"name":"Role","relationship":"Self.UserRoleViewModel_Role","fromRole":"UserRoleViewModel_Role_Source","toRole":"UserRoleViewModel_Role_Target"},{"name":"User","relationship":"Self.UserRoleViewModel_User","fromRole":"UserRoleViewModel_User_Source","toRole":"UserRoleViewModel_User_Target"}]},{"name":"CustomerViewModel","customannotation:ClrType":"Merchandiser.Models.CustomerViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserViewModel","customannotation:ClrType":"Merchandiser.Models.UserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]}],"association":[{"name":"UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Role_Target","type":"Edm.Self.RoleViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Role_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Role_Source","propertyRef":{"name":"RoleId"}}}},{"name":"UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_User_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_User_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_User_Source","propertyRef":{"name":"UserId"}}}}],"entityContainer":{"name":"DatabaseContext","customannotation:UseClrTypes":"true","entitySet":[{"name":"CompanyViewModel","entityType":"Self.CompanyViewModel"},{"name":"RoleViewModel","entityType":"Self.RoleViewModel"},{"name":"UserRoleViewModel","entityType":"Self.UserRoleViewModel"},{"name":"CustomerViewModels","entityType":"Self.CustomerViewModel"},{"name":"UserViewModels","entityType":"Self.UserViewModel"}],"associationSet":[{"name":"UserRoleViewModel_Company","association":"Self.UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"UserRoleViewModel_Customer","association":"Self.UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Customer_Target","entitySet":"CustomerViewModels"}]},{"name":"UserRoleViewModel_Role","association":"Self.UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Role_Target","entitySet":"RoleViewModel"}]},{"name":"UserRoleViewModel_User","association":"Self.UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_User_Target","entitySet":"UserViewModels"}]}]}}}
+{"schema":{"namespace":"Merchandiser","alias":"Self","annotation:UseStrongSpatialTypes":"false","xmlns:annotation":"http://schemas.microsoft.com/ado/2009/02/edm/annotation","xmlns:customannotation":"http://schemas.microsoft.com/ado/2013/11/edm/customannotation","xmlns":"http://schemas.microsoft.com/ado/2009/11/edm","cSpaceOSpaceMapping":"[[\"Merchandiser.CompanyViewModel\",\"Merchandiser.Models.CompanyViewModel\"],[\"Merchandiser.CustomerViewModel\",\"Merchandiser.Models.CustomerViewModel\"],[\"Merchandiser.RoleViewModel\",\"Merchandiser.Models.RoleViewModel\"],[\"Merchandiser.SurveyCustomerLocationViewModel\",\"Merchandiser.Models.SurveyCustomerLocationViewModel\"],[\"Merchandiser.LocationViewModel\",\"Merchandiser.Models.LocationViewModel\"],[\"Merchandiser.SurveyViewModel\",\"Merchandiser.Models.SurveyViewModel\"],[\"Merchandiser.UserRoleViewModel\",\"Merchandiser.Models.UserRoleViewModel\"],[\"Merchandiser.UserViewModel\",\"Merchandiser.Models.UserViewModel\"]]","entityType":[{"name":"CompanyViewModel","customannotation:ClrType":"Merchandiser.Models.CompanyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"CustomerViewModel","customannotation:ClrType":"Merchandiser.Models.CustomerViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"RoleViewModel","customannotation:ClrType":"Merchandiser.Models.RoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyCustomerLocationViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyCustomerLocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Customer","relationship":"Self.SurveyCustomerLocationViewModel_Customer","fromRole":"SurveyCustomerLocationViewModel_Customer_Source","toRole":"SurveyCustomerLocationViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyCustomerLocationViewModel_Location","fromRole":"SurveyCustomerLocationViewModel_Location_Source","toRole":"SurveyCustomerLocationViewModel_Location_Target"},{"name":"Survey","relationship":"Self.SurveyCustomerLocationViewModel_Survey","fromRole":"SurveyCustomerLocationViewModel_Survey_Source","toRole":"SurveyCustomerLocationViewModel_Survey_Target"}]},{"name":"LocationViewModel","customannotation:ClrType":"Merchandiser.Models.LocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2","nullable":"false"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2","nullable":"false"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserRoleViewModel","customannotation:ClrType":"Merchandiser.Models.UserRoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"Company","relationship":"Self.UserRoleViewModel_Company","fromRole":"UserRoleViewModel_Company_Source","toRole":"UserRoleViewModel_Company_Target"},{"name":"Customer","relationship":"Self.UserRoleViewModel_Customer","fromRole":"UserRoleViewModel_Customer_Source","toRole":"UserRoleViewModel_Customer_Target"},{"name":"Role","relationship":"Self.UserRoleViewModel_Role","fromRole":"UserRoleViewModel_Role_Source","toRole":"UserRoleViewModel_Role_Target"},{"name":"User","relationship":"Self.UserRoleViewModel_User","fromRole":"UserRoleViewModel_User_Source","toRole":"UserRoleViewModel_User_Target"}]},{"name":"UserViewModel","customannotation:ClrType":"Merchandiser.Models.UserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]}],"association":[{"name":"SurveyCustomerLocationViewModel_Customer","end":[{"role":"SurveyCustomerLocationViewModel_Customer_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyCustomerLocationViewModel_Location","end":[{"role":"SurveyCustomerLocationViewModel_Location_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyCustomerLocationViewModel_Survey","end":[{"role":"SurveyCustomerLocationViewModel_Survey_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Role_Target","type":"Edm.Self.RoleViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Role_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Role_Source","propertyRef":{"name":"RoleId"}}}},{"name":"UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_User_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_User_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_User_Source","propertyRef":{"name":"UserId"}}}}],"entityContainer":{"name":"DatabaseContext","customannotation:UseClrTypes":"true","entitySet":[{"name":"CompanyViewModel","entityType":"Self.CompanyViewModel"},{"name":"CustomerViewModel","entityType":"Self.CustomerViewModel"},{"name":"RoleViewModel","entityType":"Self.RoleViewModel"},{"name":"SurveyCustomerLocationViewModel","entityType":"Self.SurveyCustomerLocationViewModel"},{"name":"LocationViewModels","entityType":"Self.LocationViewModel"},{"name":"SurveyViewModels","entityType":"Self.SurveyViewModel"},{"name":"UserRoleViewModel","entityType":"Self.UserRoleViewModel"},{"name":"UserViewModels","entityType":"Self.UserViewModel"}],"associationSet":[{"name":"SurveyCustomerLocationViewModel_Customer","association":"Self.SurveyCustomerLocationViewModel_Customer","end":[{"role":"SurveyCustomerLocationViewModel_Customer_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyCustomerLocationViewModel_Location","association":"Self.SurveyCustomerLocationViewModel_Location","end":[{"role":"SurveyCustomerLocationViewModel_Location_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyCustomerLocationViewModel_Survey","association":"Self.SurveyCustomerLocationViewModel_Survey","end":[{"role":"SurveyCustomerLocationViewModel_Survey_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"UserRoleViewModel_Company","association":"Self.UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"UserRoleViewModel_Customer","association":"Self.UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"UserRoleViewModel_Role","association":"Self.UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Role_Target","entitySet":"RoleViewModel"}]},{"name":"UserRoleViewModel_User","association":"Self.UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_User_Target","entitySet":"UserViewModels"}]}]}}}
 );
 
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
-    .service('CustomerService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-        var _self = this;
-        this.deferredRequest = null;
-
-        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
-            cancelExistingSearch = cancelExistingSearch || false;
-
-            if (this.deferredRequest !== null && cancelExistingSearch) {
-                this.deferredRequest.reject("Cancelled Search Request.");
-                this.deferredRequest = null;
-            }
-            var deferred = $q.defer();
-            var query = breeze.EntityQuery.from('CustomerApi/Search');
-            if (predicate != null) {
-                query = query.where(predicate);
-            }
-            query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
-                        
-            breezeservice.executeQuery(query).then(function (data) {
-                deferred.resolve(data.httpResponse.data);
-                _self.deferredRequest = null;
-            }, function (msg, code) {
-                deferred.reject(msg);
-                _self.deferredRequest = null;
-            });
-            
-            this.deferredRequest = deferred;
-
-            return deferred.promise;
-        };
-
-        this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
-            cancelExistingSearch = cancelExistingSearch || false;
-
-            if (this.deferredRequest !== null && cancelExistingSearch) {
-                this.deferredRequest.reject("Cancelled Search Request.");
-                this.deferredRequest = null;
-            }
-            var deferred = $q.defer();
-
-            var query = new breeze.EntityQuery({
-                from: "CustomerApi/Search",
-                where: predicate,
-                orderBy: ["Created desc"],
-                skip: page * pageSize,
-                take: pageSize
-            });
-
-            breezeservice.executeQuery(query).then(function (data) {
-                deferred.resolve(data.httpResponse.data);
-                _self.deferredRequest = null;
-            }, function (msg, code) {
-                deferred.reject(msg);
-                _self.deferredRequest = null;
-            });
-
-            this.deferredRequest = deferred;
-
-            return deferred.promise;
-        };
-
-        this.Get = function (id) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'Get',
-                url: '/breeze/CustomerApi/Get/' + id,
-            }).success(function (data, status, headers, config) {
-                deferred.resolve(data);
-            }).error(function (msg, code) {
-                deferred.reject(msg);
-            });
-
-            return deferred.promise;
-        };
-
-        this.Create = function (item) {
-            var deferred = $q.defer();
-
-            $http.post('/breeze/CustomerApi/Create', item)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.statusText.length > 0) {
-                    deferred.reject(response.statusText);
-                } else {
-                    deferred.reject("Failed to create the record.");
-                }
-            });
-
-            return deferred.promise;
-        };
-
-        this.Update = function (id, item) {
-            var deferred = $q.defer();
-            $http.put('/breeze/CustomerApi/Update/' + id, item)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.statusText.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to update the record.");
-                }
-            });
-
-            return deferred.promise;
-        }
-
-        this.Delete = function (id) {
-            var deferred = $q.defer();
-
-            $http.delete('/breeze/CustomerApi/Delete/' + id)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.statusText.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to delete the record.");
-                }
-            });
-
-            return deferred.promise;
-        }
-    }]);
-})();
 (function () {
     "use strict";
     angular.module('DatabaseServices')
@@ -455,6 +325,137 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             var deferred = $q.defer();
 
             $http.delete('/breeze/CompanyUserApi/Delete/' + id)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to delete the record.");
+                }
+            });
+
+            return deferred.promise;
+        }
+    }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('CustomerService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+        var _self = this;
+        this.deferredRequest = null;
+
+        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+            cancelExistingSearch = cancelExistingSearch || false;
+
+            if (this.deferredRequest !== null && cancelExistingSearch) {
+                this.deferredRequest.reject("Cancelled Search Request.");
+                this.deferredRequest = null;
+            }
+            var deferred = $q.defer();
+            var query = breeze.EntityQuery.from('CustomerApi/Search');
+            if (predicate != null) {
+                query = query.where(predicate);
+            }
+            query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
+                        
+            breezeservice.executeQuery(query).then(function (data) {
+                deferred.resolve(data.httpResponse.data);
+                _self.deferredRequest = null;
+            }, function (msg, code) {
+                deferred.reject(msg);
+                _self.deferredRequest = null;
+            });
+            
+            this.deferredRequest = deferred;
+
+            return deferred.promise;
+        };
+
+        this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
+            cancelExistingSearch = cancelExistingSearch || false;
+
+            if (this.deferredRequest !== null && cancelExistingSearch) {
+                this.deferredRequest.reject("Cancelled Search Request.");
+                this.deferredRequest = null;
+            }
+            var deferred = $q.defer();
+
+            var query = new breeze.EntityQuery({
+                from: "CustomerApi/Search",
+                where: predicate,
+                orderBy: ["Created desc"],
+                skip: page * pageSize,
+                take: pageSize
+            });
+
+            breezeservice.executeQuery(query).then(function (data) {
+                deferred.resolve(data.httpResponse.data);
+                _self.deferredRequest = null;
+            }, function (msg, code) {
+                deferred.reject(msg);
+                _self.deferredRequest = null;
+            });
+
+            this.deferredRequest = deferred;
+
+            return deferred.promise;
+        };
+
+        this.Get = function (id) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'Get',
+                url: '/breeze/CustomerApi/Get/' + id,
+            }).success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            }).error(function (msg, code) {
+                deferred.reject(msg);
+            });
+
+            return deferred.promise;
+        };
+
+        this.Create = function (item) {
+            var deferred = $q.defer();
+
+            $http.post('/breeze/CustomerApi/Create', item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response.statusText);
+                } else {
+                    deferred.reject("Failed to create the record.");
+                }
+            });
+
+            return deferred.promise;
+        };
+
+        this.Update = function (id, item) {
+            var deferred = $q.defer();
+            $http.put('/breeze/CustomerApi/Update/' + id, item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to update the record.");
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        this.Delete = function (id) {
+            var deferred = $q.defer();
+
+            $http.delete('/breeze/CustomerApi/Delete/' + id)
             .then(function (response) {
                 deferred.resolve(response);
             }, function (response) {
@@ -1146,6 +1147,36 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
                 _self.deferredRequest = null;
             });
             
+            this.deferredRequest = deferred;
+
+            return deferred.promise;
+        };
+
+        this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
+            cancelExistingSearch = cancelExistingSearch || false;
+
+            if (this.deferredRequest !== null && cancelExistingSearch) {
+                this.deferredRequest.reject("Cancelled Search Request.");
+                this.deferredRequest = null;
+            }
+            var deferred = $q.defer();
+
+            var query = new breeze.EntityQuery({
+                from: "SurveyCustomerLocationApi/Search",
+                where: predicate,
+                //orderBy: ["Customer.Name desc"],
+                skip: page * pageSize,
+                take: pageSize
+            });
+
+            breezeservice.executeQuery(query).then(function (data) {
+                deferred.resolve(data.httpResponse.data);
+                _self.deferredRequest = null;
+            }, function (msg, code) {
+                deferred.reject(msg);
+                _self.deferredRequest = null;
+            });
+
             this.deferredRequest = deferred;
 
             return deferred.promise;
@@ -1939,6 +1970,70 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 })(moment);
 (function (moment) {
     "use strict";    
+    angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
+        CompanyApplicationService.NotifyObservers();
+        $scope.Init = function () {
+            $scope.item = { Id: null, Name: "" }
+        }
+        $scope.Init();
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                CustomerService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                CustomerService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    alert(error);
+                });
+            }
+            else {
+                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                CustomerService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    alert(error);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('CustomerController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
+        $scope.Search = function () {
+            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
+            CustomerService.Search(predicate, 0, 100, false).then(function (data) {
+                $scope.items = data;
+            });
+        }
+        $scope.Search();
+
+        $scope.Edit = function (Id) {
+            $state.go('main.customer.addedit', { id: Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            CustomerService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
     angular.module('Main').controller('LocationAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService', 'CompanyApplicationService', 'SurveyApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService, CompanyApplicationService, SurveyApplicationService) {
         CompanyApplicationService.NotifyObservers();
@@ -1997,70 +2092,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 
         $scope.Delete = function (Id) {
             LocationService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
-        CompanyApplicationService.NotifyObservers();
-        $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
-        }
-        $scope.Init();
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                CustomerService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                CustomerService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    alert(error);
-                });
-            }
-            else {
-                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
-                CustomerService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    alert(error);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('CustomerController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
-        $scope.Search = function () {
-            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            CustomerService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.items = data;
-            });
-        }
-        $scope.Search();
-
-        $scope.Edit = function (Id) {
-            $state.go('main.customer.addedit', { id: Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            CustomerService.Delete(Id).then(function (data) {
                 $scope.Search();
             })
         }
@@ -2637,7 +2668,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                         }
                         UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                             var customers = data.map(function (e) { return e.CustomerId; });
-                            CustomerService.SearchJson({ "Id": { in: customers } }, 0, 20, false).then(function (data) {
+                            SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, 0, 20, false).then(function (data) {
                                 $scope.Customer = data;
                             });
                         });
@@ -2695,7 +2726,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                     return false;
                 }
                 else {
-                    if ($scope.SelectCustomer.Id != null) {
+                    if ($scope.SelectedCustomer.Id != null) {
                         return false;
                     }
                     else {

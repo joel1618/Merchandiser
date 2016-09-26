@@ -23,8 +23,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<CustomerViewModel> Search()
         {
-            var currentUserId = User.Identity.GetUserId();
-            return customerRepository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new CustomerViewModel()
+            return customerRepository.Search().Select(x => new CustomerViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,

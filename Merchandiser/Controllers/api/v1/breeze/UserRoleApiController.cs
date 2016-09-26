@@ -34,6 +34,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 UserId = x.UserId,
                 RoleId = x.RoleId,
                 CompanyId = x.CompanyId,
+                CustomerId = x.CustomerId,
                 Company = new CompanyViewModel()
                 {
                     Id = x.Company.Id,
@@ -50,7 +51,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.AspNetRole.Id,
                     Name = x.AspNetRole.Name
-                }
+                },
+                Customer = x.Customer != null ? new CustomerViewModel()
+                {
+                    Id = x.Customer.Id,
+                    Name = x.Customer.Name
+                } : null
             });
             return response;
         }

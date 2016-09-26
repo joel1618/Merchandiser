@@ -27,8 +27,12 @@ namespace Merchandiser
         }
         public DbSet<CompanyViewModel> CompanyViewModel { get; set; }
 
+        public DbSet<CustomerViewModel> CustomerViewModel { get; set; }
+
         public DbSet<RoleViewModel> RoleViewModel { get; set; }
 
         public DbSet<UserRoleViewModel> UserRoleViewModel { get; set; }
+
+        public DbSet<SurveyCustomerLocationViewModel> SurveyCustomerLocationViewModel { get; set; }
     }
 }

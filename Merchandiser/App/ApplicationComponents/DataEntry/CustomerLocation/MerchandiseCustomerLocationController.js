@@ -80,7 +80,7 @@
                         }
                         UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                             var customers = data.map(function (e) { return e.CustomerId; });
-                            CustomerService.SearchJson({ "Id": { in: customers } }, 0, 20, false).then(function (data) {
+                            SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, 0, 20, false).then(function (data) {
                                 $scope.Customer = data;
                             });
                         });
@@ -138,7 +138,7 @@
                     return false;
                 }
                 else {
-                    if ($scope.SelectCustomer.Id != null) {
+                    if ($scope.SelectedCustomer.Id != null) {
                         return false;
                     }
                     else {
