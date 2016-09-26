@@ -1,4 +1,32 @@
-﻿<script src="https://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places"></script>
+﻿
 <div ng-controller="MapController">
-    <ng-map zoom="11" center="[40.74, -74.18]"></ng-map>
+    <div class="row">
+        <div class="col-md-2">
+            <div ng-repeat="position in positions" ng-click="SetPosition(position)">
+                {{Position.FirstName}} {{Position.LastName}} {{Position.Created | date: 'MM/dd/yyyy'}}
+            </div>
+        </div>
+        <div class="col-md-10">
+            <ng-map zoom="11" center="[40.74, -74.18]">
+
+                <!--<custom-marker ng-repeat="p in vm.positions track by $index"
+                       id="custom-marker-{{$index}}"
+                       on-click="vm.map.showInfoWindow('foo', 'custom-marker-'+$index)"
+                       position="{{p.pos}}">
+                <div>
+                    position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
+                </div>
+            </custom-marker>
+
+            <info-window id="foo" on-mouseover="vm.mouseover()">
+                <div ng-non-bindable="">
+                    Lat: {{anchor.getPosition().lat()}}<br />
+                    Lng: {{anchor.getPosition().lng()}}<br />
+                </div>
+                </info-window>-->
+
+            </ng-map>
+        </div>
+    </div>
+    
 </div>

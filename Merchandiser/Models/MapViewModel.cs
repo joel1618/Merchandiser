@@ -8,6 +8,7 @@ namespace Merchandiser.Models
     public class MapViewModel
     {
         public Guid Id { get; set; }
+        public decimal[] Position { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
         public DateTime Created { get; set; }

@@ -27,7 +27,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 LastName = x.LastName,
                 Created = x.Created,
                 Latitude = x.Latitude,
-                Longitude = x.Longitude
+                Longitude = x.Longitude,
+                Position = new decimal[] { x.Latitude.Value, x.Longitude.Value }
             });
         }
     }
