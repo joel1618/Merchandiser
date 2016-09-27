@@ -10,15 +10,17 @@
     angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
         'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'CompanyApplicationService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
+        'SelectionApplicationService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, CompanyApplicationService, SurveyHeaderService, SurveyDetailService, ImageService) {
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, CompanyApplicationService, SurveyHeaderService, SurveyDetailService, ImageService,
+        SelectionApplicationService) {
         $scope.BeforeImage = null;
         $scope.AfterImage = null;
         $scope.Header = {
             BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null,
-            CompanyId: $stateParams.companyId, SurveyId: $stateParams.surveyId,
-            CustomerId: $stateParams.customerId, LocationId: $stateParams.locationId
+            CompanyId: SelectionApplicationService.GetCompanyId(), SurveyId: SelectionApplicationService.GetSurveyId(),
+            CustomerId: SelectionApplicationService.GetCustomerId(), LocationId: SelectionApplicationService.GetLocationId()
         }
         navigator.geolocation.getCurrentPosition(function (position) {
             $scope.Header.Latitude = position.coords.latitude;

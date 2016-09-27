@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationService', 'CompanyApplicationService',
+        'RoleService', 'SurveyCustomerLocationService', 'CompanyApplicationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationService, CompanyApplicationService) {
+        RoleService, SurveyCustomerLocationService, CompanyApplicationService, SelectionApplicationService) {
         $scope.RedirectState = $stateParams.redirectState;
         $scope.SelectedCompany = { Id: null };
         $scope.IsAdministrator = false;
@@ -42,6 +42,7 @@
         $scope.Search();
 
         $scope.SelectCompany = function () {
+            SelectionApplicationService.SetCompanyId($scope.SelectedCompany.Id);
             $scope.CustomerSearch($scope.SelectedCompany.Id);
         }
 
@@ -94,6 +95,7 @@
         }
 
         $scope.SelectCustomer = function () {
+            SelectionApplicationService.SetCustomerId($scope.SelectedCustomer.Id);
             $scope.LocationSearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Customer.Id);
         }
 
@@ -114,6 +116,7 @@
         }
 
         $scope.SelectLocation = function () {
+            SelectionApplicationService.SetLocationId($scope.SelectedLocation.Id);
             $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Customer.Id);
         }
 
@@ -128,10 +131,8 @@
         }
 
         $scope.SelectSurvey = function () {
-            $state.go($stateParams.redirectState, {
-                companyId: $scope.SelectedCompany.Id, surveyId: $scope.SelectedSurvey.Survey.Id,
-                customerId: $scope.SelectedCustomer.Customer.Id, locationId: $scope.SelectedLocation.Location.Id
-            });
+            SelectionApplicationService.SetSurveyId($scope.SelectedSurvey.Id);
+            $state.go($stateParams.redirectState);
         }
 
         $scope.IsGoShown = function () {

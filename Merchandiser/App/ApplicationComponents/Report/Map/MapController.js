@@ -8,15 +8,15 @@
         })
     });
     angular.module('Main').controller('MapController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'MapService','SurveyHeaderService',
+        '$timeout', 'breezeservice', 'breeze', 'MapService', 'SurveyHeaderService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, NgMap, $http, $location,
-        $timeout, breezeservice, breeze, MapService, SurveyHeaderService) {
+        $timeout, breezeservice, breeze, MapService, SurveyHeaderService, SelectionApplicationService) {
         $scope.SelectedPosition = null;
         $scope.Search = function () {
-            var p1 = new breeze.Predicate('CompanyId', '==', $stateParams.companyId);
-            var p2 = new breeze.Predicate('CustomerId', '==', $stateParams.customerId);
-            var p3 = new breeze.Predicate('LocationId', '==', $stateParams.locationId);
-            var p4 = new breeze.Predicate('SurveyId', '==', $stateParams.surveyId);
+            var p1 = new breeze.Predicate('CompanyId', '==', SelectionApplicationService.GetCompanyId());
+            var p2 = new breeze.Predicate('CustomerId', '==', SelectionApplicationService.GetCustomerId());
+            var p3 = new breeze.Predicate('LocationId', '==', SelectionApplicationService.GetLocationId());
+            var p4 = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId());
             var predicate = new breeze.Predicate.and([p1, p2, p3, p4]);
             MapService.Search(predicate, 0, 1000, false).then(function (data) {
                 $scope.positions = data;
@@ -34,13 +34,6 @@
 
         $scope.SelectMarker = function (event, marker) {
             $scope.SelectedPosition = marker;
-        }
-
-        $scope.GoTo = function (state) {
-            $state.go(state, {
-                companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
-                customerId: $stateParams.customerId, locationId: $stateParams.locationId
-            });
         }
     }]);
 })(moment);

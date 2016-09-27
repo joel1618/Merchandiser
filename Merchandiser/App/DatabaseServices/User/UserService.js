@@ -21,6 +21,21 @@
                 return deferred.promise;
             };
 
+            this.GetCurrentUsername = function () {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/UserApi/GetCurrentUsername/',
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
             this.IsAdministrator = function (companyId) {
                 var deferred = $q.defer();
 

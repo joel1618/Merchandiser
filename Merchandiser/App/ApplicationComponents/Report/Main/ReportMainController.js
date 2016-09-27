@@ -8,13 +8,11 @@
         })
     });
     angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$stateParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'ReportService','SurveyHeaderService',
+        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location,
-        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService) {
+        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService) {
         $scope.Search = function () {
-            if ($stateParams.customerId == "") { $stateParams.customerId = null }
-            if ($stateParams.locationId == "") { $stateParams.locationId = null }
-            ReportService.Search($stateParams.companyId, null, $stateParams.customerId, $stateParams.locationId, null, null, null, 0, 10000).then(function (data) {
+            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, null, null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 $scope.gridOptions.columnDefs.push({
                     name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
@@ -65,11 +63,8 @@
         };
 
         $scope.Edit = function (row) {
-            debugger;
-            $state.go('survey', {
-                companyId: row.CompanyId, surveyId: row.SurveyId,
-                customerId: row.CustomerId, locationId: row.LocationId, surveyHeaderId: row.Id
-            });
+            SelectionApplicationService.SetSurveyHeaderId = row.Id;
+            $state.go('main.survey');
         }
 
         $scope.Delete = function(id){
@@ -79,13 +74,6 @@
                 $scope.gridOptions.data.splice(index, 1);
             }, function (error) {
                 toastr.error("There was an error deleting the survey data.");
-            });
-        }
-
-        $scope.GoTo = function (state) {
-            $state.go(state, {
-                companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
-                customerId: $stateParams.customerId, locationId: $stateParams.locationId
             });
         }
     }]);

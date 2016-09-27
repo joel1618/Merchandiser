@@ -17,5 +17,12 @@ namespace Merchandiser.Controllers.api.v1
             var user = User.Identity.GetUserId();
             return Ok(user);
         }
+
+        [HttpGet]
+        public IHttpActionResult GetCurrentUsername()
+        {
+            var user = User.Identity.GetUserName();
+            return Ok(user);
+        }
     }
 }
