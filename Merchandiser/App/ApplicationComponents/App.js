@@ -89,28 +89,28 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "/App/ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
         })
 });
-//app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
-//    UserService.GetCurrentUser().then(function (data) {
-//        $rootScope.UserId = data;
-//        var predicate = { "Name": { "==": "Administrator" } };
-//        RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-//            var predicate = {
-//                and: [
-//                   { "UserId": { "==": $rootScope.UserId } },
-//                   { "RoleId": { '==': data[0].Id } }
-//                ]
-//            }
-//            UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
+app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
+    UserService.GetCurrentUser().then(function (data) {
+        $rootScope.UserId = data;
+        var predicate = { "Name": { "==": "Administrator" } };
+        RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+            var predicate = {
+                and: [
+                   { "UserId": { "==": $rootScope.UserId } },
+                   { "RoleId": { '==': data[0].Id } }
+                ]
+            }
+            UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
   
-//                if (data.length > 0) {
-//                    $state.go('main.admin.company.addedit');
-//                }
-//                else {
-//                    $state.go('merchandise', {
-//                        redirectState: 'reportmain'
-//                    });
-//                }
-//            });
-//        });
-//    });
-//});
+                if (data.length > 0) {
+                    $state.go('main.admin.company.addedit');
+                }
+                else {
+                    $state.go('merchandise', {
+                        redirectState: 'main.reportmain'
+                    });
+                }
+            });
+        });
+    });
+});
