@@ -100,14 +100,31 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                    { "RoleId": { '==': data[0].Id } }
                 ]
             }
-            UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
-  
+            UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {  
                 if (data.length > 0) {
                     $state.go('main.admin.company.addedit');
                 }
                 else {
-                    $state.go('merchandise', {
-                        redirectState: 'main.reportmain'
+                    var predicate = { "Name": { "==": "Data Entry" } };
+                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                        var predicate = {
+                            and: [
+                               { "UserId": { "==": $rootScope.UserId } },
+                               { "RoleId": { '==': data[0].Id } }
+                            ]
+                        }
+                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                            if (data.length > 0) {
+                                $state.go('merchandise', {
+                                    redirectState: 'main.survey'
+                                });
+                            }
+                            else {
+                                $state.go('merchandise', {
+                                    redirectState: 'main.reportmain'
+                                });
+                            }
+                        });
                     });
                 }
             });

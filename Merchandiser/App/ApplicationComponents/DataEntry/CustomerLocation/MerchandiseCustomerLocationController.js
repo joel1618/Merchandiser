@@ -79,7 +79,14 @@
                     UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                         var customers = data.map(function (e) { return e.CustomerId; });
                         SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, 0, 20, false).then(function (data) {
-                            $scope.Customer = data;
+                            if (data.length == 1) {
+                                $scope.Customer = data;
+                                $scope.SelectedCustomer = data[0];
+                                $scope.SelectCustomer();
+                            }
+                            else {
+                                $scope.Customer = data;
+                            }
                         });
                     });
                 }
@@ -95,7 +102,14 @@
             var p2 = new breeze.Predicate('CustomerId', '==', customerId);
             var predicate = new breeze.Predicate.and([p1, p2]);
             SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.Location = data;
+                if (data.length == 1) {
+                    $scope.Location = data;
+                    $scope.SelectedLocation = data[0];
+                    $scope.SelectLocation();
+                }
+                else {
+                    $scope.Location = data;
+                }
             });
         }
 

@@ -1946,31 +1946,48 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "/App/ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
         })
 });
-//app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
-//    UserService.GetCurrentUser().then(function (data) {
-//        $rootScope.UserId = data;
-//        var predicate = { "Name": { "==": "Administrator" } };
-//        RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-//            var predicate = {
-//                and: [
-//                   { "UserId": { "==": $rootScope.UserId } },
-//                   { "RoleId": { '==': data[0].Id } }
-//                ]
-//            }
-//            UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
-  
-//                if (data.length > 0) {
-//                    $state.go('main.admin.company.addedit');
-//                }
-//                else {
-//                    $state.go('merchandise', {
-//                        redirectState: 'reportmain'
-//                    });
-//                }
-//            });
-//        });
-//    });
-//});
+app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
+    UserService.GetCurrentUser().then(function (data) {
+        $rootScope.UserId = data;
+        var predicate = { "Name": { "==": "Administrator" } };
+        RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+            var predicate = {
+                and: [
+                   { "UserId": { "==": $rootScope.UserId } },
+                   { "RoleId": { '==': data[0].Id } }
+                ]
+            }
+            UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {  
+                if (data.length > 0) {
+                    $state.go('main.admin.company.addedit');
+                }
+                else {
+                    var predicate = { "Name": { "==": "Data Entry" } };
+                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                        var predicate = {
+                            and: [
+                               { "UserId": { "==": $rootScope.UserId } },
+                               { "RoleId": { '==': data[0].Id } }
+                            ]
+                        }
+                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                            if (data.length > 0) {
+                                $state.go('merchandise', {
+                                    redirectState: 'main.survey'
+                                });
+                            }
+                            else {
+                                $state.go('merchandise', {
+                                    redirectState: 'main.reportmain'
+                                });
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    });
+});
 (function (moment) {
     "use strict";    
     angular.module('Main').controller('MainController', ['$scope', '$state', 'CompanyApplicationService', 'SurveyApplicationService',
@@ -2794,7 +2811,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                         var customers = data.map(function (e) { return e.CustomerId; });
                         SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, 0, 20, false).then(function (data) {
-                            $scope.Customer = data;
+                            if (data.length == 1) {
+                                $scope.Customer = data;
+                                $scope.SelectedCustomer = data[0];
+                                $scope.SelectCustomer();
+                            }
+                            else {
+                                $scope.Customer = data;
+                            }
                         });
                     });
                 }
@@ -2810,7 +2834,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             var p2 = new breeze.Predicate('CustomerId', '==', customerId);
             var predicate = new breeze.Predicate.and([p1, p2]);
             SurveyCustomerLocationService.Search(predicate, 0, 100, false).then(function (data) {
-                $scope.Location = data;
+                if (data.length == 1) {
+                    $scope.Location = data;
+                    $scope.SelectedLocation = data[0];
+                    $scope.SelectLocation();
+                }
+                else {
+                    $scope.Location = data;
+                }
             });
         }
 
@@ -2978,7 +3009,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     promises.push(promise);
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
-                        $state.go('survey', {
+                        $state.go('main.survey', {
                             companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
                             customerId: $stateParams.customerId, locationId: $stateParams.locationId, surveyHeaderId: data.data.Id
                         });
