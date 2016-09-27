@@ -112,7 +112,7 @@
                     promises.push(promise);
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
-                        $state.go('survey', {
+                        $state.go('main.survey', {
                             companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
                             customerId: $stateParams.customerId, locationId: $stateParams.locationId, surveyHeaderId: data.data.Id
                         });
