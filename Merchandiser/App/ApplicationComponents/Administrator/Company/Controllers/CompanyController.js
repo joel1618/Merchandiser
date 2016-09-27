@@ -16,7 +16,7 @@
         $scope.Search();
 
         $scope.Edit = function (Id) {
-            $state.go('main.company.addedit', { id: Id }, { reload: false });
+            $state.go('main.admin.company.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {

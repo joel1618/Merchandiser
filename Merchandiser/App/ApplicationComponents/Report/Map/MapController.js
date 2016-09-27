@@ -2,7 +2,7 @@
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('map', {
+        .state('main.map', {
             url: "/map/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
             templateUrl: "/App/ApplicationComponents/Report/Map/Map.html"
         })

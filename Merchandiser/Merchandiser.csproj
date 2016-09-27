@@ -395,9 +395,9 @@
     <Content Include="App\ApplicationComponents\Administrator\Location\Controllers\LocationController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Location\Views\Location.html" />
     <Content Include="App\ApplicationComponents\Administrator\Location\Views\LocationAddEdit.html" />
-    <Content Include="App\ApplicationComponents\Administrator\App.js" />
-    <Content Include="App\ApplicationComponents\Administrator\Main\Controllers\MainController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\Main\Views\Main.html" />
+    <Content Include="App\ApplicationComponents\App.js" />
+    <Content Include="App\ApplicationComponents\Administrator\Admin\Controllers\AdminController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\Admin\Views\Admin.html" />
     <Content Include="App\ApplicationComponents\Administrator\UserRole\Controllers\UserRoleController.js" />
     <Content Include="App\ApplicationComponents\Administrator\UserRole\Controllers\UserRoleAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\UserRole\Views\UserRole.html" />
@@ -428,6 +428,8 @@
     <Content Include="App\ApplicationComponents\Administrator\Survey\Controllers\SurveyController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\Survey.html" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\SurveyAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Main\Views\Main.html" />
+    <Content Include="App\ApplicationComponents\Main\Controllers\MainController.js" />
     <Content Include="App\ApplicationComponents\Report\Main\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Report\Main\ReportMain.html" />
     <Content Include="App\ApplicationComponents\Report\Main\ReportMainController.js" />

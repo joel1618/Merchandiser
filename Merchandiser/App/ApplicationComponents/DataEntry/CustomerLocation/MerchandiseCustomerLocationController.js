@@ -121,7 +121,7 @@
         }
 
         $scope.IsGoShown = function () {
-            if ($stateParams.redirectState == 'reportmain' || $stateParams.redirectState == 'map') {
+            if ($stateParams.redirectState == 'main.reportmain' || $stateParams.redirectState == 'main.map') {
                 return true;
             }
             else {
