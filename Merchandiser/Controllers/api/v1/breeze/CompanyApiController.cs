@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using Merchandiser.ControllerHelpers;
 
 namespace Merchandiser.Controllers.api.v1.breeze
 {
@@ -17,20 +18,19 @@ namespace Merchandiser.Controllers.api.v1.breeze
         CompanyRepository companyRepository;
         UserRoleRepository userRoleRepository;
         RoleRepository roleRepository;
+        string userId;
         public CompanyApiController()
         {
             this.companyRepository = new CompanyRepository();
             this.userRoleRepository = new UserRoleRepository();
             this.roleRepository = new RoleRepository();
+            this.userId = User.Identity.GetUserId();
         }
 
         [HttpGet]
         public IQueryable<CompanyViewModel> Search()
         {
-            //var currentUserId = User.Identity.GetUserId();
-            //var roleId = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault().Id;
-            //var companies = userRoleRepository.Search().Where(e => e.UserId == currentUserId && e.RoleId == roleId).Select(x => x.CompanyId).ToList();
-            var companiesList = companyRepository.Search().Select(x => new CompanyViewModel()
+            var companiesList = companyRepository.Search().FilterCompanyByCompany(userId, userRoleRepository).Select(x => new CompanyViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
