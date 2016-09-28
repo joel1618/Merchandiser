@@ -35,5 +35,7 @@ namespace Merchandiser
         public DbSet<MapViewModel> MapViewModel { get; set; }
 
         public DbSet<SurveyCustomerLocationViewModel> SurveyCustomerLocationViewModel { get; set; }
+
+        public DbSet<SurveyProductQuestionViewModel> SurveyProductQuestionViewModel { get; set; }
     }
 }

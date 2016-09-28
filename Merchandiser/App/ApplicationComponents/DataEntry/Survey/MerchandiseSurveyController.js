@@ -29,20 +29,21 @@
         $scope.Detail = [];
 
         $scope.Search = function () {
-            if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
-                var predicate = new breeze.Predicate('Id', '==', $stateParams.surveyHeaderId);
+            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+
+                var predicate = new breeze.Predicate('Id', '==', SelectionApplicationService.GetSurveyHeaderId());
                 SurveyHeaderService.Search(predicate, 0, 1, false).then(function (data) {
                     $scope.Header = data[0];
                 })
-                predicate = new breeze.Predicate('SurveyHeaderId', '==', $stateParams.surveyHeaderId);
+                predicate = new breeze.Predicate('SurveyHeaderId', '==', SelectionApplicationService.GetSurveyHeaderId());
                 SurveyDetailService.Search(predicate, 0, 100, false).then(function (data) {
                     $scope.Detail = data;
                 });
-                $scope.BeforeImage = "/api/v1/ImageApi/GetBeforeImage/" + $stateParams.surveyHeaderId;
-                $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + $stateParams.surveyHeaderId;
+                $scope.BeforeImage = "/api/v1/ImageApi/GetBeforeImage/" + SelectionApplicationService.GetSurveyHeaderId();
+                $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
             }
             else {
-                var predicate = new breeze.Predicate('SurveyId', '==', $stateParams.surveyId);
+                var predicate = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId());
                 SurveyProductQuestionService.Search(predicate, 0, 100, false).then(function (data) {
                     $scope.Detail = data;
                 });
@@ -76,7 +77,7 @@
             if (!$scope.Validate()) {
                 return false;
             }
-            if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
+            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
                 var details = [];
                 angular.forEach($scope.Detail, function (value, key) {
                     details.push({
@@ -100,7 +101,7 @@
                 var details = [];
                 angular.forEach($scope.Detail, function (value, key) {
                     details.push({
-                        CompanyId: $stateParams.companyId,
+                        CompanyId: SelectionApplicationService.GetCompanyId(),
                         ProductId: value.Product.Id,
                         QuestionId: value.Question.Id,
                         Answer: value.Answer
@@ -114,10 +115,8 @@
                     promises.push(promise);
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
-                        $state.go('main.survey', {
-                            companyId: $stateParams.companyId, surveyId: $stateParams.surveyId,
-                            customerId: $stateParams.customerId, locationId: $stateParams.locationId, surveyHeaderId: data.data.Id
-                        });
+                        SelectionApplicationService.SetSurveyHeaderId(data.data.Id);
+                        $scope.Search();
                     });
                 });
                 promises.push(promise);  
@@ -142,8 +141,8 @@
         $scope.DeleteBeforeImage = function () {
             $scope.BeforeImage = null;
             $scope.Header.BeforeImage = null; 
-            if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
-                ImageService.DeleteBeforeImage($stateParams.surveyHeaderId).then(function () {
+            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+                ImageService.DeleteBeforeImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
 
                 });
             }
@@ -153,8 +152,8 @@
             $scope.AfterImage = null;
             $scope.Header.AfterImage = null;
             angular.element(document.querySelector('#AfterImage')).empty();
-            if ($stateParams.surveyHeaderId != undefined && $stateParams.surveyHeaderId != null && $stateParams.surveyHeaderId != "") {
-                ImageService.DeleteAfterImage($stateParams.surveyHeaderId).then(function () {
+            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+                ImageService.DeleteAfterImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
 
                 });
             }

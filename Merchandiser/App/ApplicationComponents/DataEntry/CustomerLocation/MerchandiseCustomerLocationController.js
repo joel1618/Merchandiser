@@ -95,7 +95,7 @@
         }
 
         $scope.SelectCustomer = function () {
-            SelectionApplicationService.SetCustomerId($scope.SelectedCustomer.Id);
+            SelectionApplicationService.SetCustomerId($scope.SelectedCustomer.Customer.Id);
             $scope.LocationSearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Customer.Id);
         }
 
@@ -116,7 +116,7 @@
         }
 
         $scope.SelectLocation = function () {
-            SelectionApplicationService.SetLocationId($scope.SelectedLocation.Id);
+            SelectionApplicationService.SetLocationId($scope.SelectedLocation.Location.Id);
             $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Customer.Id);
         }
 
@@ -131,7 +131,7 @@
         }
 
         $scope.SelectSurvey = function () {
-            SelectionApplicationService.SetSurveyId($scope.SelectedSurvey.Id);
+            SelectionApplicationService.SetSurveyId($scope.SelectedSurvey.SurveyId);
             $state.go($stateParams.redirectState);
         }
 

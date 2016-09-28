@@ -63,14 +63,13 @@
         };
 
         $scope.Edit = function (row) {
-            SelectionApplicationService.SetSurveyHeaderId = row.Id;
+            SelectionApplicationService.SetSurveyHeaderId(row.Id);
             $state.go('main.survey');
         }
 
         $scope.Delete = function(id){
             SurveyHeaderService.DeleteBulk(id).then(function (data) {
                 var index = $scope.gridOptions.data.map(function (e) { return e.Id; }).indexOf(id);
-                debugger;
                 $scope.gridOptions.data.splice(index, 1);
             }, function (error) {
                 toastr.error("There was an error deleting the survey data.");
