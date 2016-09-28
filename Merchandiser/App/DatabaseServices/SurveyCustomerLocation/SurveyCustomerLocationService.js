@@ -33,7 +33,7 @@
             return deferred.promise;
         };
 
-        this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
+        this.SearchJson = function (predicate, order, page, pageSize, cancelExistingSearch) {
             cancelExistingSearch = cancelExistingSearch || false;
 
             if (this.deferredRequest !== null && cancelExistingSearch) {
@@ -45,7 +45,7 @@
             var query = new breeze.EntityQuery({
                 from: "SurveyCustomerLocationApi/Search",
                 where: predicate,
-                //orderBy: ["Customer.Name desc"],
+                orderBy: order,
                 skip: page * pageSize,
                 take: pageSize
             });
