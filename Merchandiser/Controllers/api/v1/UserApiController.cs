@@ -11,6 +11,7 @@ namespace Merchandiser.Controllers.api.v1
     {
         public UserApiController() { }
 
+        [Route("api/v1/UserApi/GetCurrentUser")]
         [HttpGet]
         public IHttpActionResult GetCurrentUser()
         {
@@ -18,6 +19,7 @@ namespace Merchandiser.Controllers.api.v1
             return Ok(user);
         }
 
+        [Route("api/v1/UserApi/GetCurrentUsername")]
         [HttpGet]
         public IHttpActionResult GetCurrentUsername()
         {

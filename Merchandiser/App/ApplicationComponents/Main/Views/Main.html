@@ -14,12 +14,14 @@
                     <li><a ng-click="GoTo('main.survey')">Survey</a></li>
                     <li><a ng-click="GoTo('main.reportmain')">Report</a></li>
                     <li><a ng-click="GoTo('main.map')">Map</a></li>
+
                 </ul>
-                Hello {{Username}}
-                <a ng-click="Logout()">Log off</a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>Hello {{Username}}!</a></li>
+                    <li><a ng-click="Logout()">Log off</a></li>
+                </ul>
             </div>
         </div>
     </div>
-
     <div ui-view></div>
 </div>

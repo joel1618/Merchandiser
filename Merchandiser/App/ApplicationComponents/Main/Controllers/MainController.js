@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";
-    angular.module('Main').controller('MainController', ['$scope', '$http', '$state', 'UserService', 'CompanyApplicationService', 'SurveyApplicationService', 'SelectionApplicationService',
-    function controller($scope, $http, $state, UserService, CompanyApplicationService, SurveyApplicationService, SelectionApplicationService) {
+    angular.module('Main').controller('MainController', ['$scope', '$http', '$window', '$state', 'UserService', 'CompanyApplicationService', 'SurveyApplicationService', 'SelectionApplicationService',
+    function controller($scope, $http, $window, $state, UserService, CompanyApplicationService, SurveyApplicationService, SelectionApplicationService) {
 
         UserService.GetCurrentUsername().then(function(data){
             $scope.Username = data;
@@ -34,7 +34,9 @@
         }
 
         $scope.Logout = function () {
-            $http.post('/Account/LogOff');
+            $http.post('/Account/LogOff').then(function(data){
+                $window.location.reload();
+            });
         }
     }]);
 
