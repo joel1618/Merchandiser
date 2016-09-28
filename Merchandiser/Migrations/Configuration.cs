@@ -53,7 +53,7 @@ namespace Merchandiser.Migrations
         }
         public void AddUser(MerchandiserEntities context)
         {
-            var password = "";
+            var password = "asdfasdf!";
             context.AspNetUsers.Add(new AspNetUser()
             {
                 PasswordHash = userManager.PasswordHasher.HashPassword(password),

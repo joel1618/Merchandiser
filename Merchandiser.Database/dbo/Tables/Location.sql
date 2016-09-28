@@ -11,7 +11,9 @@
     [ModifiedBy]  NVARCHAR (128)   NULL,
     [Created]     DATETIME         NOT NULL,
     [CreatedBy]   NVARCHAR (128)   NOT NULL,
-    CONSTRAINT [PK_Location] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Location_Location] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Location] ([Id])
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Location_Location] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id])
 );
+
+
 
