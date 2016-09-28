@@ -53,13 +53,46 @@ namespace Merchandiser.Migrations
         }
         public void AddUser(MerchandiserEntities context)
         {
-            context.AspNetUsers.Add(new AspNetUser() {
-                PasswordHash = userManager.PasswordHasher.HashPassword("asdf1234!"),
+            var password = "";
+            context.AspNetUsers.Add(new AspNetUser()
+            {
+                PasswordHash = userManager.PasswordHasher.HashPassword(password),
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = "joel1618@gmail.com", Email = "joel1618@gmail.com", EmailConfirmed = true,
-                Id = Guid.NewGuid().ToString(), PhoneNumberConfirmed = false,
-                TwoFactorEnabled = false, LockoutEnabled = false,
-                AccessFailedCount = 0 });
+                UserName = "joel1618@gmail.com",
+                Email = "joel1618@gmail.com",
+                EmailConfirmed = true,
+                Id = Guid.NewGuid().ToString(),
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            });
+            context.AspNetUsers.Add(new AspNetUser()
+            {
+                PasswordHash = userManager.PasswordHasher.HashPassword(password),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = "joel1618+1@gmail.com",
+                Email = "joel1618+1@gmail.com",
+                EmailConfirmed = true,
+                Id = Guid.NewGuid().ToString(),
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            });
+            context.AspNetUsers.Add(new AspNetUser()
+            {
+                PasswordHash = userManager.PasswordHasher.HashPassword(password),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = "joel1618+2@gmail.com",
+                Email = "joel1618+2@gmail.com",
+                EmailConfirmed = true,
+                Id = Guid.NewGuid().ToString(),
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            });
             context.SaveChanges();
             user = context.AspNetUsers.Where(e => e.Email == "joel1618@gmail.com").FirstOrDefault();
         }
@@ -87,6 +120,13 @@ namespace Merchandiser.Migrations
         {
             var administratorRole = context.AspNetRoles.Where(e => e.Name == "Administrator").FirstOrDefault();
             context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = user.Id, RoleId = administratorRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = new Nullable<Guid>() });
+            var customerUser = context.AspNetUsers.Where(e => e.Email == "joel1618+1@gmail.com").FirstOrDefault();
+            var customerRole = context.AspNetRoles.Where(e => e.Name == "Customer").FirstOrDefault();
+            var customer = context.Customers.Where(e => e.Name == "Customer 1").FirstOrDefault();
+            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = customerUser.Id, RoleId = customerRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = customer.Id });
+            var dataEntryUser = context.AspNetUsers.Where(e => e.Email == "joel1618+2@gmail.com").FirstOrDefault();
+            var dataEntryRole = context.AspNetRoles.Where(e => e.Name == "Data Entry").FirstOrDefault();
+            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = dataEntryUser.Id, RoleId = dataEntryRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = new Nullable<Guid>() });
             context.SaveChanges();
         }
         public void AddCustomers(MerchandiserEntities context)
