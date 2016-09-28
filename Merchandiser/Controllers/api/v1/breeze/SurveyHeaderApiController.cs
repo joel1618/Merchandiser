@@ -28,8 +28,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<SurveyHeaderViewModel> Search()
         {
-            var currentUserId = User.Identity.GetUserId();
-            return repository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new SurveyHeaderViewModel()
+            return repository.Search().Select(x => new SurveyHeaderViewModel()
             {
                 Id = x.Id,
                 Created = x.Created

@@ -43,8 +43,9 @@
                 $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
             }
             else {
-                var predicate = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId());
+                var predicate = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId()); debugger;
                 SurveyProductQuestionService.Search(predicate, 0, 100, false).then(function (data) {
+                    
                     $scope.Detail = data;
                 });
             }

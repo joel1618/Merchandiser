@@ -26,8 +26,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<SurveyCustomerLocationViewModel> Search()
         {
-            var currentUserId = User.Identity.GetUserId();
-            return repository.Search().Where(e => e.CreatedBy == currentUserId).Select(x => new SurveyCustomerLocationViewModel()
+            return repository.Search().Select(x => new SurveyCustomerLocationViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
@@ -42,7 +41,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Location = new LocationViewModel()
                 {
                     Id = x.Location.Id,
-                    Name = x.Location.Name
+                    Name = x.Location.Name,
+                    Address = x.Location.Address,
+                    Latitude = x.Location.Latitude.HasValue ? x.Location.Latitude.Value : new Nullable<decimal>(),
+                    Longitude = x.Location.Longitude.HasValue ? x.Location.Longitude.Value : new Nullable<decimal>()
                 },
                 Survey = new SurveyViewModel()
                 {

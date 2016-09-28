@@ -14,8 +14,8 @@ namespace Merchandiser.Models
         public Guid CompanyId { get; set; }
         public string Name { get; set; }
         public string Store { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public string Address { get; set; }
         public string AreaManager { get; set; }
         public DateTime Created { get; set; }
