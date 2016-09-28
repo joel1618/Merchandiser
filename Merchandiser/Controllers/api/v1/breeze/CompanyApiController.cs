@@ -50,7 +50,15 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public CompanyViewModel Create(CompanyViewModel item)
         {
             item.CreatedBy = User.Identity.GetUserId();
-            return companyRepository.Create(item.ToEntity()).ToViewModel();
+            var company = companyRepository.Create(item.ToEntity());
+            var adminRole = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
+            userRoleRepository.Create(new AspNetUserRole()
+            {
+                CompanyId = company.Id,
+                RoleId = adminRole.Id,
+                UserId = User.Identity.GetUserId()
+            });
+            return company.ToViewModel();
         }
 
         [HttpPut]
