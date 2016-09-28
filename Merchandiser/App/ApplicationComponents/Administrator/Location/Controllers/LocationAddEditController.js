@@ -1,12 +1,12 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('LocationAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService', 'CompanyApplicationService', 'SurveyApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService, CompanyApplicationService, SurveyApplicationService) {
+    angular.module('Main').controller('LocationAddEditController', ['$scope', '$q', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService', 'CompanyApplicationService', 'SurveyApplicationService',
+    function controller($scope, $q, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService, CompanyApplicationService, SurveyApplicationService) {
         CompanyApplicationService.NotifyObservers();
         SurveyApplicationService.NotifyObservers();
         
         $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
+            $scope.item = { Id: null, Name: "", Latitude: null, Longitude: null }
         }
         $scope.Init();
         $scope.Search = function () {
@@ -36,6 +36,19 @@
                     alert(error);
                 });
             }
+        }
+
+        $scope.ChangeAddress = function (value) {
+            var address = JSON.stringify(value);
+            return $http.get('http://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
+                return data.data.results;
+            });
+        }
+
+        $scope.SelectAddress = function (item, model, label) {
+            $scope.item.Latitude = item.geometry.location.lat;
+            $scope.item.Longitude = item.geometry.location.lng;
+            $scope.item.Address = item.formatted_address;
         }
     }]);
 

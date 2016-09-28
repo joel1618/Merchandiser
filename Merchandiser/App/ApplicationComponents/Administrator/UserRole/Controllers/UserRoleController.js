@@ -11,7 +11,7 @@
         $scope.Search();
 
         $scope.Edit = function (Id) {
-            $state.go('main.userrole.addedit', { id: Id }, { reload: false });
+            $state.go('main.admin.userrole.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {

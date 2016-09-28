@@ -13,7 +13,7 @@
         $scope.Search();
 
         $scope.Edit = function (Id) {
-            $state.go('main.surveycustomerlocation.addedit', { id: Id }, { reload: false });
+            $state.go('main.admin.surveycustomerlocation.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {

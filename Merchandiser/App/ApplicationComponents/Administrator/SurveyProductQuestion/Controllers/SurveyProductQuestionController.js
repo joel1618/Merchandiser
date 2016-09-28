@@ -13,7 +13,7 @@
         $scope.Search();
 
         $scope.Edit = function (Id) {
-            $state.go('main.surveyproductquestion.addedit', { id: Id }, { reload: false });
+            $state.go('main.admin.surveyproductquestion.addedit', { id: Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {

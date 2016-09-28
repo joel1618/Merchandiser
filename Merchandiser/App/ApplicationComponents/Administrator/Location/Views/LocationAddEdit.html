@@ -8,7 +8,17 @@
                 <label>Store</label>
                 <input type="text" class="form-control" ng-model="item.Store" maxlength="100" />
                 <label>Address</label>
-                <input type="text" class="form-control" ng-model="item.Address" maxlength="100" />
+                <!--<input type="text" class="form-control" ng-model="item.Address" maxlength="100" ng-model-options="{ debounce: 1000 }" ng-change="AddressChange()" />-->
+                <input type="text" 
+                       class="form-control" 
+                       typeahead-no-results="noResultsAddress" 
+                       ng-model="item.Address" 
+                       uib-typeahead="item.formatted_address for item in ChangeAddress($viewValue)"
+                       ng-model-options="{ debounce: { 'default': 1000, 'blur': 0 } }"
+                       typeahead-on-select="SelectAddress($item, $model, $label)" required />
+                <div ng-show="noResultsAddress">
+                    No Results Found!
+                </div>
                 <label>Area Manager</label>
                 <input type="text" class="form-control" ng-model="item.AreaManager" maxlength="100" />
                 <br />
