@@ -1,4 +1,4 @@
-﻿var app = angular.module('Main', ['ngRoute', 'ui.grid', 'ui.bootstrap', 'ngAnimate','ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
+﻿var app = angular.module('Main', ['ngRoute', 'ui.grid', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
 angular.module('Main').config(function (blockUIConfig) {
     // Change the default delay to 100ms before the blocking is visible
     blockUIConfig.delay = 0;
@@ -90,44 +90,60 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
 });
 app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
-    UserService.GetCurrentUser().then(function (data) {
-        $rootScope.UserId = data;
-        var predicate = { "Name": { "==": "Administrator" } };
-        RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+    UserService
+        .GetCurrentUser()
+        .then(function (data) {
+            $rootScope.UserId = data;
+            var predicate = { "Name": { "==": "Administrator" } };
+            return RoleService.SearchJson(predicate, 0, 1, false);
+        })
+        .then(function (data) {
+            $rootScope.Role = data;
             var predicate = {
                 and: [
                    { "UserId": { "==": $rootScope.UserId } },
                    { "RoleId": { '==': data[0].Id } }
                 ]
             }
-            UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {  
-                if (data.length > 0) {
-                    $state.go('main.admin.company.addedit');
-                }
-                else {
-                    var predicate = { "Name": { "==": "Data Entry" } };
-                    RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                        var predicate = {
-                            and: [
-                               { "UserId": { "==": $rootScope.UserId } },
-                               { "RoleId": { '==': data[0].Id } }
-                            ]
-                        }
-                        UserRoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
-                            if (data.length > 0) {
-                                $state.go('merchandise', {
-                                    redirectState: 'main.survey'
-                                });
-                            }
-                            else {
-                                $state.go('merchandise', {
-                                    redirectState: 'main.reportmain'
-                                });
-                            }
-                        });
-                    });
-                }
-            });
-        });
-    });
+            return UserRoleService.SearchJson(predicate, 0, 1, false);
+        })
+        .then(function (data) {
+            if (data.length > 0) {
+                $state.go('main.admin.company.addedit');
+            }
+            else {
+                var predicate = { "Name": { "==": "Data Entry" } };
+                return RoleService.SearchJson(predicate, 0, 1, false);
+            }
+        })
+        .then(function (data) {
+            var predicate = {
+                and: [
+                   { "UserId": { "==": $rootScope.UserId } },
+                   { "RoleId": { '==': data[0].Id } }
+                ]
+            }
+            return UserRoleService.SearchJson(predicate, 0, 1, false);
+        })
+        .then(function (data) {
+            if (data.length > 0) {
+                $state.go('merchandise', {
+                    redirectState: 'main.survey'
+                });
+            }
+            else {
+                var predicate = { "Name": { "==": "Customer" } };
+                return RoleService.SearchJson(predicate, 0, 1, false);
+            }
+        })
+        .then(function (data) {
+            if (data.length > 0) {
+                $state.go('merchandise', {
+                    redirectState: 'main.reportmain'
+                });
+            }
+            else {
+                $state.go('main.admin.company.addedit');
+            }
+        })
 });

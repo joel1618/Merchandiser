@@ -19,7 +19,12 @@
                     }
                     UserRoleService.SearchJson(predicate, 0, 10, false).then(function (data) {
                         var companies = data.map(function (e) { return e.CompanyId; });
-                        var predicate = { "Id": { in : companies } };
+                        var predicate = {
+                            or: [
+                               { "Id": { in: companies } },
+                               { "CreatedBy": { '==': $scope.UserId } }
+                            ]
+                        }
                         CompanyService.Search(predicate, 0, 20, false).then(function (data) {
                             $scope.items = data;
                             if (data.length == 1) {
