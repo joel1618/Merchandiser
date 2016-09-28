@@ -838,43 +838,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('MapService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
-                cancelExistingSearch = cancelExistingSearch || false;
-
-                if (this.deferredRequest !== null && cancelExistingSearch) {
-                    this.deferredRequest.reject("Cancelled Search Request.");
-                    this.deferredRequest = null;
-                }
-                var deferred = $q.defer();
-                var query = breeze.EntityQuery.from('MapApi/Search');
-                if (predicate != null) {
-                    query = query.where(predicate);
-                }
-                query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
-                        
-                breezeservice.executeQuery(query).then(function (data) {
-                    deferred.resolve(data.httpResponse.data);
-                    _self.deferredRequest = null;
-                }, function (msg, code) {
-                    deferred.reject(msg);
-                    _self.deferredRequest = null;
-                });
-            
-                this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-        }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
     .service('QuestionService', ['$http', '$q', 'breeze', 'breezeservice',
         function ($http, $q, breeze, breezeservice) {
         var _self = this;
@@ -972,6 +935,43 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             return deferred.promise;
         }
     }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('MapService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+                cancelExistingSearch = cancelExistingSearch || false;
+
+                if (this.deferredRequest !== null && cancelExistingSearch) {
+                    this.deferredRequest.reject("Cancelled Search Request.");
+                    this.deferredRequest = null;
+                }
+                var deferred = $q.defer();
+                var query = breeze.EntityQuery.from('MapApi/Search');
+                if (predicate != null) {
+                    query = query.where(predicate);
+                }
+                query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
+                        
+                breezeservice.executeQuery(query).then(function (data) {
+                    deferred.resolve(data.httpResponse.data);
+                    _self.deferredRequest = null;
+                }, function (msg, code) {
+                    deferred.reject(msg);
+                    _self.deferredRequest = null;
+                });
+            
+                this.deferredRequest = deferred;
+
+                return deferred.promise;
+            };
+
+        }]);
 })();
 (function () {
     "use strict";
@@ -2177,18 +2177,35 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 })(moment);
 (function (moment) {
     "use strict";    
-    angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CompanyService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService, CompanyApplicationService) {
+    angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location',
+        '$timeout', 'breezeservice', 'breeze', 'CompanyService', 'CompanyApplicationService',
+        'UserService','RoleService', 'UserRoleService',
+    function controller($scope, $state, $routeParams, $http, $location,
+        $timeout, breezeservice, breeze, CompanyService, CompanyApplicationService,
+        UserService, RoleService, UserRoleService) {
         $scope.Search = function () {
-            var p1 = new breeze.Predicate('Quantity', '>', 1);
-            var p2 = new breeze.Predicate('Longitude', '<', 1);
-            var predicate = new breeze.Predicate.and([p1, p2]);
-            CompanyService.Search(null, 0, 20, false).then(function (data) {
-                $scope.items = data;
-                if (data.length == 1) {
-                    $scope.Select(data[0].Id);
-                }
-            });
+            UserService.GetCurrentUser().then(function (data) {
+                $scope.UserId = data;
+                var predicate = { "Name": { "==": "Administrator" } };
+                RoleService.SearchJson(predicate, 0, 1, false).then(function (data) {
+                    var predicate = {
+                        and: [
+                           { "UserId": { "==": $scope.UserId } },
+                           { "RoleId": { '==': data[0].Id } }
+                        ]
+                    }
+                    UserRoleService.SearchJson(predicate, 0, 10, false).then(function (data) {
+                        var companies = data.map(function (e) { return e.CompanyId; });
+                        var predicate = { "Id": { in : companies } };
+                        CompanyService.Search(predicate, 0, 20, false).then(function (data) {
+                            $scope.items = data;
+                            if (data.length == 1) {
+                                $scope.Select(data[0].Id);
+                            }
+                        });
+                    });
+                });
+            });            
         }
         $scope.Search();
 
@@ -3012,59 +3029,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('surveydata', {
-            url: "/surveydata/",
-            templateUrl: "/App/ApplicationComponents/DataEntry/SurveyData/MerchandiseSurveyData.html"
-        })
-    });
-    angular.module('Main').controller('MerchandiseSurveyDataController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'uiGridConstants', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
-        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'CompanyApplicationService', 'SurveyHeaderService', 'SurveyDetailService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, uiGridConstants, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, CompanyApplicationService, SurveyHeaderService, SurveyDetailService) {
-
-
-        $scope.grid = {
-            options: {
-                showGridFooter: true,
-                enableFiltering: true,
-                enableSorting: true,
-                headerTooltip: true,
-                onRegisterApi: function (gridApi) {
-                    $scope.gridApi = gridApi;
-                },
-                enableGridMenu: true,
-                exporterCsvFilename: 'data.csv',
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 450,
-                data: null,
-                columnDefs: [
-                    { field: 'Id', displayName: '', width: '60', enableFiltering: false, enableSorting: false, cellTemplate: '<div><button class="btn btn-danger btn-sm" ng-click="grid.appScope.vm.functions.data.delete(row.entity.Id)">Delete</button></div>' },
-                    { field: 'Id', headerTooltip: true, displayName: 'Id' },
-                    //{ field: 'EmployeeId', cellTooltip: true, headerTooltip: true, displayName: 'Employee Id (unique)' },
-                    //{ field: 'FirstName', cellTooltip: true, headerTooltip: true, displayName: 'First Name' },
-                    //{ field: 'LastName', cellTooltip: true, headerTooltip: true, displayName: 'Last Name' },
-                    //{ field: 'ElectionPeriod', cellTooltip: true, headerTooltip: true, displayName: 'Election Period (unique)', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.ElectionPeriod | date: "MM/dd/yyyy"}}</div>' },
-                    //{ field: 'AmountDueDate', cellTooltip: true, headerTooltip: true, displayName: 'Amount Due Date', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.AmountDueDate | date: "MM/dd/yyyy"}}</div>' },
-                    //{ field: 'SharesVesting', cellTooltip: true, headerTooltip: true, displayName: 'Shares Vesting' },
-                    //{ field: 'IsViewed', cellTooltip: true, headerTooltip: true, displayName: 'Is Viewed' },
-                    //{ field: 'ElectionType', cellTooltip: true, headerTooltip: true, displayName: 'Election Type' },
-                    //{ field: 'Created', cellTooltip: true, headerTooltip: true, displayName: 'Created', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.Created | date: "MM/dd/yyyy"}}</div>' }
-                ]
-            }
-        }
-
-        $scope.Search = function () {
-            
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
         .state('main.survey', {
             url: "/survey/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
             templateUrl: "/App/ApplicationComponents/DataEntry/Survey/MerchandiseSurvey.html"
@@ -3106,7 +3070,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                 $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
             }
             else {
-                var predicate = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId()); debugger;
+                var predicate = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId());
                 SurveyProductQuestionService.Search(predicate, 0, 100, false).then(function (data) {
                     
                     $scope.Detail = data;
@@ -3221,6 +3185,59 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 
                 });
             }
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('surveydata', {
+            url: "/surveydata/",
+            templateUrl: "/App/ApplicationComponents/DataEntry/SurveyData/MerchandiseSurveyData.html"
+        })
+    });
+    angular.module('Main').controller('MerchandiseSurveyDataController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'uiGridConstants', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
+        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'CompanyApplicationService', 'SurveyHeaderService', 'SurveyDetailService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, uiGridConstants, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService,
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, CompanyApplicationService, SurveyHeaderService, SurveyDetailService) {
+
+
+        $scope.grid = {
+            options: {
+                showGridFooter: true,
+                enableFiltering: true,
+                enableSorting: true,
+                headerTooltip: true,
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                },
+                enableGridMenu: true,
+                exporterCsvFilename: 'data.csv',
+                exporterPdfOrientation: 'portrait',
+                exporterPdfPageSize: 'LETTER',
+                exporterPdfMaxGridWidth: 450,
+                data: null,
+                columnDefs: [
+                    { field: 'Id', displayName: '', width: '60', enableFiltering: false, enableSorting: false, cellTemplate: '<div><button class="btn btn-danger btn-sm" ng-click="grid.appScope.vm.functions.data.delete(row.entity.Id)">Delete</button></div>' },
+                    { field: 'Id', headerTooltip: true, displayName: 'Id' },
+                    //{ field: 'EmployeeId', cellTooltip: true, headerTooltip: true, displayName: 'Employee Id (unique)' },
+                    //{ field: 'FirstName', cellTooltip: true, headerTooltip: true, displayName: 'First Name' },
+                    //{ field: 'LastName', cellTooltip: true, headerTooltip: true, displayName: 'Last Name' },
+                    //{ field: 'ElectionPeriod', cellTooltip: true, headerTooltip: true, displayName: 'Election Period (unique)', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.ElectionPeriod | date: "MM/dd/yyyy"}}</div>' },
+                    //{ field: 'AmountDueDate', cellTooltip: true, headerTooltip: true, displayName: 'Amount Due Date', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.AmountDueDate | date: "MM/dd/yyyy"}}</div>' },
+                    //{ field: 'SharesVesting', cellTooltip: true, headerTooltip: true, displayName: 'Shares Vesting' },
+                    //{ field: 'IsViewed', cellTooltip: true, headerTooltip: true, displayName: 'Is Viewed' },
+                    //{ field: 'ElectionType', cellTooltip: true, headerTooltip: true, displayName: 'Election Type' },
+                    //{ field: 'Created', cellTooltip: true, headerTooltip: true, displayName: 'Created', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.Created | date: "MM/dd/yyyy"}}</div>' }
+                ]
+            }
+        }
+
+        $scope.Search = function () {
+            
         }
     }]);
 })(moment);

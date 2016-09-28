@@ -99,7 +99,11 @@ namespace Merchandiser.Migrations
 
         public void AddUserInfo(MerchandiserEntities context)
         {
-            context.AspNetUsersInfoes.Add(new AspNetUsersInfo() { FirstName = "Joel", LastName = "Schiffer", Id = Guid.NewGuid().ToString(), UserId = user.Id });
+            context.AspNetUsersInfoes.Add(new AspNetUsersInfo() { FirstName = "Admin: Joel", LastName = "Schiffer", Id = Guid.NewGuid().ToString(), UserId = user.Id });
+            var customerUser = context.AspNetUsers.Where(e => e.Email == "joel1618+1@gmail.com").FirstOrDefault();
+            context.AspNetUsersInfoes.Add(new AspNetUsersInfo() { FirstName = "Customer: Joel", LastName = "Schiffer", Id = Guid.NewGuid().ToString(), UserId = customerUser.Id });
+            var dataEntryUser = context.AspNetUsers.Where(e => e.Email == "joel1618+2@gmail.com").FirstOrDefault();
+            context.AspNetUsersInfoes.Add(new AspNetUsersInfo() { FirstName = "Data Entry: Joel", LastName = "Schiffer", Id = Guid.NewGuid().ToString(), UserId = dataEntryUser.Id });
             context.SaveChanges();
         }
 
