@@ -121,7 +121,7 @@ gulp.task('styles', function () {
     //.pipe(gulp.dest(path.app + 'assets/css'));
 
     var css = gulp.src([
-        path.components + 'bootstrap/dist/css/bootstrap-theme.css',
+        //path.components + 'bootstrap/dist/css/bootstrap-theme.css',
         path.components + 'font-awesome/css/font-awesome.css',
         path.components + 'toastr/toastr.css',
         path.components + 'angular-block-ui/dist/angular-block-ui.css',
