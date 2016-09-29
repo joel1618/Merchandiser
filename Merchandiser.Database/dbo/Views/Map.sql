@@ -1,16 +1,15 @@
-﻿CREATE VIEW dbo.Map
+﻿CREATE VIEW [dbo].[Map]
 AS
-SELECT        dbo.SurveyHeader.Id, dbo.AspNetUsersInfo.FirstName, dbo.AspNetUsersInfo.LastName, dbo.SurveyHeader.Created, dbo.SurveyHeader.Latitude, dbo.SurveyHeader.Longitude, dbo.SurveyHeader.CompanyId, 
-                         dbo.SurveyHeader.CustomerId, dbo.SurveyHeader.SurveyId, dbo.SurveyHeader.LocationId
+SELECT        dbo.SurveyHeader.Id, dbo.AspNetUsersInfo.FirstName, dbo.AspNetUsersInfo.LastName, dbo.SurveyHeader.Created, dbo.SurveyHeader.Latitude, dbo.SurveyHeader.Longitude, 
+dbo.SurveyHeader.CompanyId, dbo.SurveyHeader.CustomerId, dbo.SurveyHeader.SurveyId, dbo.SurveyHeader.LocationId, dbo.AspNetUsers.Id AS 'UserId'
 FROM            dbo.SurveyHeader LEFT OUTER JOIN
                          dbo.AspNetUsers ON dbo.SurveyHeader.CreatedBy = dbo.AspNetUsers.Id LEFT OUTER JOIN
                          dbo.AspNetUsersInfo ON dbo.AspNetUsersInfo.UserId = dbo.AspNetUsers.Id
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'Map';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
@@ -137,5 +136,4 @@ Begin DesignProperties =
       End
    End
 End
-', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'Map';
-
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'Map'

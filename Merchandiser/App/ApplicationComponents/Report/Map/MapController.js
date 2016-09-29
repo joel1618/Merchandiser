@@ -19,9 +19,9 @@
                 ]
             }
             if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "CustomerId": { "==": SelectionApplicationService.GetCustomerId() } }) }
-            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "LocationId": { "==": SelectionApplicationService.GetLocationId() } }) }
-            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }) }
-            MapService.SearchJson(predicate, ["Created desc"], 0, 100, false).then(function (data) {
+            if (SelectionApplicationService.GetLocationId() != null) { predicate.and.push({ "LocationId": { "==": SelectionApplicationService.GetLocationId() } }) }
+            if (SelectionApplicationService.GetSurveyId() != null) { predicate.and.push({ "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }) }
+            MapService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
                 $scope.positions = data;
             });
         }

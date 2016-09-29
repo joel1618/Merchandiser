@@ -15,14 +15,15 @@ namespace Merchandiser
     public partial class Map
     {
         public System.Guid Id { get; set; }
-        public Nullable<decimal> Latitude { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
-        public System.DateTime Created { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public System.DateTime Created { get; set; }
+        public Nullable<decimal> Latitude { get; set; }
+        public Nullable<decimal> Longitude { get; set; }
         public System.Guid CompanyId { get; set; }
         public System.Guid CustomerId { get; set; }
-        public System.Guid LocationId { get; set; }
         public System.Guid SurveyId { get; set; }
+        public System.Guid LocationId { get; set; }
+        public string UserId { get; set; }
     }
 }
