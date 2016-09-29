@@ -137,6 +137,15 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
             }
         })
         .then(function (data) {
+            var predicate = {
+                and: [
+                   { "UserId": { "==": $rootScope.UserId } },
+                   { "RoleId": { '==': data[0].Id } }
+                ]
+            }
+            return RoleService.SearchJson(predicate, 0, 1, false);
+        })
+        .then(function (data) {
             if (data.length > 0) {
                 $state.go('merchandise', {
                     redirectState: 'main.reportmain'
