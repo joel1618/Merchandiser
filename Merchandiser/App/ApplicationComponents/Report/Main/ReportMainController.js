@@ -8,14 +8,27 @@
         })
     });
     angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$stateParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
     function controller($scope, $state, $stateParams, $http, $location,
-        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService) {
+        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService) {
         $scope.Search = function () {
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, null, null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
-                $scope.gridOptions.columnDefs.push({
-                    name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
+                UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
+                    if (data == true) {
+                        $scope.gridOptions.columnDefs.splice(0,0,{
+                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
+                        });
+                    }
+                    else {
+                        return UserService.IsDataEntry(SelectionApplicationService.GetCompanyId())
+                    }
+                }).then(function (data) {
+                    if (data == true) {
+                        $scope.gridOptions.columnDefs.splice(0, 0, {
+                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
+                        });
+                    }                    
                 });
                 $scope.gridOptions.columnDefs.push({
                     field: 'ProductName', name: 'Product Name', cellTooltip: true
