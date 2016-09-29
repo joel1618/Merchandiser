@@ -26,7 +26,7 @@
                 var predicate = { "UserId": { "==": data } };
                 UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
                     var companies = data.map(function (e) { return e.CompanyId; });
-                    CompanyService.SearchJson({ "Id": { in: companies } }, 0, 20, false).then(function (data) {
+                    CompanyService.Search({ "Id": { in: companies } }, 0, 20, false).then(function (data) {
                         if (data.length == 1) {
                             $scope.Company = data;
                             $scope.SelectedCompany = data[0];

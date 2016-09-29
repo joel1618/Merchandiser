@@ -9,7 +9,7 @@ namespace Merchandiser.ControllerHelpers
 {
     public static class ApiFilters
     {
-        public static IQueryable<T> FilterCompanyForAll<T>(this IQueryable<T> query, string userId, UserRoleRepository userRoleRepository)
+        public static IQueryable<T> FilterCompanyByUserAndCompany<T>(this IQueryable<T> query, string userId, string companyFieldName, UserRoleRepository userRoleRepository)
         {
             var companies = userRoleRepository.Search().Where(e => e.UserId == userId).Select(e => e.CompanyId).ToList();
             var arg = Expression.Parameter(typeof(T), "p");
@@ -18,7 +18,7 @@ namespace Merchandiser.ControllerHelpers
                 Expression.Constant(companies),
                 "Contains",
                 null,
-                Expression.Property(arg, "CompanyId"));
+                Expression.Property(arg, companyFieldName));
 
             var predicate = Expression.Lambda<Func<T, bool>>(body, arg);
 
@@ -26,16 +26,17 @@ namespace Merchandiser.ControllerHelpers
         }
 
         //http://stackoverflow.com/questions/3703386/iqueryable-extension-create-lambda-expression-for-querying-a-column-for-a-keywo
-        public static IQueryable<T> FilterCompanyByCompany<T>(this IQueryable<T> query, string userId, UserRoleRepository userRoleRepository)
+        public static IQueryable<T> FilterCompanyByUserAndCompanyAndRole<T>(this IQueryable<T> query, string userId, string companyFieldName, string roleName, UserRoleRepository userRoleRepository, RoleRepository roleRepository)
         {
-            var companies = userRoleRepository.Search().Where(e => e.UserId == userId).Select(e => e.CompanyId).ToList();
+            var role = roleRepository.Search().Where(e => e.Name == roleName).FirstOrDefault();
+            var companies = userRoleRepository.Search().Where(e => e.UserId == userId && e.RoleId == role.Id).Select(e => e.CompanyId).ToList();
             var arg = Expression.Parameter(typeof(T), "p");
 
             var body = Expression.Call(
                 Expression.Constant(companies),
                 "Contains",
                 null,
-                Expression.Property(arg, "Id"));
+                Expression.Property(arg, companyFieldName));
 
             var predicate = Expression.Lambda<Func<T, bool>>(body, arg);
 

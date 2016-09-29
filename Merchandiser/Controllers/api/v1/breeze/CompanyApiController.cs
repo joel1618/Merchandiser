@@ -30,13 +30,28 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<CompanyViewModel> Search()
         {
-            var companiesList = companyRepository.Search().FilterCompanyByCompany(userId, userRoleRepository).Select(x => new CompanyViewModel()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Created = x.Created,
-                CreatedBy = x.CreatedBy
-            });
+            var companiesList = companyRepository.Search().FilterCompanyByUserAndCompany(userId, "Id", userRoleRepository)
+             .Select(x => new CompanyViewModel()
+             {
+                 Id = x.Id,
+                 Name = x.Name,
+                 Created = x.Created,
+                 CreatedBy = x.CreatedBy
+             });
+            return companiesList;
+        }
+
+        [HttpGet]
+        public IQueryable<CompanyViewModel> AdminSearch()
+        {
+            var companiesList = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
+                .Select(x => new CompanyViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Created = x.Created,
+                    CreatedBy = x.CreatedBy
+                });
             return companiesList;
         }
 
