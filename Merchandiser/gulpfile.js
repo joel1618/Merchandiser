@@ -30,7 +30,6 @@ var path = {
 gulp.task("vendorJs", function () {
     gulp.src([
             path.components + "jquery/dist/jquery.min.js",
-            //path.components + "jquery.fileDownload/src/scripts/jquery.fileDownload.js",
             path.components + "lodash/dist/lodash.js",
             path.components + "angular/angular.min.js",
             path.components + "angular-route/angular-route.min.js",
@@ -38,30 +37,23 @@ gulp.task("vendorJs", function () {
             path.components + "angular-sanitize/angular-sanitize.min.js",
             path.components + "angular-resource/angular-resource.min.js",
             path.components + "angular-translate/angular-translate.min.js",
-            //path.components + "angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
-            //path.components + "angular-strap/angular-strap.min.js",
-            //path.components + "angular-input-masks/angular-input-masks-standalone.min.js",
             path.components + "moment/min/moment.min.js",
             path.components + "angular-moment/angular-moment.min.js",
             path.components + "angular-ui-router/release/angular-ui-router.min.js",
-            //path.components + "bootstrap/dist/js/bootstrap.min.js",
             path.components + 'toastr/toastr.min.js',
             path.components + "angular-bootstrap/ui-bootstrap.min.js",
             path.components + "angular-bootstrap/ui-bootstrap-tpls.min.js",
-            //path.components + "angular-bootstrap/ui-bootstrap-tpls.min.js",
             path.components + "breeze-client/build/breeze.debug.js",
             path.components + "breeze-client/build/adapters/breeze.bridge.angular.js",
-            //path.components + "breeze-client/build/adapters/breeze.dataService.odata.js",
-            //path.components + "breeze-client/build/adapters/breeze.dataService.webApi.js",
             path.components + "angular-block-ui/dist/angular-block-ui.min.js",
-            //path.components + "toastr/toastr.min.js",
             path.components + "angular-touch/angular-touch.min.js",
             path.components + "angular-animate/angular-animate.min.js",
             path.components + "angular-ui-grid/ui-grid.min.js",
             path.components + "csv/lib/csv.js",
             path.components + "pdfmake/build/pdfmake.js",
             path.components + "pdfmake/build/vfs_fonts.js",
-            path.components + "ngmap/build/scripts/ng-map.min.js"
+            path.components + "ngmap/build/scripts/ng-map.min.js",
+            path.components + "bootstrap/dist/js/bootstrap.min.js"
     ])
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest(path.pub.libs))
@@ -79,7 +71,6 @@ gulp.task('app', function () {
         path.app + "ApplicationComponents/App.js",
         path.app + "ApplicationComponents/Main/Controllers/*.js",      
         path.app + "ApplicationComponents/Administrator/Admin/Controllers/*.js",
-        //path.app + "ApplicationComponents/Administrator/Company/Controllers/*.js",
         path.app + "ApplicationComponents/Administrator/**/**/*.js",
         path.app + "ApplicationComponents/DataEntry/**/**/*.js",
         path.app + "ApplicationComponents/Report/**/**/*.js"
@@ -130,8 +121,7 @@ gulp.task('styles', function () {
     //.pipe(gulp.dest(path.app + 'assets/css'));
 
     var css = gulp.src([
-        //path.components + 'bootstrap/dist/css/bootstrap.css',
-        //path.components + 'bootstrap/dist/css/bootstrap-theme.css',
+        path.components + 'bootstrap/dist/css/bootstrap-theme.css',
         path.components + 'font-awesome/css/font-awesome.css',
         path.components + 'toastr/toastr.css',
         path.components + 'angular-block-ui/dist/angular-block-ui.css',
@@ -140,6 +130,7 @@ gulp.task('styles', function () {
         path.components + 'angular-ui-grid/ui-grid.woff',
         path.components + 'angular-ui-grid/ui-grid.eot',
         path.components + 'angular-ui-grid/ui-grid.svg',
+        path.components + 'bootstrap/dist/css/bootstrap.min.css',
         path.app + 'assets/css/docs.css',
         path.app + 'assets/css/app.css'
 

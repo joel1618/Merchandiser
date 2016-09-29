@@ -19,9 +19,6 @@
         });
         var meta = manager.metadataStore;
         meta.setEntityTypeForResourceName("UserRoleApi/Search", "UserRoleViewModel");
-        //meta.setEntityTypeForResourceName("UserRoleApi/Search", "Company");
-        //meta.setEntityTypeForResourceName("UserRoleApi/Search", "AspNetUser");
-        //meta.setEntityTypeForResourceName("UserRoleApi/Search", "AspNetRole");
         meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
         meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
         meta.setEntityTypeForResourceName("SurveyCustomerLocationApi/Search", "SurveyCustomerLocationViewModel");
