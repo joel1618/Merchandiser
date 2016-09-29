@@ -18,7 +18,7 @@
         $scope.IsAdministrator = false;
         $scope.SelectedLocation = { Location: { Id: null }, Id: null };
         $scope.SelectedCustomer = { Customer: { Id: null }, Id: null };
-        $scope.SelectedSurvey = { Survey: { Id: null }, Id: null };
+        $scope.SelectedSurvey = { Survey: { Id: null }, Id: null, SurveyId: null };
         $scope.UserId = null;
         $scope.Search = function () {
             UserService.GetCurrentUser().then(function (data) {

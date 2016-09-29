@@ -1,11 +1,5 @@
 ﻿angular.module('ApplicationServices').service('SelectionApplicationService', function () {
-
     this.CompanyId = null;
-    this.CustomerId = null;
-    this.LocationId = null;
-    this.SurveyId = null;
-    this.SurveyHeaderId = null;
-
     this.GetCompanyId = function () {
         return this.CompanyId;
     };
@@ -14,6 +8,7 @@
         this.CompanyId = id;
     }
 
+    this.CustomerId = null;
     this.GetCustomerId = function () {
         return this.CustomerId;
     };
@@ -22,6 +17,7 @@
         this.CustomerId = id;
     }
 
+    this.LocationId = null;
     this.GetLocationId = function () {
         return this.LocationId;
     };
@@ -30,6 +26,7 @@
         this.LocationId = id;
     }
 
+    this.SurveyId = null;
     this.GetSurveyId = function () {
         return this.SurveyId;
     };
@@ -38,6 +35,7 @@
         this.SurveyId = id;
     }
 
+    this.SurveyHeaderId = null;
     this.GetSurveyHeaderId = function () {
         return this.SurveyHeaderId;
     };

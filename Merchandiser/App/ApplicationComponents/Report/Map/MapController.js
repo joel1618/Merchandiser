@@ -3,7 +3,7 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('main.map', {
-            url: "/map/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
+            url: "/map",
             templateUrl: "/App/ApplicationComponents/Report/Map/Map.html"
         })
     });
@@ -13,12 +13,15 @@
         $timeout, breezeservice, breeze, MapService, SurveyHeaderService, SelectionApplicationService) {
         $scope.SelectedPosition = null;
         $scope.Search = function () {
-            var p1 = new breeze.Predicate('CompanyId', '==', SelectionApplicationService.GetCompanyId());
-            var p2 = new breeze.Predicate('CustomerId', '==', SelectionApplicationService.GetCustomerId());
-            var p3 = new breeze.Predicate('LocationId', '==', SelectionApplicationService.GetLocationId());
-            var p4 = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId());
-            var predicate = new breeze.Predicate.and([p1, p2, p3, p4]);
-            MapService.Search(predicate, 0, 1000, false).then(function (data) {
+            var predicate = {
+                and: [
+                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "CustomerId": { "==": SelectionApplicationService.GetCustomerId() } }) }
+            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "LocationId": { "==": SelectionApplicationService.GetLocationId() } }) }
+            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }) }
+            MapService.SearchJson(predicate, ["Created desc"], 0, 100, false).then(function (data) {
                 $scope.positions = data;
             });
         }
