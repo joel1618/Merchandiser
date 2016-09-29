@@ -3,8 +3,8 @@
     angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService', 'CompanyApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService, CompanyApplicationService) {
         $scope.Search = function () {
-            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            LocationService.Search(predicate, 0, 100, false).then(function (data) {
+            var predicate = { "CompanyId": { "==": CompanyApplicationService.SelectedCompany.Id } }
+            LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.items = data;
             });
         }

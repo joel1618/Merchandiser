@@ -1,10 +1,10 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'CompanyApplicationService', 'SurveyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, CompanyApplicationService, SurveyApplicationService) {
+    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService', 'SurveyApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService, SurveyApplicationService) {
         $scope.Search = function () {
-            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            SurveyService.Search(predicate, 0, 20, false).then(function (data) {
+            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            SurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.items = data;
                 if (data.length == 1) {
                     $scope.Select(data[0].Id);
@@ -26,6 +26,7 @@
         $scope.Select = function (Id) {
             SurveyService.Get(Id).then(function (data) {
                 SurveyApplicationService.SetSelectedSurvey(data);
+                SelectionApplicationService.SetSurveyId(data.Id);
             });
         }
     }]);

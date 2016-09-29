@@ -2,10 +2,10 @@
     "use strict";    
     angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'CompanyService', 'CompanyApplicationService',
-        'UserService','RoleService', 'UserRoleService',
+        'UserService', 'RoleService', 'UserRoleService', 'SelectionApplicationService',
     function controller($scope, $state, $routeParams, $http, $location,
         $timeout, breezeservice, breeze, CompanyService, CompanyApplicationService,
-        UserService, RoleService, UserRoleService) {
+        UserService, RoleService, UserRoleService, SelectionApplicationService) {
         $scope.Search = function () {
             CompanyService.AdminSearch(null, 0, 20, false).then(function (data) {
                 $scope.items = data;
@@ -29,6 +29,7 @@
         $scope.Select = function (Id) {
             CompanyService.Get(Id).then(function (data) {
                 CompanyApplicationService.SetSelectedCompany(data);
+                SelectionApplicationService.SetCompanyId(data.Id);
             });
         }
         

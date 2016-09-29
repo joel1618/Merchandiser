@@ -49,9 +49,14 @@ namespace Merchandiser.ControllerHelpers
             UserRoleRepository userRoleRepository)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "object");
-            MethodCallExpression body = Expression.Call(Expression.Constant(companyId), companyId.GetType().GetMethod("Equals"), Expression.Property(param, companyFieldName));
-            Expression<Func<T, bool>> predicate = Expression.Lambda<Func<T, bool>>(body, param);
-            query = query.Where(predicate);
+            MethodCallExpression body = null;
+            Expression<Func<T, bool>> predicate = null;
+            if(companyFieldName != null)
+            {
+                body = Expression.Call(Expression.Constant(companyId), "Equals", null, Expression.Property(param, companyFieldName));
+                predicate = Expression.Lambda<Func<T, bool>>(body, param);
+                query = query.Where(predicate);
+            }
 
             var role = userRoleRepository.Search().Where(e => e.CompanyId == companyId && e.UserId == userId).FirstOrDefault();
             if (role.AspNetRole.Name == "Administrator")
@@ -60,19 +65,25 @@ namespace Merchandiser.ControllerHelpers
             }
             else if(role.AspNetRole.Name == "Customer")
             {
-                var customers = userRoleRepository.Search().Where(e => e.UserId == userId && e.CompanyId == companyId && e.CustomerId != null).Select(x => x.CustomerId.Value).ToList();
-                
-                body = Expression.Call(Expression.Constant(customers), customers.GetType().GetMethod("Contains"), Expression.Property(param, customerFieldName));
-                predicate = Expression.Lambda<Func<T, bool>>(body, param);
+                if (customerFieldName != null)
+                {
+                    var customers = userRoleRepository.Search().Where(e => e.UserId == userId && e.CompanyId == companyId && e.CustomerId != null).Select(x => x.CustomerId.Value).ToList();
 
-                query = query.Where(predicate);
+                    body = Expression.Call(Expression.Constant(customers), customers.GetType().GetMethod("Contains"), Expression.Property(param, customerFieldName));
+                    predicate = Expression.Lambda<Func<T, bool>>(body, param);
+
+                    query = query.Where(predicate);
+                }
             }
             else
             {
-                body = Expression.Call(Expression.Constant(userId), userId.GetType().GetMethod("Equals"), Expression.Property(param, userFieldName));
-                predicate = Expression.Lambda<Func<T, bool>>(body, param);
+                if (userFieldName != null)
+                {
+                    body = Expression.Call(Expression.Constant(userId), "Equals", null, Expression.Property(param, userFieldName));
+                    predicate = Expression.Lambda<Func<T, bool>>(body, param);
 
-                query = query.Where(predicate);
+                    query = query.Where(predicate);
+                }
             }
 
             return query;

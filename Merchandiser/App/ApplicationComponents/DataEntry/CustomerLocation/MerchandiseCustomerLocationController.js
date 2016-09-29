@@ -48,57 +48,15 @@
 
         $scope.CustomerSearch = function (companyId) {
             //Admin for the selected company show all customers
-            var promise = UserService.IsAdministrator(companyId);
-            promise.then(function (data) {
-                if (data == true) {
-                    $scope.IsAdministrator = true;
-                    var predicate = new breeze.Predicate('CompanyId', '==', companyId);
-                    SurveyCustomerLocationService.SearchJson({ "CompanyId": { '==': companyId } }, ["Customer.Name asc"], 0, 20, false).then(function (data) {
-                        $scope.Customer = data;
-                    });
-                }
-                else {
-                    return UserService.IsDataEntry(companyId);
-                }
-            }).then(function (data) {
-                if (data == true) {
-                    $scope.IsAdministrator = true;
-                    var predicate = new breeze.Predicate('CompanyId', '==', companyId);
-                    SurveyCustomerLocationService.SearchJson({ "CompanyId": { '==': companyId } }, ["Customer.Name asc"], 0, 20, false).then(function (data) {
-                        $scope.Customer = data;
-                    });
-                }
-                else {
-                    return UserService.IsCustomer(companyId);
-                }
-            }).then(function (data) {
-                if (data == true) {
-                    var predicate = {
-                        and: [
-                           { "UserId": { "==": $scope.UserId } },
-                           { "CompanyId": { '==': companyId } }
-                        ]
-                    }
-                    UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
-                        var customers = data.map(function (e) { return e.CustomerId; });
-                        SurveyCustomerLocationService.SearchJson({ "CustomerId": { in: customers } }, ["Customer.Name asc"], 0, 20, false).then(function (data) {
-                            if (data.length == 1) {
-                                $scope.Customer = data;
-                                $scope.SelectedCustomer = data[0];
-                                $scope.SelectCustomer();
-                            }
-                            else {
-                                $scope.Customer = data;
-                            }
-                        });
-                    });
-                }
+            var predicate = { "CompanyId": { '==': companyId } };
+            CustomerService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+                $scope.Customer = data;
             });
         }
 
         $scope.SelectCustomer = function () {
-            SelectionApplicationService.SetCustomerId($scope.SelectedCustomer.Customer.Id);
-            $scope.LocationSearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Customer.Id);
+            SelectionApplicationService.SetCustomerId($scope.SelectedCustomer.Id);
+            $scope.LocationSearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Id);
         }
 
         $scope.LocationSearch = function (companyId, customerId) {
@@ -108,7 +66,7 @@
                    { "CustomerId": { '==': customerId } }
                 ]
             }
-            SurveyCustomerLocationService.SearchJson(predicate, ["Location.Name asc"], 0, 100, false).then(function (data) {
+            LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 if (data.length == 1) {
                     $scope.Location = data;
                     $scope.SelectedLocation = data[0];
@@ -122,7 +80,7 @@
 
         $scope.SelectLocation = function () {
             SelectionApplicationService.SetLocationId($scope.SelectedLocation.Location.Id);
-            $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Customer.Id);
+            $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Id);
         }
 
         $scope.SurveySearch = function (companyId, locationId, customerId) {
@@ -133,7 +91,7 @@
                    { "LocationId": { "==": locationId } }
                 ]
             }
-            SurveyCustomerLocationService.SearchJson(predicate, ["Survey.Name asc"], 0, 100, false).then(function (data) {
+            SurveyService.SearchJson(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.Survey = data;
             });
         }

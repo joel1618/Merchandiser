@@ -19,8 +19,8 @@
             RoleService.Search(null, 0, 5, false).then(function (data) {
                 $scope.Roles = data;
             });
-            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            CustomerService.Search(predicate, 0, 100, false).then(function (data) {
+            var predicate = { "CompanyId": { "==": CompanyApplicationService.SelectedCompany.Id } };
+            CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.Customers = data;
             });
         }
