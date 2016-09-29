@@ -60,12 +60,7 @@
         }
 
         $scope.LocationSearch = function (companyId, customerId) {
-            var predicate = {
-                and: [
-                   { "CompanyId": { "==": companyId } },
-                   { "CustomerId": { '==': customerId } }
-                ]
-            }
+            var predicate = { "CompanyId": { "==": companyId } }
             LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 if (data.length == 1) {
                     $scope.Location = data;
@@ -79,11 +74,11 @@
         }
 
         $scope.SelectLocation = function () {
-            SelectionApplicationService.SetLocationId($scope.SelectedLocation.Location.Id);
-            $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedLocation.Location.Id, $scope.SelectedCustomer.Id);
+            SelectionApplicationService.SetLocationId($scope.SelectedLocation.Id);
+            $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Id, $scope.SelectedLocation.Id);
         }
 
-        $scope.SurveySearch = function (companyId, locationId, customerId) {
+        $scope.SurveySearch = function (companyId, customerId, locationId) {
             var predicate = {
                 and: [
                    { "CompanyId": { "==": companyId } },
@@ -91,7 +86,7 @@
                    { "LocationId": { "==": locationId } }
                 ]
             }
-            SurveyService.SearchJson(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+            SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
                 $scope.Survey = data;
             });
         }

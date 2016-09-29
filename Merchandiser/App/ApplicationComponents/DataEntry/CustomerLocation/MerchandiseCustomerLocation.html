@@ -6,7 +6,7 @@
         <label>Customer</label>
         <select class="form-control" ng-model="SelectedCustomer" ng-options="x.Name for x in Customer" ng-change="SelectCustomer()"></select><br />
         <label>Store</label>
-        <select class="form-control" ng-model="SelectedLocation" ng-options="x.Location.Name for x in Location" ng-change="SelectLocation()"></select><br />
+        <select class="form-control" ng-model="SelectedLocation" ng-options="x.Name for x in Location" ng-change="SelectLocation()"></select><br />
         <label>Survey</label>
         <select class="form-control" ng-model="SelectedSurvey" ng-options="x.Survey.Name for x in Survey" ng-change="SelectSurvey()"></select>
         <br/>
