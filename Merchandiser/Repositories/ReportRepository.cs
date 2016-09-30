@@ -25,8 +25,41 @@ namespace Merchandiser.Repositories
                     SET @cols = STUFF((SELECT DISTINCT ',' + QUOTENAME(Question.Name)
                      from SurveyHeader
                      left join SurveyDetail on SurveyHeader.Id = SurveyDetail.SurveyHeaderId
-                     left join Product on SurveyDetail.ProductId = Product.Id
-                     left join Question on SurveyDetail.QuestionId = Question.Id
+                    left join Customer on SurveyHeader.CustomerId = Customer.Id
+                    left join Location on SurveyHeader.LocationId = Location.Id
+                    left join Company on SurveyHeader.CompanyId = Company.Id
+                    left join Product on SurveyDetail.ProductId = Product.Id
+                    left join Question on SurveyDetail.QuestionId = Question.Id
+					left join Survey on SurveyHeader.SurveyId = Survey.Id
+					left join AspNetUsers on SurveyHeader.CreatedBy = AspNetUsers.Id
+					left join AspNetUsersInfo on AspNetUsers.Id = AspNetUsersInfo.UserId
+                    where 
+                    Company.Id = CONVERT(uniqueidentifier,'" + companyId + @"')";
+                if (surveyHeaderId != null)
+                {
+                    cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(uniqueidentifier,'" + surveyHeaderId + @"'))";
+                }
+                if (customerId != null)
+                {
+                    cmd.CommandText += @"AND (Customer.Id = CONVERT(uniqueidentifier,'" + customerId + @"'))";
+                }
+                if (locationId != null)
+                {
+                    cmd.CommandText += @"AND (Location.Id = CONVERT(uniqueidentifier,'" + locationId + @"'))";
+                }
+                if (productId != null)
+                {
+                    cmd.CommandText += @"AND (Product.Id = CONVERT(uniqueidentifier,'" + productId + @"'))";
+                }
+                if (surveyId != null)
+                {
+                    cmd.CommandText += @"AND (Survey.Id = CONVERT(uniqueidentifier,'" + surveyId + @"'))";
+                }
+                if (userId != null)
+                {
+                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(uniqueidentifier,''" + userId + @"''))";
+                }
+                cmd.CommandText += @"
                      FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '')
 
 				    SET @sql = 'SELECT Id, UserName, FirstName, LastName, SurveyId, SurveyName, CompanyId, 
