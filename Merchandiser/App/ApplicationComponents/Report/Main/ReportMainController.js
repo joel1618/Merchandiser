@@ -12,7 +12,7 @@
     function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
-            $state.go('merchandise', {
+            $state.go('main.merchandise', {
                 redirectState: 'main.reportmain'
             });
         }

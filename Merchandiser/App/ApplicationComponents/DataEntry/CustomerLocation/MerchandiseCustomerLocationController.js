@@ -2,7 +2,7 @@
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('merchandise', {
+        .state('main.merchandise', {
             url: "/merchandise/:redirectState",
             templateUrl: "/App/ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
         })
@@ -21,22 +21,15 @@
         $scope.SelectedSurvey = { Survey: { Id: null }, Id: null, SurveyId: null };
         $scope.UserId = null;
         $scope.Search = function () {
-            UserService.GetCurrentUser().then(function (data) {
-                $scope.UserId = data;
-                var predicate = { "UserId": { "==": data } };
-                UserRoleService.SearchJson(predicate, 0, 100, false).then(function (data) {
-                    var companies = data.map(function (e) { return e.CompanyId; });
-                    CompanyService.Search({ "Id": { in: companies } }, 0, 20, false).then(function (data) {
-                        if (data.length == 1) {
-                            $scope.Company = data;
-                            $scope.SelectedCompany = data[0];
-                            $scope.SelectCompany();
-                        }
-                        else {
-                            $scope.Company = data;
-                        }
-                    });
-                });
+            CompanyService.Search(null, ["Name desc"], 0, 20, false).then(function (data) {
+                if (data.length == 1) {
+                    $scope.Company = data;
+                    $scope.SelectedCompany = data[0];
+                    $scope.SelectCompany();
+                }
+                else {
+                    $scope.Company = data;
+                }
             });
         }
         $scope.Search();
@@ -47,7 +40,6 @@
         }
 
         $scope.CustomerSearch = function (companyId) {
-            //Admin for the selected company show all customers
             var predicate = { "CompanyId": { '==': companyId } };
             CustomerService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
                 $scope.Customer = data;
@@ -97,27 +89,8 @@
         }
 
         $scope.IsGoShown = function () {
-            if ($stateParams.redirectState == 'main.reportmain' || $stateParams.redirectState == 'main.map') {
-                return true;
-            }
-            else {
+            if ($stateParams.redirectState == 'main.survey') {
                 return false;
-            }
-        }
-
-        $scope.IsGoDisabled = function () {
-            if ($scope.SelectedCompany.Id != null) {
-                if ($scope.IsAdministrator == true) {
-                    return false;
-                }
-                else {
-                    if ($scope.SelectedCustomer.Id != null) {
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
-                }
             }
             else {
                 return true;

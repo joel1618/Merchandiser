@@ -7,7 +7,7 @@
         $timeout, breezeservice, breeze, CompanyService, CompanyApplicationService,
         UserService, RoleService, UserRoleService, SelectionApplicationService) {
         $scope.Search = function () {
-            CompanyService.AdminSearch(null, 0, 20, false).then(function (data) {
+            CompanyService.AdminSearch(null, ["Name desc"], 0, 20, false).then(function (data) {
                 $scope.items = data;
                 if (data.length == 1) {
                     $scope.Select(data[0].Id);

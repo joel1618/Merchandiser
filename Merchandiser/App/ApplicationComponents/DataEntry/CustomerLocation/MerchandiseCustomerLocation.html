@@ -10,7 +10,7 @@
         <label>Survey</label>
         <select class="form-control" ng-model="SelectedSurvey" ng-options="x.Survey.Name for x in Survey" ng-change="SelectSurvey()"></select>
         <br/>
-        <button class="btn btn-primary pull-right" ng-click="SelectSurvey()" ng-show="IsGoShown()" ng-disabled="IsGoDisabled()">Go</button>
+        <button class="btn btn-primary pull-right" ng-click="SelectSurvey()" ng-show="IsGoShown()">Go</button>
     </div>
     <div class="col-md-6"></div>
 </div>

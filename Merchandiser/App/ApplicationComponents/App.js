@@ -127,7 +127,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
         })
         .then(function (data) {
             if (data.length > 0) {
-                $state.go('merchandise', {
+                $state.go('main.merchandise', {
                     redirectState: 'main.survey'
                 });
             }
@@ -147,7 +147,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
         })
         .then(function (data) {
             if (data.length > 0) {
-                $state.go('merchandise', {
+                $state.go('main.merchandise', {
                     redirectState: 'main.reportmain'
                 });
             }

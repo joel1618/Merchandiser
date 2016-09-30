@@ -6,7 +6,7 @@
         var _self = this;
         this.deferredRequest = null;
 
-        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+        this.Search = function (predicate, order, page, pageSize, cancelExistingSearch) {
             cancelExistingSearch = cancelExistingSearch || false;
 
             if (this.deferredRequest !== null && cancelExistingSearch) {
@@ -18,7 +18,7 @@
             var query = new breeze.EntityQuery({
                 from: "CompanyApi/Search",
                 where: predicate,
-                orderBy: ["Created desc"],
+                orderBy: order,
                 skip: page * pageSize,
                 take: pageSize
             });
@@ -36,7 +36,7 @@
             return deferred.promise;
         };
 
-        this.AdminSearch = function (predicate, page, pageSize, cancelExistingSearch) {
+        this.AdminSearch = function (predicate, order, page, pageSize, cancelExistingSearch) {
             cancelExistingSearch = cancelExistingSearch || false;
 
             if (this.deferredRequest !== null && cancelExistingSearch) {
@@ -48,7 +48,7 @@
             var query = new breeze.EntityQuery({
                 from: "CompanyApi/AdminSearch",
                 where: predicate,
-                orderBy: ["Created desc"],
+                orderBy: order,
                 skip: page * pageSize,
                 take: pageSize
             });

@@ -17,7 +17,7 @@
         SelectionApplicationService) {
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
-            $state.go('merchandise', {
+            $state.go('main.merchandise', {
                 redirectState: 'main.survey'
             });
         }
@@ -124,7 +124,7 @@
                         toastr.success("Save successful.");
                         SelectionApplicationService.SetSurveyHeaderId(data.data.Id);
                         //$scope.Search();
-                        $state.go('merchandise', {
+                        $state.go('main.merchandise', {
                             redirectState: 'main.survey'
                         });
                     });

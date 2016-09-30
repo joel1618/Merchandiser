@@ -14,23 +14,23 @@
             }
             else {
                 if (SelectionApplicationService.GetCompanyId() == null) {
-                    $state.go('merchandise', { redirectState: state });
+                    $state.go('main.merchandise', { redirectState: state });
                 }
                 else {
                     if (state == 'main.survey') {
                         if (SelectionApplicationService.GetSurveyId() == null) {
-                            $state.go('merchandise', { redirectState: state });
+                            $state.go('main.merchandise', { redirectState: state });
                         }
                         else {
                             $state.go(state);
                         }
                     }
                     else if (state == 'main.reportmain') {
-                        $state.go('merchandise', { redirectState: state });
+                        $state.go('main.merchandise', { redirectState: state });
                         //$state.go(state);
                     }
                     else if (state == 'main.map') {
-                        $state.go('merchandise', { redirectState: state });
+                        $state.go('main.merchandise', { redirectState: state });
                         //$state.go(state);
                     }
                 }
