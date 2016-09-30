@@ -50,6 +50,16 @@
         this.NotifyObservers();
     }
 
+    this.Location = null;
+    this.GetLocation = function () {
+        return this.Location;
+    };
+
+    this.SetLocation = function (item) {
+        this.Location = item;
+        this.NotifyObservers();
+    }
+
     this.SurveyId = null;
     this.GetSurveyId = function () {
         return this.SurveyId;
@@ -83,10 +93,15 @@
     this.Clear = function () {
         this.CompanyId = null;
         this.Company = null;
+
         this.CustomerId = null;
+
+        this.Location = null;
         this.LocationId = null;
+
         this.SurveyId = null;
         this.Survey = null;
+
         this.SurveyHeaderId = null;
     }
 });

@@ -66,6 +66,8 @@
         }
 
         $scope.SelectLocation = function () {
+            debugger;
+            SelectionApplicationService.SetLocation($scope.SelectedLocation);
             SelectionApplicationService.SetLocationId($scope.SelectedLocation.Id);
             $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Id, $scope.SelectedLocation.Id);
         }

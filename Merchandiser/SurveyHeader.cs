@@ -31,6 +31,7 @@ namespace Merchandiser
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
+        public string Notes { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }

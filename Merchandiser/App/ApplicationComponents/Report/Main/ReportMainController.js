@@ -8,9 +8,9 @@
         })
     });
     angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$stateParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
+        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService', 'LocationService',
     function controller($scope, $state, $stateParams, $http, $location,
-        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService) {
+        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService, LocationService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.merchandise', {
                 redirectState: 'main.reportmain'
@@ -71,8 +71,11 @@
         };
 
         $scope.Edit = function (row) {
-            SelectionApplicationService.SetSurveyHeaderId(row.Id);
-            $state.go('main.survey');
+            LocationService.Get(row.LocationId).then(function (data) {
+                SelectionApplicationService.SetLocation(data);
+                SelectionApplicationService.SetSurveyHeaderId(row.Id);
+                $state.go('main.survey');
+            });
         }
 
         $scope.Delete = function(id){

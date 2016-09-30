@@ -39,6 +39,7 @@
         }
 
         $scope.Logout = function () {
+            SelectionApplicationService.Clear();
             $http.post('/Account/LogOff').then(function(data){
                 $window.location.reload();
             });

@@ -3,8 +3,8 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('main.survey', {
-            url: "/survey/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
-            templateUrl: "/App/ApplicationComponents/DataEntry/Survey/MerchandiseSurvey.html"
+            url: "/survey",
+            templateUrl: "ApplicationComponents/DataEntry/Survey/MerchandiseSurvey.html"
         })
     });
     angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
@@ -13,8 +13,8 @@
         'SelectionApplicationService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService,
-        SelectionApplicationService) {
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
+        $scope.Location = SelectionApplicationService.GetLocation();
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
             $state.go('main.merchandise', {
@@ -24,7 +24,7 @@
         $scope.BeforeImage = null;
         $scope.AfterImage = null;
         $scope.Header = {
-            BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null,
+            BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null, Notes: null,
             CompanyId: SelectionApplicationService.GetCompanyId(), SurveyId: SelectionApplicationService.GetSurveyId(),
             CustomerId: SelectionApplicationService.GetCustomerId(), LocationId: SelectionApplicationService.GetLocationId()
         }
@@ -122,7 +122,8 @@
                     promises.push(promise);
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
-                        SelectionApplicationService.SetSurveyHeaderId(data.data.Id);
+                        SelectionApplicationService.Clear();
+                        //SelectionApplicationService.SetSurveyHeaderId(data.data.Id);
                         //$scope.Search();
                         $state.go('main.merchandise', {
                             redirectState: 'main.survey'
