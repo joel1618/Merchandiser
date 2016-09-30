@@ -9,7 +9,7 @@
         $scope.GoTo = function (state) {
             SelectionApplicationService.SetSurveyHeaderId(null);
             if (state == 'main.admin.company.addedit') {
-                SelectionApplicationService.Clear();
+                //SelectionApplicationService.Clear();
                 $state.go(state);
             }
             else {

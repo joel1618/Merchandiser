@@ -82,9 +82,11 @@
 
     this.Clear = function () {
         this.CompanyId = null;
+        this.Company = null;
         this.CustomerId = null;
         this.LocationId = null;
         this.SurveyId = null;
+        this.Survey = null;
         this.SurveyHeaderId = null;
     }
 });
