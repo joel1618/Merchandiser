@@ -18,12 +18,13 @@
                 }
                 else {
                     if (state == 'main.survey') {
-                        if (SelectionApplicationService.GetSurveyId() == null) {
-                            $state.go('main.merchandise', { redirectState: state });
-                        }
-                        else {
-                            $state.go(state);
-                        }
+                        $state.go('main.merchandise', { redirectState: state });
+                        //if (SelectionApplicationService.GetSurveyId() == null) {
+                        //    $state.go('main.merchandise', { redirectState: state });
+                        //}
+                        //else {
+                        //    $state.go(state);
+                        //}
                     }
                     else if (state == 'main.reportmain') {
                         $state.go('main.merchandise', { redirectState: state });

@@ -2083,6 +2083,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />
+    <Folder Include="SurveyImages\AfterImages\" />
+    <Folder Include="SurveyImages\BeforeImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
