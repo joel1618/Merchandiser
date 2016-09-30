@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService', 'SurveyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService, SurveyApplicationService) {
+    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService) {
         $scope.Search = function () {
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
             SurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
@@ -25,7 +25,6 @@
 
         $scope.Select = function (Id) {
             SurveyService.Get(Id).then(function (data) {
-                //SurveyApplicationService.SetSelectedSurvey(data);
                 SelectionApplicationService.SetSurveyId(data.Id);
                 SelectionApplicationService.SetSurvey(data);
             });

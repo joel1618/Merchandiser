@@ -437,9 +437,7 @@
     <Content Include="App\ApplicationComponents\Report\Map\Map.html" />
     <Content Include="App\ApplicationComponents\Report\Map\MapController.js" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />
-    <Content Include="App\ApplicationServices\Company\CompanyApplicationService.js" />
     <Content Include="App\ApplicationServices\Selection\SelectionApplicationService.js" />
-    <Content Include="App\ApplicationServices\Survey\SurveyApplicationService.js" />
     <Content Include="App\DatabaseServices\Breeze\breezeservice.js" />
     <Content Include="App\DatabaseServices\Breeze\metadata.js" />
     <Content Include="App\DatabaseServices\Company\CompanyService.js" />

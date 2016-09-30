@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationService', 'CompanyApplicationService', 'SelectionApplicationService',
+        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationService, CompanyApplicationService, SelectionApplicationService) {
+        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
         $scope.RedirectState = $stateParams.redirectState;
         $scope.SelectedCompany = { Id: null };
         $scope.IsAdministrator = false;

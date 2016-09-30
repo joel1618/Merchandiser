@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('ProductController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductService',
-        'CompanyApplicationService', 'SelectionApplicationService',
+        'SelectionApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductService,
-        CompanyApplicationService, SelectionApplicationService) {
+        SelectionApplicationService) {
         $scope.Search = function () {
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
             ProductService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {

@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";
-    angular.module('Main').controller('MainController', ['$scope', '$http', '$window', '$state', 'UserService', 'CompanyApplicationService', 'SurveyApplicationService', 'SelectionApplicationService',
-    function controller($scope, $http, $window, $state, UserService, CompanyApplicationService, SurveyApplicationService, SelectionApplicationService) {
+    angular.module('Main').controller('MainController', ['$scope', '$http', '$window', '$state', 'UserService', 'SelectionApplicationService',
+    function controller($scope, $http, $window, $state, UserService, SelectionApplicationService) {
 
         UserService.GetCurrentUsername().then(function(data){
             $scope.Username = data;

@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('SurveyCustomerLocationController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationService',
-        'CompanyApplicationService', 'SurveyApplicationService', 'SelectionApplicationService',
+        'SelectionApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationService,
-        CompanyApplicationService, SurveyApplicationService, SelectionApplicationService) {
+        SelectionApplicationService) {
         $scope.Search = function () {
             var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
             SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {

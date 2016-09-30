@@ -1,8 +1,10 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
-        //CompanyApplicationService.NotifyObservers();
+    angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http',
+        '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http,
+        $location, $timeout, breezeservice, breeze, CustomerService, SelectionApplicationService) {
+
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
         }
@@ -26,7 +28,7 @@
                 });
             }
             else {
-                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 CustomerService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();

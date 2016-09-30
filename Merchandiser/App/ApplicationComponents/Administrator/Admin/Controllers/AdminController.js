@@ -1,7 +1,7 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('AdminController', ['$scope', '$state', 'CompanyApplicationService', 'SurveyApplicationService', 'SelectionApplicationService',
-    function controller($scope, $state, CompanyApplicationService, SurveyApplicationService, SelectionApplicationService) {
+    angular.module('Main').controller('AdminController', ['$scope', '$state', 'SelectionApplicationService',
+    function controller($scope, $state, SelectionApplicationService) {
         //TODO: If a regular user go to company, if a company customer assigned to a survey, go to the survey data page.
         $scope.SelectedCompany = null;
         SelectionApplicationService.RegisterObserver(function () {
