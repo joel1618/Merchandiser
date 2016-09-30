@@ -33,7 +33,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CompanyId = x.CompanyId,
                 Name = x.Name,
                 Created = x.Created,
-                AreaManager = x.AreaManager
+                AreaManager = x.AreaManager,
+                Address = x.Address
             });
             return response;
         }

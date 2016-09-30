@@ -47,6 +47,7 @@
         }
 
         $scope.SelectCustomer = function () {
+            SelectionApplicationService.SetCustomer($scope.SelectedCustomer);
             SelectionApplicationService.SetCustomerId($scope.SelectedCustomer.Id);
             $scope.LocationSearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Id);
         }
@@ -65,8 +66,7 @@
             });
         }
 
-        $scope.SelectLocation = function () {
-            debugger;
+        $scope.SelectLocation = function () {            
             SelectionApplicationService.SetLocation($scope.SelectedLocation);
             SelectionApplicationService.SetLocationId($scope.SelectedLocation.Id);
             $scope.SurveySearch($scope.SelectedCompany.Id, $scope.SelectedCustomer.Id, $scope.SelectedLocation.Id);
@@ -86,6 +86,7 @@
         }
 
         $scope.SelectSurvey = function () {
+            SelectionApplicationService.SetSurvey($scope.SelectedSurvey.Survey);
             SelectionApplicationService.SetSurveyId($scope.SelectedSurvey.SurveyId);
             $state.go($stateParams.redirectState);
         }

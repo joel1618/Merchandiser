@@ -30,5 +30,11 @@ namespace Merchandiser.Models
         public string Notes { get; set; }
 
         public virtual LocationViewModel Location { get; set; }
+
+        public virtual SurveyViewModel Survey { get; set; }
+
+        public virtual CustomerViewModel Customer { get; set; }
+
+        public virtual CompanyViewModel Company { get; set; }
     }
 }

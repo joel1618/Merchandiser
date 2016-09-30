@@ -40,6 +40,16 @@
         this.NotifyObservers();
     }
 
+    this.Customer = null;
+    this.GetCustomer = function () {
+        return this.Customer;
+    };
+
+    this.SetCustomer = function (item) {
+        this.Customer = item;
+        this.NotifyObservers();
+    }
+
     this.LocationId = null;
     this.GetLocationId = function () {
         return this.LocationId;
@@ -95,9 +105,10 @@
         this.Company = null;
 
         this.CustomerId = null;
+        this.Customer = null;
 
-        this.Location = null;
         this.LocationId = null;
+        this.Location = null;
 
         this.SurveyId = null;
         this.Survey = null;

@@ -36,7 +36,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Location = new LocationViewModel()
                 {
                     Id = x.Location.Id,
-                    AreaManager = x.Location.AreaManager
+                    Name = x.Location.Name,
+                    AreaManager = x.Location.AreaManager,
+                    Address = x.Location.Address
+                },
+                Customer = new CustomerViewModel()
+                {
+                    Id = x.Customer.Id,
+                    Name = x.Customer.Name
                 }
             });
         }

@@ -25,6 +25,8 @@
         $scope.AfterImage = null;
         $scope.Header = {
             BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null, Notes: null,
+            Company: SelectionApplicationService.GetCompany(), Survey: SelectionApplicationService.GetSurvey(),
+            Customer: SelectionApplicationService.GetCustomer(), Location: SelectionApplicationService.GetLocation(),
             CompanyId: SelectionApplicationService.GetCompanyId(), SurveyId: SelectionApplicationService.GetSurveyId(),
             CustomerId: SelectionApplicationService.GetCustomerId(), LocationId: SelectionApplicationService.GetLocationId()
         }
@@ -36,7 +38,7 @@
 
         $scope.Search = function () {
 
-            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
 
                 var predicate = { "Id": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
                 SurveyHeaderService.Search(predicate, ["Created desc"], 0, 1, false).then(function (data) {
