@@ -44,6 +44,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.Customer.Id,
                     Name = x.Customer.Name
+                },
+                Survey = new SurveyViewModel()
+                {
+                    Id = x.Survey.Id,
+                    Name = x.Survey.Name
                 }
             });
         }
