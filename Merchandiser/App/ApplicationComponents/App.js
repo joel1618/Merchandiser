@@ -143,7 +143,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                    { "RoleId": { '==': data[0].Id } }
                 ]
             }
-            return RoleService.SearchJson(predicate, 0, 1, false);
+            return UserRoleService.SearchJson(predicate, 0, 1, false);
         })
         .then(function (data) {
             if (data.length > 0) {

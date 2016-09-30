@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('LocationService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
+    .service('LocationService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
         var _self = this;
         this.deferredRequest = null;
 
@@ -20,7 +20,8 @@
                 where: predicate,
                 orderBy: order,
                 skip: page * pageSize,
-                take: pageSize
+                take: pageSize,
+                parameters: { "companyId": SelectionApplicationService.GetCompanyId() }
             });
 
             breezeservice.executeQuery(query).then(function (data) {

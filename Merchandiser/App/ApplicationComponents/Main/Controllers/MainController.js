@@ -7,7 +7,9 @@
             $scope.Username = data;
         });
         $scope.GoTo = function (state) {
+            SelectionApplicationService.SetSurveyHeaderId(null);
             if (state == 'main.admin.company.addedit') {
+                SelectionApplicationService.Clear();
                 $state.go(state);
             }
             else {

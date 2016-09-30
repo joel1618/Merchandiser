@@ -1,4 +1,5 @@
 ﻿using Breeze.WebApi2;
+using Merchandiser.ControllerHelpers;
 using Merchandiser.Models;
 using Merchandiser.Models.Extensions;
 using Merchandiser.Repositories;
@@ -15,21 +16,25 @@ namespace Merchandiser.Controllers.api.v1.breeze
     public class ProductApiController : ApiController
     {
         ProductRepository productRepository;
+        UserRoleRepository userRoleRepository;
         public ProductApiController()
         {
             this.productRepository = new ProductRepository();
+            this.userRoleRepository = new UserRoleRepository();
         }
 
         [HttpGet]
-        public IQueryable<ProductViewModel> Search()
+        public IQueryable<ProductViewModel> Search(Guid companyId)
         {
-            return productRepository.Search().Select(x => new ProductViewModel()
+            var userId = User.Identity.GetUserId();
+            var response = productRepository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new ProductViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 Name = x.Name,
                 Created = x.Created
             });
+            return response;
         }
 
         [HttpGet]

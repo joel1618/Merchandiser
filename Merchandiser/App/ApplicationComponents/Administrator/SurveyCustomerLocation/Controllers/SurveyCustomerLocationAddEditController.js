@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('SurveyCustomerLocationAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationService',
-        'CompanyApplicationService', 'SurveyApplicationService', 'CustomerService', 'LocationService',
+        'CompanyApplicationService', 'SurveyApplicationService', 'CustomerService', 'LocationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationService,
-        CompanyApplicationService, SurveyApplicationService, CustomerService, LocationService) {
+        CompanyApplicationService, SurveyApplicationService, CustomerService, LocationService, SelectionApplicationService) {
 
         CompanyApplicationService.NotifyObservers();
         SurveyApplicationService.NotifyObservers();
@@ -21,10 +21,13 @@
         $scope.Search();
 
         $scope.SearchCustomers = function (value) {
-            var p1 = new breeze.Predicate('Name', "substringof", value);
-            var p2 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            var predicate = new breeze.Predicate.and([p1, p2]);
-            return CustomerService.Search(predicate, 0, 20, false).then(function (data) {
+            var predicate = {
+                and: [
+                   { "Name": { "substringof": value } },
+                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            return CustomerService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
                 return data;
             });
         }
@@ -34,10 +37,13 @@
         }
 
         $scope.SearchLocations = function (value) {
-            var p1 = new breeze.Predicate('Name', "substringof", value);
-            var p2 = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            var predicate = new breeze.Predicate.and([p1, p2]);
-            return LocationService.Search(predicate, 0, 20, false).then(function (data) {
+            var predicate = {
+                and: [
+                   { "Name": { "substringof": value } },
+                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            return LocationService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
                 return data;
             });
         }

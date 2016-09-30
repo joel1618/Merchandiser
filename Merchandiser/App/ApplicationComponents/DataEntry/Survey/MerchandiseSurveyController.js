@@ -15,6 +15,12 @@
         CompanyService, LocationService, CustomerService, SurveyService,
         UserService, SurveyCustomerLocationService, SurveyProductQuestionService, CompanyApplicationService, SurveyHeaderService, SurveyDetailService, ImageService,
         SelectionApplicationService) {
+        if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
+            SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
+            $state.go('merchandise', {
+                redirectState: 'main.survey'
+            });
+        }
         $scope.BeforeImage = null;
         $scope.AfterImage = null;
         $scope.Header = {
@@ -29,6 +35,7 @@
         $scope.Detail = [];
 
         $scope.Search = function () {
+
             if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
 
                 var predicate = new breeze.Predicate('Id', '==', SelectionApplicationService.GetSurveyHeaderId());
@@ -117,7 +124,10 @@
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
                         SelectionApplicationService.SetSurveyHeaderId(data.data.Id);
-                        $scope.Search();
+                        //$scope.Search();
+                        $state.go('merchandise', {
+                            redirectState: 'main.survey'
+                        });
                     });
                 });
                 promises.push(promise);  

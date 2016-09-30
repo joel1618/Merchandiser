@@ -1,12 +1,12 @@
 ﻿(function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('ProductService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
+    .service('ProductService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
         var _self = this;
         this.deferredRequest = null;
 
-        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+        this.Search = function (predicate, order, page, pageSize, cancelExistingSearch) {
             cancelExistingSearch = cancelExistingSearch || false;
 
             if (this.deferredRequest !== null && cancelExistingSearch) {
@@ -14,12 +14,16 @@
                 this.deferredRequest = null;
             }
             var deferred = $q.defer();
-            var query = breeze.EntityQuery.from('ProductApi/Search');
-            if (predicate != null) {
-                query = query.where(predicate);
-            }
-            query = query.orderByDesc('Created').skip(page * pageSize).take(pageSize);
-                        
+
+            var query = new breeze.EntityQuery({
+                from: "ProductApi/Search",
+                where: predicate,
+                orderBy: order,
+                skip: page * pageSize,
+                take: pageSize,
+                parameters: { "companyId": SelectionApplicationService.GetCompanyId() }
+            });
+
             breezeservice.executeQuery(query).then(function (data) {
                 deferred.resolve(data.httpResponse.data);
                 _self.deferredRequest = null;
@@ -27,7 +31,7 @@
                 deferred.reject(msg);
                 _self.deferredRequest = null;
             });
-            
+
             this.deferredRequest = deferred;
 
             return deferred.promise;

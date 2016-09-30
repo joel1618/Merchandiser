@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";
     angular.module('Main').controller('UserRoleAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'CustomerService', 'RoleService', 'CompanyApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'CustomerService', 'RoleService', 'CompanyApplicationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, UserRoleService, CustomerService, RoleService, CompanyApplicationService) {
+        $timeout, breezeservice, breeze, UserRoleService, CustomerService, RoleService, CompanyApplicationService, SelectionApplicationService) {
         CompanyApplicationService.NotifyObservers();
 
         $scope.Init = function () {
@@ -19,7 +19,7 @@
             RoleService.Search(null, 0, 5, false).then(function (data) {
                 $scope.Roles = data;
             });
-            var predicate = { "CompanyId": { "==": CompanyApplicationService.SelectedCompany.Id } };
+            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } };
             CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.Customers = data;
             });

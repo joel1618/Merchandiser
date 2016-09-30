@@ -3,7 +3,7 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('main.reportmain', {
-            url: "/reportmain/:companyId/:surveyId/:customerId/:locationId/:surveyHeaderId",
+            url: "/reportmain",
             templateUrl: "/App/ApplicationComponents/Report/Main/ReportMain.html"
         })
     });
@@ -12,7 +12,7 @@
     function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService) {
         $scope.Search = function () {
-            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, null, null, 0, 10000).then(function (data) {
+            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                     if (data == true) {
@@ -62,17 +62,7 @@
             exporterPdfPageSize: 'LETTER',
             exporterPdfMaxGridWidth: 500,
             data: [],
-            columnDefs: [
-              //{ name: 'Id' },
-              //{ name: 'ProductName' },
-              //{ name: 'LocationName' },
-              //{ name: 'CustomerName' },
-              //{ name: 'Question' },
-              //{ name: 'Answer' },
-              //{ name: $scope.gridOptions.data[0] },
-              //{ name: 'Created', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>' }
-              //{ name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, row)}}</div>' }
-            ]
+            columnDefs: []
         };
 
         $scope.Edit = function (row) {
@@ -82,8 +72,9 @@
 
         $scope.Delete = function(id){
             SurveyHeaderService.DeleteBulk(id).then(function (data) {
-                var index = $scope.gridOptions.data.map(function (e) { return e.Id; }).indexOf(id);
-                $scope.gridOptions.data.splice(index, 1);
+                //var index = $scope.gridOptions.data.map(function (e) { return e.Id; }).indexOf(id);
+                //$scope.gridOptions.data.splice(index, 1);
+                $scope.Search();
             }, function (error) {
                 toastr.error("There was an error deleting the survey data.");
             });

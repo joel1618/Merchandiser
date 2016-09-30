@@ -1,4 +1,5 @@
 ﻿using Breeze.WebApi2;
+using Merchandiser.ControllerHelpers;
 using Merchandiser.Models;
 using Merchandiser.Models.Extensions;
 using Merchandiser.Repositories;
@@ -15,21 +16,25 @@ namespace Merchandiser.Controllers.api.v1.breeze
     public class LocationApiController : ApiController
     {
         LocationRepository locationRepository;
+        UserRoleRepository userRoleRepository;
         public LocationApiController()
         {
             this.locationRepository = new LocationRepository();
+            this.userRoleRepository = new UserRoleRepository();
         }
 
         [HttpGet]
-        public IQueryable<LocationViewModel> Search()
+        public IQueryable<LocationViewModel> Search(Guid companyId)
         {
-            return locationRepository.Search().Select(x => new LocationViewModel()
+            var userId = User.Identity.GetUserId();
+            var response = locationRepository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new LocationViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 Name = x.Name,
                 Created = x.Created
             });
+            return response;
         }
 
         [HttpGet]

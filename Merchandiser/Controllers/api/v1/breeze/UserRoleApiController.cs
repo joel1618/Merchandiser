@@ -81,9 +81,17 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public IHttpActionResult Delete(Guid id)
         {
+            var userRole = repository.Get(id);
+            var role = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
+            var adminRoleCount = repository.Search().Where(e => e.CompanyId == userRole.CompanyId && e.RoleId == role.Id).Count();
+            if(adminRoleCount == 1)
+            {
+                return BadRequest("You cannot remove the last admin on the account.  You must designate someone else as an admin first.");
+            }
             repository.Delete(id);
+            return Ok();
         }
     }
 }

@@ -43,4 +43,12 @@
     this.SetSurveyHeaderId = function (id) {
         this.SurveyHeaderId = id;
     }
+
+    this.Clear = function () {
+        this.CompanyId = null;
+        this.CustomerId = null;
+        this.LocationId = null;
+        this.SurveyId = null;
+        this.SurveyHeaderId = null;
+    }
 });

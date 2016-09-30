@@ -1,10 +1,10 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('QuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'CompanyApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, CompanyApplicationService) {
+    angular.module('Main').controller('QuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, SelectionApplicationService) {
         $scope.Search = function () {
-            var predicate = new breeze.Predicate('CompanyId', '==', CompanyApplicationService.SelectedCompany.Id);
-            QuestionService.Search(predicate, 0, 100, false).then(function (data) {
+            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            QuestionService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.items = data;
             });
         }
