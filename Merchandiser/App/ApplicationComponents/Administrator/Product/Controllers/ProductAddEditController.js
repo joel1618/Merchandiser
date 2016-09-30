@@ -1,9 +1,8 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('ProductAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductService', 'CompanyApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductService, CompanyApplicationService) {
-        CompanyApplicationService.NotifyObservers();        
-        
+    angular.module('Main').controller('ProductAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductService, SelectionApplicationService) {
+       
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
         }
@@ -27,7 +26,7 @@
                 });
             }
             else {
-                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 debugger;
                 ProductService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();

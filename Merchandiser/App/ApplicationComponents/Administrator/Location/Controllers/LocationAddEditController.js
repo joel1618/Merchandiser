@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('LocationAddEditController', ['$scope', '$q', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'LocationService', 'CompanyApplicationService', 'SurveyApplicationService',
-    function controller($scope, $q, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, LocationService, CompanyApplicationService, SurveyApplicationService) {
-        CompanyApplicationService.NotifyObservers();
-        SurveyApplicationService.NotifyObservers();
+    angular.module('Main').controller('LocationAddEditController', ['$scope', '$q', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout',
+        'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
+    function controller($scope, $q, $state, $stateParams, $routeParams, $http, $location, $timeout,
+        breezeservice, breeze, LocationService, SelectionApplicationService) {
         
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "", Latitude: null, Longitude: null }
@@ -28,7 +28,7 @@
                 });
             }
             else {
-                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 LocationService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();

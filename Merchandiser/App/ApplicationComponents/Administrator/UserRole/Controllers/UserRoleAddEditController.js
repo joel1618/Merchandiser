@@ -1,11 +1,9 @@
 ﻿(function (moment) {
     "use strict";
     angular.module('Main').controller('UserRoleAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'CustomerService', 'RoleService', 'CompanyApplicationService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'CustomerService', 'RoleService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, UserRoleService, CustomerService, RoleService, CompanyApplicationService, SelectionApplicationService) {
-        CompanyApplicationService.NotifyObservers();
-
+        $timeout, breezeservice, breeze, UserRoleService, CustomerService, RoleService, SelectionApplicationService) {
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
         }
@@ -39,7 +37,7 @@
                 });
             }
             else {
-                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 $scope.item.RoleId = $scope.item.Role.Id;
                 if ($scope.item.Customer != undefined) {
                     $scope.item.CustomerId = $scope.item.Customer.Id;

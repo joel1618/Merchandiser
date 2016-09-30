@@ -25,8 +25,9 @@
 
         $scope.Select = function (Id) {
             SurveyService.Get(Id).then(function (data) {
-                SurveyApplicationService.SetSelectedSurvey(data);
+                //SurveyApplicationService.SetSelectedSurvey(data);
                 SelectionApplicationService.SetSurveyId(data.Id);
+                SelectionApplicationService.SetSurvey(data);
             });
         }
     }]);

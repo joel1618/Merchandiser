@@ -2,7 +2,7 @@
     "use strict";    
     angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'CompanyApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, CompanyApplicationService) {
-        CompanyApplicationService.NotifyObservers();
+        //CompanyApplicationService.NotifyObservers();
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
         }

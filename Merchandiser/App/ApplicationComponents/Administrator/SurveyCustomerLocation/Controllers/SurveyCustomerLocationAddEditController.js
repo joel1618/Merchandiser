@@ -1,14 +1,11 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('SurveyCustomerLocationAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationService',
-        'CompanyApplicationService', 'SurveyApplicationService', 'CustomerService', 'LocationService', 'SelectionApplicationService',
+        'CustomerService', 'LocationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationService,
-        CompanyApplicationService, SurveyApplicationService, CustomerService, LocationService, SelectionApplicationService) {
+        CustomerService, LocationService, SelectionApplicationService) {
 
-        CompanyApplicationService.NotifyObservers();
-        SurveyApplicationService.NotifyObservers();
-
-        $scope.Init = function(){
+        $scope.Init = function () {
             $scope.item = { Id : null }
         }
         $scope.Search = function () {
@@ -63,8 +60,8 @@
                 });
             }
             else {
-                $scope.item.CompanyId = CompanyApplicationService.SelectedCompany.Id;
-                $scope.item.SurveyId = SurveyApplicationService.SelectedSurvey.Id;
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
+                $scope.item.SurveyId = SelectionApplicationService.GetSurveyId();
                 SurveyCustomerLocationService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();

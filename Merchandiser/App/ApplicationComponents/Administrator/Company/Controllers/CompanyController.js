@@ -28,8 +28,9 @@
         
         $scope.Select = function (Id) {
             CompanyService.Get(Id).then(function (data) {
-                CompanyApplicationService.SetSelectedCompany(data);
+                //CompanyApplicationService.SetSelectedCompany(data);
                 SelectionApplicationService.SetCompanyId(data.Id);
+                SelectionApplicationService.SetCompany(data);
             });
         }
         

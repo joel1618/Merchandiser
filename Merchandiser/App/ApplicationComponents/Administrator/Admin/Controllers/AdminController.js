@@ -1,16 +1,16 @@
 ﻿(function (moment) {
     "use strict";    
-    angular.module('Main').controller('AdminController', ['$scope', '$state', 'CompanyApplicationService', 'SurveyApplicationService',
-    function controller($scope, $state, CompanyApplicationService, SurveyApplicationService) {
+    angular.module('Main').controller('AdminController', ['$scope', '$state', 'CompanyApplicationService', 'SurveyApplicationService', 'SelectionApplicationService',
+    function controller($scope, $state, CompanyApplicationService, SurveyApplicationService, SelectionApplicationService) {
         //TODO: If a regular user go to company, if a company customer assigned to a survey, go to the survey data page.
         $scope.SelectedCompany = null;
-        CompanyApplicationService.RegisterObserver(function () { 
-            $scope.SelectedCompany = CompanyApplicationService.SelectedCompany;
+        SelectionApplicationService.RegisterObserver(function () {
+            $scope.SelectedCompany = SelectionApplicationService.GetCompany();
         })
 
         $scope.SelectedSurvey = null;
-        SurveyApplicationService.RegisterObserver(function(){
-            $scope.SelectedSurvey = SurveyApplicationService.SelectedSurvey;
+        SelectionApplicationService.RegisterObserver(function(){
+            $scope.SelectedSurvey = SelectionApplicationService.GetSurvey();
         })
 
         $scope.Route = function (state) {
@@ -19,7 +19,7 @@
             }
             else {
                 if (state == "main.admin.surveycustomerlocation.addedit" || state == "main.admin.surveyproductquestion.addedit") {
-                    if (SurveyApplicationService.SelectedSurvey == undefined || SurveyApplicationService.SelectedSurvey == null || SurveyApplicationService.SelectedSurvey == "") {
+                    if (SelectionApplicationService.GetSurvey() == null || SelectionApplicationService.GetSurveyId() == null) {
                         toastr.error("A survey must be selected first.");
                     }
                     else {
@@ -27,7 +27,7 @@
                     }
                 }
                 else {
-                    if (CompanyApplicationService.SelectedCompany == undefined || CompanyApplicationService.SelectedCompany == null || CompanyApplicationService.SelectedCompany == "") {
+                    if (SelectionApplicationService.GetCompany() == null || SelectionApplicationService.GetCompanyId() == null) {
                         toastr.error("A company must be selected first.");
                     }
                     else {
