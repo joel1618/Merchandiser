@@ -46,6 +46,7 @@ namespace Merchandiser.Migrations
                     AddSurveyCustomerLocation(context);
                     AddSurveyProductQuestion(context);
 
+                    
                     context.SaveChanges();
                     context.Database.Connection.Close();
                 }
