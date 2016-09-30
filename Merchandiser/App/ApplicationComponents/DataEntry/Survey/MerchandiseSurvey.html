@@ -53,20 +53,19 @@
                 <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
                 <br />
             </div>
-            <div class="col-md-6 pull-left">
-                <label for="manager">Manager</label>
-                <div id="manager">
-                    <p ng-model="Location.AreaManager" ng-show="Location.AreaManager != null">{{Location.AreaManager}}</p>
-                    <p ng-model="item.Location.AreaManager" ng-show="item.Location.AreaManager != null">{{item.Location.AreaManager}}</p>
+            <div class="col-md-6">
+                <div class="pull-left">
+                    <label for="manager">Manager</label>
+                    <div id="manager">
+                        <p ng-model="Location.AreaManager" ng-show="Location.AreaManager != null">{{Location.AreaManager}}</p>
+                        <p ng-model="item.Location.AreaManager" ng-show="item.Location.AreaManager != null">{{item.Location.AreaManager}}</p>
+                    </div>
+                    <label for="notes">Notes</label>
+                    <br />
+                    <textarea class="form-control" id="notes" ng-model="Header.Notes" style="height:200px; width:25vh;">{{Header.Notes}}</textarea>
+                    <br />
+                    <button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>
                 </div>
-                <label for="notes">Notes</label>
-                <br/>
-                <textarea class="form-control" id="notes" ng-model="Header.Notes" style="height:200px; width:25vh;">{{Header.Notes}}</textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>
             </div>
         </div>
     </div>
