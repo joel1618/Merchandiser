@@ -51,7 +51,7 @@ namespace Merchandiser.ControllerHelpers
             ParameterExpression param = Expression.Parameter(typeof(T), "object");
             MethodCallExpression body = null;
             Expression<Func<T, bool>> predicate = null;
-            if(companyFieldName != null)
+            if (companyFieldName != null)
             {
                 body = Expression.Call(Expression.Constant(companyId), "Equals", null, Expression.Property(param, companyFieldName));
                 predicate = Expression.Lambda<Func<T, bool>>(body, param);
@@ -79,7 +79,10 @@ namespace Merchandiser.ControllerHelpers
             {
                 if (userFieldName != null)
                 {
-                    body = Expression.Call(Expression.Constant(userId), "Equals", null, Expression.Property(param, userFieldName));
+                    var property = Expression.Property(param, userFieldName);
+                    var method = typeof(string).GetMethod("Equals", new[] { typeof(string) });
+                    var argument = Expression.Constant(userId);
+                    body = Expression.Call(property, method, argument);
                     predicate = Expression.Lambda<Func<T, bool>>(body, param);
 
                     query = query.Where(predicate);

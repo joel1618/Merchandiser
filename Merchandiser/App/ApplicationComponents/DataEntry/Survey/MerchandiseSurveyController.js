@@ -38,21 +38,20 @@
 
             if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
 
-                var predicate = new breeze.Predicate('Id', '==', SelectionApplicationService.GetSurveyHeaderId());
-                SurveyHeaderService.Search(predicate, 0, 1, false).then(function (data) {
+                var predicate = { "Id": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
+                SurveyHeaderService.Search(predicate, ["Created desc"], 0, 1, false).then(function (data) {
                     $scope.Header = data[0];
                 })
-                predicate = new breeze.Predicate('SurveyHeaderId', '==', SelectionApplicationService.GetSurveyHeaderId());
-                SurveyDetailService.Search(predicate, 0, 100, false).then(function (data) {
+                var predicate = { "SurveyHeaderId": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
+                SurveyDetailService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
                     $scope.Detail = data;
                 });
                 $scope.BeforeImage = "/api/v1/ImageApi/GetBeforeImage/" + SelectionApplicationService.GetSurveyHeaderId();
                 $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
             }
             else {
-                var predicate = new breeze.Predicate('SurveyId', '==', SelectionApplicationService.GetSurveyId());
-                SurveyProductQuestionService.Search(predicate, 0, 100, false).then(function (data) {
-                    
+                var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
+                SurveyProductQuestionService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
                     $scope.Detail = data;
                 });
             }

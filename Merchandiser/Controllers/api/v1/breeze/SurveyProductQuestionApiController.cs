@@ -23,7 +23,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<SurveyProductQuestionViewModel> Search()
         {
-            return repository.Search().Select(x => new SurveyProductQuestionViewModel()
+            var response = repository.Search().Select(x => new SurveyProductQuestionViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
@@ -40,6 +40,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 },
                 Created = x.Created
             });
+            return response;
         }
 
         [HttpGet]

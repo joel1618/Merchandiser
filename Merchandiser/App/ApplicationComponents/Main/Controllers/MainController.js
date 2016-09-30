@@ -26,10 +26,12 @@
                         }
                     }
                     else if (state == 'main.reportmain') {
-                        $state.go(state);
+                        $state.go('merchandise', { redirectState: state });
+                        //$state.go(state);
                     }
                     else if (state == 'main.map') {
-                        $state.go(state);
+                        $state.go('merchandise', { redirectState: state });
+                        //$state.go(state);
                     }
                 }
             }

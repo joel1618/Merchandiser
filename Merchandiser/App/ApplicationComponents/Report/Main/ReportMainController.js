@@ -11,6 +11,11 @@
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
     function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService) {
+        if (SelectionApplicationService.GetCompanyId() == null) {
+            $state.go('merchandise', {
+                redirectState: 'main.reportmain'
+            });
+        }
         $scope.Search = function () {
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
