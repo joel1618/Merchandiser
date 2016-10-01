@@ -14,7 +14,7 @@
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
         UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
-        $scope.Location = SelectionApplicationService.GetLocation();
+        
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
             $state.go('main.merchandise', {
@@ -37,9 +37,7 @@
         $scope.Detail = [];
 
         $scope.Search = function () {
-
             if (SelectionApplicationService.GetSurveyHeaderId() != null) {
-
                 var predicate = { "Id": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
                 SurveyHeaderService.Search(predicate, ["Created desc"], 0, 1, false).then(function (data) {
                     $scope.Header = data[0];
@@ -86,7 +84,7 @@
             if (!$scope.Validate()) {
                 return false;
             }
-            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
                 var details = [];
                 angular.forEach($scope.Detail, function (value, key) {
                     details.push({

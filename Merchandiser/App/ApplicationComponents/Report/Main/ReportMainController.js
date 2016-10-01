@@ -36,10 +36,16 @@
                     }                    
                 });
                 $scope.gridOptions.columnDefs.push({
-                    field: 'ProductName', name: 'Product Name', cellTooltip: true
+                    field: 'CustomerName', name: 'Customer Name', cellTooltip: true
+                });
+                $scope.gridOptions.columnDefs.push({
+                    field: 'LocationName', name: 'Location Name', cellTooltip: true
                 });
                 $scope.gridOptions.columnDefs.push({
                     field: 'SurveyName', name: 'Survey Name', cellTooltip: true
+                });
+                $scope.gridOptions.columnDefs.push({
+                    field: 'ProductName', name: 'Product Name', cellTooltip: true
                 });
                 var keys = []
                 var obj = $scope.gridOptions.data[0];

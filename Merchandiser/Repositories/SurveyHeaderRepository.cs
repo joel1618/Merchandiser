@@ -34,6 +34,7 @@ namespace Merchandiser.Repositories
         public SurveyHeader Update(Guid id, SurveyHeader item)
         {
             var entity = context.SurveyHeaders.Find(id);
+            entity.Notes = item.Notes;
             return entity;
         }
 

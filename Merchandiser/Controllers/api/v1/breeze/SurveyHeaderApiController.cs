@@ -28,7 +28,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<SurveyHeaderViewModel> Search()
         {
-            return repository.Search().Select(x => new SurveyHeaderViewModel()
+            var response = repository.Search().Select(x => new SurveyHeaderViewModel()
             {
                 Id = x.Id,
                 Created = x.Created,
@@ -51,6 +51,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     Name = x.Survey.Name
                 }
             });
+            return response;
         }
 
         [HttpGet]
