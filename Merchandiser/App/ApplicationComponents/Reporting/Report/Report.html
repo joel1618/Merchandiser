@@ -1,0 +1,35 @@
+﻿<div ng-controller="ReportController">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="list-group" style="color:black;">
+                <li ui-sref-active="active" class="list-group-item" ng-click="Route('main.report.surveyreport')" ui-sref="main.report.surveyreport">Survey Report</li>
+                <li ui-sref-active="active" class="list-group-item" ng-click="Route('main.report.weeklyreport')" ui-sref="main.report.weeklyreport">Weekly Report</li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-10">
+                    <div ui-view></div>
+                </div>
+                <div class="col-md-2" style="padding-right:20px;">
+                    <!--<div class="panel panel-primary" ng-show="SelectedCompany.Id !== undefined">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Selected Company</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{SelectedCompany.Name}}
+                        </div>
+                    </div>
+                    <div class="panel panel-primary" ng-show="SelectedSurvey.Id !== undefined">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Selected Survey</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{SelectedSurvey.Name}}
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

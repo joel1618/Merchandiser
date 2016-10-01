@@ -2,18 +2,18 @@
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('main.reportmain', {
-            url: "/reportmain",
-            templateUrl: "/App/ApplicationComponents/Report/Main/ReportMain.html"
+        .state('main.report.surveyreport', {
+            url: "/surveyreport",
+            templateUrl: "/App/ApplicationComponents/Reporting/Survey/SurveyReport.html"
         })
     });
-    angular.module('Main').controller('ReportMainController', ['$scope', '$state', '$stateParams', '$http', '$location',
+    angular.module('Main').controller('SurveyReportController', ['$scope', '$state', '$stateParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService', 'LocationService',
     function controller($scope, $state, $stateParams, $http, $location,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService, LocationService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.merchandise', {
-                redirectState: 'main.reportmain'
+                redirectState: 'main.report.surveyreport'
             });
         }
         $scope.Search = function () {
@@ -22,7 +22,7 @@
                 UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                     if (data == true) {
                         $scope.gridOptions.columnDefs.splice(0,0,{
-                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
+                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                         });
                     }
                     else {
@@ -31,7 +31,7 @@
                 }).then(function (data) {
                     if (data == true) {
                         $scope.gridOptions.columnDefs.splice(0, 0, {
-                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Report/Main/CellTemplates/EditDelete.html'
+                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                         });
                     }                    
                 });

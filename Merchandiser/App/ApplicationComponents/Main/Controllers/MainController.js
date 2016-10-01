@@ -26,7 +26,7 @@
                         //    $state.go(state);
                         //}
                     }
-                    else if (state == 'main.reportmain') {
+                    else if (state == 'main.report.surveyreport') {
                         $state.go('main.merchandise', { redirectState: state });
                         //$state.go(state);
                     }
