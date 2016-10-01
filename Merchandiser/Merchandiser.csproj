@@ -438,6 +438,8 @@
     <Content Include="App\ApplicationComponents\Reporting\Map\MapController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Report\Report.html" />
     <Content Include="App\ApplicationComponents\Reporting\Report\ReportController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\Weekly\WeeklyReport.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Weekly\WeeklyReportController.js" />
     <Content Include="App\ApplicationServices\ApplicationServices.js" />
     <Content Include="App\ApplicationServices\Selection\SelectionApplicationService.js" />
     <Content Include="App\DatabaseServices\Breeze\breezeservice.js" />
@@ -2080,6 +2082,8 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\ApplicationComponents\Reporting\Location\" />
+    <Folder Include="App\ApplicationComponents\Reporting\Notes\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />

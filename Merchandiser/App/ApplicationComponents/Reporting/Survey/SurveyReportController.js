@@ -16,8 +16,10 @@
                 redirectState: 'main.report.surveyreport'
             });
         }
+
         $scope.Search = function () {
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, 0, 10000).then(function (data) {
+                debugger;
                 $scope.gridOptions.data = data;
                 UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                     if (data == true) {
@@ -62,8 +64,8 @@
                 });
             });
         }
-        $scope.Search();
-
+        $scope.gridOptions = {};
+        $scope.gridOptions.data = [];
         $scope.gridOptions = {
             enableFiltering: true,
             enableSorting: true,
@@ -75,6 +77,7 @@
             data: [],
             columnDefs: []
         };
+        $scope.Search();
 
         $scope.Edit = function (row) {
             LocationService.Get(row.LocationId).then(function (data) {

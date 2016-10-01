@@ -9,7 +9,6 @@
     });
     angular.module('Main').controller('ReportController', ['$scope', '$state', 'SelectionApplicationService',
     function controller($scope, $state, SelectionApplicationService) {
-
     }]);
 
 })(moment);
