@@ -4,7 +4,7 @@
         $stateProvider
         .state('main.report.locationreport', {
             url: "/locationreport",
-            templateUrl: "/App/ApplicationComponents/Reporting/Location/Location.html"
+            templateUrl: "ApplicationComponents/Reporting/Location/LocationReport.html"
         })
     });
     angular.module('Main').controller('LocationReportController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
