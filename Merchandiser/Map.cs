@@ -20,6 +20,7 @@ namespace Merchandiser
         public System.DateTime Created { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
+        public string Notes { get; set; }
         public System.Guid CompanyId { get; set; }
         public System.Guid CustomerId { get; set; }
         public System.Guid SurveyId { get; set; }

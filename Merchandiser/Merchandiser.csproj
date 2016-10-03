@@ -433,7 +433,14 @@
     <Content Include="App\ApplicationComponents\Main\Controllers\MainController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Location\LocationReport.html" />
     <Content Include="App\ApplicationComponents\Reporting\Location\LocationReportController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\Modal\Image\ImageModal.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Modal\Image\ImageModalController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\Modal\Note\NoteModal.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Modal\Note\NoteModalController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\AfterImage.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\EditDelete.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\BeforeImage.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\Notes.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReport.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReportController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Report\Report.html" />
@@ -2082,7 +2089,7 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\ApplicationComponents\Reporting\Notes\" />
+    <Folder Include="App\ApplicationComponents\Reporting\Note\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />

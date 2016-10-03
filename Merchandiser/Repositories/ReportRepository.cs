@@ -86,7 +86,6 @@ namespace Merchandiser.Repositories
 					Product.Id as ''ProductId'',
 					Product.Name as ''ProductName'', 
                     SurveyHeader.Created as ''Created'',
-					
                     SurveyDetail.Answer as ''Answer'', 
 					Question.Name as ''QuestionName''
                     

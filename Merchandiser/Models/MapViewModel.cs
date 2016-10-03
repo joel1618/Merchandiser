@@ -13,6 +13,8 @@ namespace Merchandiser.Models
         public DateTime Created { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public string Notes { get; set; }
         public Guid CompanyId { get; set; }
         public Guid CustomerId { get; set; }
         public Guid LocationId { get; set; }

@@ -5,24 +5,24 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e91c83e735a54baa8b98f707d2f39cc8" Name="Diagram1">
-        <EntityTypeShape EntityType="MerchandiserModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="2.375" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetRole" Width="1.5" PointX="3" PointY="12.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="7.5" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserRole" Width="1.5" PointX="5.25" PointY="16.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUser" Width="1.5" PointX="3" PointY="2.875" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUsersInfo" Width="1.5" PointX="5.25" PointY="4" />
-        <EntityTypeShape EntityType="MerchandiserModel.Company" Width="1.5" PointX="0.75" PointY="16.125" />
-        <EntityTypeShape EntityType="MerchandiserModel.Customer" Width="1.5" PointX="3" PointY="16" />
-        <EntityTypeShape EntityType="MerchandiserModel.Location" Width="1.5" PointX="3" PointY="23.625" />
-        <EntityTypeShape EntityType="MerchandiserModel.Product" Width="1.5" PointX="3" PointY="28.25" />
-        <EntityTypeShape EntityType="MerchandiserModel.Question" Width="1.5" PointX="3" PointY="19.875" />
-        <EntityTypeShape EntityType="MerchandiserModel.Survey" Width="1.5" PointX="3" PointY="8.625" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyCustomerLocation" Width="1.5" PointX="5.25" PointY="12.25" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyDetail" Width="1.5" PointX="10.5" PointY="21.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyHeader" Width="1.5" PointX="8.25" PointY="15.875" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyProductQuestion" Width="1.5" PointX="5.25" PointY="21.125" />
-        <EntityTypeShape EntityType="MerchandiserModel.Map" Width="1.5" PointX="7.75" PointY="5.375" />
+        <EntityTypeShape EntityType="MerchandiserModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetRole" Width="1.5" PointX="3" PointY="16" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="29.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="35.125" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserRole" Width="1.5" PointX="5.25" PointY="18.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUser" Width="1.5" PointX="3" PointY="31.25" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUsersInfo" Width="1.5" PointX="5.25" PointY="32.5" />
+        <EntityTypeShape EntityType="MerchandiserModel.Company" Width="1.5" PointX="0.75" PointY="14.5" />
+        <EntityTypeShape EntityType="MerchandiserModel.Customer" Width="1.5" PointX="3" PointY="22.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.Location" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="MerchandiserModel.Product" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="MerchandiserModel.Question" Width="1.5" PointX="3" PointY="26.625" />
+        <EntityTypeShape EntityType="MerchandiserModel.Survey" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyCustomerLocation" Width="1.5" PointX="5.25" PointY="9.625" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyDetail" Width="1.5" PointX="10.5" PointY="20.125" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyHeader" Width="1.5" PointX="8.25" PointY="14.25" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyProductQuestion" Width="1.5" PointX="5.25" PointY="14.5" />
+        <EntityTypeShape EntityType="MerchandiserModel.Map" Width="1.5" PointX="2.75" PointY="0.75" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MerchandiserModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />

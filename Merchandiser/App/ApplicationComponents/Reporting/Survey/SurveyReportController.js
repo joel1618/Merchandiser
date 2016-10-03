@@ -7,9 +7,9 @@
             templateUrl: "/App/ApplicationComponents/Reporting/Survey/SurveyReport.html"
         })
     });
-    angular.module('Main').controller('SurveyReportController', ['$scope', '$state', '$stateParams', '$http', '$location',
+    angular.module('Main').controller('SurveyReportController', ['$scope', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService', 'LocationService',
-    function controller($scope, $state, $stateParams, $http, $location,
+    function controller($scope, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService, LocationService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.merchandise', {
@@ -23,8 +23,8 @@
                 $scope.gridOptions.data = data;
                 UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                     if (data == true) {
-                        $scope.gridOptions.columnDefs.splice(0,0,{
-                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                        $scope.gridOptions.columnDefs.splice(0, 0, {
+                            name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                         });
                     }
                     else {
@@ -33,9 +33,18 @@
                 }).then(function (data) {
                     if (data == true) {
                         $scope.gridOptions.columnDefs.splice(0, 0, {
-                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                            name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                         });
-                    }                    
+                    }
+                });
+                $scope.gridOptions.columnDefs.splice(1, 0, {
+                    name: 'Before', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeImage.html'
+                });
+                $scope.gridOptions.columnDefs.splice(2, 0, {
+                    name: 'After', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/AfterImage.html'
+                });
+                $scope.gridOptions.columnDefs.splice(3, 0, {
+                    name: 'Notes', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Notes.html'
                 });
                 $scope.gridOptions.columnDefs.push({
                     field: 'CustomerName', name: 'Customer Name', cellTooltip: true
@@ -87,7 +96,7 @@
             });
         }
 
-        $scope.Delete = function (id) {        
+        $scope.Delete = function (id) {
             SurveyHeaderService.DeleteBulk(id).then(function (data) {
                 var length = $scope.gridOptions.data.length;
                 for (var index = 0; index < length; index++) {
@@ -100,6 +109,33 @@
             }, function (error) {
                 toastr.error("There was an error deleting the survey data.");
             });
+        }
+
+        $scope.ViewNote = function (id) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
+                size: 'lg',
+                resolve: {
+                    note: function () {
+                        return "test";
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                //modal closed
+            }, function () {
+                //modal dismissed
+            });
+        }
+
+        $scope.ViewBeforeImage = function (id) {
+
+        }
+
+        $scope.ViewAfterImage = function (id) {
+
         }
     }]);
 })(moment);

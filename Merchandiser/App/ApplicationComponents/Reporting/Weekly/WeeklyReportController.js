@@ -25,7 +25,7 @@
                 UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                     if (data == true) {
                         $scope.gridOptions.columnDefs.splice(0, 0, {
-                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                            name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                         });
                     }
                     else {
@@ -34,7 +34,7 @@
                 }).then(function (data) {
                     if (data == true) {
                         $scope.gridOptions.columnDefs.splice(0, 0, {
-                            name: 'Manage', cellTemplate: '/App/ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                            name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                         });
                     }
                 });

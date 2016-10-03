@@ -40,5 +40,23 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 LocationId = x.LocationId
             });
         }
+
+        public MapViewModel Get(Guid id)
+        {
+            return repository.Search().Where(e => e.Id == id).Select(x => new MapViewModel()
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Created = x.Created,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude,
+                CompanyId = x.CompanyId,
+                CustomerId = x.CustomerId,
+                SurveyId = x.SurveyId,
+                LocationId = x.LocationId,
+                Notes = x.Notes
+            }).FirstOrDefault();
+        }
     }
 }

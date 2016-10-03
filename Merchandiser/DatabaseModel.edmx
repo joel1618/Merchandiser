@@ -230,6 +230,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
@@ -606,6 +607,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
     [Map].[Created] AS [Created], 
     [Map].[Latitude] AS [Latitude], 
     [Map].[Longitude] AS [Longitude], 
+    [Map].[Notes] AS [Notes], 
     [Map].[CompanyId] AS [CompanyId], 
     [Map].[CustomerId] AS [CustomerId], 
     [Map].[SurveyId] AS [SurveyId], 
@@ -1141,6 +1143,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="CustomerId" Type="Guid" Nullable="false" />
           <Property Name="SurveyId" Type="Guid" Nullable="false" />
@@ -1727,6 +1730,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Created" ColumnName="Created" />

@@ -10,6 +10,7 @@
     [CreatedBy]  NVARCHAR (128)   NOT NULL,
     [Modified]   DATETIME         NULL,
     [ModifiedBy] NVARCHAR (128)   NULL,
+    [Notes] NVARCHAR(MAX) NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_SurveyHeader_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Customer] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customer] ([Id]),
