@@ -4,7 +4,7 @@
         $stateProvider
         .state('main.report', {
             url: "/report",
-            templateUrl: "/App/ApplicationComponents/Reporting/Report/Report.html"
+            templateUrl: "ApplicationComponents/Reporting/Report/Report.html"
         })
     });
     angular.module('Main').controller('ReportController', ['$scope', '$state', 'SelectionApplicationService',

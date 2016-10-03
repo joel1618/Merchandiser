@@ -7,7 +7,7 @@
             templateUrl: "/App/ApplicationComponents/Reporting/Location/Location.html"
         })
     });
-    angular.module('Main').controller('LocationController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
+    angular.module('Main').controller('LocationReportController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'MapService', 'SurveyHeaderService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, NgMap, $http, $location,
         $timeout, breezeservice, breeze, MapService, SurveyHeaderService, SelectionApplicationService) {

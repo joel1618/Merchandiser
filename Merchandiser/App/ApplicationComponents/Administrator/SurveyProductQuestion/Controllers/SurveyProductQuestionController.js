@@ -7,13 +7,23 @@
         $scope.Search = function () {
             var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
             SurveyProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                $scope.items = data;
+                $scope.gridOptions.data = data;
             });
         }
+        $scope.gridOptions = {
+            enableFiltering: true,
+            enableSorting: true,
+            data: [],
+            columnDefs: [
+                { name: 'Manage', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Product.Name', name: 'Product Name', cellTooltip: true },
+                { field: 'Question.Name', name: 'Question Name', cellTooltip: true }
+            ]
+        };
         $scope.Search();
 
-        $scope.Edit = function (Id) {
-            $state.go('main.admin.surveyproductquestion.addedit', { id: Id }, { reload: false });
+        $scope.Edit = function (row) {
+            $state.go('main.admin.surveyproductquestion.addedit', { id: row.Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {

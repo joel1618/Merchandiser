@@ -41,6 +41,8 @@ namespace Merchandiser.Repositories
             entity.AreaManager = item.AreaManager;
             entity.Address = item.Address;
             entity.Modified = DateTime.UtcNow;
+            entity.Latitude = item.Latitude;
+            entity.Longitude = item.Longitude;
             context.SaveChanges();
             return entity;
         }

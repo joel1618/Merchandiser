@@ -6,12 +6,22 @@
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } };
             CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.items = data;
+                $scope.gridOptions.data = data;
             });
         }
+        $scope.gridOptions = {
+            enableFiltering: true,
+            enableSorting: true,
+            data: [],
+            columnDefs: [
+                { name: 'Manage', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Name', name: 'Customer Name', cellTooltip: true }
+            ]
+        };
         $scope.Search();
 
-        $scope.Edit = function (Id) {
-            $state.go('main.admin.customer.addedit', { id: Id }, { reload: false });
+        $scope.Edit = function (row) {
+            $state.go('main.admin.customer.addedit', { id: row.Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {

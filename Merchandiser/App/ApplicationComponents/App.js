@@ -26,27 +26,27 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('main.admin.customer', {
             url: "/customer",
-            templateUrl: "/App/ApplicationComponents/Administrator/Customer/Views/Customer.html"
+            templateUrl: "ApplicationComponents/Administrator/Customer/Views/Customer.html"
         })
         .state('main.admin.customer.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/Customer/Views/CustomerAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/Customer/Views/CustomerAddEdit.html",
         })
         .state('main.admin.product', {
             url: "/product",
-            templateUrl: "/App/ApplicationComponents/Administrator/Product/Views/Product.html"
+            templateUrl: "ApplicationComponents/Administrator/Product/Views/Product.html"
         })
         .state('main.admin.product.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/Product/Views/ProductAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/Product/Views/ProductAddEdit.html",
         })
         .state('main.admin.location', {
             url: "/location",
-            templateUrl: "/App/ApplicationComponents/Administrator/Location/Views/Location.html"
+            templateUrl: "ApplicationComponents/Administrator/Location/Views/Location.html"
         })
         .state('main.admin.location.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/Location/Views/LocationAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/Location/Views/LocationAddEdit.html",
         })
         .state('main.admin.survey', {
             url: "/survey",
@@ -58,11 +58,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('main.admin.userrole', {
             url: "/userrole",
-            templateUrl: "/App/ApplicationComponents/Administrator/UserRole/Views/UserRole.html"
+            templateUrl: "ApplicationComponents/Administrator/UserRole/Views/UserRole.html"
         })
         .state('main.admin.userrole.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/UserRole/Views/UserRoleAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/UserRole/Views/UserRoleAddEdit.html",
         })
         .state('main.admin.question', {
             url: "/question",

@@ -431,8 +431,8 @@
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\SurveyAddEdit.html" />
     <Content Include="App\ApplicationComponents\Main\Views\Main.html" />
     <Content Include="App\ApplicationComponents\Main\Controllers\MainController.js" />
-    <Content Include="App\ApplicationComponents\Reporting\Location\Location.html" />
-    <Content Include="App\ApplicationComponents\Reporting\Location\LocationController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\Location\LocationReport.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Location\LocationReportController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReport.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReportController.js" />
