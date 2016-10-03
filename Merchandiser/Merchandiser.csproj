@@ -431,11 +431,11 @@
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\SurveyAddEdit.html" />
     <Content Include="App\ApplicationComponents\Main\Views\Main.html" />
     <Content Include="App\ApplicationComponents\Main\Controllers\MainController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\Location\Location.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Location\LocationController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReport.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReportController.js" />
-    <Content Include="App\ApplicationComponents\Reporting\Map\Map.html" />
-    <Content Include="App\ApplicationComponents\Reporting\Map\MapController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Report\Report.html" />
     <Content Include="App\ApplicationComponents\Reporting\Report\ReportController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Weekly\WeeklyReport.html" />
@@ -2082,7 +2082,6 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\ApplicationComponents\Reporting\Location\" />
     <Folder Include="App\ApplicationComponents\Reporting\Notes\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />

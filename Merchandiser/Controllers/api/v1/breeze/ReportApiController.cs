@@ -23,14 +23,19 @@ namespace Merchandiser.Controllers.api.v1.breeze
             this.roleRepository = new RoleRepository();
         }
 
-        [Route("api/v1/ReportApi/Search/{companyId}/{surveyHeaderId}/{customerId}/{locationId}/{productId}/{surveyId}/{userId}/{page}/{pageSize}")]
+        [Route("api/v1/ReportApi/Search/{companyId}/{surveyHeaderId}/{customerId}/{locationId}/{productId}/{surveyId}/{userId}/{startDate}/{endDate}/{page}/{pageSize}")]
         [HttpGet]
-        public IHttpActionResult Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, Guid? locationId, Guid? productId, Guid? surveyId, string userId, int? page, int? pageSize)
+        public IHttpActionResult Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, 
+            Guid? locationId, Guid? productId, Guid? surveyId, string userId, 
+            DateTime? startDate, DateTime? endDate, int? page, int? pageSize)
         {
             Guid? _companyId = companyId, _surveyHeaderId = surveyHeaderId, _customerId = customerId, _locationId = locationId, _productId = productId, _surveyId = surveyId;
             int? _page = page, _pageSize = pageSize;
             string _userId = null;
-            var _currentUserId = User.Identity.GetUserId();            
+            DateTime? _startDate = startDate, _endDate = endDate;
+            var _currentUserId = User.Identity.GetUserId();       
+            if(_startDate == null) { _startDate = DateTime.Now.AddDays(-365); }
+            if(_endDate == null) { _endDate = DateTime.Now; }     
             if (page == null) { _page = 0; }
             if(pageSize == null){ _pageSize = 100; }
             if(companyId == null)
@@ -71,7 +76,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 }
             }
             
-            var response = repository.Search(_companyId.Value, _surveyHeaderId, _customerId, _locationId, _productId, _surveyId, _userId, _page.Value, _pageSize.Value);
+            var response = repository.Search(_companyId.Value, _surveyHeaderId, _customerId, 
+                _locationId, _productId, _surveyId, _userId, 
+                _startDate.Value, _endDate.Value, _page.Value, _pageSize.Value);
             return Ok(response);
         }
     }

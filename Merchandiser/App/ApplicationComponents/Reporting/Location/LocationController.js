@@ -2,12 +2,12 @@
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('main.map', {
-            url: "/map",
-            templateUrl: "/App/ApplicationComponents/Report/Map/Map.html"
+        .state('main.report.locationreport', {
+            url: "/locationreport",
+            templateUrl: "/App/ApplicationComponents/Reporting/Location/Location.html"
         })
     });
-    angular.module('Main').controller('MapController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
+    angular.module('Main').controller('LocationController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'MapService', 'SurveyHeaderService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, NgMap, $http, $location,
         $timeout, breezeservice, breeze, MapService, SurveyHeaderService, SelectionApplicationService) {

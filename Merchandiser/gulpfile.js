@@ -73,7 +73,10 @@ gulp.task('app', function () {
         path.app + "ApplicationComponents/Administrator/Admin/Controllers/*.js",
         path.app + "ApplicationComponents/Administrator/**/**/*.js",
         path.app + "ApplicationComponents/DataEntry/**/**/*.js",
-        path.app + "ApplicationComponents/Reporting/**/**/*.js"
+        path.app + "ApplicationComponents/Reporting/Report/ReportController.js",
+        path.app + "ApplicationComponents/Reporting/Survey/SurveyReportController.js",
+        path.app + "ApplicationComponents/Reporting/Weekly/WeeklyReportController.js",
+        path.app + "ApplicationComponents/Reporting/Location/LocationController.js"
     ])
            .pipe(sourcemaps.init())
            .pipe(concat("app.js"))

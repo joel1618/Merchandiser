@@ -16,10 +16,10 @@
                 redirectState: 'main.report.surveyreport'
             });
         }
-
+        $scope.StartDate = moment().subtract(365, "days").format("YYYY-MM-DD");
+        $scope.EndDate = moment().format("YYYY-MM-DD");
         $scope.Search = function () {
-            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, 0, 10000).then(function (data) {
-                debugger;
+            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, $scope.StartDate, $scope.EndDate, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;
                 UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                     if (data == true) {
@@ -87,11 +87,16 @@
             });
         }
 
-        $scope.Delete = function(id){
+        $scope.Delete = function (id) {        
             SurveyHeaderService.DeleteBulk(id).then(function (data) {
-                //var index = $scope.gridOptions.data.map(function (e) { return e.Id; }).indexOf(id);
-                //$scope.gridOptions.data.splice(index, 1);
-                $scope.Search();
+                var length = $scope.gridOptions.data.length;
+                for (var index = 0; index < length; index++) {
+                    if ($scope.gridOptions.data[index].Id == id) {
+                        $scope.gridOptions.data.splice(index, 1);
+                        length--;
+                        index--;
+                    }
+                }
             }, function (error) {
                 toastr.error("There was an error deleting the survey data.");
             });

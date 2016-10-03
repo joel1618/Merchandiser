@@ -16,7 +16,9 @@ namespace Merchandiser.Repositories
             this.context = new MerchandiserEntities();
         }
 
-        public List<Dictionary<string, object>> Search(Guid companyId, Guid? surveyHeaderId, Guid? customerId, Guid? locationId, Guid? productId, Guid? surveyId, string userId, int page, int pageSize)
+        public List<Dictionary<string, object>> Search(Guid companyId, Guid? surveyHeaderId, Guid? customerId, 
+            Guid? locationId, Guid? productId, Guid? surveyId, string userId, 
+            DateTime startDate, DateTime endDate, int page, int pageSize)
         {
             using (var cmd = context.Database.Connection.CreateCommand())
             {
@@ -34,7 +36,9 @@ namespace Merchandiser.Repositories
 					left join AspNetUsers on SurveyHeader.CreatedBy = AspNetUsers.Id
 					left join AspNetUsersInfo on AspNetUsers.Id = AspNetUsersInfo.UserId
                     where 
-                    Company.Id = CONVERT(uniqueidentifier,'" + companyId + @"')";
+                    Company.Id = CONVERT(uniqueidentifier,'" + companyId + @"')
+                    AND SurveyHeader.Created >= '" + startDate + @"'
+                    AND SurveyHeader.Created <= '" + endDate + @"'";
                 if (surveyHeaderId != null)
                 {
                     cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(uniqueidentifier,'" + surveyHeaderId + @"'))";
@@ -97,8 +101,10 @@ namespace Merchandiser.Repositories
 					left join AspNetUsers on SurveyHeader.CreatedBy = AspNetUsers.Id
 					left join AspNetUsersInfo on AspNetUsers.Id = AspNetUsersInfo.UserId
                     where 
-                    Company.Id = CONVERT(uniqueidentifier,''" + companyId + @"'')";
-                if(surveyHeaderId != null)
+                    Company.Id = CONVERT(uniqueidentifier,''" + companyId + @"'')
+                    AND SurveyHeader.Created >= ''" + startDate + @"''
+                    AND SurveyHeader.Created <= ''" + endDate + @"''";
+                if (surveyHeaderId != null)
                 {
                     cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(uniqueidentifier,''" + surveyHeaderId + @"''))";
                 }
