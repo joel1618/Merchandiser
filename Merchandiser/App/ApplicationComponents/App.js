@@ -82,11 +82,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('main.admin.surveyproductquestion', {
             url: "/survey/productquestion",
-            templateUrl: "/App/ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestion.html"
+            templateUrl: "ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestion.html"
         })
         .state('main.admin.surveyproductquestion.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
         })
 });
 app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService) {
