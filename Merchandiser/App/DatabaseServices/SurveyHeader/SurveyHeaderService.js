@@ -54,8 +54,7 @@
 
             this.Create = function (item) {
                 var deferred = $q.defer();
-
-                $http.post('/breeze/SurveyHeaderApi/Create', item)
+                $http.post('/breeze/SurveyHeaderApi/Create/', item)
                 .then(function (response) {
                     deferred.resolve(response);
                 }, function (response) {
@@ -84,8 +83,6 @@
 
                 return deferred.promise;
             };
-
-
 
             this.Update = function (id, item) {
                 var deferred = $q.defer();

@@ -17,7 +17,7 @@
             });
         }
         $scope.StartDate = moment().startOf('isoWeek').format("YYYY-MM-DD");
-        $scope.EndDate = moment().format("YYYY-MM-DD");
+        $scope.EndDate = moment().add(1, "days").format("YYYY-MM-DD");
 
         $scope.Search = function () {
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, $scope.StartDate, $scope.EndDate, 0, 10000).then(function (data) {
@@ -61,7 +61,7 @@
                     }
                 }
                 $scope.gridOptions.columnDefs.push({
-                    name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
+                    name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss"}}</div>'
                 });
             });
         }

@@ -17,7 +17,7 @@
             });
         }
         $scope.StartDate = moment().subtract(365, "days").format("YYYY-MM-DD");
-        $scope.EndDate = moment().format("YYYY-MM-DD");
+        $scope.EndDate = moment().add(1, "days").format("YYYY-MM-DD");
         $scope.Search = function () {
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, $scope.StartDate, $scope.EndDate, 0, 10000).then(function (data) {
                 $scope.gridOptions.data = data;

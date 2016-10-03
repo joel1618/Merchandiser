@@ -68,7 +68,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPost]
-        public SurveyHeaderViewModel CreateBulk([FromBody()]SurveyHeaderDetailViewModel item)
+        public IHttpActionResult CreateBulk([FromBody()]SurveyHeaderDetailViewModel item)
         {
             var id = Guid.NewGuid();
             item.Header.Id = id;
@@ -81,7 +81,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 detailRepository.Create(detail.ToEntity()).ToViewModel();
             }
             repository.SaveChanges();
-            return response;
+            return Ok(response);
         }
 
         [HttpPut]

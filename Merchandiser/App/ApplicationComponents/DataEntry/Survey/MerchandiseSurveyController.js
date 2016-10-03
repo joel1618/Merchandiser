@@ -23,10 +23,10 @@
         }
         $scope.BeforeImage = null;
         $scope.AfterImage = null;
+        $scope.Company = SelectionApplicationService.GetCompany(); $scope.Survey = SelectionApplicationService.GetSurvey();
+        $scope.Customer = SelectionApplicationService.GetCustomer(); $scope.Location = SelectionApplicationService.GetLocation();
         $scope.Header = {
             BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null, Notes: null,
-            Company: SelectionApplicationService.GetCompany(), Survey: SelectionApplicationService.GetSurvey(),
-            Customer: SelectionApplicationService.GetCustomer(), Location: SelectionApplicationService.GetLocation(),
             CompanyId: SelectionApplicationService.GetCompanyId(), SurveyId: SelectionApplicationService.GetSurveyId(),
             CustomerId: SelectionApplicationService.GetCustomerId(), LocationId: SelectionApplicationService.GetLocationId()
         }
@@ -90,7 +90,7 @@
                     details.push({
                         Id: value.Id,
                         Answer: value.Answer
-                    })
+                    });
                 });
                 var item = { Header: $scope.Header, Details: details };
                 promise = SurveyHeaderService.UpdateBulk($scope.Header.Id, item).then(function(data){
@@ -102,17 +102,20 @@
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
                     });
+                }, function (error) {
+                    toastr.error("There was an error updating the survey.");
                 });
             }
             else {
                 var details = [];
+                var companyId = SelectionApplicationService.GetCompanyId();
                 angular.forEach($scope.Detail, function (value, key) {
                     details.push({
-                        CompanyId: SelectionApplicationService.GetCompanyId(),
+                        CompanyId: companyId,
                         ProductId: value.Product.Id,
                         QuestionId: value.Question.Id,
                         Answer: value.Answer
-                    })
+                    });
                 });
                 var item = { Header: $scope.Header, Details: details };
                 promise = SurveyHeaderService.CreateBulk(item).then(function (data) {
@@ -123,12 +126,12 @@
                     $q.all([promises]).then(function () {
                         toastr.success("Save successful.");
                         SelectionApplicationService.Clear();
-                        //SelectionApplicationService.SetSurveyHeaderId(data.data.Id);
-                        //$scope.Search();
                         $state.go('main.merchandise', {
                             redirectState: 'main.survey'
                         });
                     });
+                }, function(error){
+                    toastr.error("There was an error creating the survey.");
                 });
                 promises.push(promise);  
             }
