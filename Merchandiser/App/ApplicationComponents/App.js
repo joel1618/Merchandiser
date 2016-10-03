@@ -1,4 +1,4 @@
-﻿var app = angular.module('Main', ['ngRoute', 'ui.grid', 'ngSanitize', 'ngAnimate', 'ui.bootstrap', 'ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
+﻿var app = angular.module('Main', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.grid', 'ui.bootstrap', 'ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
 angular.module('Main').config(function (blockUIConfig) {
     // Change the default delay to 100ms before the blocking is visible
     blockUIConfig.delay = 0;
