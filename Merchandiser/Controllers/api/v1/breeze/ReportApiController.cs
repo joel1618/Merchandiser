@@ -50,6 +50,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 else if(_role.Name == "Customer")
                 {
                     _customerId = _userRole.CustomerId;
+                    _companyId = _userRole.CompanyId;
                 }
                 else
                 {
