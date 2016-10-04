@@ -110,9 +110,7 @@
                     $scope.gridOptions.data.concat(data);
                 });
         }
-        
-        $scope.gridOptions = {};
-        $scope.gridOptions.data = [];
+
         $scope.gridOptions = {
             enableFiltering: true,
             enableSorting: true,
