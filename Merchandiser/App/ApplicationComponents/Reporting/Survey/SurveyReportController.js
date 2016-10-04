@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
-        'LocationService', 'CustomerService', 'SurveyService', 'MapService', 'ImageService',
+        'LocationService', 'CustomerService', 'SurveyService', 'MapService', 'ImageService', 'DownloadService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
-        LocationService, CustomerService, SurveyService, MapService, ImageService) {
+        LocationService, CustomerService, SurveyService, MapService, ImageService, DownloadService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.merchandise', {
                 redirectState: 'main.report.surveyreport'
@@ -170,6 +170,12 @@
                 //modal closed
             }, function () {
                 //modal dismissed
+            });
+        }
+
+        $scope.Download = function () {
+            DownloadService.Get().then(function (data) {
+
             });
         }
     }]);
