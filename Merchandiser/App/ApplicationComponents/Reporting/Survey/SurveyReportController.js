@@ -104,7 +104,7 @@
             $scope.Page++;
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(),
                 SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
-                $scope.StartDate, $scope.EndDate,
+                moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
                 $scope.Page, $scope.PageSize).then(function (data) {
                     $scope.gridApi.infiniteScroll.saveScrollPercentage();
                     $scope.gridOptions.data.concat(data);
