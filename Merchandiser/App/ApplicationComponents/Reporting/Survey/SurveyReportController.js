@@ -1,4 +1,5 @@
-﻿(function (moment) {
+﻿
+(function (moment) {
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
@@ -65,11 +66,13 @@
                     $scope.gridOptions.columnDefs.push({
                         field: 'ProductName', name: 'Product Name', cellTooltip: true
                     });
+                    var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],
+                        length = exclude.length;
                     var keys = []
                     var obj = $scope.gridOptions.data[0];
                     for (var key in obj) {
                         keys.push(key)
-                        if ((key != 'Created' && !key.includes("Id") && !key.includes("Name"))) {
+                        if ((!key.includes("Id") && !key.includes("Name") && !exclude.includes(key))) {
                             $scope.gridOptions.columnDefs.push({
                                 name: key, cellTooltip: true
                             });
@@ -150,7 +153,7 @@
                     animation: true,
                     templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
                     controller: 'NoteModalController',
-                    size: 'lg',
+                    //size: 'lg',
                     resolve: {
                         note: function () {
                             return data.Notes;
@@ -177,7 +180,7 @@
                 animation: true,
                 templateUrl: 'ApplicationComponents/Reporting/Modal/Image/ImageModal.html',
                 controller: 'ImageModalController',
-                size: 'lg',
+                //size: 'lg',
                 resolve: {
                     title: function () {
                         return title;

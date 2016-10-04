@@ -67,7 +67,7 @@ namespace Merchandiser.Repositories
                      FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '')
 
 				    SET @sql = 'SELECT Id, UserName, FirstName, LastName, SurveyId, SurveyName, CompanyId, 
-					CompanyName, LocationId, LocationName, CustomerId, CustomerName, ProductId, ProductName, Created, IsBeforeImage, IsAfterImage ' + @cols + '
+					CompanyName, LocationId, LocationName, CustomerId, CustomerName, ProductId, ProductName, Created, IsBeforeImage, IsAfterImage, ' + @cols + '
                     from 
 					(
 					select 
