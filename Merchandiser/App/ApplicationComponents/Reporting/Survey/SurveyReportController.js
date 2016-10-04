@@ -81,10 +81,10 @@
             enableFiltering: true,
             enableSorting: true,
             enableGridMenu: true,
-            exporterCsvFilename: 'myFile.csv',
-            exporterPdfOrientation: 'portrait',
-            exporterPdfPageSize: 'LETTER',
-            exporterPdfMaxGridWidth: 500,
+            //exporterCsvFilename: 'myFile.csv',
+            //exporterPdfOrientation: 'portrait',
+            //exporterPdfPageSize: 'LETTER',
+            //exporterPdfMaxGridWidth: 500,
             data: [],
             columnDefs: []
         };
@@ -174,9 +174,7 @@
         }
 
         $scope.Download = function () {
-            DownloadService.Get().then(function (data) {
-
-            });
+            window.open('/DownloadApi/Get/', '_blank', '');
         }
     }]);
 })(moment);

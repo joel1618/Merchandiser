@@ -1,6 +1,7 @@
 ﻿<div ng-controller="SurveyReportController">
-    <button ng-click="Download()">Download</button>
+    <button class="btn btn-primary btn-sm pull-right" ng-click="Download()">Download</button>
+    <br/>
     StartDate: {{StartDate}}<br/>
     EndDate: {{EndDate}}<br/>
-    <div class="grid" ui-grid-exporter ui-grid="gridOptions"></div>
+    <div class="grid" ui-grid="gridOptions"></div>
 </div>

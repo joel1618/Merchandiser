@@ -277,7 +277,7 @@
     <Compile Include="Controllers\api\v1\breeze\SurveyHeaderApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyProductQuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\UserRoleApiController.cs" />
-    <Compile Include="Controllers\api\v1\DownloadApiController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\api\v1\UserApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

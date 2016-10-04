@@ -25,7 +25,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
 
         [Route("api/v1/ReportApi/Search/{companyId}/{surveyHeaderId}/{customerId}/{locationId}/{productId}/{surveyId}/{userId}/{startDate}/{endDate}/{page}/{pageSize}")]
         [HttpGet]
-        public List<Dictionary<string, object>> Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, 
+        public IHttpActionResult Search(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, 
             Guid? locationId, Guid? productId, Guid? surveyId, string userId, 
             DateTime? startDate, DateTime? endDate, int? page, int? pageSize)
         {
