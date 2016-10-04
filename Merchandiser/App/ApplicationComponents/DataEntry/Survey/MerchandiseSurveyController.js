@@ -99,7 +99,7 @@
                     promises.push(promise);
                     promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
                     promises.push(promise);
-                    $q.all([promises]).then(function () {
+                    $q.all(promises).then(function () {
                         toastr.success("Save successful.");
                     });
                 }, function (error) {
@@ -123,7 +123,7 @@
                     promises.push(promise);
                     promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
                     promises.push(promise);
-                    $q.all([promises]).then(function () {
+                    $q.all(promises).then(function () {
                         toastr.success("Save successful.");
                         SelectionApplicationService.Clear();
                         $state.go('main.merchandise', {

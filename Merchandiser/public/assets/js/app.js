@@ -314,6 +314,108 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
+    .service('CompanyUserService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+        var _self = this;
+        this.deferredRequest = null;
+
+        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+            cancelExistingSearch = cancelExistingSearch || false;
+
+            if (this.deferredRequest !== null && cancelExistingSearch) {
+                this.deferredRequest.reject("Cancelled Search Request.");
+                this.deferredRequest = null;
+            }
+            var deferred = $q.defer();
+            var query = breeze.EntityQuery.from('CompanyUserApi/Search');
+            if (predicate != null) {
+                query = query.where(predicate);
+            }
+            query = query.skip(page * pageSize).take(pageSize);
+                        
+            breezeservice.executeQuery(query).then(function (data) {
+                deferred.resolve(data.httpResponse.data);
+                _self.deferredRequest = null;
+            }, function (msg, code) {
+                deferred.reject(msg);
+                _self.deferredRequest = null;
+            });
+            
+            this.deferredRequest = deferred;
+
+            return deferred.promise;
+        };
+
+        this.Get = function (id) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'Get',
+                url: '/breeze/CompanyUserApi/Get/' + id,
+            }).success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            }).error(function (msg, code) {
+                deferred.reject(msg);
+            });
+
+            return deferred.promise;
+        };
+
+        this.Create = function (item) {
+            var deferred = $q.defer();
+
+            $http.post('/breeze/CompanyUserApi/Create', item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response.statusText);
+                } else {
+                    deferred.reject("Failed to create the record.");
+                }
+            });
+
+            return deferred.promise;
+        };
+
+        this.Update = function (id, item) {
+            var deferred = $q.defer();
+
+            $http.put('/breeze/CompanyUserApi/Update/' + id, item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to update the record.");
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        this.Delete = function (id) {
+            var deferred = $q.defer();
+
+            $http.delete('/breeze/CompanyUserApi/Delete/' + id)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.statusText.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to delete the record.");
+                }
+            });
+
+            return deferred.promise;
+        }
+    }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
     .service('CustomerService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
         var _self = this;
@@ -903,104 +1005,28 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('CompanyUserService', ['$http', '$q', 'breeze', 'breezeservice',
+    .service('ReportService', ['$http', '$q', 'breeze', 'breezeservice',
         function ($http, $q, breeze, breezeservice) {
-        var _self = this;
-        this.deferredRequest = null;
+            var _self = this;
+            this.deferredRequest = null;
 
-        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
-            cancelExistingSearch = cancelExistingSearch || false;
+            this.Search = function (companyId,surveyHeaderId,customerId,locationId,productId,surveyId, userId, startDate, endDate, page, pageSize) {
+                var deferred = $q.defer();
 
-            if (this.deferredRequest !== null && cancelExistingSearch) {
-                this.deferredRequest.reject("Cancelled Search Request.");
-                this.deferredRequest = null;
-            }
-            var deferred = $q.defer();
-            var query = breeze.EntityQuery.from('CompanyUserApi/Search');
-            if (predicate != null) {
-                query = query.where(predicate);
-            }
-            query = query.skip(page * pageSize).take(pageSize);
-                        
-            breezeservice.executeQuery(query).then(function (data) {
-                deferred.resolve(data.httpResponse.data);
-                _self.deferredRequest = null;
-            }, function (msg, code) {
-                deferred.reject(msg);
-                _self.deferredRequest = null;
-            });
-            
-            this.deferredRequest = deferred;
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/ReportApi/Search/' + companyId + '/' + surveyHeaderId + '/' + customerId + '/' + locationId + '/' +
+                        productId + '/' + surveyId + '/' + userId + '/' + startDate + '/' + endDate + '/' + page + '/' + pageSize + '/',
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
 
-            return deferred.promise;
-        };
+                return deferred.promise;
+            };
 
-        this.Get = function (id) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'Get',
-                url: '/breeze/CompanyUserApi/Get/' + id,
-            }).success(function (data, status, headers, config) {
-                deferred.resolve(data);
-            }).error(function (msg, code) {
-                deferred.reject(msg);
-            });
-
-            return deferred.promise;
-        };
-
-        this.Create = function (item) {
-            var deferred = $q.defer();
-
-            $http.post('/breeze/CompanyUserApi/Create', item)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.statusText.length > 0) {
-                    deferred.reject(response.statusText);
-                } else {
-                    deferred.reject("Failed to create the record.");
-                }
-            });
-
-            return deferred.promise;
-        };
-
-        this.Update = function (id, item) {
-            var deferred = $q.defer();
-
-            $http.put('/breeze/CompanyUserApi/Update/' + id, item)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.statusText.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to update the record.");
-                }
-            });
-
-            return deferred.promise;
-        }
-
-        this.Delete = function (id) {
-            var deferred = $q.defer();
-
-            $http.delete('/breeze/CompanyUserApi/Delete/' + id)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.statusText.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to delete the record.");
-                }
-            });
-
-            return deferred.promise;
-        }
-    }]);
+        }]);
 })();
 (function () {
     "use strict";
@@ -1063,32 +1089,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
                 });
 
                 this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-        }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
-    .service('ReportService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.Search = function (companyId,surveyHeaderId,customerId,locationId,productId,surveyId, userId, startDate, endDate, page, pageSize) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'Get',
-                    url: '/api/v1/ReportApi/Search/' + companyId + '/' + surveyHeaderId + '/' + customerId + '/' + locationId + '/' +
-                        productId + '/' + surveyId + '/' + userId + '/' + startDate + '/' + endDate + '/' + page + '/' + pageSize + '/',
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
 
                 return deferred.promise;
             };
@@ -1934,7 +1934,7 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
            
         }]);
 })();
-var app = angular.module('Main', ['ngRoute', 'ngResource', 'ui.grid', 'ngSanitize', 'ngAnimate', 'ui.bootstrap', 'ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
+var app = angular.module('Main', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.grid', 'ui.bootstrap', 'ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
 angular.module('Main').config(function (blockUIConfig) {
     // Change the default delay to 100ms before the blocking is visible
     blockUIConfig.delay = 0;
@@ -2969,182 +2969,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('main.survey', {
-            url: "/survey",
-            templateUrl: "ApplicationComponents/DataEntry/Survey/MerchandiseSurvey.html"
-        })
-    });
-    angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
-        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
-        'SelectionApplicationService',
-    function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
-        
-        if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
-            SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
-            $state.go('main.merchandise', {
-                redirectState: 'main.survey'
-            });
-        }
-        $scope.BeforeImage = null;
-        $scope.AfterImage = null;
-        $scope.Company = SelectionApplicationService.GetCompany(); $scope.Survey = SelectionApplicationService.GetSurvey();
-        $scope.Customer = SelectionApplicationService.GetCustomer(); $scope.Location = SelectionApplicationService.GetLocation();
-        $scope.Header = {
-            BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null, Notes: null,
-            CompanyId: SelectionApplicationService.GetCompanyId(), SurveyId: SelectionApplicationService.GetSurveyId(),
-            CustomerId: SelectionApplicationService.GetCustomerId(), LocationId: SelectionApplicationService.GetLocationId()
-        }
-        navigator.geolocation.getCurrentPosition(function (position) {
-            $scope.Header.Latitude = position.coords.latitude;
-            $scope.Header.Longitude = position.coords.longitude;
-        });
-        $scope.Detail = [];
-
-        $scope.Search = function () {
-            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
-                var predicate = { "Id": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
-                SurveyHeaderService.Search(predicate, ["Created desc"], 0, 1, false).then(function (data) {
-                    $scope.Header = data[0];
-                })
-                var predicate = { "SurveyHeaderId": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
-                SurveyDetailService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
-                    $scope.Detail = data;
-                });
-                $scope.BeforeImage = "/api/v1/ImageApi/GetBeforeImage/" + SelectionApplicationService.GetSurveyHeaderId();
-                $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
-            }
-            else {
-                var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
-                SurveyProductQuestionService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
-                    $scope.Detail = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.setBeforeImage = function (element) {
-            var reader = new FileReader();
-            $scope.Header.BeforeImage = element.files[0];
-            reader.onload = function (event) {
-                $scope.BeforeImage = event.target.result;
-                $scope.$apply();
-            }
-            reader.readAsDataURL(element.files[0]);
-        }
-
-        $scope.setAfterImage = function (element) {
-            var reader = new FileReader();
-            $scope.Header.AfterImage = element.files[0];
-            reader.onload = function (event) {
-                $scope.AfterImage = event.target.result;
-                $scope.$apply();
-            }
-            reader.readAsDataURL(element.files[0]);
-        }
-
-        $scope.Save = function () {
-            var promises = [];
-            var promise = null;
-            if (!$scope.Validate()) {
-                return false;
-            }
-            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
-                var details = [];
-                angular.forEach($scope.Detail, function (value, key) {
-                    details.push({
-                        Id: value.Id,
-                        Answer: value.Answer
-                    });
-                });
-                var item = { Header: $scope.Header, Details: details };
-                promise = SurveyHeaderService.UpdateBulk($scope.Header.Id, item).then(function(data){
-                    promises.push(promise);
-                    promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
-                    promises.push(promise);
-                    promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
-                    promises.push(promise);
-                    $q.all([promises]).then(function () {
-                        toastr.success("Save successful.");
-                    });
-                }, function (error) {
-                    toastr.error("There was an error updating the survey.");
-                });
-            }
-            else {
-                var details = [];
-                var companyId = SelectionApplicationService.GetCompanyId();
-                angular.forEach($scope.Detail, function (value, key) {
-                    details.push({
-                        CompanyId: companyId,
-                        ProductId: value.Product.Id,
-                        QuestionId: value.Question.Id,
-                        Answer: value.Answer
-                    });
-                });
-                var item = { Header: $scope.Header, Details: details };
-                promise = SurveyHeaderService.CreateBulk(item).then(function (data) {
-                    promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
-                    promises.push(promise);
-                    promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
-                    promises.push(promise);
-                    $q.all([promises]).then(function () {
-                        toastr.success("Save successful.");
-                        SelectionApplicationService.Clear();
-                        $state.go('main.merchandise', {
-                            redirectState: 'main.survey'
-                        });
-                    });
-                }, function(error){
-                    toastr.error("There was an error creating the survey.");
-                });
-                promises.push(promise);  
-            }
-        }
-
-        $scope.Validate = function () {
-            var fileSizeBeforeImage = 0; var fileSizeAfterImage = 0;
-            if ($scope.Header.BeforeImage != null) {
-                var fileSizeBeforeImage = $scope.Header.BeforeImage.size; // in bytes
-            }
-            if ($scope.Header.AfterImage != null) {
-                var fileSizeAfterImage = $scope.Header.AfterImage.size; // in bytes
-            }
-            if (fileSizeBeforeImage > 3096000 || fileSizeAfterImage > 3096000) {
-                alert('File size is more then ' + 3 + ' Megabytes.');
-                return false;
-            }
-            return true;
-        }
-
-        $scope.DeleteBeforeImage = function () {
-            $scope.BeforeImage = null;
-            $scope.Header.BeforeImage = null; 
-            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
-                ImageService.DeleteBeforeImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
-
-                });
-            }
-        }
-
-        $scope.DeleteAfterImage = function () {
-            $scope.AfterImage = null;
-            $scope.Header.AfterImage = null;
-            angular.element(document.querySelector('#AfterImage')).empty();
-            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
-                ImageService.DeleteAfterImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
-
-                });
-            }
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
         .state('main.merchandise', {
             url: "/merchandise/:redirectState",
             templateUrl: "/App/ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
@@ -3298,6 +3122,182 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
     }]);
 })(moment);
 (function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('main.survey', {
+            url: "/survey",
+            templateUrl: "ApplicationComponents/DataEntry/Survey/MerchandiseSurvey.html"
+        })
+    });
+    angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
+        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
+        'SelectionApplicationService',
+    function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService,
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
+        
+        if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
+            SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
+            $state.go('main.merchandise', {
+                redirectState: 'main.survey'
+            });
+        }
+        $scope.BeforeImage = null;
+        $scope.AfterImage = null;
+        $scope.Company = SelectionApplicationService.GetCompany(); $scope.Survey = SelectionApplicationService.GetSurvey();
+        $scope.Customer = SelectionApplicationService.GetCustomer(); $scope.Location = SelectionApplicationService.GetLocation();
+        $scope.Header = {
+            BeforeImage: null, AfterImage: null, Latitude: null, Longitude: null, Notes: null,
+            CompanyId: SelectionApplicationService.GetCompanyId(), SurveyId: SelectionApplicationService.GetSurveyId(),
+            CustomerId: SelectionApplicationService.GetCustomerId(), LocationId: SelectionApplicationService.GetLocationId()
+        }
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $scope.Header.Latitude = position.coords.latitude;
+            $scope.Header.Longitude = position.coords.longitude;
+        });
+        $scope.Detail = [];
+
+        $scope.Search = function () {
+            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
+                var predicate = { "Id": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
+                SurveyHeaderService.Search(predicate, ["Created desc"], 0, 1, false).then(function (data) {
+                    $scope.Header = data[0];
+                })
+                var predicate = { "SurveyHeaderId": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
+                SurveyDetailService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
+                    $scope.Detail = data;
+                });
+                $scope.BeforeImage = "/api/v1/ImageApi/GetBeforeImage/" + SelectionApplicationService.GetSurveyHeaderId();
+                $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
+            }
+            else {
+                var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
+                SurveyProductQuestionService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
+                    $scope.Detail = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.setBeforeImage = function (element) {
+            var reader = new FileReader();
+            $scope.Header.BeforeImage = element.files[0];
+            reader.onload = function (event) {
+                $scope.BeforeImage = event.target.result;
+                $scope.$apply();
+            }
+            reader.readAsDataURL(element.files[0]);
+        }
+
+        $scope.setAfterImage = function (element) {
+            var reader = new FileReader();
+            $scope.Header.AfterImage = element.files[0];
+            reader.onload = function (event) {
+                $scope.AfterImage = event.target.result;
+                $scope.$apply();
+            }
+            reader.readAsDataURL(element.files[0]);
+        }
+
+        $scope.Save = function () {
+            var promises = [];
+            var promise = null;
+            if (!$scope.Validate()) {
+                return false;
+            }
+            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
+                var details = [];
+                angular.forEach($scope.Detail, function (value, key) {
+                    details.push({
+                        Id: value.Id,
+                        Answer: value.Answer
+                    });
+                });
+                var item = { Header: $scope.Header, Details: details };
+                promise = SurveyHeaderService.UpdateBulk($scope.Header.Id, item).then(function(data){
+                    promises.push(promise);
+                    promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
+                    promises.push(promise);
+                    promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
+                    promises.push(promise);
+                    $q.all(promises).then(function () {
+                        toastr.success("Save successful.");
+                    });
+                }, function (error) {
+                    toastr.error("There was an error updating the survey.");
+                });
+            }
+            else {
+                var details = [];
+                var companyId = SelectionApplicationService.GetCompanyId();
+                angular.forEach($scope.Detail, function (value, key) {
+                    details.push({
+                        CompanyId: companyId,
+                        ProductId: value.Product.Id,
+                        QuestionId: value.Question.Id,
+                        Answer: value.Answer
+                    });
+                });
+                var item = { Header: $scope.Header, Details: details };
+                promise = SurveyHeaderService.CreateBulk(item).then(function (data) {
+                    promise = ImageService.CreateBeforeImage($scope.Header.BeforeImage, data.data.Id);
+                    promises.push(promise);
+                    promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
+                    promises.push(promise);
+                    $q.all(promises).then(function () {
+                        toastr.success("Save successful.");
+                        SelectionApplicationService.Clear();
+                        $state.go('main.merchandise', {
+                            redirectState: 'main.survey'
+                        });
+                    });
+                }, function(error){
+                    toastr.error("There was an error creating the survey.");
+                });
+                promises.push(promise);  
+            }
+        }
+
+        $scope.Validate = function () {
+            var fileSizeBeforeImage = 0; var fileSizeAfterImage = 0;
+            if ($scope.Header.BeforeImage != null) {
+                var fileSizeBeforeImage = $scope.Header.BeforeImage.size; // in bytes
+            }
+            if ($scope.Header.AfterImage != null) {
+                var fileSizeAfterImage = $scope.Header.AfterImage.size; // in bytes
+            }
+            if (fileSizeBeforeImage > 3096000 || fileSizeAfterImage > 3096000) {
+                alert('File size is more then ' + 3 + ' Megabytes.');
+                return false;
+            }
+            return true;
+        }
+
+        $scope.DeleteBeforeImage = function () {
+            $scope.BeforeImage = null;
+            $scope.Header.BeforeImage = null; 
+            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+                ImageService.DeleteBeforeImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
+
+                });
+            }
+        }
+
+        $scope.DeleteAfterImage = function () {
+            $scope.AfterImage = null;
+            $scope.Header.AfterImage = null;
+            angular.element(document.querySelector('#AfterImage')).empty();
+            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+                ImageService.DeleteAfterImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
+
+                });
+            }
+        }
+    }]);
+})(moment);
+(function (moment) {
     "use strict";    
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
@@ -3320,10 +3320,12 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
             templateUrl: "/App/ApplicationComponents/Reporting/Survey/SurveyReport.html"
         })
     });
-    angular.module('Main').controller('SurveyReportController', ['$scope', '$state', '$stateParams', '$http', '$location', '$uibModal',
-        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService', 'LocationService',
-    function controller($scope, $state, $stateParams, $http, $location, $uibModal,
-        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService, LocationService) {
+    angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
+        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
+        'LocationService', 'CustomerService', 'SurveyService', 'MapService', 'ImageService',
+    function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
+        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
+        LocationService, CustomerService, SurveyService, MapService, ImageService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.merchandise', {
                 redirectState: 'main.report.surveyreport'
@@ -3402,9 +3404,18 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
         $scope.Search();
 
         $scope.Edit = function (row) {
-            LocationService.Get(row.LocationId).then(function (data) {
+            SelectionApplicationService.SetSurveyHeaderId(row.Id);
+            var promises = [];
+            promises.push(LocationService.Get(row.LocationId).then(function (data) {
                 SelectionApplicationService.SetLocation(data);
-                SelectionApplicationService.SetSurveyHeaderId(row.Id);
+            }));
+            promises.push(CustomerService.Get(row.CustomerId).then(function (data) {
+                SelectionApplicationService.SetCustomer(data);
+            }));
+            promises.push(SurveyService.Get(row.SurveyId).then(function (data) {
+                SelectionApplicationService.SetSurvey(data);
+            }));
+            $q.all(promises).then(function () {
                 $state.go('main.survey');
             });
         }
@@ -3425,13 +3436,45 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
         }
 
         $scope.ViewNote = function (id) {
+            MapService.Get(id).then(function (data) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
+                    controller: 'NoteModalController',
+                    size: 'lg',
+                    resolve: {
+                        note: function () {
+                            return data.Notes;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function () {
+                    //modal closed
+                }, function () {
+                    //modal dismissed
+                });
+            });
+        }
+
+        $scope.ViewImage = function (id, title) {
+            if (title == 'Before Image') {
+                var image = "/api/v1/ImageApi/GetBeforeImage/" + id;
+            }
+            else {
+                var image = "/api/v1/ImageApi/GetAfterImage/" + id;
+            }
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
+                templateUrl: 'ApplicationComponents/Reporting/Modal/Image/ImageModal.html',
+                controller: 'ImageModalController',
                 size: 'lg',
                 resolve: {
-                    note: function () {
-                        return "test";
+                    title: function () {
+                        return title;
+                    },
+                    image: function () {
+                        return image
                     }
                 }
             });
@@ -3441,14 +3484,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
             }, function () {
                 //modal dismissed
             });
-        }
-
-        $scope.ViewBeforeImage = function (id) {
-
-        }
-
-        $scope.ViewAfterImage = function (id) {
-
         }
     }]);
 })(moment);
@@ -3599,8 +3634,8 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
         }
     }]);
 })(moment);
-angular.module('Main').controller('ImageModalController', function ($uibModalInstance, $scope, title, id) {
-    $scope.id = id;
+angular.module('Main').controller('ImageModalController', function ($uibModalInstance, $scope, title, image) {
+    $scope.image = image;
     $scope.title = title;
 
     $scope.ok = function () {
@@ -3612,7 +3647,6 @@ angular.module('Main').controller('ImageModalController', function ($uibModalIns
     };
 });
 angular.module('Main').controller('NoteModalController', function ($scope, $uibModalInstance, note) {
-    debugger;
     $scope.note = note;
 
     $scope.ok = function () {

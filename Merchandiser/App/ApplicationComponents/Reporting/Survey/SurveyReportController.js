@@ -7,10 +7,12 @@
             templateUrl: "/App/ApplicationComponents/Reporting/Survey/SurveyReport.html"
         })
     });
-    angular.module('Main').controller('SurveyReportController', ['$scope', '$state', '$stateParams', '$http', '$location', '$uibModal',
-        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService', 'LocationService',
-    function controller($scope, $state, $stateParams, $http, $location, $uibModal,
-        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService, LocationService) {
+    angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
+        '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
+        'LocationService', 'CustomerService', 'SurveyService', 'MapService', 'ImageService',
+    function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
+        $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
+        LocationService, CustomerService, SurveyService, MapService, ImageService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.merchandise', {
                 redirectState: 'main.report.surveyreport'
@@ -89,9 +91,18 @@
         $scope.Search();
 
         $scope.Edit = function (row) {
-            LocationService.Get(row.LocationId).then(function (data) {
+            SelectionApplicationService.SetSurveyHeaderId(row.Id);
+            var promises = [];
+            promises.push(LocationService.Get(row.LocationId).then(function (data) {
                 SelectionApplicationService.SetLocation(data);
-                SelectionApplicationService.SetSurveyHeaderId(row.Id);
+            }));
+            promises.push(CustomerService.Get(row.CustomerId).then(function (data) {
+                SelectionApplicationService.SetCustomer(data);
+            }));
+            promises.push(SurveyService.Get(row.SurveyId).then(function (data) {
+                SelectionApplicationService.SetSurvey(data);
+            }));
+            $q.all(promises).then(function () {
                 $state.go('main.survey');
             });
         }
@@ -112,13 +123,45 @@
         }
 
         $scope.ViewNote = function (id) {
+            MapService.Get(id).then(function (data) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
+                    controller: 'NoteModalController',
+                    size: 'lg',
+                    resolve: {
+                        note: function () {
+                            return data.Notes;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function () {
+                    //modal closed
+                }, function () {
+                    //modal dismissed
+                });
+            });
+        }
+
+        $scope.ViewImage = function (id, title) {
+            if (title == 'Before Image') {
+                var image = "/api/v1/ImageApi/GetBeforeImage/" + id;
+            }
+            else {
+                var image = "/api/v1/ImageApi/GetAfterImage/" + id;
+            }
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
+                templateUrl: 'ApplicationComponents/Reporting/Modal/Image/ImageModal.html',
+                controller: 'ImageModalController',
                 size: 'lg',
                 resolve: {
-                    note: function () {
-                        return "test";
+                    title: function () {
+                        return title;
+                    },
+                    image: function () {
+                        return image
                     }
                 }
             });
@@ -128,14 +171,6 @@
             }, function () {
                 //modal dismissed
             });
-        }
-
-        $scope.ViewBeforeImage = function (id) {
-
-        }
-
-        $scope.ViewAfterImage = function (id) {
-
         }
     }]);
 })(moment);
