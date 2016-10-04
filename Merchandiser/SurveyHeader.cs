@@ -32,6 +32,8 @@ namespace Merchandiser
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
         public string Notes { get; set; }
+        public bool IsBeforeImage { get; set; }
+        public bool IsAfterImage { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }

@@ -47,13 +47,15 @@ gulp.task("vendorJs", function () {
             path.components + "breeze-client/build/adapters/breeze.bridge.angular.js",
             path.components + "angular-block-ui/dist/angular-block-ui.min.js",
             path.components + "angular-touch/angular-touch.min.js",
-            path.components + "angular-animate/angular-animate.min.js",
             path.components + "angular-ui-grid/ui-grid.min.js",
             path.components + "csv/lib/csv.js",
             path.components + "pdfmake/build/pdfmake.js",
             path.components + "pdfmake/build/vfs_fonts.js",
             path.components + "ngmap/build/scripts/ng-map.min.js",
-            path.components + "bootstrap/dist/js/bootstrap.min.js"
+            path.components + "bootstrap/dist/js/bootstrap.min.js",
+            path.components + "angular-aria/angular-aria.min.js",
+            path.components + "angular-messages/angular-messages.min.js",
+            path.components + "angular-material/angular-material.js"
     ])
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest(path.pub.libs))
@@ -135,6 +137,7 @@ gulp.task('styles', function () {
         path.components + 'angular-ui-grid/ui-grid.eot',
         path.components + 'angular-ui-grid/ui-grid.svg',
         path.components + 'bootstrap/dist/css/bootstrap.min.css',
+        path.components + 'angular-material/angular-material.css',
         path.app + 'assets/css/docs.css',
         path.app + 'assets/css/app.css'
 

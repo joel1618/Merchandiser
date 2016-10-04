@@ -59,5 +59,10 @@ namespace Merchandiser.Controllers.api.v1
             }
             return File(array, "text/csv", "Export.csv");
         }
+
+        public FileResult GetNotes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,7 +4,7 @@
         $stateProvider
         .state('surveydata', {
             url: "/surveydata/",
-            templateUrl: "/App/ApplicationComponents/DataEntry/SurveyData/MerchandiseSurveyData.html"
+            templateUrl: "ApplicationComponents/DataEntry/SurveyData/MerchandiseSurveyData.html"
         })
     });
     angular.module('Main').controller('MerchandiseSurveyDataController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'uiGridConstants', 'breezeservice', 'breeze',

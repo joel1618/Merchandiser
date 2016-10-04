@@ -95,6 +95,8 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsSendReport" Type="bit" Nullable="false" />
+          <Property Name="SendReport" Type="datetime" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="Created" Type="datetime" Nullable="false" />
@@ -193,11 +195,13 @@
           <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="IsBeforeImage" Type="bit" Nullable="false" />
+          <Property Name="IsAfterImage" Type="bit" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
-          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
@@ -984,6 +988,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Customer" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="Customer" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="Customer" ToRole="SurveyHeader" />
+          <Property Name="IsSendReport" Type="Boolean" Nullable="false" />
+          <Property Name="SendReport" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -1109,6 +1115,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="SurveyHeader" ToRole="Location" />
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
+          <Property Name="IsBeforeImage" Type="Boolean" Nullable="false" />
+          <Property Name="IsAfterImage" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
@@ -1591,6 +1599,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="MerchandiserModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="SendReport" ColumnName="SendReport" />
+                <ScalarProperty Name="IsSendReport" ColumnName="IsSendReport" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1692,6 +1702,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="SurveyHeaders">
             <EntityTypeMapping TypeName="MerchandiserModel.SurveyHeader">
               <MappingFragment StoreEntitySet="SurveyHeader">
+                <ScalarProperty Name="IsAfterImage" ColumnName="IsAfterImage" />
+                <ScalarProperty Name="IsBeforeImage" ColumnName="IsBeforeImage" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />

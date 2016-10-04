@@ -4,7 +4,7 @@
         $stateProvider
         .state('main.report.surveyreport', {
             url: "/surveyreport",
-            templateUrl: "/App/ApplicationComponents/Reporting/Survey/SurveyReport.html"
+            templateUrl: "ApplicationComponents/Reporting/Survey/SurveyReport.html"
         })
     });
     angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',

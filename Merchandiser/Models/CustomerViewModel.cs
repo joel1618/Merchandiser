@@ -13,6 +13,10 @@ namespace Merchandiser.Models
         [Required]
         public Guid CompanyId { get; set; }
         public string Name { get; set; }
+
+        public bool IsSendReport { get; set; }
+
+        public DateTime? SendReport { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

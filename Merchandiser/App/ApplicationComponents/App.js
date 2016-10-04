@@ -1,4 +1,6 @@
-﻿var app = angular.module('Main', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.grid', 'ui.bootstrap', 'ngTouch', 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 'breeze.angular', 'DatabaseServices', 'ApplicationServices']);
+﻿var app = angular.module('Main', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate',
+    'ui.grid', 'ui.grid.infiniteScroll', 'ui.bootstrap', /*'ngTouch',*/ 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 
+    'breeze.angular', 'ngAria', 'ngMaterial', 'DatabaseServices', 'ApplicationServices']);
 angular.module('Main').config(function (blockUIConfig) {
     // Change the default delay to 100ms before the blocking is visible
     blockUIConfig.delay = 0;
@@ -10,19 +12,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('main', {
             url: "/main",
-            templateUrl: "/App/ApplicationComponents/Main/Views/Main.html"
+            templateUrl: "ApplicationComponents/Main/Views/Main.html"
         })
         .state('main.admin', {
             url: "/admin",
-            templateUrl: "/App/ApplicationComponents/Administrator/Admin/Views/Admin.html"
+            templateUrl: "ApplicationComponents/Administrator/Admin/Views/Admin.html"
         })
         .state('main.admin.company', {
             url: "/company",
-            templateUrl: "/App/ApplicationComponents/Administrator/Company/Views/Company.html"
+            templateUrl: "ApplicationComponents/Administrator/Company/Views/Company.html"
         })
         .state('main.admin.company.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/Company/Views/CompanyAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/Company/Views/CompanyAddEdit.html",
         })
         .state('main.admin.customer', {
             url: "/customer",
@@ -50,11 +52,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('main.admin.survey', {
             url: "/survey",
-            templateUrl: "/App/ApplicationComponents/Administrator/Survey/Views/Survey.html"
+            templateUrl: "ApplicationComponents/Administrator/Survey/Views/Survey.html"
         })
         .state('main.admin.survey.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/Survey/Views/SurveyAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/Survey/Views/SurveyAddEdit.html",
         })
         .state('main.admin.userrole', {
             url: "/userrole",
@@ -66,19 +68,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('main.admin.question', {
             url: "/question",
-            templateUrl: "/App/ApplicationComponents/Administrator/Question/Views/Question.html"
+            templateUrl: "ApplicationComponents/Administrator/Question/Views/Question.html"
         })
         .state('main.admin.question.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/Question/Views/QuestionAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/Question/Views/QuestionAddEdit.html",
         })
         .state('main.admin.surveycustomerlocation', {
             url: "/survey/customerlocation",
-            templateUrl: "/App/ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocation.html"
+            templateUrl: "ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocation.html"
         })
         .state('main.admin.surveycustomerlocation.addedit', {
             url: "/addedit/:id",
-            templateUrl: "/App/ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocationAddEdit.html",
+            templateUrl: "ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocationAddEdit.html",
         })
         .state('main.admin.surveyproductquestion', {
             url: "/survey/productquestion",

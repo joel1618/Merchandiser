@@ -4,7 +4,7 @@
         $stateProvider
         .state('main.merchandise', {
             url: "/merchandise/:redirectState",
-            templateUrl: "/App/ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
+            templateUrl: "ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
         })
     });
     angular.module('Main').controller('MerchandiseCustomerLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',

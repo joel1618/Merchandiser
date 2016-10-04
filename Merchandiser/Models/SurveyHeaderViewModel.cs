@@ -20,6 +20,9 @@ namespace Merchandiser.Models
         [Required]
         public Guid LocationId { get; set; }
 
+        public bool IsBeforeImage { get; set; }
+        public bool IsAfterImage { get; set; }
+
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public DateTime Modified { get; set; }

@@ -33,6 +33,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Id = x.Id,
                 Created = x.Created,
                 Notes = x.Notes,
+                IsBeforeImage = x.IsBeforeImage,
+                IsAfterImage = x.IsAfterImage,
                 Location = new LocationViewModel()
                 {
                     Id = x.Location.Id,
