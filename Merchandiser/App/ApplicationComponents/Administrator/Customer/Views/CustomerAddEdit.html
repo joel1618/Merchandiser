@@ -6,8 +6,8 @@
                 <label>Customer Name</label>
                 <input type="text" class="form-control" ng-model="item.Name" required />
                 <br />
-                <label>Send Report</label>
-                <md-switch class="md-primary" md-no-ink aria-label="Send Report" ng-model="item.IsSendReport">           
+                <md-switch class="md-primary" aria-label="Send Report" ng-model="item.IsSendReport">
+                    <b>Send Report</b>           
                 </md-switch>
                 <br/>
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>

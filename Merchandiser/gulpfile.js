@@ -132,10 +132,11 @@ gulp.task('styles', function () {
         path.components + 'toastr/toastr.css',
         path.components + 'angular-block-ui/dist/angular-block-ui.css',
         path.components + 'angular-ui-grid/ui-grid.min.css',
-        path.components + 'angular-ui-grid/ui-grid.ttf',
-        path.components + 'angular-ui-grid/ui-grid.woff',
-        path.components + 'angular-ui-grid/ui-grid.eot',
-        path.components + 'angular-ui-grid/ui-grid.svg',
+        //******The ui-grid files mess with angular material for some reason**************
+        //path.components + 'angular-ui-grid/ui-grid.ttf',
+        //path.components + 'angular-ui-grid/ui-grid.woff',
+        //path.components + 'angular-ui-grid/ui-grid.eot',
+        //path.components + 'angular-ui-grid/ui-grid.svg',
         path.components + 'bootstrap/dist/css/bootstrap.min.css',
         path.components + 'angular-material/angular-material.css',
         path.app + 'assets/css/docs.css',
@@ -160,6 +161,8 @@ gulp.task('styles:watch', function () {
 gulp.task('copy', function () {
     return gulp.src([
         path.components + 'angular-ui-grid/ui-grid.ttf',
-        path.components + 'angular-ui-grid/ui-grid.woff'])
+        path.components + 'angular-ui-grid/ui-grid.woff',
+        path.components + 'angular-ui-grid/ui-grid.eot',
+        path.components + 'angular-ui-grid/ui-grid.svg'])
         .pipe(gulp.dest(path.pub.css));
 });

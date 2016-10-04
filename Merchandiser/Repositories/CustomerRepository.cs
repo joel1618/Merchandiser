@@ -38,6 +38,8 @@ namespace Merchandiser.Repositories
             var entity = context.Customers.Find(id);
             entity.Name = item.Name;
             entity.Modified = DateTime.UtcNow;
+            entity.IsSendReport = item.IsSendReport;
+            entity.SendReport = item.SendReport;
             context.SaveChanges();
             return entity;
         }
