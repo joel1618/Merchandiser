@@ -95,6 +95,8 @@
                     $scope.gridOptions.columnDefs.push({
                         name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
                     });
+                }, function (error) {
+                    toastr.error("There was an error getting all the data.");
                 });
         }
 
