@@ -41,7 +41,7 @@
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(),
                 SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
                 moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
-                $scope.Page, $scope.PageSize).then(function (data) {
+                $scope.Page, $scope.PageSize).then(function (data) {                    
                     $scope.gridOptions.data = data;
                     UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                         if (data == true) {
@@ -215,7 +215,7 @@
         }
 
         $scope.Download = function () {
-            window.open('/DownloadApi/Get/', '_blank', '');
+            window.open('/DownloadApi/Get?startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') + '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
         }
     }]);
 })(moment);

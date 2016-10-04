@@ -61,7 +61,7 @@ namespace Merchandiser.Repositories
                 }
                 if (userId != null)
                 {
-                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(uniqueidentifier,''" + userId + @"''))";
+                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(uniqueidentifier,'" + userId + @"'))";
                 }
                 cmd.CommandText += @"
                      FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '')

@@ -27,15 +27,14 @@ namespace Merchandiser.Controllers.api.v1
             this.reportRepository = new ReportRepository();
         }
         
-        public FileResult Get()
+        
+        public FileResult Get(DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
             using (MemoryStream stream = new MemoryStream())
             using (StreamWriter writer = new StreamWriter(stream))
             using (CsvWriter csv = new CsvWriter(writer))
             {
-                var startDate = DateTime.Now.AddYears(-1);
-                var endDate = DateTime.Now.AddDays(2);
                 var result = reportController.Search(null, null, null, null, null, null, null, startDate, endDate, 0, 100000);
                 var contentResult = result as OkNegotiatedContentResult<List<Dictionary<string,object>>>;
                 var asdf = contentResult.Content;
