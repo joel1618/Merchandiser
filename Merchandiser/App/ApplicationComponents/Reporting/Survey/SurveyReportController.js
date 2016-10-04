@@ -20,73 +20,95 @@
         }
         $scope.StartDate = moment().subtract(365, "days").format("YYYY-MM-DD");
         $scope.EndDate = moment().add(2, "days").format("YYYY-MM-DD");
+        $scope.Page = 0;
+        $scope.PageSize = 100;
         $scope.Search = function () {
-            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(), SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null, $scope.StartDate, $scope.EndDate, 0, 10000).then(function (data) {
-                $scope.gridOptions.data = data;
-                UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
-                    if (data == true) {
-                        $scope.gridOptions.columnDefs.splice(0, 0, {
-                            name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
-                        });
+            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(),
+                SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
+                $scope.StartDate, $scope.EndDate,
+                $scope.Page, $scope.PageSize).then(function (data) {
+                    $scope.gridOptions.data = data;
+                    UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
+                        if (data == true) {
+                            $scope.gridOptions.columnDefs.splice(0, 0, {
+                                name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                            });
+                        }
+                        else {
+                            return UserService.IsDataEntry(SelectionApplicationService.GetCompanyId())
+                        }
+                    }).then(function (data) {
+                        if (data == true) {
+                            $scope.gridOptions.columnDefs.splice(0, 0, {
+                                name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                            });
+                        }
+                    });
+                    $scope.gridOptions.columnDefs.splice(1, 0, {
+                        name: 'Before', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeImage.html'
+                    });
+                    $scope.gridOptions.columnDefs.splice(2, 0, {
+                        name: 'After', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/AfterImage.html'
+                    });
+                    $scope.gridOptions.columnDefs.splice(3, 0, {
+                        name: 'Notes', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Notes.html'
+                    });
+                    $scope.gridOptions.columnDefs.push({
+                        field: 'CustomerName', name: 'Customer Name', cellTooltip: true
+                    });
+                    $scope.gridOptions.columnDefs.push({
+                        field: 'LocationName', name: 'Location Name', cellTooltip: true
+                    });
+                    $scope.gridOptions.columnDefs.push({
+                        field: 'SurveyName', name: 'Survey Name', cellTooltip: true
+                    });
+                    $scope.gridOptions.columnDefs.push({
+                        field: 'ProductName', name: 'Product Name', cellTooltip: true
+                    });
+                    var keys = []
+                    var obj = $scope.gridOptions.data[0];
+                    for (var key in obj) {
+                        keys.push(key)
+                        if ((key != 'Created' && !key.includes("Id") && !key.includes("Name"))) {
+                            $scope.gridOptions.columnDefs.push({
+                                name: key, cellTooltip: true
+                            });
+                        }
                     }
-                    else {
-                        return UserService.IsDataEntry(SelectionApplicationService.GetCompanyId())
-                    }
-                }).then(function (data) {
-                    if (data == true) {
-                        $scope.gridOptions.columnDefs.splice(0, 0, {
-                            name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
-                        });
-                    }
+                    $scope.gridOptions.columnDefs.push({
+                        name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
+                    });
                 });
-                $scope.gridOptions.columnDefs.splice(1, 0, {
-                    name: 'Before', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeImage.html'
-                });
-                $scope.gridOptions.columnDefs.splice(2, 0, {
-                    name: 'After', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/AfterImage.html'
-                });
-                $scope.gridOptions.columnDefs.splice(3, 0, {
-                    name: 'Notes', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Notes.html'
-                });
-                $scope.gridOptions.columnDefs.push({
-                    field: 'CustomerName', name: 'Customer Name', cellTooltip: true
-                });
-                $scope.gridOptions.columnDefs.push({
-                    field: 'LocationName', name: 'Location Name', cellTooltip: true
-                });
-                $scope.gridOptions.columnDefs.push({
-                    field: 'SurveyName', name: 'Survey Name', cellTooltip: true
-                });
-                $scope.gridOptions.columnDefs.push({
-                    field: 'ProductName', name: 'Product Name', cellTooltip: true
-                });
-                var keys = []
-                var obj = $scope.gridOptions.data[0];
-                for (var key in obj) {
-                    keys.push(key)
-                    if ((key != 'Created' && !key.includes("Id") && !key.includes("Name"))) {
-                        $scope.gridOptions.columnDefs.push({
-                            name: key, cellTooltip: true
-                        });
-                    }
-                }
-                $scope.gridOptions.columnDefs.push({
-                    name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
-                });
-            });
         }
+
+        $scope.GetDataDown = function () {
+            $scope.Page++;
+            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(),
+                SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
+                $scope.StartDate, $scope.EndDate,
+                $scope.Page, $scope.PageSize).then(function (data) {
+                    $scope.gridApi.infiniteScroll.saveScrollPercentage();
+                    $scope.gridOptions.data.concat(data);
+                });
+        }
+        
         $scope.gridOptions = {};
         $scope.gridOptions.data = [];
         $scope.gridOptions = {
             enableFiltering: true,
             enableSorting: true,
             enableGridMenu: true,
+            infiniteScrollRowsFromEnd: 100,
             //exporterCsvFilename: 'myFile.csv',
             //exporterPdfOrientation: 'portrait',
             //exporterPdfPageSize: 'LETTER',
             //exporterPdfMaxGridWidth: 500,
             data: [],
-            columnDefs: []
+            columnDefs: [],
+            onRegisterApi: function (gridApi) {
+                gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
+                $scope.gridApi = gridApi;
+            }
         };
         $scope.Search();
 
