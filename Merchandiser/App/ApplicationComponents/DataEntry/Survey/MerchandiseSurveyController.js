@@ -160,9 +160,11 @@
             if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
                 ImageService.DeleteBeforeImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
                     $scope.Header.IsBeforeImage = false;
-                    SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function () {
+                    if (SelectionApplicationService.GetSurveyHeaderId() != null) {
+                        SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function () {
 
-                    });
+                        });
+                    }
                 });
             }
         }
@@ -173,9 +175,11 @@
             if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
                 ImageService.DeleteAfterImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
                     $scope.Header.IsAfterImage = false;
-                    SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function () {
+                    if (SelectionApplicationService.GetSurveyHeaderId() != null) {
+                        SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function () {
 
-                    });
+                        });
+                    }
                 });
             }
         }

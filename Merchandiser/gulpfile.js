@@ -137,7 +137,8 @@ gulp.task('styles', function () {
         //path.components + 'angular-ui-grid/ui-grid.woff',
         //path.components + 'angular-ui-grid/ui-grid.eot',
         //path.components + 'angular-ui-grid/ui-grid.svg',
-        path.components + 'bootstrap/dist/css/bootstrap.min.css',
+        //path.components + 'bootstrap/dist/css/bootstrap.min.css',
+        path.components + 'angular-bootstrap/ui-bootstrap-csp.css',
         path.components + 'angular-material/angular-material.css',
         path.app + 'assets/css/docs.css',
         path.app + 'assets/css/app.css'
