@@ -35,6 +35,8 @@ namespace Merchandiser.Repositories
         {
             var entity = context.SurveyHeaders.Find(id);
             entity.Notes = item.Notes;
+            entity.IsAfterImage = item.IsAfterImage;
+            entity.IsBeforeImage = item.IsBeforeImage;
             return entity;
         }
 

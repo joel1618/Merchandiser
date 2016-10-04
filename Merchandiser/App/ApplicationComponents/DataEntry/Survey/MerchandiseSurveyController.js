@@ -60,6 +60,7 @@
 
         $scope.setBeforeImage = function (element) {
             var reader = new FileReader();
+            $scope.Header.IsBeforeImage = true;
             $scope.Header.BeforeImage = element.files[0];
             reader.onload = function (event) {
                 $scope.BeforeImage = event.target.result;
@@ -70,6 +71,7 @@
 
         $scope.setAfterImage = function (element) {
             var reader = new FileReader();
+            $scope.Header.IsAfterImage = true;
             $scope.Header.AfterImage = element.files[0];
             reader.onload = function (event) {
                 $scope.AfterImage = event.target.result;
@@ -157,7 +159,10 @@
             $scope.Header.BeforeImage = null; 
             if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
                 ImageService.DeleteBeforeImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
+                    $scope.Header.IsBeforeImage = false;
+                    SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function () {
 
+                    });
                 });
             }
         }
@@ -165,10 +170,12 @@
         $scope.DeleteAfterImage = function () {
             $scope.AfterImage = null;
             $scope.Header.AfterImage = null;
-            angular.element(document.querySelector('#AfterImage')).empty();
             if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
                 ImageService.DeleteAfterImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
+                    $scope.Header.IsAfterImage = false;
+                    SurveyHeaderService.Update($scope.Header.Id, $scope.Header).then(function () {
 
+                    });
                 });
             }
         }

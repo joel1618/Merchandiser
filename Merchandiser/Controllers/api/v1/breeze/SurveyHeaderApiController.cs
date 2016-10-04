@@ -90,7 +90,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public SurveyHeaderViewModel Update(Guid id, SurveyHeaderViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
-            return repository.Update(id, item.ToEntity()).ToViewModel();
+            var response = repository.Update(id, item.ToEntity()).ToViewModel();
+            repository.SaveChanges();
+            return response;
         }
 
         [HttpPut]
