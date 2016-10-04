@@ -1966,6 +1966,7 @@ angular.module('Main').config(function (blockUIConfig) {
     // Change the default delay to 100ms before the blocking is visible
     blockUIConfig.delay = 0;
 });
+
 app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/main/admin/company/addedit/")
@@ -3370,14 +3371,28 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                 redirectState: 'main.report.surveyreport'
             });
         }
-        $scope.StartDate = moment().subtract(365, "days").format("YYYY-MM-DD");
-        $scope.EndDate = moment().add(2, "days").format("YYYY-MM-DD");
+
+        $scope.StartDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().startOf('isoWeek').format("DD"));
+        $scope.EndDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().add(2, "days").format("DD"));
+        $scope.myDate = new Date();
+        $scope.MinDate = new Date(
+            $scope.myDate.getFullYear(),
+            $scope.myDate.getMonth() - 12,
+            $scope.myDate.getDate());
+        $scope.MaxDate = $scope.EndDate;
+        $scope.DateChange = function () {
+            $scope.Page = 0;
+            $scope.gridOptions.data = [];
+            $scope.gridOptions.columnDefs = [];
+            $scope.Search();
+        }
+
         $scope.Page = 0;
         $scope.PageSize = 100;
         $scope.Search = function () {
             ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(),
                 SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
-                $scope.StartDate, $scope.EndDate,
+                moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
                 $scope.Page, $scope.PageSize).then(function (data) {
                     $scope.gridOptions.data = data;
                     UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
