@@ -74,8 +74,8 @@
                 .then(function (response) {
                     deferred.resolve(response);
                 }, function (response) {
-                    if (response.statusText.length > 0) {
-                        deferred.reject(response.statusText);
+                    if (response.data.Message.length > 0) {
+                        deferred.reject(response.data.Message);
                     } else {
                         deferred.reject("Failed to create the record.");
                     }
@@ -106,8 +106,8 @@
                 .then(function (response) {
                     deferred.resolve(response);
                 }, function (response) {
-                    if (response.statusText.length > 0) {
-                        deferred.reject(response);
+                    if (response.data.Message.length > 0) {
+                        deferred.reject(response.data.Message);
                     } else {
                         deferred.reject("Failed to update the record.");
                     }

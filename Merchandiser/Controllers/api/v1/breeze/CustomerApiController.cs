@@ -44,10 +44,16 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPost]
-        public CustomerViewModel Create(CustomerViewModel item)
+        public IHttpActionResult Create(CustomerViewModel item)
         {
             item.CreatedBy = User.Identity.GetUserId();
-            return customerRepository.Create(item.ToEntity()).ToViewModel();
+            var record = customerRepository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name).FirstOrDefault();
+            if(record != null)
+            {
+                return BadRequest("This record already exists.");
+            }
+            var response = customerRepository.Create(item.ToEntity()).ToViewModel();
+            return Ok(response);
         }
 
         [HttpPut]

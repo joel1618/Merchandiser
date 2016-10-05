@@ -63,11 +63,16 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPost]
-        public SurveyCustomerLocationViewModel Create(SurveyCustomerLocationViewModel item)
+        public IHttpActionResult Create(SurveyCustomerLocationViewModel item)
         {
             item.CreatedBy = User.Identity.GetUserId();
-            var entity = item.ToEntity();
-            return repository.Create(entity).ToViewModel();
+            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.LocationId == item.LocationId && e.CustomerId == item.CustomerId && e.SurveyId == item.SurveyId).FirstOrDefault();
+            if (record != null)
+            {
+                return BadRequest("This record already exists.");
+            }
+            var response = repository.Create(item.ToEntity()).ToViewModel();
+            return Ok(response);
         }
 
         [HttpPut]

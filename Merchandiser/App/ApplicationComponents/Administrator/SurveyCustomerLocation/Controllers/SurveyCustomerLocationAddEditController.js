@@ -56,7 +56,7 @@
                     $scope.Init();
                     //$state.go('main.surveycustomerlocation.addedit', { }, { reload: true, inherit: false });
                 }, function (error) {
-                    alert(error);
+                    toastr.error(error);
                 });
             }
             else {
@@ -67,7 +67,7 @@
                     $scope.Init();
                     //$state.go('main.surveycustomerlocation.addedit', {}, { reload: true, inherit: false });
                 }, function (error) {
-                    alert(error);
+                    toastr.error(error);
                 });
             }
         }

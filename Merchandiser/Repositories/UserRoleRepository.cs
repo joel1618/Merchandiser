@@ -40,9 +40,11 @@ namespace Merchandiser.Repositories
 
         public void Delete(Guid id)
         {
-            var item = new AspNetUserRole { Id = id };
-            context.AspNetUserRoles.Attach(item);
-            context.AspNetUserRoles.Remove(item);
+            var item = Get(id);
+            if (item != null)
+            {
+                context.AspNetUserRoles.Remove(item);
+            };
             context.SaveChanges();
         }
     }

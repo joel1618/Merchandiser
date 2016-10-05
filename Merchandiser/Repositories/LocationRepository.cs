@@ -49,9 +49,11 @@ namespace Merchandiser.Repositories
 
         public void Delete(Guid id)
         {
-            var item = new Location { Id = id };
-            context.Locations.Attach(item);
-            context.Locations.Remove(item);
+            var item = Get(id);
+            if (item != null)
+            {
+                context.Locations.Remove(item);
+            };
             context.SaveChanges();
         }
     }

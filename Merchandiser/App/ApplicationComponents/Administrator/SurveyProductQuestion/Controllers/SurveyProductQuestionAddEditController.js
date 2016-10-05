@@ -55,7 +55,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    alert(error);
+                    toastr.error(error);
                 });
             }
             else {
@@ -65,7 +65,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    alert(error);
+                    toastr.error(error);
                 });
             }
         }

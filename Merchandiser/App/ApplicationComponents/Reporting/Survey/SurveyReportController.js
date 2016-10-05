@@ -107,13 +107,14 @@
                 moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
                 $scope.Page, $scope.PageSize).then(function (data) {
                     $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                    $scope.data = $scope.data.concat(data);//$scope.gridOptions.data.concat(data);
+                    $scope.data = $scope.data.concat(data);
                     //$scope.gridApi.infiniteScroll.dataLoaded(false, $scope.isMoreData());
                 });
         }
 
         $scope.data = [];
         $scope.gridOptions = {
+            showGridFooter: true,
             enableFiltering: true,
             enableSorting: true,
             enableGridMenu: true,

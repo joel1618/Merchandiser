@@ -73,25 +73,38 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPost]
-        public UserRoleViewModel Create(UserRoleViewModel item)
+        public IHttpActionResult Create(UserRoleViewModel item)
         {
             var user = userManager.FindByEmail(item.User.UserName);
+            if(user == null)
+            {
+                return BadRequest("The user does not exist.  Have the user create an account first.");
+            }
             item.UserId = user.Id;
-            return repository.Create(item.ToEntity()).ToViewModel();
+            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.UserId == user.Id && e.RoleId == item.RoleId).FirstOrDefault();
+            if (record != null)
+            {
+                return BadRequest("This record already exists.");
+            }
+            var response = repository.Create(item.ToEntity()).ToViewModel();
+            return Ok(response);
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(Guid id)
         {
-            var userRole = repository.Get(id);
-            var role = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
-            var adminRoleCount = repository.Search().Where(e => e.CompanyId == userRole.CompanyId && e.RoleId == role.Id).Count();
-            if(adminRoleCount == 1)
+            var userRoleToDelete = repository.Get(id);
+            var adminRole = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
+            var adminUserRole = repository.Search().Where(e => e.CompanyId == userRoleToDelete.CompanyId && e.RoleId == adminRole.Id).FirstOrDefault();
+            if(userRoleToDelete.Id != adminUserRole.Id)
+            {
+                repository.Delete(id);
+                return Ok();
+            }
+            else
             {
                 return BadRequest("You cannot remove the last admin on the account.  You must designate someone else as an admin first.");
-            }
-            repository.Delete(id);
-            return Ok();
+            }            
         }
     }
 }

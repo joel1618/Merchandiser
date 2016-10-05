@@ -49,9 +49,11 @@ namespace Merchandiser.Repositories
 
         public void Delete(Guid id)
         {
-            var item = new SurveyProductQuestion { Id = id };
-            context.SurveyProductQuestions.Attach(item);
-            context.SurveyProductQuestions.Remove(item);
+            var item = Get(id);
+            if (item != null)
+            {
+                context.SurveyProductQuestions.Remove(item);
+            };
             context.SaveChanges();
         }
     }

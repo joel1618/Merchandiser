@@ -62,8 +62,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPost]
-        public CompanyViewModel Create(CompanyViewModel item)
+        public IHttpActionResult Create(CompanyViewModel item)
         {
+            var record = companyRepository.Search().Where(e => e.CreatedBy == userId && e.Name == item.Name).FirstOrDefault();
+            if (record != null)
+            {
+                return BadRequest("This record already exists.");
+            }
+
             item.CreatedBy = User.Identity.GetUserId();
             var company = companyRepository.Create(item.ToEntity());
             var adminRole = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
@@ -73,7 +79,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 RoleId = adminRole.Id,
                 UserId = User.Identity.GetUserId()
             });
-            return company.ToViewModel();
+            return Ok(company.ToViewModel());
         }
 
         [HttpPut]
