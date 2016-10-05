@@ -1,5 +1,6 @@
 ﻿<div ng-controller="SurveyReportController">
-    <button class="btn btn-primary btn-sm pull-right" ng-click="Download()">Download</button>
+    <button class="btn btn-primary btn-sm pull-right" ng-click="DownloadNoteData()">Download Note Data</button>
+    <button class="btn btn-primary btn-sm pull-right" ng-click="DownloadSurveyData()">Download Survey Data</button>
     Start Date:
     <md-datepicker ng-model="StartDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
     End Date:

@@ -215,8 +215,12 @@
             });
         }
 
-        $scope.Download = function () {
-            window.open('/DownloadApi/Get?startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') + '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
+        $scope.DownloadSurveyData = function () {
+            window.open('/DownloadApi/DownloadSurveyData?startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') + '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
+        }
+
+        $scope.DownloadNoteData = function () {
+            window.open('/DownloadApi/DownloadNoteData?companyId=' + SelectionApplicationService.GetCompanyId() + '&startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') + '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
         }
     }]);
 })(moment);

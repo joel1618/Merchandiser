@@ -41,6 +41,26 @@ namespace Merchandiser.Controllers.api.v1.breeze
             });
         }
 
+        [HttpGet]
+        public IQueryable<MapViewModel> SearchWithNotes(Guid companyId)
+        {
+            var userId = User.Identity.GetUserId();
+            return repository.Search().FilterAllByUserAndCompany(userId, companyId, "UserId", "CompanyId", "CustomerId", userRoleRepository).Select(x => new MapViewModel()
+            {
+                Id = x.Id,
+                Notes = x.Notes,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Created = x.Created,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude,
+                CompanyId = x.CompanyId,
+                CustomerId = x.CustomerId,
+                SurveyId = x.SurveyId,
+                LocationId = x.LocationId
+            });
+        }
+
         public MapViewModel Get(Guid id)
         {
             return repository.Search().Where(e => e.Id == id).Select(x => new MapViewModel()
