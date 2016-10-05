@@ -55,7 +55,8 @@ gulp.task("vendorJs", function () {
             path.components + "bootstrap/dist/js/bootstrap.min.js",
             path.components + "angular-aria/angular-aria.min.js",
             path.components + "angular-messages/angular-messages.min.js",
-            path.components + "angular-material/angular-material.js"
+            path.components + "angular-material/angular-material.js",
+            path.components + "ng-focus-if/focusIf.min.js"
     ])
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest(path.pub.libs))

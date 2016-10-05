@@ -30,7 +30,7 @@
         $scope.MaxDate = $scope.EndDate;
         $scope.DateChange = function () {
             $scope.Page = 0;
-            $scope.gridOptions.data = [];
+            $scope.data = [];
             $scope.gridOptions.columnDefs = [];
             $scope.Search();
         }
@@ -42,7 +42,7 @@
                 SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
                 moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
                 $scope.Page, $scope.PageSize).then(function (data) {                    
-                    $scope.gridOptions.data = data;
+                    $scope.data = data;
                     UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                         if (data == true) {
                             $scope.gridOptions.columnDefs.splice(0, 0, {
@@ -83,7 +83,7 @@
                     var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],
                         length = exclude.length;
                     var keys = []
-                    var obj = $scope.gridOptions.data[0];
+                    var obj = $scope.data[0];
                     for (var key in obj) {
                         keys.push(key)
                         if ((!key.includes("Id") && !key.includes("Name") && !exclude.includes(key))) {
@@ -107,10 +107,12 @@
                 moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
                 $scope.Page, $scope.PageSize).then(function (data) {
                     $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                    $scope.gridOptions.data.concat(data);
+                    $scope.data = $scope.data.concat(data);//$scope.gridOptions.data.concat(data);
+                    //$scope.gridApi.infiniteScroll.dataLoaded(false, $scope.isMoreData());
                 });
         }
 
+        $scope.data = [];
         $scope.gridOptions = {
             enableFiltering: true,
             enableSorting: true,
@@ -120,7 +122,7 @@
             //exporterPdfOrientation: 'portrait',
             //exporterPdfPageSize: 'LETTER',
             //exporterPdfMaxGridWidth: 500,
-            data: [],
+            data: 'data',
             columnDefs: [],
             onRegisterApi: function (gridApi) {
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
@@ -148,10 +150,10 @@
 
         $scope.Delete = function (id) {
             SurveyHeaderService.DeleteBulk(id).then(function (data) {
-                var length = $scope.gridOptions.data.length;
+                var length = $scope.data.length;
                 for (var index = 0; index < length; index++) {
-                    if ($scope.gridOptions.data[index].Id == id) {
-                        $scope.gridOptions.data.splice(index, 1);
+                    if ($scope.data[index].Id == id) {
+                        $scope.data.splice(index, 1);
                         length--;
                         index--;
                     }

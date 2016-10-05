@@ -4,7 +4,7 @@
         <div ng-form="form">
             <fieldset class="form-group">
                 <label>User Name</label>
-                <input required type="text" class="form-control" ng-model="item.User.UserName" />
+                <input required type="text" class="form-control" ng-model="item.User.UserName" focus-if />
                 <label>Role</label>
                 <select required class="form-control" ng-model="item.Role" ng-options="x.Name for x in Roles"></select>
                 <label>Customer</label>
