@@ -27,13 +27,13 @@ namespace Merchandiser
         public System.Guid LocationId { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
+        public string Notes { get; set; }
+        public bool IsBeforeImage { get; set; }
+        public bool IsAfterImage { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
-        public string Notes { get; set; }
-        public bool IsBeforeImage { get; set; }
-        public bool IsAfterImage { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }

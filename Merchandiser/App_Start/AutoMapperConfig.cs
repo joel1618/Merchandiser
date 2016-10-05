@@ -29,6 +29,9 @@ namespace Merchandiser.App_Start
                 cfg.CreateMap<ProductViewModel, Product>();
                 cfg.CreateMap<Product, ProductViewModel>();
 
+                cfg.CreateMap<ProductCategoryViewModel, ProductCategory>();
+                cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
+
                 cfg.CreateMap<SurveyViewModel, Survey>();
                 cfg.CreateMap<Survey, SurveyViewModel>();
 

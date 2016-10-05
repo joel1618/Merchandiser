@@ -6,6 +6,14 @@
                 <label>Product Name</label>
                 <input type="text" class="form-control" ng-model="item.Name" required focus-if  />
                 <br />
+                <label>Product Category</label>
+                <input type="text" class="form-control" typeahead-no-results="noResultsProductCategory" ng-model="item.ProductCategory.Name" uib-typeahead="item.Name for item in SearchProductCategories($viewValue)"
+                       ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+                       typeahead-on-select="SelectProductCategory($item, $model, $label)" required focus-if />
+                <div ng-show="noResultsProductCategory">
+                    No Results Found!
+                </div>
+                <br/>
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>
         </div>

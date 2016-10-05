@@ -31,8 +31,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
+                ProductCategoryId = x.ProductCategoryId,
                 Name = x.Name,
-                Created = x.Created
+                Created = x.Created,
+                ProductCategory = x.ProductCategory != null ? new ProductCategoryViewModel()
+                {
+                    Id = x.ProductCategory.Id,
+                    Name = x.ProductCategory.Name
+                } : null
             });
             return response;
         }

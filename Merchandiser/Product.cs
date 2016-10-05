@@ -23,6 +23,7 @@ namespace Merchandiser
     
         public System.Guid Id { get; set; }
         public System.Guid CompanyId { get; set; }
+        public Nullable<System.Guid> ProductCategoryId { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
@@ -30,6 +31,7 @@ namespace Merchandiser
         public string CreatedBy { get; set; }
     
         public virtual Company Company { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyDetail> SurveyDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

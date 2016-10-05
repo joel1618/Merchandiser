@@ -25,12 +25,12 @@ namespace Merchandiser
         public System.Guid Id { get; set; }
         public System.Guid CompanyId { get; set; }
         public string Name { get; set; }
+        public bool IsSendReport { get; set; }
+        public Nullable<System.DateTime> SendReport { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public bool IsSendReport { get; set; }
-        public Nullable<System.DateTime> SendReport { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }

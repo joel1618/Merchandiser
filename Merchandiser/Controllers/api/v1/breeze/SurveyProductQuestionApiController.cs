@@ -31,7 +31,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Product = new ProductViewModel()
                 {
                     Id = x.Product.Id,
-                    Name = x.Product.Name
+                    Name = x.Product.Name,
+                    ProductCategory = x.Product.ProductCategory != null ? new ProductCategoryViewModel()
+                    {
+                        Id = x.Product.ProductCategory.Id,
+                        Name = x.Product.ProductCategory.Name
+                    } : null
                 },
                 Question = new QuestionViewModel()
                 {

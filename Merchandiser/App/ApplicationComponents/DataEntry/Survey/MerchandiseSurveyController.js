@@ -69,6 +69,22 @@
             reader.readAsDataURL(element.files[0]);
         }
 
+        $scope.sort = {
+            column: ['Product.Name', 'Product.Name'],
+            descending: false
+        };
+        $scope.changeSorting = function (column) {
+
+            var sort = $scope.sort;
+
+            if (sort.column[0] == column) {
+                sort.descending = !sort.descending;
+            } else {
+                sort.column[0] = column;
+                sort.descending = false;
+            }
+        };
+
         $scope.setAfterImage = function (element) {
             var reader = new FileReader();
             $scope.Header.IsAfterImage = true;

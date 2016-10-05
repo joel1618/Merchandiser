@@ -125,6 +125,19 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -369,6 +382,30 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCategory_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCategory">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Question_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
@@ -597,6 +634,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Survey" EntityType="Self.Survey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyCustomerLocation" EntityType="Self.SurveyCustomerLocation" Schema="dbo" store:Type="Tables" />
@@ -658,6 +696,14 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <AssociationSet Name="FK_Product_Company" Association="Self.FK_Product_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductCategory" Association="Self.FK_Product_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_Company" Association="Self.FK_ProductCategory_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
           </AssociationSet>
           <AssociationSet Name="FK_Question_Company" Association="Self.FK_Question_Company">
             <End Role="Company" EntitySet="Company" />
@@ -748,6 +794,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySet Name="Customers" EntityType="MerchandiserModel.Customer" />
           <EntitySet Name="Locations" EntityType="MerchandiserModel.Location" />
           <EntitySet Name="Products" EntityType="MerchandiserModel.Product" />
+          <EntitySet Name="ProductCategories" EntityType="MerchandiserModel.ProductCategory" />
           <EntitySet Name="Questions" EntityType="MerchandiserModel.Question" />
           <EntitySet Name="Surveys" EntityType="MerchandiserModel.Survey" />
           <EntitySet Name="SurveyCustomerLocations" EntityType="MerchandiserModel.SurveyCustomerLocation" />
@@ -795,6 +842,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             <End Role="Company" EntitySet="Companies" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_Company" Association="MerchandiserModel.FK_ProductCategory_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+          </AssociationSet>
           <AssociationSet Name="FK_Question_Company" Association="MerchandiserModel.FK_Question_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Question" EntitySet="Questions" />
@@ -834,6 +885,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <AssociationSet Name="FK_SurveyHeader_Location" Association="MerchandiserModel.FK_SurveyHeader_Location">
             <End Role="Location" EntitySet="Locations" />
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductCategory" Association="MerchandiserModel.FK_Product_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyDetail_Product" Association="MerchandiserModel.FK_SurveyDetail_Product">
             <End Role="Product" EntitySet="Products" />
@@ -966,6 +1021,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="Customers" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Company" ToRole="Customer" />
           <NavigationProperty Name="Locations" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Company" ToRole="Location" />
           <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Company" ToRole="Product" />
+          <NavigationProperty Name="ProductCategories" Relationship="MerchandiserModel.FK_ProductCategory_Company" FromRole="Company" ToRole="ProductCategory" />
           <NavigationProperty Name="Questions" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Company" ToRole="Question" />
           <NavigationProperty Name="Surveys" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Company" ToRole="Survey" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Company" FromRole="Company" ToRole="SurveyCustomerLocation" />
@@ -980,6 +1036,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsSendReport" Type="Boolean" Nullable="false" />
+          <Property Name="SendReport" Type="DateTime" Precision="3" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
@@ -988,8 +1046,6 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Customer" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="Customer" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="Customer" ToRole="SurveyHeader" />
-          <Property Name="IsSendReport" Type="Boolean" Nullable="false" />
-          <Property Name="SendReport" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -1017,14 +1073,30 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Guid" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Product" ToRole="Company" />
+          <NavigationProperty Name="ProductCategory" Relationship="MerchandiserModel.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Product" FromRole="Product" ToRole="SurveyDetail" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="Product" ToRole="SurveyProductQuestion" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_ProductCategory_Company" FromRole="ProductCategory" ToRole="Company" />
+          <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_ProductCategory" FromRole="ProductCategory" ToRole="Product" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -1105,18 +1177,18 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="LocationId" Type="Guid" Nullable="false" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsBeforeImage" Type="Boolean" Nullable="false" />
+          <Property Name="IsAfterImage" Type="Boolean" Nullable="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="SurveyHeader" ToRole="Company" />
           <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="SurveyHeader" ToRole="Customer" />
           <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="SurveyHeader" ToRole="Location" />
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
-          <Property Name="IsBeforeImage" Type="Boolean" Nullable="false" />
-          <Property Name="IsAfterImage" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyProductQuestion">
           <Key>
@@ -1286,6 +1358,18 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductCategory_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.ProductCategory" Role="ProductCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCategory">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Question_Company">
           <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
           <End Type="MerchandiserModel.Question" Role="Question" Multiplicity="*" />
@@ -1403,6 +1487,18 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             </Principal>
             <Dependent Role="SurveyHeader">
               <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductCategory">
+          <End Type="MerchandiserModel.ProductCategory" Role="ProductCategory" Multiplicity="0..1" />
+          <End Type="MerchandiserModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductCategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1599,12 +1695,12 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="MerchandiserModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="SendReport" ColumnName="SendReport" />
-                <ScalarProperty Name="IsSendReport" ColumnName="IsSendReport" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="SendReport" ColumnName="SendReport" />
+                <ScalarProperty Name="IsSendReport" ColumnName="IsSendReport" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1632,6 +1728,20 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="MerchandiserModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="MerchandiserModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1702,13 +1812,13 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="SurveyHeaders">
             <EntityTypeMapping TypeName="MerchandiserModel.SurveyHeader">
               <MappingFragment StoreEntitySet="SurveyHeader">
-                <ScalarProperty Name="IsAfterImage" ColumnName="IsAfterImage" />
-                <ScalarProperty Name="IsBeforeImage" ColumnName="IsBeforeImage" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="IsAfterImage" ColumnName="IsAfterImage" />
+                <ScalarProperty Name="IsBeforeImage" ColumnName="IsBeforeImage" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
