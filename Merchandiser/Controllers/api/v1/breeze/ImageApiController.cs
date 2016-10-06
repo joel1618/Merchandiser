@@ -98,35 +98,49 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpDelete]
         public IHttpActionResult DeleteBeforeImage(Guid id)
         {
-            File.Delete(GetBeforeImagePath(id) + id.ToString() + ".jpg");
-            return Ok();
+            try
+            {
+                File.Delete(GetBeforeImagePath(id) + id.ToString() + ".jpg");
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return Ok();
+            }
         }
 
         [Route("api/v1/imageapi/DeleteAfterImage/{id}")]
         [HttpDelete]
         public IHttpActionResult DeleteAfterImage(Guid id)
         {
-            File.Delete(GetAfterImagePath(id) + id.ToString() + ".jpg");
-            return Ok();
+            try
+            {
+                File.Delete(GetAfterImagePath(id) + id.ToString() + ".jpg");
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return Ok();
+            }
         }
 
         private string GetBeforeImagePath(Guid id)
         {
-            var guid = id.ToByteArray();
+            byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();
             builder.Append(AppDomain.CurrentDomain.BaseDirectory);
             builder.Append("\\SurveyImages\\BeforeImages\\");
             for (int i = 0; i < 8; i++)
             {
                 builder.Append(guid[i]);
-                builder.Append("/");
+                builder.Append("\\");
             }
             return builder.ToString();
         }
 
         public string GetAfterImagePath(Guid id)
         {
-            var guid = id.ToByteArray();
+            byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();
             builder.Append(AppDomain.CurrentDomain.BaseDirectory);
             builder.Append("\\SurveyImages\\AfterImages\\");

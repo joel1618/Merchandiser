@@ -18,11 +18,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
         MerchandiserEntities context;
         SurveyHeaderRepository repository;
         SurveyDetailRepository detailRepository;
+        ImageApiController imageApiController;
         public SurveyHeaderApiController()
         {
             this.context = new MerchandiserEntities();
             this.repository = new SurveyHeaderRepository(context);
             this.detailRepository = new SurveyDetailRepository(context);
+            this.imageApiController = new ImageApiController();
         }
 
         [HttpGet]
@@ -113,6 +115,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public void Delete(Guid id)
         {
             repository.Delete(id);
+            imageApiController.DeleteBeforeImage(id);
+            imageApiController.DeleteAfterImage(id);
+            repository.SaveChanges();
         }
 
         [HttpDelete]
@@ -124,6 +129,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 detailRepository.Delete(detail.Id);
             }
             repository.Delete(id);
+            imageApiController.DeleteBeforeImage(id);
+            imageApiController.DeleteAfterImage(id);
             repository.SaveChanges();
             return Ok();
         }
