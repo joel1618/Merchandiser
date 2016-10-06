@@ -41,7 +41,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Question = new QuestionViewModel()
                 {
                     Id = x.Question.Id,
-                    Name = x.Question.Name
+                    Name = x.Question.Name,
+                    IsRequired = x.Question.IsRequired
                 },
                 Created = x.Created
             });

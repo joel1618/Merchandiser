@@ -37,6 +37,7 @@ namespace Merchandiser.Repositories
         {
             var entity = context.Questions.Find(id);
             entity.Name = item.Name;
+            entity.IsRequired = item.IsRequired;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;

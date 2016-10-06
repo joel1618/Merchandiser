@@ -32,6 +32,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 Name = x.Name,
+                IsRequired = x.IsRequired,
                 Created = x.Created
             });
             return response;
