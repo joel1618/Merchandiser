@@ -1,34 +1,36 @@
 ﻿<div ng-controller="MerchandiseSurveyController">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-primary" style="max-width:375px;">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Survey Information</h3>
-                            </div>
-                            <div class="panel-body">
-                                <label for="surveyName">Survey Name</label>
-                                <p id="surveyName">{{Survey.Name}}</p>
-                                <label for="customer">Customer Name</label>
-                                <p id="customer">{{Customer.Name}}</p>
-                                <label for="locationName">Location Name</label>
-                                <p id="locationName">{{Location.Name}}</p>
-                                <label for="locationAddress">Location Address</label>
-                                <p id="locationAddress">{{Location.Address}}</p>
-                                <label for="manager">Location Manager</label>
-                                <p id="manager">{{Location.AreaManager}}</p>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div affix-resizer>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="panel panel-primary" style="max-width:375px;">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Survey Information</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <label for="surveyName">Survey Name</label>
+                                    <p id="surveyName">{{Survey.Name}}</p>
+                                    <label for="customer">Customer Name</label>
+                                    <p id="customer">{{Customer.Name}}</p>
+                                    <label for="locationName">Location Name</label>
+                                    <p id="locationName">{{Location.Name}}</p>
+                                    <label for="locationAddress">Location Address</label>
+                                    <p id="locationAddress">{{Location.Address}}</p>
+                                    <label for="manager">Location Manager</label>
+                                    <p id="manager">{{Location.AreaManager}}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="notes">Notes</label>
-                        <textarea class="form-control" id="notes" ng-model="Header.Notes" style="height:200px;">{{Header.Notes}}</textarea>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="notes">Notes</label>
+                            <textarea class="form-control" id="notes" ng-model="Header.Notes" style="height:200px;">{{Header.Notes}}</textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <label>Before Image</label>
                 <br />
                 <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
@@ -52,9 +54,9 @@
                             <th ng-click="changeSorting('Question.Name')">
                                 <a>Question</a>
                             </th>
-                            <th>
+                            <!--<th>
                                 Answer
-                            </th>
+                            </th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -68,9 +70,9 @@
                             <td>
                                 {{item.Question.Name}}
                             </td>
-                            <td>
+                            <!--<td>
                                 <input ng-model="item.Answer" type="text" placeholder="Answer..." class="form-control input-sm" />
-                            </td>
+                            </td>-->
                         </tr>
                     </tbody>
                 </table>
@@ -85,7 +87,24 @@
                 <img id="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
                 <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
                 <br />
-                <button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>
+                <!--<button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>-->
+
+                <form name="outerForm" class="form-inline">
+                    <div ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
+                        <md-input-container>
+                            <ng-form name="innerForm" class="form-inline">
+                                <div class="form-group">
+                                    <!--{{item.Product.ProductCategory.Name}} | {{item.Product.Name}} | {{item.Question.Name}}-->
+                                    <input class="form-control input-sm" type="text" name="Answer" placeholder="" ng-model="item.Answer" ng-required="item.Question.IsRequired" />
+                                    <div ng-messages="innerForm.Answer.$error">
+                                        <div ng-message="required">This is required!</div>
+                                    </div>
+                                </div>
+                            </ng-form>
+                        </md-input-container>
+                    </div>
+                    <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
+                </form>
             </div>
         </div>
     </div>

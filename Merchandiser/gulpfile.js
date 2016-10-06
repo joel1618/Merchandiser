@@ -73,6 +73,8 @@ gulp.task('app', function () {
         path.app + "ApplicationServices/**/*.js",
         path.app + "DatabaseServices/DatabaseServices.js",
         path.app + "DatabaseServices/**/*.js",
+        path.app + "Directives/Directives.js",
+        path.app + "Directives/*.js",
         path.app + "ApplicationComponents/App.js",
         path.app + "ApplicationComponents/Main/Controllers/*.js",      
         path.app + "ApplicationComponents/Administrator/Admin/Controllers/*.js",
