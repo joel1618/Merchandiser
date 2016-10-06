@@ -19,5 +19,10 @@ namespace Merchandiser.Models
         public Guid CustomerId { get; set; }
         public Guid LocationId { get; set; }
         public Guid SurveyId { get; set; }
+
+        public string CompanyName { get; set; }
+        public string CustomerName { get; set; }
+        public string LocationName { get; set; }
+        public string SurveyName { get; set; }
     }
 }

@@ -26,5 +26,9 @@ namespace Merchandiser
         public System.Guid SurveyId { get; set; }
         public System.Guid LocationId { get; set; }
         public string UserId { get; set; }
+        public string LocationName { get; set; }
+        public string SurveyName { get; set; }
+        public string CompanyName { get; set; }
+        public string CustomerName { get; set; }
     }
 }

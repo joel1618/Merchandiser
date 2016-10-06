@@ -253,6 +253,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SurveyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
@@ -654,7 +658,11 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
     [Map].[CustomerId] AS [CustomerId], 
     [Map].[SurveyId] AS [SurveyId], 
     [Map].[LocationId] AS [LocationId], 
-    [Map].[UserId] AS [UserId]
+    [Map].[UserId] AS [UserId], 
+    [Map].[LocationName] AS [LocationName], 
+    [Map].[SurveyName] AS [SurveyName], 
+    [Map].[CompanyName] AS [CompanyName], 
+    [Map].[CustomerName] AS [CustomerName]
     FROM [dbo].[Map] AS [Map]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AspNetUserRoles_Company" Association="Self.FK_AspNetUserRoles_Company">
@@ -1229,6 +1237,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="SurveyId" Type="Guid" Nullable="false" />
           <Property Name="LocationId" Type="Guid" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SurveyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
@@ -1847,6 +1859,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Maps">
             <EntityTypeMapping TypeName="MerchandiserModel.Map">
               <MappingFragment StoreEntitySet="Map">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SurveyName" ColumnName="SurveyName" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />

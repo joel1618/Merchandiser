@@ -29,8 +29,8 @@ namespace Merchandiser.Controllers.api.v1
             this.reportRepository = new ReportRepository();
             this.mapController = new MapApiController();
         }
-        
-        
+
+
         public FileResult DownloadSurveyData(DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
@@ -39,23 +39,25 @@ namespace Merchandiser.Controllers.api.v1
             using (CsvWriter csv = new CsvWriter(writer))
             {
                 var result = reportController.Search(null, null, null, null, null, null, null, startDate, endDate, 0, 100000);
-                var contentResult = result as OkNegotiatedContentResult<List<Dictionary<string,object>>>;
+                var contentResult = result as OkNegotiatedContentResult<List<Dictionary<string, object>>>;
                 var content = contentResult.Content;
-                
-                foreach(var column in content.FirstOrDefault())
+                if (content.Count() > 0)
                 {
-                    csv.WriteField(column.Key);                    
-                }
-                csv.NextRecord();
-                foreach(var row in content)
-                {
-                    foreach(var column in row)
+                    foreach (var column in content.FirstOrDefault())
                     {
-                        csv.WriteField(column.Value);
+                        csv.WriteField(column.Key);
                     }
                     csv.NextRecord();
+                    foreach (var row in content)
+                    {
+                        foreach (var column in row)
+                        {
+                            csv.WriteField(column.Value);
+                        }
+                        csv.NextRecord();
+                    }
+                    writer.Flush();
                 }
-                writer.Flush();
 
                 array = stream.ToArray();
             }
@@ -65,35 +67,43 @@ namespace Merchandiser.Controllers.api.v1
         public FileResult DownloadNoteData(Guid companyId, DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
+            string[] excludeColumns = new string[] { "LocationId", "SurveyId", "CompanyId", "CustomerId" };
             using (MemoryStream stream = new MemoryStream())
             using (StreamWriter writer = new StreamWriter(stream))
             using (CsvWriter csv = new CsvWriter(writer))
             {
                 var result = mapController.SearchWithNotes(companyId).Where(e => e.CompanyId == companyId && e.Created >= startDate && e.Created <= endDate);
-
-                foreach (PropertyInfo propertyInfo in result.First().GetType().GetProperties())
+                if (result.Count() > 0)
                 {
-                    csv.WriteField(propertyInfo.Name);
-                }
-                csv.NextRecord();
-                foreach (var row in result)
-                {
-                    foreach (var column in row.GetType().GetProperties())
+                    foreach (PropertyInfo propertyInfo in result.First().GetType().GetProperties())
                     {
-                        var value = column.GetValue(row, null);
-                        if (value != null)
+                        if (!excludeColumns.Contains(propertyInfo.Name))
                         {
-                            csv.WriteField(value);
-                        }
-                        else
-                        {
-                            csv.WriteField("");
+                            csv.WriteField(propertyInfo.Name);
                         }
                     }
                     csv.NextRecord();
+                    foreach (var row in result)
+                    {
+                        foreach (var column in row.GetType().GetProperties())
+                        {
+                            if (!excludeColumns.Contains(column.Name))
+                            {
+                                var value = column.GetValue(row, null);
+                                if (value != null)
+                                {
+                                    csv.WriteField(value);
+                                }
+                                else
+                                {
+                                    csv.WriteField("");
+                                }
+                            }
+                        }
+                        csv.NextRecord();
+                    }
+                    writer.Flush();
                 }
-                writer.Flush();
-
                 array = stream.ToArray();
             }
             return File(array, "text/csv", "NotesLocationExport.csv");
