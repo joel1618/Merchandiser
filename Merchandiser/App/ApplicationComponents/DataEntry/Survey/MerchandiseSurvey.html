@@ -31,78 +31,69 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <label>Before Image</label>
-                <br />
-                <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
-                <label class="btn btn-primary btn-sm btn-file">
-                    Choose Image <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setBeforeImage(this)">
-                </label>
-                <button class="btn btn-danger btn-sm" ng-click="DeleteBeforeImage()" ng-disabled="Header.BeforeImage == null && BeforeImage == null">Delete Image</button>
-                <br />
-                <img id="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
-                <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
-                <br />
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th ng-click="changeSorting('Product.ProductCategory.Name')">
-                                <a>Category</a>
-                            </th>
-                            <th ng-click="changeSorting('Product.Name')">
-                                <a>Product</a>
-                            </th>
-                            <th ng-click="changeSorting('Question.Name')">
-                                <a>Question</a>
-                            </th>
-                            <!--<th>
-                                Answer
-                            </th>-->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
-                            <td>
-                                {{item.Product.ProductCategory.Name}}
-                            </td>
-                            <td>
-                                {{item.Product.Name}}
-                            </td>
-                            <td>
-                                {{item.Question.Name}}
-                            </td>
-                            <!--<td>
-                                <input ng-model="item.Answer" type="text" placeholder="Answer..." class="form-control input-sm" />
-                            </td>-->
-                        </tr>
-                    </tbody>
-                </table>
-                <label>After Image</label>
-                <br />
-                <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
-                <label class="btn btn-primary btn-sm btn-file">
-                    Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setAfterImage(this)">
-                </label>
-                <button class="btn btn-danger btn-sm" ng-click="DeleteAfterImage()" ng-disabled="Header.AfterImage == null && AfterImage == null">Delete Image</button>
-                <br />
-                <img id="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
-                <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
-                <br />
-                <!--<button class="btn btn-primary btn-sm pull-right" ng-click="Save()">Save</button>-->
+                <form name="outerForm">
+                    <label>Before Image</label>
+                    <br />
+                    <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
+                    <label class="btn btn-primary btn-sm btn-file">
+                        Choose Image <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setBeforeImage(this)">
+                    </label>
+                    <button class="btn btn-danger btn-sm" ng-click="DeleteBeforeImage()" ng-disabled="Header.BeforeImage == null && BeforeImage == null">Delete Image</button>
+                    <br />
+                    <img id="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
+                    <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
+                    <br />
 
-                <form name="outerForm" class="form-inline">
-                    <div ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
-                        <md-input-container>
-                            <ng-form name="innerForm" class="form-inline">
-                                <div class="form-group">
-                                    <!--{{item.Product.ProductCategory.Name}} | {{item.Product.Name}} | {{item.Question.Name}}-->
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th ng-click="changeSorting('Product.ProductCategory.Name')">
+                                    <a>Category</a>
+                                </th>
+                                <th ng-click="changeSorting('Product.Name')">
+                                    <a>Product</a>
+                                </th>
+                                <th ng-click="changeSorting('Question.Name')">
+                                    <a>Question</a>
+                                </th>
+                                <th>
+                                    Answer
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-form name="innerForm" ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
+                                <td>
+                                    {{item.Product.ProductCategory.Name}}
+                                </td>
+                                <td>
+                                    {{item.Product.Name}}
+                                </td>
+                                <td>
+                                    {{item.Question.Name}}
+                                </td>
+                                <td>
+                                    <md-input-container>
                                     <input class="form-control input-sm" type="text" name="Answer" placeholder="" ng-model="item.Answer" ng-required="item.Question.IsRequired" />
                                     <div ng-messages="innerForm.Answer.$error">
                                         <div ng-message="required">This is required!</div>
                                     </div>
-                                </div>
-                            </ng-form>
-                        </md-input-container>
-                    </div>
+                                    </md-input-container>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <label>After Image</label>
+                    <br />
+                    <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
+                    <label class="btn btn-primary btn-sm btn-file">
+                        Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setAfterImage(this)">
+                    </label>
+                    <button class="btn btn-danger btn-sm" ng-click="DeleteAfterImage()" ng-disabled="Header.AfterImage == null && AfterImage == null">Delete Image</button>
+                    <br />
+                    <img id="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
+                    <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
+                    <br />
                     <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
                 </form>
             </div>
