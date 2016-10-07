@@ -84,5 +84,6 @@
     <Build Include="dbo\Tables\Question.sql" />
     <Build Include="dbo\Views\Map.sql" />
     <Build Include="Security\MerchandiserModelStoreContainer.sql" />
+    <Build Include="dbo\Tables\ProductCategory.sql" />
   </ItemGroup>
 </Project>

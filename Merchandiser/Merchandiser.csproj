@@ -2048,6 +2048,8 @@
     <Content Include="bower_components\ui-grid\TODO.md" />
     <Content Include="bower_components\ui-grid\travis_build.sh" />
     <Content Include="bower_components\ui-grid\travis_print_logs.sh" />
+    <None Include="Properties\PublishProfiles\Merchandiser - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Merchandiser - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Dependencies\angular-ui-bootstrap\0.14.3\ui-bootstrap.js" />
