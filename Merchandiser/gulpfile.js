@@ -30,7 +30,7 @@ var path = {
 gulp.task("vendorJs", function () {
     gulp.src([
             path.components + "jquery/dist/jquery.min.js",
-            path.components + "lodash/dist/lodash.js",
+            //path.components + "lodash/dist/lodash.js",
             path.components + "angular/angular.min.js",
             path.components + "angular-route/angular-route.min.js",
             path.components + "angular-animate/angular-animate.min.js",
@@ -145,8 +145,8 @@ gulp.task('styles', function () {
         //path.components + 'bootstrap/dist/css/bootstrap.min.css',
         path.components + 'angular-bootstrap/ui-bootstrap-csp.css',
         path.components + 'angular-material/angular-material.css',
-        path.app + 'assets/css/docs.css',
-        path.app + 'assets/css/app.css'
+        //path.app + 'assets/css/docs.css',
+        //path.app + 'assets/css/app.css'
 
     ])
     .pipe(concat('site.css'))
