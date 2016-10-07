@@ -1,6 +1,6 @@
 ﻿var app = angular.module('Directives');
 
-app.directive('affixResizer', ['$window', function ($window) {
+app.directive('affixResizer', ['$window', '$timeout', function ($window, $timeout) {
     return {
         restrict: 'A',
         link: function (scope, elem, attrs) {
@@ -14,8 +14,7 @@ app.directive('affixResizer', ['$window', function ($window) {
                 }
             });
 
-            angular.element($window).on('load', function () {
-                debugger;
+            $timeout(function () {
                 if ($window.innerWidth > 992) {
                     elem.addClass('affix');
                 }
