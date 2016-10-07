@@ -13,7 +13,7 @@
             enableSorting: true,
             data: [],
             columnDefs: [
-                { name: 'Manage', cellTemplate: '<span class="btn btn-danger btn-sm" ng-click="grid.appScope.Delete(row.entity.Id)">Delete</span>' },
+                { name: 'Manage', width: '120',  cellTemplate: '<span class="btn btn-danger btn-sm" ng-click="grid.appScope.Delete(row.entity.Id)">Delete</span>' },
                 { field: 'User.UserName', name: 'User', cellTooltip: true },
                 { field: 'Role.Name', name: 'Role', cellTooltip: true },
                 { field: 'Customer.Name', name: 'Customer', cellTooltip: true }

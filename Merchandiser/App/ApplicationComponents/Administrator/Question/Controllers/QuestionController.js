@@ -13,8 +13,9 @@
             enableSorting: true,
             data: [],
             columnDefs: [
-                { name: 'Manage', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Customer Name', cellTooltip: true }
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Name', name: 'Customer Name', cellTooltip: true },
+                { field: 'IsRequired', name: 'Required', cellTooltip: true}
             ]
         };
         $scope.Search();

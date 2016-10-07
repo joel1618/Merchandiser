@@ -15,7 +15,7 @@
             enableSorting: true,
             data: [],
             columnDefs: [
-                { name: 'Manage', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Product.Name', name: 'Product Name', cellTooltip: true },
                 { field: 'Question.Name', name: 'Question Name', cellTooltip: true }
             ]
