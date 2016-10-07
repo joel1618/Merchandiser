@@ -74,7 +74,6 @@
             descending: false
         };
         $scope.changeSorting = function (column) {
-
             var sort = $scope.sort;
 
             if (sort.column[0] == column) {
@@ -173,7 +172,7 @@
         $scope.DeleteBeforeImage = function () {
             $scope.BeforeImage = null;
             $scope.Header.BeforeImage = null; 
-            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+            if (SelectionApplicationService.GetSurveyHeaderId() != null ) {
                 ImageService.DeleteBeforeImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
                     $scope.Header.IsBeforeImage = false;
                     if (SelectionApplicationService.GetSurveyHeaderId() != null) {
@@ -183,12 +182,15 @@
                     }
                 });
             }
+            else {
+                $scope.Header.IsBeforeImage = false;
+            }
         }
 
         $scope.DeleteAfterImage = function () {
             $scope.AfterImage = null;
             $scope.Header.AfterImage = null;
-            if (SelectionApplicationService.GetSurveyHeaderId() != undefined && SelectionApplicationService.GetSurveyHeaderId() != null && SelectionApplicationService.GetSurveyHeaderId() != "") {
+            if (SelectionApplicationService.GetSurveyHeaderId() != null) {
                 ImageService.DeleteAfterImage(SelectionApplicationService.GetSurveyHeaderId()).then(function () {
                     $scope.Header.IsAfterImage = false;
                     if (SelectionApplicationService.GetSurveyHeaderId() != null) {
@@ -197,6 +199,9 @@
                         });
                     }
                 });
+            }
+            else {
+                $scope.Header.IsAfterImage = false;
             }
         }
     }]);
