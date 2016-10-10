@@ -30,10 +30,11 @@
             }
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 UserRoleService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
+                    var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
+                    $scope.$parent.gridOptions.data.splice(index, 1, data.data);
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error);
+                    toastr.error(error.data.Message);
                 });
             }
             else {
@@ -43,10 +44,10 @@
                     $scope.item.CustomerId = $scope.item.Customer.Id;
                 }
                 UserRoleService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
+                    $scope.$parent.gridOptions.data.splice($scope.$parent.gridOptions.data.length, 0, data.data);
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error);
+                    toastr.error(error.data.Message);
                 });
             }
         }

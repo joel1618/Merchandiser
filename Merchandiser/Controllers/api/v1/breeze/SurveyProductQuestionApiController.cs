@@ -70,10 +70,17 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public SurveyProductQuestionViewModel Update(Guid id, SurveyProductQuestionViewModel item)
+        public IHttpActionResult Update(Guid id, SurveyProductQuestionViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
-            return repository.Update(id, item.ToEntity()).ToViewModel();
+            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.ProductId == item.ProductId 
+            && e.QuestionId == item.QuestionId && e.SurveyId == item.SurveyId && e.Id != item.Id).FirstOrDefault();
+            if (record != null)
+            {
+                return BadRequest("This record already exists.");
+            }
+            var response = repository.Update(id, item.ToEntity()).ToViewModel();
+            return Ok(response);
         }
 
         [HttpDelete]
