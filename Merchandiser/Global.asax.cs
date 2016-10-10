@@ -29,5 +29,11 @@ namespace Merchandiser
             db.Database.Initialize(true);
             #endif
         }
+        //SSL Redirect
+        //protected void Application_BeginRequest()
+        //{
+        //    if (!Context.Request.IsSecureConnection)
+        //        Response.Redirect(Context.Request.Url.ToString().Replace("http:", "https:"));
+        //}
     }
 }
