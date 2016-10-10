@@ -6,7 +6,7 @@
                 <label>Product</label>
                 <input type="text" class="form-control" typeahead-no-results="noResultsProduct" ng-model="item.Product.Name" uib-typeahead="item.Name for item in SearchProducts($viewValue)"
                        ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
-                       typeahead-on-select="SelectProduct($item, $model, $label)" required focus-if  />
+                       typeahead-on-select="SelectProduct($item, $model, $label)" required focus-if="focus" ng-blur="focus = false" />
                 <div ng-show="noResultsProduct">
                     No Results Found!
                 </div>

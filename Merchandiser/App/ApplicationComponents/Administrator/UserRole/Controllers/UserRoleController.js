@@ -25,7 +25,7 @@
             UserRoleService.Delete(Id).then(function (data) {
                 $scope.Search();
             }, function (error) {
-                toastr.error(error.data.Message);
+                toastr.error(error);
             });
         }
     }]);

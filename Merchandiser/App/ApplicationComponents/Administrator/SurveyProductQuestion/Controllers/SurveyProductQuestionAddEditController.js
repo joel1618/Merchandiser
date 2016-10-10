@@ -6,7 +6,8 @@
         ProductService, QuestionService, SelectionApplicationService) {
 
         $scope.Init = function(){
-            $scope.item = { Id : null }
+            $scope.item = { Id: null }
+            $scope.focus = true;
         }
         $scope.Search = function () {
             if ($stateParams.id !== undefined && $stateParams.id !== "") {
@@ -56,7 +57,7 @@
                     $scope.$parent.gridOptions.data.splice(index, 1, data.data);
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error.data.Message);
+                    toastr.error(error);
                 });
             }
             else {
@@ -66,7 +67,7 @@
                     $scope.$parent.gridOptions.data.splice($scope.$parent.gridOptions.data.length, 0, data.data);
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error.data.Message);
+                    toastr.error(error);
                 });
             }
         }

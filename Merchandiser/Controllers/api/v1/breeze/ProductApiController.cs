@@ -17,10 +17,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
     {
         ProductRepository productRepository;
         UserRoleRepository userRoleRepository;
+        ProductCategoryRepository productCategoryRepository;
         public ProductApiController()
         {
             this.productRepository = new ProductRepository();
             this.userRoleRepository = new UserRoleRepository();
+            this.productCategoryRepository = new ProductCategoryRepository();
         }
 
         [HttpGet]
@@ -59,6 +61,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 return BadRequest("This record already exists.");
             }
             var response = productRepository.Create(item.ToEntity()).ToViewModel();
+            if (response.ProductCategoryId.HasValue)
+            {
+                response.ProductCategory = productCategoryRepository.Get(response.ProductCategoryId.Value).ToViewModel();
+            }
             return Ok(response);
         }
 

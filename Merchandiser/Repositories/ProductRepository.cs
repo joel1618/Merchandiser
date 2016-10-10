@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -28,9 +29,11 @@ namespace Merchandiser.Repositories
         {
             item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
+            item.ProductCategory = null;
             context.Products.Add(item);
             context.SaveChanges();
             return item;
+
         }
 
         public Product Update(Guid id, Product item)

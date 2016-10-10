@@ -4,6 +4,7 @@
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService) {
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
+            $scope.focus = true;
         }
         $scope.Init();
         $scope.Search = function () {

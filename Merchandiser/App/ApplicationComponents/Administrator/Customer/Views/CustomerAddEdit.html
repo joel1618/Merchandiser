@@ -4,7 +4,7 @@
         <div ng-form="form">
             <fieldset class="form-group">
                 <label>Customer Name</label>
-                <input type="text" class="form-control" ng-model="item.Name" required focus-if  />
+                <input type="text" class="form-control" ng-model="item.Name" required focus-if="focus" ng-blur="focus = false"  />
                 <br />
                 <md-switch class="md-primary" aria-label="Send Report" ng-model="item.IsSendReport">
                     <b>Send Report</b>           
