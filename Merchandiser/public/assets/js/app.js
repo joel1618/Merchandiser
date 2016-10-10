@@ -127,58 +127,6 @@ angular.module('ApplicationServices').service('SelectionApplicationService', fun
     var services = angular.module('DatabaseServices', []);
 })();
 (function () {
-
-    angular.module('DatabaseServices').factory('breezeservice',
-    ['$http', '$q', '$timeout', 'breeze', service]);
-
-    function service($http, $q, $timeout, breeze) {
-        var serviceName = '/breeze'; // route to the same origin Web Api controller
-        var dataService = new breeze.DataService({
-            serviceName: serviceName,
-            hasServerMetadata: false  // don't ask the server for metadata
-        });
-        var metadataStore = new breeze.MetadataStore();
-        //manager.enableSaveQueuing(true);
-        metadataStore.importMetadata(window.breeze.metadata);
-        //var masterManager = new breeze.EntityManager(serviceName);
-        var manager = new breeze.EntityManager({
-            dataService: dataService,
-            metadataStore: metadataStore
-        });
-        var meta = manager.metadataStore;
-        meta.setEntityTypeForResourceName("UserRoleApi/Search", "UserRoleViewModel");
-        meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
-        meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
-        meta.setEntityTypeForResourceName("SurveyCustomerLocationApi/Search", "SurveyCustomerLocationViewModel");
-        meta.setEntityTypeForResourceName("SurveyProductQuestionApi/Search", "SurveyProductQuestionViewModel");
-        meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
-        meta.setEntityTypeForResourceName("MapApi/Search", "MapViewModel");
-        meta.setEntityTypeForResourceName("ProductCategoryApi/Search", "ProductCategoryViewModel");
-        var service = {
-            executeQuery: executeQuery,
-            all: all
-        };
-        return service;
-
-        function executeQuery(query) {
-            return manager.executeQuery(query).then(function (data) {
-                return data;
-            });
-        }
-
-        function all() {
-            var query = breeze.EntityQuery
-                .from(resourceName);
-
-            return executeQuery(query);
-        }
-    }
-})();
-window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
-{"schema":{"namespace":"Merchandiser","alias":"Self","annotation:UseStrongSpatialTypes":"false","xmlns:annotation":"http://schemas.microsoft.com/ado/2009/02/edm/annotation","xmlns:customannotation":"http://schemas.microsoft.com/ado/2013/11/edm/customannotation","xmlns":"http://schemas.microsoft.com/ado/2009/11/edm","cSpaceOSpaceMapping":"[[\"Merchandiser.CompanyViewModel\",\"Merchandiser.Models.CompanyViewModel\"],[\"Merchandiser.CustomerViewModel\",\"Merchandiser.Models.CustomerViewModel\"],[\"Merchandiser.MapViewModel\",\"Merchandiser.Models.MapViewModel\"],[\"Merchandiser.ProductCategoryViewModel\",\"Merchandiser.Models.ProductCategoryViewModel\"],[\"Merchandiser.RoleViewModel\",\"Merchandiser.Models.RoleViewModel\"],[\"Merchandiser.SurveyCustomerLocationViewModel\",\"Merchandiser.Models.SurveyCustomerLocationViewModel\"],[\"Merchandiser.LocationViewModel\",\"Merchandiser.Models.LocationViewModel\"],[\"Merchandiser.SurveyViewModel\",\"Merchandiser.Models.SurveyViewModel\"],[\"Merchandiser.SurveyProductQuestionViewModel\",\"Merchandiser.Models.SurveyProductQuestionViewModel\"],[\"Merchandiser.ProductViewModel\",\"Merchandiser.Models.ProductViewModel\"],[\"Merchandiser.ProductCategory\",\"Merchandiser.ProductCategory\"],[\"Merchandiser.Company\",\"Merchandiser.Company\"],[\"Merchandiser.AspNetUserRole\",\"Merchandiser.AspNetUserRole\"],[\"Merchandiser.AspNetRole\",\"Merchandiser.AspNetRole\"],[\"Merchandiser.AspNetUser\",\"Merchandiser.AspNetUser\"],[\"Merchandiser.AspNetUserClaim\",\"Merchandiser.AspNetUserClaim\"],[\"Merchandiser.AspNetUserLogin\",\"Merchandiser.AspNetUserLogin\"],[\"Merchandiser.AspNetUsersInfo\",\"Merchandiser.AspNetUsersInfo\"],[\"Merchandiser.Customer\",\"Merchandiser.Customer\"],[\"Merchandiser.SurveyCustomerLocation\",\"Merchandiser.SurveyCustomerLocation\"],[\"Merchandiser.Location\",\"Merchandiser.Location\"],[\"Merchandiser.SurveyHeader\",\"Merchandiser.SurveyHeader\"],[\"Merchandiser.Survey\",\"Merchandiser.Survey\"],[\"Merchandiser.SurveyProductQuestion\",\"Merchandiser.SurveyProductQuestion\"],[\"Merchandiser.Product\",\"Merchandiser.Product\"],[\"Merchandiser.SurveyDetail\",\"Merchandiser.SurveyDetail\"],[\"Merchandiser.Question\",\"Merchandiser.Question\"],[\"Merchandiser.QuestionViewModel\",\"Merchandiser.Models.QuestionViewModel\"],[\"Merchandiser.UserRoleViewModel\",\"Merchandiser.Models.UserRoleViewModel\"],[\"Merchandiser.UserViewModel\",\"Merchandiser.Models.UserViewModel\"]]","entityType":[{"name":"CompanyViewModel","customannotation:ClrType":"Merchandiser.Models.CompanyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"CustomerViewModel","customannotation:ClrType":"Merchandiser.Models.CustomerViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsSendReport","type":"Edm.Boolean","nullable":"false"},{"name":"SendReport","type":"Edm.DateTime"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"MapViewModel","customannotation:ClrType":"Merchandiser.Models.MapViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"}]},{"name":"ProductCategoryViewModel","customannotation:ClrType":"Merchandiser.Models.ProductCategoryViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"RoleViewModel","customannotation:ClrType":"Merchandiser.Models.RoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyCustomerLocationViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyCustomerLocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Customer","relationship":"Self.SurveyCustomerLocationViewModel_Customer","fromRole":"SurveyCustomerLocationViewModel_Customer_Source","toRole":"SurveyCustomerLocationViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyCustomerLocationViewModel_Location","fromRole":"SurveyCustomerLocationViewModel_Location_Source","toRole":"SurveyCustomerLocationViewModel_Location_Target"},{"name":"Survey","relationship":"Self.SurveyCustomerLocationViewModel_Survey","fromRole":"SurveyCustomerLocationViewModel_Survey_Source","toRole":"SurveyCustomerLocationViewModel_Survey_Target"}]},{"name":"LocationViewModel","customannotation:ClrType":"Merchandiser.Models.LocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyProductQuestionViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyProductQuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Product","relationship":"Self.SurveyProductQuestionViewModel_Product","fromRole":"SurveyProductQuestionViewModel_Product_Source","toRole":"SurveyProductQuestionViewModel_Product_Target"},{"name":"Question","relationship":"Self.SurveyProductQuestionViewModel_Question","fromRole":"SurveyProductQuestionViewModel_Question_Source","toRole":"SurveyProductQuestionViewModel_Question_Target"}]},{"name":"ProductViewModel","customannotation:ClrType":"Merchandiser.Models.ProductViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductCategoryId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"ProductCategory","relationship":"Self.ProductViewModel_ProductCategory","fromRole":"ProductViewModel_ProductCategory_Source","toRole":"ProductViewModel_ProductCategory_Target"}},{"name":"ProductCategory","customannotation:ClrType":"Merchandiser.ProductCategory, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Company_ProductCategories","fromRole":"Company_ProductCategories_Target","toRole":"Company_ProductCategories_Source"},{"name":"Products","relationship":"Self.Product_ProductCategory","fromRole":"Product_ProductCategory_Target","toRole":"Product_ProductCategory_Source"}]},{"name":"Company","customannotation:ClrType":"Merchandiser.Company, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"AspNetUserRoles","relationship":"Self.AspNetUserRole_Company","fromRole":"AspNetUserRole_Company_Target","toRole":"AspNetUserRole_Company_Source"},{"name":"Customers","relationship":"Self.Customer_Company","fromRole":"Customer_Company_Target","toRole":"Customer_Company_Source"},{"name":"Locations","relationship":"Self.Location_Company","fromRole":"Location_Company_Target","toRole":"Location_Company_Source"},{"name":"ProductCategories","relationship":"Self.Company_ProductCategories","fromRole":"Company_ProductCategories_Source","toRole":"Company_ProductCategories_Target"},{"name":"Products","relationship":"Self.Product_Company","fromRole":"Product_Company_Target","toRole":"Product_Company_Source"},{"name":"Questions","relationship":"Self.Question_Company","fromRole":"Question_Company_Target","toRole":"Question_Company_Source"},{"name":"SurveyCustomerLocations","relationship":"Self.SurveyCustomerLocation_Company","fromRole":"SurveyCustomerLocation_Company_Target","toRole":"SurveyCustomerLocation_Company_Source"},{"name":"SurveyDetails","relationship":"Self.SurveyDetail_Company","fromRole":"SurveyDetail_Company_Target","toRole":"SurveyDetail_Company_Source"},{"name":"SurveyHeaders","relationship":"Self.SurveyHeader_Company","fromRole":"SurveyHeader_Company_Target","toRole":"SurveyHeader_Company_Source"},{"name":"SurveyProductQuestions","relationship":"Self.SurveyProductQuestion_Company","fromRole":"SurveyProductQuestion_Company_Target","toRole":"SurveyProductQuestion_Company_Source"},{"name":"Surveys","relationship":"Self.Survey_Company","fromRole":"Survey_Company_Target","toRole":"Survey_Company_Source"}]},{"name":"AspNetUserRole","customannotation:ClrType":"Merchandiser.AspNetUserRole, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"AspNetRole","relationship":"Self.AspNetRole_AspNetUserRoles","fromRole":"AspNetRole_AspNetUserRoles_Target","toRole":"AspNetRole_AspNetUserRoles_Source"},{"name":"AspNetUser","relationship":"Self.AspNetUser_AspNetUserRoles","fromRole":"AspNetUser_AspNetUserRoles_Target","toRole":"AspNetUser_AspNetUserRoles_Source"},{"name":"Company","relationship":"Self.AspNetUserRole_Company","fromRole":"AspNetUserRole_Company_Source","toRole":"AspNetUserRole_Company_Target"},{"name":"Customer","relationship":"Self.Customer_AspNetUserRoles","fromRole":"Customer_AspNetUserRoles_Target","toRole":"Customer_AspNetUserRoles_Source"}]},{"name":"AspNetRole","customannotation:ClrType":"Merchandiser.AspNetRole, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUserRoles","relationship":"Self.AspNetRole_AspNetUserRoles","fromRole":"AspNetRole_AspNetUserRoles_Source","toRole":"AspNetRole_AspNetUserRoles_Target"}},{"name":"AspNetUser","customannotation:ClrType":"Merchandiser.AspNetUser, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Email","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"EmailConfirmed","type":"Edm.Boolean","nullable":"false"},{"name":"PasswordHash","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SecurityStamp","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"PhoneNumber","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"PhoneNumberConfirmed","type":"Edm.Boolean","nullable":"false"},{"name":"TwoFactorEnabled","type":"Edm.Boolean","nullable":"false"},{"name":"LockoutEndDateUtc","type":"Edm.DateTime"},{"name":"LockoutEnabled","type":"Edm.Boolean","nullable":"false"},{"name":"AccessFailedCount","type":"Edm.Int32","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"AspNetUserClaims","relationship":"Self.AspNetUserClaim_AspNetUser","fromRole":"AspNetUserClaim_AspNetUser_Target","toRole":"AspNetUserClaim_AspNetUser_Source"},{"name":"AspNetUserLogins","relationship":"Self.AspNetUserLogin_AspNetUser","fromRole":"AspNetUserLogin_AspNetUser_Target","toRole":"AspNetUserLogin_AspNetUser_Source"},{"name":"AspNetUserRoles","relationship":"Self.AspNetUser_AspNetUserRoles","fromRole":"AspNetUser_AspNetUserRoles_Source","toRole":"AspNetUser_AspNetUserRoles_Target"},{"name":"AspNetUsersInfoes","relationship":"Self.AspNetUsersInfo_AspNetUser","fromRole":"AspNetUsersInfo_AspNetUser_Target","toRole":"AspNetUsersInfo_AspNetUser_Source"}]},{"name":"AspNetUserClaim","customannotation:ClrType":"Merchandiser.AspNetUserClaim, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Int32","nullable":"false","annotation:StoreGeneratedPattern":"Identity"},{"name":"UserId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ClaimType","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ClaimValue","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUser","relationship":"Self.AspNetUserClaim_AspNetUser","fromRole":"AspNetUserClaim_AspNetUser_Source","toRole":"AspNetUserClaim_AspNetUser_Target"}},{"name":"AspNetUserLogin","customannotation:ClrType":"Merchandiser.AspNetUserLogin, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"UserId"}},"property":[{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"LoginProvider","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ProviderKey","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUser","relationship":"Self.AspNetUserLogin_AspNetUser","fromRole":"AspNetUserLogin_AspNetUser_Source","toRole":"AspNetUserLogin_AspNetUser_Target"}},{"name":"AspNetUsersInfo","customannotation:ClrType":"Merchandiser.AspNetUsersInfo, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUser","relationship":"Self.AspNetUsersInfo_AspNetUser","fromRole":"AspNetUsersInfo_AspNetUser_Source","toRole":"AspNetUsersInfo_AspNetUser_Target"}},{"name":"Customer","customannotation:ClrType":"Merchandiser.Customer, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsSendReport","type":"Edm.Boolean","nullable":"false"},{"name":"SendReport","type":"Edm.DateTime"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"AspNetUserRoles","relationship":"Self.Customer_AspNetUserRoles","fromRole":"Customer_AspNetUserRoles_Source","toRole":"Customer_AspNetUserRoles_Target"},{"name":"Company","relationship":"Self.Customer_Company","fromRole":"Customer_Company_Source","toRole":"Customer_Company_Target"},{"name":"SurveyCustomerLocations","relationship":"Self.SurveyCustomerLocation_Customer","fromRole":"SurveyCustomerLocation_Customer_Target","toRole":"SurveyCustomerLocation_Customer_Source"},{"name":"SurveyHeaders","relationship":"Self.SurveyHeader_Customer","fromRole":"SurveyHeader_Customer_Target","toRole":"SurveyHeader_Customer_Source"}]},{"name":"SurveyCustomerLocation","customannotation:ClrType":"Merchandiser.SurveyCustomerLocation, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyCustomerLocation_Company","fromRole":"SurveyCustomerLocation_Company_Source","toRole":"SurveyCustomerLocation_Company_Target"},{"name":"Customer","relationship":"Self.SurveyCustomerLocation_Customer","fromRole":"SurveyCustomerLocation_Customer_Source","toRole":"SurveyCustomerLocation_Customer_Target"},{"name":"Location","relationship":"Self.Location_SurveyCustomerLocations","fromRole":"Location_SurveyCustomerLocations_Target","toRole":"Location_SurveyCustomerLocations_Source"},{"name":"Survey","relationship":"Self.Survey_SurveyCustomerLocations","fromRole":"Survey_SurveyCustomerLocations_Target","toRole":"Survey_SurveyCustomerLocations_Source"}]},{"name":"Location","customannotation:ClrType":"Merchandiser.Location, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Location_Company","fromRole":"Location_Company_Source","toRole":"Location_Company_Target"},{"name":"SurveyCustomerLocations","relationship":"Self.Location_SurveyCustomerLocations","fromRole":"Location_SurveyCustomerLocations_Source","toRole":"Location_SurveyCustomerLocations_Target"},{"name":"SurveyHeaders","relationship":"Self.SurveyHeader_Location","fromRole":"SurveyHeader_Location_Target","toRole":"SurveyHeader_Location_Source"}]},{"name":"SurveyHeader","customannotation:ClrType":"Merchandiser.SurveyHeader, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsBeforeImage","type":"Edm.Boolean","nullable":"false"},{"name":"IsAfterImage","type":"Edm.Boolean","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyHeader_Company","fromRole":"SurveyHeader_Company_Source","toRole":"SurveyHeader_Company_Target"},{"name":"Customer","relationship":"Self.SurveyHeader_Customer","fromRole":"SurveyHeader_Customer_Source","toRole":"SurveyHeader_Customer_Target"},{"name":"Location","relationship":"Self.SurveyHeader_Location","fromRole":"SurveyHeader_Location_Source","toRole":"SurveyHeader_Location_Target"},{"name":"Survey","relationship":"Self.Survey_SurveyHeaders","fromRole":"Survey_SurveyHeaders_Target","toRole":"Survey_SurveyHeaders_Source"},{"name":"SurveyDetails","relationship":"Self.SurveyDetail_SurveyHeader","fromRole":"SurveyDetail_SurveyHeader_Target","toRole":"SurveyDetail_SurveyHeader_Source"}]},{"name":"Survey","customannotation:ClrType":"Merchandiser.Survey, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Survey_Company","fromRole":"Survey_Company_Source","toRole":"Survey_Company_Target"},{"name":"SurveyCustomerLocations","relationship":"Self.Survey_SurveyCustomerLocations","fromRole":"Survey_SurveyCustomerLocations_Source","toRole":"Survey_SurveyCustomerLocations_Target"},{"name":"SurveyHeaders","relationship":"Self.Survey_SurveyHeaders","fromRole":"Survey_SurveyHeaders_Source","toRole":"Survey_SurveyHeaders_Target"},{"name":"SurveyProductQuestions","relationship":"Self.SurveyProductQuestion_Survey","fromRole":"SurveyProductQuestion_Survey_Target","toRole":"SurveyProductQuestion_Survey_Source"}]},{"name":"SurveyProductQuestion","customannotation:ClrType":"Merchandiser.SurveyProductQuestion, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyProductQuestion_Company","fromRole":"SurveyProductQuestion_Company_Source","toRole":"SurveyProductQuestion_Company_Target"},{"name":"Product","relationship":"Self.Product_SurveyProductQuestions","fromRole":"Product_SurveyProductQuestions_Target","toRole":"Product_SurveyProductQuestions_Source"},{"name":"Question","relationship":"Self.Question_SurveyProductQuestions","fromRole":"Question_SurveyProductQuestions_Target","toRole":"Question_SurveyProductQuestions_Source"},{"name":"Survey","relationship":"Self.SurveyProductQuestion_Survey","fromRole":"SurveyProductQuestion_Survey_Source","toRole":"SurveyProductQuestion_Survey_Target"}]},{"name":"Product","customannotation:ClrType":"Merchandiser.Product, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductCategoryId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Product_Company","fromRole":"Product_Company_Source","toRole":"Product_Company_Target"},{"name":"ProductCategory","relationship":"Self.Product_ProductCategory","fromRole":"Product_ProductCategory_Source","toRole":"Product_ProductCategory_Target"},{"name":"SurveyDetails","relationship":"Self.SurveyDetail_Product","fromRole":"SurveyDetail_Product_Target","toRole":"SurveyDetail_Product_Source"},{"name":"SurveyProductQuestions","relationship":"Self.Product_SurveyProductQuestions","fromRole":"Product_SurveyProductQuestions_Source","toRole":"Product_SurveyProductQuestions_Target"}]},{"name":"SurveyDetail","customannotation:ClrType":"Merchandiser.SurveyDetail, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyHeaderId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"Answer","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyDetail_Company","fromRole":"SurveyDetail_Company_Source","toRole":"SurveyDetail_Company_Target"},{"name":"Product","relationship":"Self.SurveyDetail_Product","fromRole":"SurveyDetail_Product_Source","toRole":"SurveyDetail_Product_Target"},{"name":"Question","relationship":"Self.Question_SurveyDetails","fromRole":"Question_SurveyDetails_Target","toRole":"Question_SurveyDetails_Source"},{"name":"SurveyHeader","relationship":"Self.SurveyDetail_SurveyHeader","fromRole":"SurveyDetail_SurveyHeader_Source","toRole":"SurveyDetail_SurveyHeader_Target"}]},{"name":"Question","customannotation:ClrType":"Merchandiser.Question, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Question_Company","fromRole":"Question_Company_Source","toRole":"Question_Company_Target"},{"name":"SurveyDetails","relationship":"Self.Question_SurveyDetails","fromRole":"Question_SurveyDetails_Source","toRole":"Question_SurveyDetails_Target"},{"name":"SurveyProductQuestions","relationship":"Self.Question_SurveyProductQuestions","fromRole":"Question_SurveyProductQuestions_Source","toRole":"Question_SurveyProductQuestions_Target"}]},{"name":"QuestionViewModel","customannotation:ClrType":"Merchandiser.Models.QuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserRoleViewModel","customannotation:ClrType":"Merchandiser.Models.UserRoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"Company","relationship":"Self.UserRoleViewModel_Company","fromRole":"UserRoleViewModel_Company_Source","toRole":"UserRoleViewModel_Company_Target"},{"name":"Customer","relationship":"Self.UserRoleViewModel_Customer","fromRole":"UserRoleViewModel_Customer_Source","toRole":"UserRoleViewModel_Customer_Target"},{"name":"Role","relationship":"Self.UserRoleViewModel_Role","fromRole":"UserRoleViewModel_Role_Source","toRole":"UserRoleViewModel_Role_Target"},{"name":"User","relationship":"Self.UserRoleViewModel_User","fromRole":"UserRoleViewModel_User_Source","toRole":"UserRoleViewModel_User_Target"}]},{"name":"UserViewModel","customannotation:ClrType":"Merchandiser.Models.UserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]}],"association":[{"name":"SurveyCustomerLocationViewModel_Customer","end":[{"role":"SurveyCustomerLocationViewModel_Customer_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyCustomerLocationViewModel_Location","end":[{"role":"SurveyCustomerLocationViewModel_Location_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyCustomerLocationViewModel_Survey","end":[{"role":"SurveyCustomerLocationViewModel_Survey_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"AspNetRole_AspNetUserRoles","end":[{"role":"AspNetRole_AspNetUserRoles_Source","type":"Edm.Self.AspNetRole","multiplicity":"0..1"},{"role":"AspNetRole_AspNetUserRoles_Target","type":"Edm.Self.AspNetUserRole","multiplicity":"*"}]},{"name":"AspNetUserClaim_AspNetUser","end":[{"role":"AspNetUserClaim_AspNetUser_Source","type":"Edm.Self.AspNetUserClaim","multiplicity":"*"},{"role":"AspNetUserClaim_AspNetUser_Target","type":"Edm.Self.AspNetUser","multiplicity":"0..1"}]},{"name":"AspNetUserLogin_AspNetUser","end":[{"role":"AspNetUserLogin_AspNetUser_Source","type":"Edm.Self.AspNetUserLogin","multiplicity":"*"},{"role":"AspNetUserLogin_AspNetUser_Target","type":"Edm.Self.AspNetUser","multiplicity":"0..1"}]},{"name":"AspNetUser_AspNetUserRoles","end":[{"role":"AspNetUser_AspNetUserRoles_Source","type":"Edm.Self.AspNetUser","multiplicity":"0..1"},{"role":"AspNetUser_AspNetUserRoles_Target","type":"Edm.Self.AspNetUserRole","multiplicity":"*"}]},{"name":"AspNetUsersInfo_AspNetUser","end":[{"role":"AspNetUsersInfo_AspNetUser_Source","type":"Edm.Self.AspNetUsersInfo","multiplicity":"*"},{"role":"AspNetUsersInfo_AspNetUser_Target","type":"Edm.Self.AspNetUser","multiplicity":"0..1"}]},{"name":"AspNetUserRole_Company","end":[{"role":"AspNetUserRole_Company_Source","type":"Edm.Self.AspNetUserRole","multiplicity":"*"},{"role":"AspNetUserRole_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"AspNetUserRole_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"AspNetUserRole_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Customer_AspNetUserRoles","end":[{"role":"Customer_AspNetUserRoles_Source","type":"Edm.Self.Customer","multiplicity":"0..1"},{"role":"Customer_AspNetUserRoles_Target","type":"Edm.Self.AspNetUserRole","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Customer_AspNetUserRoles_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Customer_AspNetUserRoles_Target","propertyRef":{"name":"CustomerId"}}}},{"name":"Customer_Company","end":[{"role":"Customer_Company_Source","type":"Edm.Self.Customer","multiplicity":"*"},{"role":"Customer_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Customer_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Customer_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyCustomerLocation_Company","end":[{"role":"SurveyCustomerLocation_Company_Source","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"},{"role":"SurveyCustomerLocation_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocation_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocation_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyCustomerLocation_Customer","end":[{"role":"SurveyCustomerLocation_Customer_Source","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"},{"role":"SurveyCustomerLocation_Customer_Target","type":"Edm.Self.Customer","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocation_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocation_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"Location_Company","end":[{"role":"Location_Company_Source","type":"Edm.Self.Location","multiplicity":"*"},{"role":"Location_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Location_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Location_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Location_SurveyCustomerLocations","end":[{"role":"Location_SurveyCustomerLocations_Source","type":"Edm.Self.Location","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Location_SurveyCustomerLocations_Target","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Location_SurveyCustomerLocations_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Location_SurveyCustomerLocations_Target","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyHeader_Company","end":[{"role":"SurveyHeader_Company_Source","type":"Edm.Self.SurveyHeader","multiplicity":"*"},{"role":"SurveyHeader_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeader_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeader_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyHeader_Customer","end":[{"role":"SurveyHeader_Customer_Source","type":"Edm.Self.SurveyHeader","multiplicity":"*"},{"role":"SurveyHeader_Customer_Target","type":"Edm.Self.Customer","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeader_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeader_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyHeader_Location","end":[{"role":"SurveyHeader_Location_Source","type":"Edm.Self.SurveyHeader","multiplicity":"*"},{"role":"SurveyHeader_Location_Target","type":"Edm.Self.Location","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeader_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeader_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"Survey_Company","end":[{"role":"Survey_Company_Source","type":"Edm.Self.Survey","multiplicity":"*"},{"role":"Survey_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Survey_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Survey_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Survey_SurveyCustomerLocations","end":[{"role":"Survey_SurveyCustomerLocations_Source","type":"Edm.Self.Survey","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Survey_SurveyCustomerLocations_Target","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Survey_SurveyCustomerLocations_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Survey_SurveyCustomerLocations_Target","propertyRef":{"name":"SurveyId"}}}},{"name":"Survey_SurveyHeaders","end":[{"role":"Survey_SurveyHeaders_Source","type":"Edm.Self.Survey","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Survey_SurveyHeaders_Target","type":"Edm.Self.SurveyHeader","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Survey_SurveyHeaders_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Survey_SurveyHeaders_Target","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyProductQuestion_Company","end":[{"role":"SurveyProductQuestion_Company_Source","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"},{"role":"SurveyProductQuestion_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestion_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestion_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Product_Company","end":[{"role":"Product_Company_Source","type":"Edm.Self.Product","multiplicity":"*"},{"role":"Product_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Product_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Product_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Product_ProductCategory","end":[{"role":"Product_ProductCategory_Source","type":"Edm.Self.Product","multiplicity":"*"},{"role":"Product_ProductCategory_Target","type":"Edm.Self.ProductCategory","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"Product_ProductCategory_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Product_ProductCategory_Source","propertyRef":{"name":"ProductCategoryId"}}}},{"name":"SurveyDetail_Company","end":[{"role":"SurveyDetail_Company_Source","type":"Edm.Self.SurveyDetail","multiplicity":"*"},{"role":"SurveyDetail_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyDetail_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyDetail_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyDetail_Product","end":[{"role":"SurveyDetail_Product_Source","type":"Edm.Self.SurveyDetail","multiplicity":"*"},{"role":"SurveyDetail_Product_Target","type":"Edm.Self.Product","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyDetail_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyDetail_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"Question_Company","end":[{"role":"Question_Company_Source","type":"Edm.Self.Question","multiplicity":"*"},{"role":"Question_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Question_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Question_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Question_SurveyDetails","end":[{"role":"Question_SurveyDetails_Source","type":"Edm.Self.Question","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Question_SurveyDetails_Target","type":"Edm.Self.SurveyDetail","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Question_SurveyDetails_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Question_SurveyDetails_Target","propertyRef":{"name":"QuestionId"}}}},{"name":"Question_SurveyProductQuestions","end":[{"role":"Question_SurveyProductQuestions_Source","type":"Edm.Self.Question","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Question_SurveyProductQuestions_Target","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Question_SurveyProductQuestions_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Question_SurveyProductQuestions_Target","propertyRef":{"name":"QuestionId"}}}},{"name":"SurveyDetail_SurveyHeader","end":[{"role":"SurveyDetail_SurveyHeader_Source","type":"Edm.Self.SurveyDetail","multiplicity":"*"},{"role":"SurveyDetail_SurveyHeader_Target","type":"Edm.Self.SurveyHeader","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyDetail_SurveyHeader_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyDetail_SurveyHeader_Source","propertyRef":{"name":"SurveyHeaderId"}}}},{"name":"Product_SurveyProductQuestions","end":[{"role":"Product_SurveyProductQuestions_Source","type":"Edm.Self.Product","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Product_SurveyProductQuestions_Target","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Product_SurveyProductQuestions_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Product_SurveyProductQuestions_Target","propertyRef":{"name":"ProductId"}}}},{"name":"SurveyProductQuestion_Survey","end":[{"role":"SurveyProductQuestion_Survey_Source","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"},{"role":"SurveyProductQuestion_Survey_Target","type":"Edm.Self.Survey","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestion_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestion_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"Company_ProductCategories","end":[{"role":"Company_ProductCategories_Source","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Company_ProductCategories_Target","type":"Edm.Self.ProductCategory","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Company_ProductCategories_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Company_ProductCategories_Target","propertyRef":{"name":"CompanyId"}}}},{"name":"ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","type":"Edm.Self.ProductViewModel","multiplicity":"*"},{"role":"ProductViewModel_ProductCategory_Target","type":"Edm.Self.ProductCategory","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"ProductViewModel_ProductCategory_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"ProductViewModel_ProductCategory_Source","propertyRef":{"name":"ProductCategoryId"}}}},{"name":"SurveyProductQuestionViewModel_Product","end":[{"role":"SurveyProductQuestionViewModel_Product_Source","type":"Edm.Self.SurveyProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyProductQuestionViewModel_Product_Target","type":"Edm.Self.ProductViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestionViewModel_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestionViewModel_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"SurveyProductQuestionViewModel_Question","end":[{"role":"SurveyProductQuestionViewModel_Question_Source","type":"Edm.Self.SurveyProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyProductQuestionViewModel_Question_Target","type":"Edm.Self.QuestionViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestionViewModel_Question_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestionViewModel_Question_Source","propertyRef":{"name":"QuestionId"}}}},{"name":"UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Role_Target","type":"Edm.Self.RoleViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Role_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Role_Source","propertyRef":{"name":"RoleId"}}}},{"name":"UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_User_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_User_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_User_Source","propertyRef":{"name":"UserId"}}}}],"entityContainer":{"name":"DatabaseContext","customannotation:UseClrTypes":"true","entitySet":[{"name":"CompanyViewModel","entityType":"Self.CompanyViewModel"},{"name":"CustomerViewModel","entityType":"Self.CustomerViewModel"},{"name":"MapViewModel","entityType":"Self.MapViewModel"},{"name":"ProductCategoryViewModel","entityType":"Self.ProductCategoryViewModel"},{"name":"RoleViewModel","entityType":"Self.RoleViewModel"},{"name":"SurveyCustomerLocationViewModel","entityType":"Self.SurveyCustomerLocationViewModel"},{"name":"LocationViewModels","entityType":"Self.LocationViewModel"},{"name":"SurveyViewModels","entityType":"Self.SurveyViewModel"},{"name":"SurveyProductQuestionViewModel","entityType":"Self.SurveyProductQuestionViewModel"},{"name":"ProductViewModels","entityType":"Self.ProductViewModel"},{"name":"ProductCategories","entityType":"Self.ProductCategory"},{"name":"Companies","entityType":"Self.Company"},{"name":"AspNetUserRoles","entityType":"Self.AspNetUserRole"},{"name":"AspNetRoles","entityType":"Self.AspNetRole"},{"name":"AspNetUsers","entityType":"Self.AspNetUser"},{"name":"AspNetUserClaims","entityType":"Self.AspNetUserClaim"},{"name":"AspNetUserLogins","entityType":"Self.AspNetUserLogin"},{"name":"AspNetUsersInfoes","entityType":"Self.AspNetUsersInfo"},{"name":"Customers","entityType":"Self.Customer"},{"name":"SurveyCustomerLocations","entityType":"Self.SurveyCustomerLocation"},{"name":"Locations","entityType":"Self.Location"},{"name":"SurveyHeaders","entityType":"Self.SurveyHeader"},{"name":"Surveys","entityType":"Self.Survey"},{"name":"SurveyProductQuestions","entityType":"Self.SurveyProductQuestion"},{"name":"Products","entityType":"Self.Product"},{"name":"SurveyDetails","entityType":"Self.SurveyDetail"},{"name":"Questions","entityType":"Self.Question"},{"name":"QuestionViewModels","entityType":"Self.QuestionViewModel"},{"name":"UserRoleViewModel","entityType":"Self.UserRoleViewModel"},{"name":"UserViewModels","entityType":"Self.UserViewModel"}],"associationSet":[{"name":"SurveyCustomerLocationViewModel_Customer","association":"Self.SurveyCustomerLocationViewModel_Customer","end":[{"role":"SurveyCustomerLocationViewModel_Customer_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyCustomerLocationViewModel_Location","association":"Self.SurveyCustomerLocationViewModel_Location","end":[{"role":"SurveyCustomerLocationViewModel_Location_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyCustomerLocationViewModel_Survey","association":"Self.SurveyCustomerLocationViewModel_Survey","end":[{"role":"SurveyCustomerLocationViewModel_Survey_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"AspNetRole_AspNetUserRoles","association":"Self.AspNetRole_AspNetUserRoles","end":[{"role":"AspNetRole_AspNetUserRoles_Source","entitySet":"AspNetRoles"},{"role":"AspNetRole_AspNetUserRoles_Target","entitySet":"AspNetUserRoles"}]},{"name":"AspNetUserClaim_AspNetUser","association":"Self.AspNetUserClaim_AspNetUser","end":[{"role":"AspNetUserClaim_AspNetUser_Source","entitySet":"AspNetUserClaims"},{"role":"AspNetUserClaim_AspNetUser_Target","entitySet":"AspNetUsers"}]},{"name":"AspNetUserLogin_AspNetUser","association":"Self.AspNetUserLogin_AspNetUser","end":[{"role":"AspNetUserLogin_AspNetUser_Source","entitySet":"AspNetUserLogins"},{"role":"AspNetUserLogin_AspNetUser_Target","entitySet":"AspNetUsers"}]},{"name":"AspNetUser_AspNetUserRoles","association":"Self.AspNetUser_AspNetUserRoles","end":[{"role":"AspNetUser_AspNetUserRoles_Source","entitySet":"AspNetUsers"},{"role":"AspNetUser_AspNetUserRoles_Target","entitySet":"AspNetUserRoles"}]},{"name":"AspNetUsersInfo_AspNetUser","association":"Self.AspNetUsersInfo_AspNetUser","end":[{"role":"AspNetUsersInfo_AspNetUser_Source","entitySet":"AspNetUsersInfoes"},{"role":"AspNetUsersInfo_AspNetUser_Target","entitySet":"AspNetUsers"}]},{"name":"AspNetUserRole_Company","association":"Self.AspNetUserRole_Company","end":[{"role":"AspNetUserRole_Company_Source","entitySet":"AspNetUserRoles"},{"role":"AspNetUserRole_Company_Target","entitySet":"Companies"}]},{"name":"Customer_AspNetUserRoles","association":"Self.Customer_AspNetUserRoles","end":[{"role":"Customer_AspNetUserRoles_Source","entitySet":"Customers"},{"role":"Customer_AspNetUserRoles_Target","entitySet":"AspNetUserRoles"}]},{"name":"Customer_Company","association":"Self.Customer_Company","end":[{"role":"Customer_Company_Source","entitySet":"Customers"},{"role":"Customer_Company_Target","entitySet":"Companies"}]},{"name":"SurveyCustomerLocation_Company","association":"Self.SurveyCustomerLocation_Company","end":[{"role":"SurveyCustomerLocation_Company_Source","entitySet":"SurveyCustomerLocations"},{"role":"SurveyCustomerLocation_Company_Target","entitySet":"Companies"}]},{"name":"SurveyCustomerLocation_Customer","association":"Self.SurveyCustomerLocation_Customer","end":[{"role":"SurveyCustomerLocation_Customer_Source","entitySet":"SurveyCustomerLocations"},{"role":"SurveyCustomerLocation_Customer_Target","entitySet":"Customers"}]},{"name":"Location_Company","association":"Self.Location_Company","end":[{"role":"Location_Company_Source","entitySet":"Locations"},{"role":"Location_Company_Target","entitySet":"Companies"}]},{"name":"Location_SurveyCustomerLocations","association":"Self.Location_SurveyCustomerLocations","end":[{"role":"Location_SurveyCustomerLocations_Source","entitySet":"Locations"},{"role":"Location_SurveyCustomerLocations_Target","entitySet":"SurveyCustomerLocations"}]},{"name":"SurveyHeader_Company","association":"Self.SurveyHeader_Company","end":[{"role":"SurveyHeader_Company_Source","entitySet":"SurveyHeaders"},{"role":"SurveyHeader_Company_Target","entitySet":"Companies"}]},{"name":"SurveyHeader_Customer","association":"Self.SurveyHeader_Customer","end":[{"role":"SurveyHeader_Customer_Source","entitySet":"SurveyHeaders"},{"role":"SurveyHeader_Customer_Target","entitySet":"Customers"}]},{"name":"SurveyHeader_Location","association":"Self.SurveyHeader_Location","end":[{"role":"SurveyHeader_Location_Source","entitySet":"SurveyHeaders"},{"role":"SurveyHeader_Location_Target","entitySet":"Locations"}]},{"name":"Survey_Company","association":"Self.Survey_Company","end":[{"role":"Survey_Company_Source","entitySet":"Surveys"},{"role":"Survey_Company_Target","entitySet":"Companies"}]},{"name":"Survey_SurveyCustomerLocations","association":"Self.Survey_SurveyCustomerLocations","end":[{"role":"Survey_SurveyCustomerLocations_Source","entitySet":"Surveys"},{"role":"Survey_SurveyCustomerLocations_Target","entitySet":"SurveyCustomerLocations"}]},{"name":"Survey_SurveyHeaders","association":"Self.Survey_SurveyHeaders","end":[{"role":"Survey_SurveyHeaders_Source","entitySet":"Surveys"},{"role":"Survey_SurveyHeaders_Target","entitySet":"SurveyHeaders"}]},{"name":"SurveyProductQuestion_Company","association":"Self.SurveyProductQuestion_Company","end":[{"role":"SurveyProductQuestion_Company_Source","entitySet":"SurveyProductQuestions"},{"role":"SurveyProductQuestion_Company_Target","entitySet":"Companies"}]},{"name":"Product_Company","association":"Self.Product_Company","end":[{"role":"Product_Company_Source","entitySet":"Products"},{"role":"Product_Company_Target","entitySet":"Companies"}]},{"name":"Product_ProductCategory","association":"Self.Product_ProductCategory","end":[{"role":"Product_ProductCategory_Source","entitySet":"Products"},{"role":"Product_ProductCategory_Target","entitySet":"ProductCategories"}]},{"name":"SurveyDetail_Company","association":"Self.SurveyDetail_Company","end":[{"role":"SurveyDetail_Company_Source","entitySet":"SurveyDetails"},{"role":"SurveyDetail_Company_Target","entitySet":"Companies"}]},{"name":"SurveyDetail_Product","association":"Self.SurveyDetail_Product","end":[{"role":"SurveyDetail_Product_Source","entitySet":"SurveyDetails"},{"role":"SurveyDetail_Product_Target","entitySet":"Products"}]},{"name":"Question_Company","association":"Self.Question_Company","end":[{"role":"Question_Company_Source","entitySet":"Questions"},{"role":"Question_Company_Target","entitySet":"Companies"}]},{"name":"Question_SurveyDetails","association":"Self.Question_SurveyDetails","end":[{"role":"Question_SurveyDetails_Source","entitySet":"Questions"},{"role":"Question_SurveyDetails_Target","entitySet":"SurveyDetails"}]},{"name":"Question_SurveyProductQuestions","association":"Self.Question_SurveyProductQuestions","end":[{"role":"Question_SurveyProductQuestions_Source","entitySet":"Questions"},{"role":"Question_SurveyProductQuestions_Target","entitySet":"SurveyProductQuestions"}]},{"name":"SurveyDetail_SurveyHeader","association":"Self.SurveyDetail_SurveyHeader","end":[{"role":"SurveyDetail_SurveyHeader_Source","entitySet":"SurveyDetails"},{"role":"SurveyDetail_SurveyHeader_Target","entitySet":"SurveyHeaders"}]},{"name":"Product_SurveyProductQuestions","association":"Self.Product_SurveyProductQuestions","end":[{"role":"Product_SurveyProductQuestions_Source","entitySet":"Products"},{"role":"Product_SurveyProductQuestions_Target","entitySet":"SurveyProductQuestions"}]},{"name":"SurveyProductQuestion_Survey","association":"Self.SurveyProductQuestion_Survey","end":[{"role":"SurveyProductQuestion_Survey_Source","entitySet":"SurveyProductQuestions"},{"role":"SurveyProductQuestion_Survey_Target","entitySet":"Surveys"}]},{"name":"Company_ProductCategories","association":"Self.Company_ProductCategories","end":[{"role":"Company_ProductCategories_Source","entitySet":"Companies"},{"role":"Company_ProductCategories_Target","entitySet":"ProductCategories"}]},{"name":"ProductViewModel_ProductCategory","association":"Self.ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","entitySet":"ProductViewModels"},{"role":"ProductViewModel_ProductCategory_Target","entitySet":"ProductCategories"}]},{"name":"SurveyProductQuestionViewModel_Product","association":"Self.SurveyProductQuestionViewModel_Product","end":[{"role":"SurveyProductQuestionViewModel_Product_Source","entitySet":"SurveyProductQuestionViewModel"},{"role":"SurveyProductQuestionViewModel_Product_Target","entitySet":"ProductViewModels"}]},{"name":"SurveyProductQuestionViewModel_Question","association":"Self.SurveyProductQuestionViewModel_Question","end":[{"role":"SurveyProductQuestionViewModel_Question_Source","entitySet":"SurveyProductQuestionViewModel"},{"role":"SurveyProductQuestionViewModel_Question_Target","entitySet":"QuestionViewModels"}]},{"name":"UserRoleViewModel_Company","association":"Self.UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"UserRoleViewModel_Customer","association":"Self.UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"UserRoleViewModel_Role","association":"Self.UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Role_Target","entitySet":"RoleViewModel"}]},{"name":"UserRoleViewModel_User","association":"Self.UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_User_Target","entitySet":"UserViewModels"}]}]}}}
-);
-
-(function () {
     "use strict";
     angular.module('DatabaseServices')
     .service('CompanyService', ['$http', '$q', 'breeze', 'breezeservice',
@@ -313,6 +261,58 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
     }]);
 })();
 (function () {
+
+    angular.module('DatabaseServices').factory('breezeservice',
+    ['$http', '$q', '$timeout', 'breeze', service]);
+
+    function service($http, $q, $timeout, breeze) {
+        var serviceName = '/breeze'; // route to the same origin Web Api controller
+        var dataService = new breeze.DataService({
+            serviceName: serviceName,
+            hasServerMetadata: false  // don't ask the server for metadata
+        });
+        var metadataStore = new breeze.MetadataStore();
+        //manager.enableSaveQueuing(true);
+        metadataStore.importMetadata(window.breeze.metadata);
+        //var masterManager = new breeze.EntityManager(serviceName);
+        var manager = new breeze.EntityManager({
+            dataService: dataService,
+            metadataStore: metadataStore
+        });
+        var meta = manager.metadataStore;
+        meta.setEntityTypeForResourceName("UserRoleApi/Search", "UserRoleViewModel");
+        meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
+        meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
+        meta.setEntityTypeForResourceName("SurveyCustomerLocationApi/Search", "SurveyCustomerLocationViewModel");
+        meta.setEntityTypeForResourceName("SurveyProductQuestionApi/Search", "SurveyProductQuestionViewModel");
+        meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
+        meta.setEntityTypeForResourceName("MapApi/Search", "MapViewModel");
+        meta.setEntityTypeForResourceName("ProductCategoryApi/Search", "ProductCategoryViewModel");
+        var service = {
+            executeQuery: executeQuery,
+            all: all
+        };
+        return service;
+
+        function executeQuery(query) {
+            return manager.executeQuery(query).then(function (data) {
+                return data;
+            });
+        }
+
+        function all() {
+            var query = breeze.EntityQuery
+                .from(resourceName);
+
+            return executeQuery(query);
+        }
+    }
+})();
+window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
+{"schema":{"namespace":"Merchandiser","alias":"Self","annotation:UseStrongSpatialTypes":"false","xmlns:annotation":"http://schemas.microsoft.com/ado/2009/02/edm/annotation","xmlns:customannotation":"http://schemas.microsoft.com/ado/2013/11/edm/customannotation","xmlns":"http://schemas.microsoft.com/ado/2009/11/edm","cSpaceOSpaceMapping":"[[\"Merchandiser.CompanyViewModel\",\"Merchandiser.Models.CompanyViewModel\"],[\"Merchandiser.CustomerViewModel\",\"Merchandiser.Models.CustomerViewModel\"],[\"Merchandiser.MapViewModel\",\"Merchandiser.Models.MapViewModel\"],[\"Merchandiser.ProductCategoryViewModel\",\"Merchandiser.Models.ProductCategoryViewModel\"],[\"Merchandiser.RoleViewModel\",\"Merchandiser.Models.RoleViewModel\"],[\"Merchandiser.SurveyCustomerLocationViewModel\",\"Merchandiser.Models.SurveyCustomerLocationViewModel\"],[\"Merchandiser.LocationViewModel\",\"Merchandiser.Models.LocationViewModel\"],[\"Merchandiser.SurveyViewModel\",\"Merchandiser.Models.SurveyViewModel\"],[\"Merchandiser.SurveyProductQuestionViewModel\",\"Merchandiser.Models.SurveyProductQuestionViewModel\"],[\"Merchandiser.ProductViewModel\",\"Merchandiser.Models.ProductViewModel\"],[\"Merchandiser.ProductCategory\",\"Merchandiser.ProductCategory\"],[\"Merchandiser.Company\",\"Merchandiser.Company\"],[\"Merchandiser.AspNetUserRole\",\"Merchandiser.AspNetUserRole\"],[\"Merchandiser.AspNetRole\",\"Merchandiser.AspNetRole\"],[\"Merchandiser.AspNetUser\",\"Merchandiser.AspNetUser\"],[\"Merchandiser.AspNetUserClaim\",\"Merchandiser.AspNetUserClaim\"],[\"Merchandiser.AspNetUserLogin\",\"Merchandiser.AspNetUserLogin\"],[\"Merchandiser.AspNetUsersInfo\",\"Merchandiser.AspNetUsersInfo\"],[\"Merchandiser.Customer\",\"Merchandiser.Customer\"],[\"Merchandiser.SurveyCustomerLocation\",\"Merchandiser.SurveyCustomerLocation\"],[\"Merchandiser.Location\",\"Merchandiser.Location\"],[\"Merchandiser.SurveyHeader\",\"Merchandiser.SurveyHeader\"],[\"Merchandiser.Survey\",\"Merchandiser.Survey\"],[\"Merchandiser.SurveyProductQuestion\",\"Merchandiser.SurveyProductQuestion\"],[\"Merchandiser.Product\",\"Merchandiser.Product\"],[\"Merchandiser.SurveyDetail\",\"Merchandiser.SurveyDetail\"],[\"Merchandiser.Question\",\"Merchandiser.Question\"],[\"Merchandiser.QuestionViewModel\",\"Merchandiser.Models.QuestionViewModel\"],[\"Merchandiser.UserRoleViewModel\",\"Merchandiser.Models.UserRoleViewModel\"],[\"Merchandiser.UserViewModel\",\"Merchandiser.Models.UserViewModel\"]]","entityType":[{"name":"CompanyViewModel","customannotation:ClrType":"Merchandiser.Models.CompanyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"CustomerViewModel","customannotation:ClrType":"Merchandiser.Models.CustomerViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsSendReport","type":"Edm.Boolean","nullable":"false"},{"name":"SendReport","type":"Edm.DateTime"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"MapViewModel","customannotation:ClrType":"Merchandiser.Models.MapViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"}]},{"name":"ProductCategoryViewModel","customannotation:ClrType":"Merchandiser.Models.ProductCategoryViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"RoleViewModel","customannotation:ClrType":"Merchandiser.Models.RoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyCustomerLocationViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyCustomerLocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Customer","relationship":"Self.SurveyCustomerLocationViewModel_Customer","fromRole":"SurveyCustomerLocationViewModel_Customer_Source","toRole":"SurveyCustomerLocationViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyCustomerLocationViewModel_Location","fromRole":"SurveyCustomerLocationViewModel_Location_Source","toRole":"SurveyCustomerLocationViewModel_Location_Target"},{"name":"Survey","relationship":"Self.SurveyCustomerLocationViewModel_Survey","fromRole":"SurveyCustomerLocationViewModel_Survey_Source","toRole":"SurveyCustomerLocationViewModel_Survey_Target"}]},{"name":"LocationViewModel","customannotation:ClrType":"Merchandiser.Models.LocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyProductQuestionViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyProductQuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Product","relationship":"Self.SurveyProductQuestionViewModel_Product","fromRole":"SurveyProductQuestionViewModel_Product_Source","toRole":"SurveyProductQuestionViewModel_Product_Target"},{"name":"Question","relationship":"Self.SurveyProductQuestionViewModel_Question","fromRole":"SurveyProductQuestionViewModel_Question_Source","toRole":"SurveyProductQuestionViewModel_Question_Target"}]},{"name":"ProductViewModel","customannotation:ClrType":"Merchandiser.Models.ProductViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductCategoryId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"ProductCategory","relationship":"Self.ProductViewModel_ProductCategory","fromRole":"ProductViewModel_ProductCategory_Source","toRole":"ProductViewModel_ProductCategory_Target"}},{"name":"ProductCategory","customannotation:ClrType":"Merchandiser.ProductCategory, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Company_ProductCategories","fromRole":"Company_ProductCategories_Target","toRole":"Company_ProductCategories_Source"},{"name":"Products","relationship":"Self.Product_ProductCategory","fromRole":"Product_ProductCategory_Target","toRole":"Product_ProductCategory_Source"}]},{"name":"Company","customannotation:ClrType":"Merchandiser.Company, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"AspNetUserRoles","relationship":"Self.AspNetUserRole_Company","fromRole":"AspNetUserRole_Company_Target","toRole":"AspNetUserRole_Company_Source"},{"name":"Customers","relationship":"Self.Customer_Company","fromRole":"Customer_Company_Target","toRole":"Customer_Company_Source"},{"name":"Locations","relationship":"Self.Location_Company","fromRole":"Location_Company_Target","toRole":"Location_Company_Source"},{"name":"ProductCategories","relationship":"Self.Company_ProductCategories","fromRole":"Company_ProductCategories_Source","toRole":"Company_ProductCategories_Target"},{"name":"Products","relationship":"Self.Product_Company","fromRole":"Product_Company_Target","toRole":"Product_Company_Source"},{"name":"Questions","relationship":"Self.Question_Company","fromRole":"Question_Company_Target","toRole":"Question_Company_Source"},{"name":"SurveyCustomerLocations","relationship":"Self.SurveyCustomerLocation_Company","fromRole":"SurveyCustomerLocation_Company_Target","toRole":"SurveyCustomerLocation_Company_Source"},{"name":"SurveyDetails","relationship":"Self.SurveyDetail_Company","fromRole":"SurveyDetail_Company_Target","toRole":"SurveyDetail_Company_Source"},{"name":"SurveyHeaders","relationship":"Self.SurveyHeader_Company","fromRole":"SurveyHeader_Company_Target","toRole":"SurveyHeader_Company_Source"},{"name":"SurveyProductQuestions","relationship":"Self.SurveyProductQuestion_Company","fromRole":"SurveyProductQuestion_Company_Target","toRole":"SurveyProductQuestion_Company_Source"},{"name":"Surveys","relationship":"Self.Survey_Company","fromRole":"Survey_Company_Target","toRole":"Survey_Company_Source"}]},{"name":"AspNetUserRole","customannotation:ClrType":"Merchandiser.AspNetUserRole, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"AspNetRole","relationship":"Self.AspNetRole_AspNetUserRoles","fromRole":"AspNetRole_AspNetUserRoles_Target","toRole":"AspNetRole_AspNetUserRoles_Source"},{"name":"AspNetUser","relationship":"Self.AspNetUser_AspNetUserRoles","fromRole":"AspNetUser_AspNetUserRoles_Target","toRole":"AspNetUser_AspNetUserRoles_Source"},{"name":"Company","relationship":"Self.AspNetUserRole_Company","fromRole":"AspNetUserRole_Company_Source","toRole":"AspNetUserRole_Company_Target"},{"name":"Customer","relationship":"Self.Customer_AspNetUserRoles","fromRole":"Customer_AspNetUserRoles_Target","toRole":"Customer_AspNetUserRoles_Source"}]},{"name":"AspNetRole","customannotation:ClrType":"Merchandiser.AspNetRole, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUserRoles","relationship":"Self.AspNetRole_AspNetUserRoles","fromRole":"AspNetRole_AspNetUserRoles_Source","toRole":"AspNetRole_AspNetUserRoles_Target"}},{"name":"AspNetUser","customannotation:ClrType":"Merchandiser.AspNetUser, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Email","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"EmailConfirmed","type":"Edm.Boolean","nullable":"false"},{"name":"PasswordHash","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SecurityStamp","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"PhoneNumber","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"PhoneNumberConfirmed","type":"Edm.Boolean","nullable":"false"},{"name":"TwoFactorEnabled","type":"Edm.Boolean","nullable":"false"},{"name":"LockoutEndDateUtc","type":"Edm.DateTime"},{"name":"LockoutEnabled","type":"Edm.Boolean","nullable":"false"},{"name":"AccessFailedCount","type":"Edm.Int32","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"AspNetUserClaims","relationship":"Self.AspNetUserClaim_AspNetUser","fromRole":"AspNetUserClaim_AspNetUser_Target","toRole":"AspNetUserClaim_AspNetUser_Source"},{"name":"AspNetUserLogins","relationship":"Self.AspNetUserLogin_AspNetUser","fromRole":"AspNetUserLogin_AspNetUser_Target","toRole":"AspNetUserLogin_AspNetUser_Source"},{"name":"AspNetUserRoles","relationship":"Self.AspNetUser_AspNetUserRoles","fromRole":"AspNetUser_AspNetUserRoles_Source","toRole":"AspNetUser_AspNetUserRoles_Target"},{"name":"AspNetUsersInfoes","relationship":"Self.AspNetUsersInfo_AspNetUser","fromRole":"AspNetUsersInfo_AspNetUser_Target","toRole":"AspNetUsersInfo_AspNetUser_Source"}]},{"name":"AspNetUserClaim","customannotation:ClrType":"Merchandiser.AspNetUserClaim, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Int32","nullable":"false","annotation:StoreGeneratedPattern":"Identity"},{"name":"UserId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ClaimType","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ClaimValue","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUser","relationship":"Self.AspNetUserClaim_AspNetUser","fromRole":"AspNetUserClaim_AspNetUser_Source","toRole":"AspNetUserClaim_AspNetUser_Target"}},{"name":"AspNetUserLogin","customannotation:ClrType":"Merchandiser.AspNetUserLogin, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"UserId"}},"property":[{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"LoginProvider","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ProviderKey","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUser","relationship":"Self.AspNetUserLogin_AspNetUser","fromRole":"AspNetUserLogin_AspNetUser_Source","toRole":"AspNetUserLogin_AspNetUser_Target"}},{"name":"AspNetUsersInfo","customannotation:ClrType":"Merchandiser.AspNetUsersInfo, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"AspNetUser","relationship":"Self.AspNetUsersInfo_AspNetUser","fromRole":"AspNetUsersInfo_AspNetUser_Source","toRole":"AspNetUsersInfo_AspNetUser_Target"}},{"name":"Customer","customannotation:ClrType":"Merchandiser.Customer, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsSendReport","type":"Edm.Boolean","nullable":"false"},{"name":"SendReport","type":"Edm.DateTime"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"AspNetUserRoles","relationship":"Self.Customer_AspNetUserRoles","fromRole":"Customer_AspNetUserRoles_Source","toRole":"Customer_AspNetUserRoles_Target"},{"name":"Company","relationship":"Self.Customer_Company","fromRole":"Customer_Company_Source","toRole":"Customer_Company_Target"},{"name":"SurveyCustomerLocations","relationship":"Self.SurveyCustomerLocation_Customer","fromRole":"SurveyCustomerLocation_Customer_Target","toRole":"SurveyCustomerLocation_Customer_Source"},{"name":"SurveyHeaders","relationship":"Self.SurveyHeader_Customer","fromRole":"SurveyHeader_Customer_Target","toRole":"SurveyHeader_Customer_Source"}]},{"name":"SurveyCustomerLocation","customannotation:ClrType":"Merchandiser.SurveyCustomerLocation, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyCustomerLocation_Company","fromRole":"SurveyCustomerLocation_Company_Source","toRole":"SurveyCustomerLocation_Company_Target"},{"name":"Customer","relationship":"Self.SurveyCustomerLocation_Customer","fromRole":"SurveyCustomerLocation_Customer_Source","toRole":"SurveyCustomerLocation_Customer_Target"},{"name":"Location","relationship":"Self.Location_SurveyCustomerLocations","fromRole":"Location_SurveyCustomerLocations_Target","toRole":"Location_SurveyCustomerLocations_Source"},{"name":"Survey","relationship":"Self.Survey_SurveyCustomerLocations","fromRole":"Survey_SurveyCustomerLocations_Target","toRole":"Survey_SurveyCustomerLocations_Source"}]},{"name":"Location","customannotation:ClrType":"Merchandiser.Location, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Location_Company","fromRole":"Location_Company_Source","toRole":"Location_Company_Target"},{"name":"SurveyCustomerLocations","relationship":"Self.Location_SurveyCustomerLocations","fromRole":"Location_SurveyCustomerLocations_Source","toRole":"Location_SurveyCustomerLocations_Target"},{"name":"SurveyHeaders","relationship":"Self.SurveyHeader_Location","fromRole":"SurveyHeader_Location_Target","toRole":"SurveyHeader_Location_Source"}]},{"name":"SurveyHeader","customannotation:ClrType":"Merchandiser.SurveyHeader, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsBeforeImage","type":"Edm.Boolean","nullable":"false"},{"name":"IsAfterImage","type":"Edm.Boolean","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyHeader_Company","fromRole":"SurveyHeader_Company_Source","toRole":"SurveyHeader_Company_Target"},{"name":"Customer","relationship":"Self.SurveyHeader_Customer","fromRole":"SurveyHeader_Customer_Source","toRole":"SurveyHeader_Customer_Target"},{"name":"Location","relationship":"Self.SurveyHeader_Location","fromRole":"SurveyHeader_Location_Source","toRole":"SurveyHeader_Location_Target"},{"name":"Survey","relationship":"Self.Survey_SurveyHeaders","fromRole":"Survey_SurveyHeaders_Target","toRole":"Survey_SurveyHeaders_Source"},{"name":"SurveyDetails","relationship":"Self.SurveyDetail_SurveyHeader","fromRole":"SurveyDetail_SurveyHeader_Target","toRole":"SurveyDetail_SurveyHeader_Source"}]},{"name":"Survey","customannotation:ClrType":"Merchandiser.Survey, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Survey_Company","fromRole":"Survey_Company_Source","toRole":"Survey_Company_Target"},{"name":"SurveyCustomerLocations","relationship":"Self.Survey_SurveyCustomerLocations","fromRole":"Survey_SurveyCustomerLocations_Source","toRole":"Survey_SurveyCustomerLocations_Target"},{"name":"SurveyHeaders","relationship":"Self.Survey_SurveyHeaders","fromRole":"Survey_SurveyHeaders_Source","toRole":"Survey_SurveyHeaders_Target"},{"name":"SurveyProductQuestions","relationship":"Self.SurveyProductQuestion_Survey","fromRole":"SurveyProductQuestion_Survey_Target","toRole":"SurveyProductQuestion_Survey_Source"}]},{"name":"SurveyProductQuestion","customannotation:ClrType":"Merchandiser.SurveyProductQuestion, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyProductQuestion_Company","fromRole":"SurveyProductQuestion_Company_Source","toRole":"SurveyProductQuestion_Company_Target"},{"name":"Product","relationship":"Self.Product_SurveyProductQuestions","fromRole":"Product_SurveyProductQuestions_Target","toRole":"Product_SurveyProductQuestions_Source"},{"name":"Question","relationship":"Self.Question_SurveyProductQuestions","fromRole":"Question_SurveyProductQuestions_Target","toRole":"Question_SurveyProductQuestions_Source"},{"name":"Survey","relationship":"Self.SurveyProductQuestion_Survey","fromRole":"SurveyProductQuestion_Survey_Source","toRole":"SurveyProductQuestion_Survey_Target"}]},{"name":"Product","customannotation:ClrType":"Merchandiser.Product, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductCategoryId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Product_Company","fromRole":"Product_Company_Source","toRole":"Product_Company_Target"},{"name":"ProductCategory","relationship":"Self.Product_ProductCategory","fromRole":"Product_ProductCategory_Source","toRole":"Product_ProductCategory_Target"},{"name":"SurveyDetails","relationship":"Self.SurveyDetail_Product","fromRole":"SurveyDetail_Product_Target","toRole":"SurveyDetail_Product_Source"},{"name":"SurveyProductQuestions","relationship":"Self.Product_SurveyProductQuestions","fromRole":"Product_SurveyProductQuestions_Source","toRole":"Product_SurveyProductQuestions_Target"}]},{"name":"SurveyDetail","customannotation:ClrType":"Merchandiser.SurveyDetail, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyHeaderId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"Answer","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyDetail_Company","fromRole":"SurveyDetail_Company_Source","toRole":"SurveyDetail_Company_Target"},{"name":"Product","relationship":"Self.SurveyDetail_Product","fromRole":"SurveyDetail_Product_Source","toRole":"SurveyDetail_Product_Target"},{"name":"Question","relationship":"Self.Question_SurveyDetails","fromRole":"Question_SurveyDetails_Target","toRole":"Question_SurveyDetails_Source"},{"name":"SurveyHeader","relationship":"Self.SurveyDetail_SurveyHeader","fromRole":"SurveyDetail_SurveyHeader_Source","toRole":"SurveyDetail_SurveyHeader_Target"}]},{"name":"Question","customannotation:ClrType":"Merchandiser.Question, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.Question_Company","fromRole":"Question_Company_Source","toRole":"Question_Company_Target"},{"name":"SurveyDetails","relationship":"Self.Question_SurveyDetails","fromRole":"Question_SurveyDetails_Source","toRole":"Question_SurveyDetails_Target"},{"name":"SurveyProductQuestions","relationship":"Self.Question_SurveyProductQuestions","fromRole":"Question_SurveyProductQuestions_Source","toRole":"Question_SurveyProductQuestions_Target"}]},{"name":"QuestionViewModel","customannotation:ClrType":"Merchandiser.Models.QuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserRoleViewModel","customannotation:ClrType":"Merchandiser.Models.UserRoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"Company","relationship":"Self.UserRoleViewModel_Company","fromRole":"UserRoleViewModel_Company_Source","toRole":"UserRoleViewModel_Company_Target"},{"name":"Customer","relationship":"Self.UserRoleViewModel_Customer","fromRole":"UserRoleViewModel_Customer_Source","toRole":"UserRoleViewModel_Customer_Target"},{"name":"Role","relationship":"Self.UserRoleViewModel_Role","fromRole":"UserRoleViewModel_Role_Source","toRole":"UserRoleViewModel_Role_Target"},{"name":"User","relationship":"Self.UserRoleViewModel_User","fromRole":"UserRoleViewModel_User_Source","toRole":"UserRoleViewModel_User_Target"}]},{"name":"UserViewModel","customannotation:ClrType":"Merchandiser.Models.UserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]}],"association":[{"name":"SurveyCustomerLocationViewModel_Customer","end":[{"role":"SurveyCustomerLocationViewModel_Customer_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyCustomerLocationViewModel_Location","end":[{"role":"SurveyCustomerLocationViewModel_Location_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyCustomerLocationViewModel_Survey","end":[{"role":"SurveyCustomerLocationViewModel_Survey_Source","type":"Edm.Self.SurveyCustomerLocationViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"AspNetRole_AspNetUserRoles","end":[{"role":"AspNetRole_AspNetUserRoles_Source","type":"Edm.Self.AspNetRole","multiplicity":"0..1"},{"role":"AspNetRole_AspNetUserRoles_Target","type":"Edm.Self.AspNetUserRole","multiplicity":"*"}]},{"name":"AspNetUserClaim_AspNetUser","end":[{"role":"AspNetUserClaim_AspNetUser_Source","type":"Edm.Self.AspNetUserClaim","multiplicity":"*"},{"role":"AspNetUserClaim_AspNetUser_Target","type":"Edm.Self.AspNetUser","multiplicity":"0..1"}]},{"name":"AspNetUserLogin_AspNetUser","end":[{"role":"AspNetUserLogin_AspNetUser_Source","type":"Edm.Self.AspNetUserLogin","multiplicity":"*"},{"role":"AspNetUserLogin_AspNetUser_Target","type":"Edm.Self.AspNetUser","multiplicity":"0..1"}]},{"name":"AspNetUser_AspNetUserRoles","end":[{"role":"AspNetUser_AspNetUserRoles_Source","type":"Edm.Self.AspNetUser","multiplicity":"0..1"},{"role":"AspNetUser_AspNetUserRoles_Target","type":"Edm.Self.AspNetUserRole","multiplicity":"*"}]},{"name":"AspNetUsersInfo_AspNetUser","end":[{"role":"AspNetUsersInfo_AspNetUser_Source","type":"Edm.Self.AspNetUsersInfo","multiplicity":"*"},{"role":"AspNetUsersInfo_AspNetUser_Target","type":"Edm.Self.AspNetUser","multiplicity":"0..1"}]},{"name":"AspNetUserRole_Company","end":[{"role":"AspNetUserRole_Company_Source","type":"Edm.Self.AspNetUserRole","multiplicity":"*"},{"role":"AspNetUserRole_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"AspNetUserRole_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"AspNetUserRole_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Customer_AspNetUserRoles","end":[{"role":"Customer_AspNetUserRoles_Source","type":"Edm.Self.Customer","multiplicity":"0..1"},{"role":"Customer_AspNetUserRoles_Target","type":"Edm.Self.AspNetUserRole","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Customer_AspNetUserRoles_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Customer_AspNetUserRoles_Target","propertyRef":{"name":"CustomerId"}}}},{"name":"Customer_Company","end":[{"role":"Customer_Company_Source","type":"Edm.Self.Customer","multiplicity":"*"},{"role":"Customer_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Customer_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Customer_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyCustomerLocation_Company","end":[{"role":"SurveyCustomerLocation_Company_Source","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"},{"role":"SurveyCustomerLocation_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocation_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocation_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyCustomerLocation_Customer","end":[{"role":"SurveyCustomerLocation_Customer_Source","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"},{"role":"SurveyCustomerLocation_Customer_Target","type":"Edm.Self.Customer","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocation_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocation_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"Location_Company","end":[{"role":"Location_Company_Source","type":"Edm.Self.Location","multiplicity":"*"},{"role":"Location_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Location_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Location_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Location_SurveyCustomerLocations","end":[{"role":"Location_SurveyCustomerLocations_Source","type":"Edm.Self.Location","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Location_SurveyCustomerLocations_Target","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Location_SurveyCustomerLocations_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Location_SurveyCustomerLocations_Target","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyHeader_Company","end":[{"role":"SurveyHeader_Company_Source","type":"Edm.Self.SurveyHeader","multiplicity":"*"},{"role":"SurveyHeader_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeader_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeader_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyHeader_Customer","end":[{"role":"SurveyHeader_Customer_Source","type":"Edm.Self.SurveyHeader","multiplicity":"*"},{"role":"SurveyHeader_Customer_Target","type":"Edm.Self.Customer","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeader_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeader_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyHeader_Location","end":[{"role":"SurveyHeader_Location_Source","type":"Edm.Self.SurveyHeader","multiplicity":"*"},{"role":"SurveyHeader_Location_Target","type":"Edm.Self.Location","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeader_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeader_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"Survey_Company","end":[{"role":"Survey_Company_Source","type":"Edm.Self.Survey","multiplicity":"*"},{"role":"Survey_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Survey_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Survey_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Survey_SurveyCustomerLocations","end":[{"role":"Survey_SurveyCustomerLocations_Source","type":"Edm.Self.Survey","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Survey_SurveyCustomerLocations_Target","type":"Edm.Self.SurveyCustomerLocation","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Survey_SurveyCustomerLocations_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Survey_SurveyCustomerLocations_Target","propertyRef":{"name":"SurveyId"}}}},{"name":"Survey_SurveyHeaders","end":[{"role":"Survey_SurveyHeaders_Source","type":"Edm.Self.Survey","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Survey_SurveyHeaders_Target","type":"Edm.Self.SurveyHeader","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Survey_SurveyHeaders_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Survey_SurveyHeaders_Target","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyProductQuestion_Company","end":[{"role":"SurveyProductQuestion_Company_Source","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"},{"role":"SurveyProductQuestion_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestion_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestion_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Product_Company","end":[{"role":"Product_Company_Source","type":"Edm.Self.Product","multiplicity":"*"},{"role":"Product_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Product_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Product_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Product_ProductCategory","end":[{"role":"Product_ProductCategory_Source","type":"Edm.Self.Product","multiplicity":"*"},{"role":"Product_ProductCategory_Target","type":"Edm.Self.ProductCategory","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"Product_ProductCategory_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Product_ProductCategory_Source","propertyRef":{"name":"ProductCategoryId"}}}},{"name":"SurveyDetail_Company","end":[{"role":"SurveyDetail_Company_Source","type":"Edm.Self.SurveyDetail","multiplicity":"*"},{"role":"SurveyDetail_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyDetail_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyDetail_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyDetail_Product","end":[{"role":"SurveyDetail_Product_Source","type":"Edm.Self.SurveyDetail","multiplicity":"*"},{"role":"SurveyDetail_Product_Target","type":"Edm.Self.Product","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyDetail_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyDetail_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"Question_Company","end":[{"role":"Question_Company_Source","type":"Edm.Self.Question","multiplicity":"*"},{"role":"Question_Company_Target","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"Question_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"Question_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"Question_SurveyDetails","end":[{"role":"Question_SurveyDetails_Source","type":"Edm.Self.Question","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Question_SurveyDetails_Target","type":"Edm.Self.SurveyDetail","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Question_SurveyDetails_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Question_SurveyDetails_Target","propertyRef":{"name":"QuestionId"}}}},{"name":"Question_SurveyProductQuestions","end":[{"role":"Question_SurveyProductQuestions_Source","type":"Edm.Self.Question","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Question_SurveyProductQuestions_Target","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Question_SurveyProductQuestions_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Question_SurveyProductQuestions_Target","propertyRef":{"name":"QuestionId"}}}},{"name":"SurveyDetail_SurveyHeader","end":[{"role":"SurveyDetail_SurveyHeader_Source","type":"Edm.Self.SurveyDetail","multiplicity":"*"},{"role":"SurveyDetail_SurveyHeader_Target","type":"Edm.Self.SurveyHeader","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyDetail_SurveyHeader_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyDetail_SurveyHeader_Source","propertyRef":{"name":"SurveyHeaderId"}}}},{"name":"Product_SurveyProductQuestions","end":[{"role":"Product_SurveyProductQuestions_Source","type":"Edm.Self.Product","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Product_SurveyProductQuestions_Target","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Product_SurveyProductQuestions_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Product_SurveyProductQuestions_Target","propertyRef":{"name":"ProductId"}}}},{"name":"SurveyProductQuestion_Survey","end":[{"role":"SurveyProductQuestion_Survey_Source","type":"Edm.Self.SurveyProductQuestion","multiplicity":"*"},{"role":"SurveyProductQuestion_Survey_Target","type":"Edm.Self.Survey","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestion_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestion_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"Company_ProductCategories","end":[{"role":"Company_ProductCategories_Source","type":"Edm.Self.Company","multiplicity":"1","onDelete":{"action":"Cascade"}},{"role":"Company_ProductCategories_Target","type":"Edm.Self.ProductCategory","multiplicity":"*"}],"referentialConstraint":{"principal":{"role":"Company_ProductCategories_Source","propertyRef":{"name":"Id"}},"dependent":{"role":"Company_ProductCategories_Target","propertyRef":{"name":"CompanyId"}}}},{"name":"ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","type":"Edm.Self.ProductViewModel","multiplicity":"*"},{"role":"ProductViewModel_ProductCategory_Target","type":"Edm.Self.ProductCategory","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"ProductViewModel_ProductCategory_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"ProductViewModel_ProductCategory_Source","propertyRef":{"name":"ProductCategoryId"}}}},{"name":"SurveyProductQuestionViewModel_Product","end":[{"role":"SurveyProductQuestionViewModel_Product_Source","type":"Edm.Self.SurveyProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyProductQuestionViewModel_Product_Target","type":"Edm.Self.ProductViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestionViewModel_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestionViewModel_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"SurveyProductQuestionViewModel_Question","end":[{"role":"SurveyProductQuestionViewModel_Question_Source","type":"Edm.Self.SurveyProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyProductQuestionViewModel_Question_Target","type":"Edm.Self.QuestionViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyProductQuestionViewModel_Question_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyProductQuestionViewModel_Question_Source","propertyRef":{"name":"QuestionId"}}}},{"name":"UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Role_Target","type":"Edm.Self.RoleViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Role_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Role_Source","propertyRef":{"name":"RoleId"}}}},{"name":"UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_User_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_User_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_User_Source","propertyRef":{"name":"UserId"}}}}],"entityContainer":{"name":"DatabaseContext","customannotation:UseClrTypes":"true","entitySet":[{"name":"CompanyViewModel","entityType":"Self.CompanyViewModel"},{"name":"CustomerViewModel","entityType":"Self.CustomerViewModel"},{"name":"MapViewModel","entityType":"Self.MapViewModel"},{"name":"ProductCategoryViewModel","entityType":"Self.ProductCategoryViewModel"},{"name":"RoleViewModel","entityType":"Self.RoleViewModel"},{"name":"SurveyCustomerLocationViewModel","entityType":"Self.SurveyCustomerLocationViewModel"},{"name":"LocationViewModels","entityType":"Self.LocationViewModel"},{"name":"SurveyViewModels","entityType":"Self.SurveyViewModel"},{"name":"SurveyProductQuestionViewModel","entityType":"Self.SurveyProductQuestionViewModel"},{"name":"ProductViewModels","entityType":"Self.ProductViewModel"},{"name":"ProductCategories","entityType":"Self.ProductCategory"},{"name":"Companies","entityType":"Self.Company"},{"name":"AspNetUserRoles","entityType":"Self.AspNetUserRole"},{"name":"AspNetRoles","entityType":"Self.AspNetRole"},{"name":"AspNetUsers","entityType":"Self.AspNetUser"},{"name":"AspNetUserClaims","entityType":"Self.AspNetUserClaim"},{"name":"AspNetUserLogins","entityType":"Self.AspNetUserLogin"},{"name":"AspNetUsersInfoes","entityType":"Self.AspNetUsersInfo"},{"name":"Customers","entityType":"Self.Customer"},{"name":"SurveyCustomerLocations","entityType":"Self.SurveyCustomerLocation"},{"name":"Locations","entityType":"Self.Location"},{"name":"SurveyHeaders","entityType":"Self.SurveyHeader"},{"name":"Surveys","entityType":"Self.Survey"},{"name":"SurveyProductQuestions","entityType":"Self.SurveyProductQuestion"},{"name":"Products","entityType":"Self.Product"},{"name":"SurveyDetails","entityType":"Self.SurveyDetail"},{"name":"Questions","entityType":"Self.Question"},{"name":"QuestionViewModels","entityType":"Self.QuestionViewModel"},{"name":"UserRoleViewModel","entityType":"Self.UserRoleViewModel"},{"name":"UserViewModels","entityType":"Self.UserViewModel"}],"associationSet":[{"name":"SurveyCustomerLocationViewModel_Customer","association":"Self.SurveyCustomerLocationViewModel_Customer","end":[{"role":"SurveyCustomerLocationViewModel_Customer_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyCustomerLocationViewModel_Location","association":"Self.SurveyCustomerLocationViewModel_Location","end":[{"role":"SurveyCustomerLocationViewModel_Location_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyCustomerLocationViewModel_Survey","association":"Self.SurveyCustomerLocationViewModel_Survey","end":[{"role":"SurveyCustomerLocationViewModel_Survey_Source","entitySet":"SurveyCustomerLocationViewModel"},{"role":"SurveyCustomerLocationViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"AspNetRole_AspNetUserRoles","association":"Self.AspNetRole_AspNetUserRoles","end":[{"role":"AspNetRole_AspNetUserRoles_Source","entitySet":"AspNetRoles"},{"role":"AspNetRole_AspNetUserRoles_Target","entitySet":"AspNetUserRoles"}]},{"name":"AspNetUserClaim_AspNetUser","association":"Self.AspNetUserClaim_AspNetUser","end":[{"role":"AspNetUserClaim_AspNetUser_Source","entitySet":"AspNetUserClaims"},{"role":"AspNetUserClaim_AspNetUser_Target","entitySet":"AspNetUsers"}]},{"name":"AspNetUserLogin_AspNetUser","association":"Self.AspNetUserLogin_AspNetUser","end":[{"role":"AspNetUserLogin_AspNetUser_Source","entitySet":"AspNetUserLogins"},{"role":"AspNetUserLogin_AspNetUser_Target","entitySet":"AspNetUsers"}]},{"name":"AspNetUser_AspNetUserRoles","association":"Self.AspNetUser_AspNetUserRoles","end":[{"role":"AspNetUser_AspNetUserRoles_Source","entitySet":"AspNetUsers"},{"role":"AspNetUser_AspNetUserRoles_Target","entitySet":"AspNetUserRoles"}]},{"name":"AspNetUsersInfo_AspNetUser","association":"Self.AspNetUsersInfo_AspNetUser","end":[{"role":"AspNetUsersInfo_AspNetUser_Source","entitySet":"AspNetUsersInfoes"},{"role":"AspNetUsersInfo_AspNetUser_Target","entitySet":"AspNetUsers"}]},{"name":"AspNetUserRole_Company","association":"Self.AspNetUserRole_Company","end":[{"role":"AspNetUserRole_Company_Source","entitySet":"AspNetUserRoles"},{"role":"AspNetUserRole_Company_Target","entitySet":"Companies"}]},{"name":"Customer_AspNetUserRoles","association":"Self.Customer_AspNetUserRoles","end":[{"role":"Customer_AspNetUserRoles_Source","entitySet":"Customers"},{"role":"Customer_AspNetUserRoles_Target","entitySet":"AspNetUserRoles"}]},{"name":"Customer_Company","association":"Self.Customer_Company","end":[{"role":"Customer_Company_Source","entitySet":"Customers"},{"role":"Customer_Company_Target","entitySet":"Companies"}]},{"name":"SurveyCustomerLocation_Company","association":"Self.SurveyCustomerLocation_Company","end":[{"role":"SurveyCustomerLocation_Company_Source","entitySet":"SurveyCustomerLocations"},{"role":"SurveyCustomerLocation_Company_Target","entitySet":"Companies"}]},{"name":"SurveyCustomerLocation_Customer","association":"Self.SurveyCustomerLocation_Customer","end":[{"role":"SurveyCustomerLocation_Customer_Source","entitySet":"SurveyCustomerLocations"},{"role":"SurveyCustomerLocation_Customer_Target","entitySet":"Customers"}]},{"name":"Location_Company","association":"Self.Location_Company","end":[{"role":"Location_Company_Source","entitySet":"Locations"},{"role":"Location_Company_Target","entitySet":"Companies"}]},{"name":"Location_SurveyCustomerLocations","association":"Self.Location_SurveyCustomerLocations","end":[{"role":"Location_SurveyCustomerLocations_Source","entitySet":"Locations"},{"role":"Location_SurveyCustomerLocations_Target","entitySet":"SurveyCustomerLocations"}]},{"name":"SurveyHeader_Company","association":"Self.SurveyHeader_Company","end":[{"role":"SurveyHeader_Company_Source","entitySet":"SurveyHeaders"},{"role":"SurveyHeader_Company_Target","entitySet":"Companies"}]},{"name":"SurveyHeader_Customer","association":"Self.SurveyHeader_Customer","end":[{"role":"SurveyHeader_Customer_Source","entitySet":"SurveyHeaders"},{"role":"SurveyHeader_Customer_Target","entitySet":"Customers"}]},{"name":"SurveyHeader_Location","association":"Self.SurveyHeader_Location","end":[{"role":"SurveyHeader_Location_Source","entitySet":"SurveyHeaders"},{"role":"SurveyHeader_Location_Target","entitySet":"Locations"}]},{"name":"Survey_Company","association":"Self.Survey_Company","end":[{"role":"Survey_Company_Source","entitySet":"Surveys"},{"role":"Survey_Company_Target","entitySet":"Companies"}]},{"name":"Survey_SurveyCustomerLocations","association":"Self.Survey_SurveyCustomerLocations","end":[{"role":"Survey_SurveyCustomerLocations_Source","entitySet":"Surveys"},{"role":"Survey_SurveyCustomerLocations_Target","entitySet":"SurveyCustomerLocations"}]},{"name":"Survey_SurveyHeaders","association":"Self.Survey_SurveyHeaders","end":[{"role":"Survey_SurveyHeaders_Source","entitySet":"Surveys"},{"role":"Survey_SurveyHeaders_Target","entitySet":"SurveyHeaders"}]},{"name":"SurveyProductQuestion_Company","association":"Self.SurveyProductQuestion_Company","end":[{"role":"SurveyProductQuestion_Company_Source","entitySet":"SurveyProductQuestions"},{"role":"SurveyProductQuestion_Company_Target","entitySet":"Companies"}]},{"name":"Product_Company","association":"Self.Product_Company","end":[{"role":"Product_Company_Source","entitySet":"Products"},{"role":"Product_Company_Target","entitySet":"Companies"}]},{"name":"Product_ProductCategory","association":"Self.Product_ProductCategory","end":[{"role":"Product_ProductCategory_Source","entitySet":"Products"},{"role":"Product_ProductCategory_Target","entitySet":"ProductCategories"}]},{"name":"SurveyDetail_Company","association":"Self.SurveyDetail_Company","end":[{"role":"SurveyDetail_Company_Source","entitySet":"SurveyDetails"},{"role":"SurveyDetail_Company_Target","entitySet":"Companies"}]},{"name":"SurveyDetail_Product","association":"Self.SurveyDetail_Product","end":[{"role":"SurveyDetail_Product_Source","entitySet":"SurveyDetails"},{"role":"SurveyDetail_Product_Target","entitySet":"Products"}]},{"name":"Question_Company","association":"Self.Question_Company","end":[{"role":"Question_Company_Source","entitySet":"Questions"},{"role":"Question_Company_Target","entitySet":"Companies"}]},{"name":"Question_SurveyDetails","association":"Self.Question_SurveyDetails","end":[{"role":"Question_SurveyDetails_Source","entitySet":"Questions"},{"role":"Question_SurveyDetails_Target","entitySet":"SurveyDetails"}]},{"name":"Question_SurveyProductQuestions","association":"Self.Question_SurveyProductQuestions","end":[{"role":"Question_SurveyProductQuestions_Source","entitySet":"Questions"},{"role":"Question_SurveyProductQuestions_Target","entitySet":"SurveyProductQuestions"}]},{"name":"SurveyDetail_SurveyHeader","association":"Self.SurveyDetail_SurveyHeader","end":[{"role":"SurveyDetail_SurveyHeader_Source","entitySet":"SurveyDetails"},{"role":"SurveyDetail_SurveyHeader_Target","entitySet":"SurveyHeaders"}]},{"name":"Product_SurveyProductQuestions","association":"Self.Product_SurveyProductQuestions","end":[{"role":"Product_SurveyProductQuestions_Source","entitySet":"Products"},{"role":"Product_SurveyProductQuestions_Target","entitySet":"SurveyProductQuestions"}]},{"name":"SurveyProductQuestion_Survey","association":"Self.SurveyProductQuestion_Survey","end":[{"role":"SurveyProductQuestion_Survey_Source","entitySet":"SurveyProductQuestions"},{"role":"SurveyProductQuestion_Survey_Target","entitySet":"Surveys"}]},{"name":"Company_ProductCategories","association":"Self.Company_ProductCategories","end":[{"role":"Company_ProductCategories_Source","entitySet":"Companies"},{"role":"Company_ProductCategories_Target","entitySet":"ProductCategories"}]},{"name":"ProductViewModel_ProductCategory","association":"Self.ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","entitySet":"ProductViewModels"},{"role":"ProductViewModel_ProductCategory_Target","entitySet":"ProductCategories"}]},{"name":"SurveyProductQuestionViewModel_Product","association":"Self.SurveyProductQuestionViewModel_Product","end":[{"role":"SurveyProductQuestionViewModel_Product_Source","entitySet":"SurveyProductQuestionViewModel"},{"role":"SurveyProductQuestionViewModel_Product_Target","entitySet":"ProductViewModels"}]},{"name":"SurveyProductQuestionViewModel_Question","association":"Self.SurveyProductQuestionViewModel_Question","end":[{"role":"SurveyProductQuestionViewModel_Question_Source","entitySet":"SurveyProductQuestionViewModel"},{"role":"SurveyProductQuestionViewModel_Question_Target","entitySet":"QuestionViewModels"}]},{"name":"UserRoleViewModel_Company","association":"Self.UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"UserRoleViewModel_Customer","association":"Self.UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"UserRoleViewModel_Role","association":"Self.UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Role_Target","entitySet":"RoleViewModel"}]},{"name":"UserRoleViewModel_User","association":"Self.UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_User_Target","entitySet":"UserViewModels"}]}]}}}
+);
+
+(function () {
     "use strict";
     angular.module('DatabaseServices')
     .service('CompanyUserService', ['$http', '$q', 'breeze', 'breezeservice',
@@ -413,6 +413,46 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             return deferred.promise;
         }
     }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('DownloadService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.DownloadSurveyData = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/DownloadApi/DownloadSurveyData/'
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
+            this.DownloadNoteData = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/DownloadApi/DownloadNoteData/'
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
+        }]);
 })();
 (function () {
     "use strict";
@@ -518,46 +558,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             return deferred.promise;
         }
     }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
-    .service('DownloadService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
-        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.DownloadSurveyData = function (id) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'Get',
-                    url: '/api/v1/DownloadApi/DownloadSurveyData/'
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
-
-                return deferred.promise;
-            };
-
-            this.DownloadNoteData = function (id) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'Get',
-                    url: '/api/v1/DownloadApi/DownloadNoteData/'
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
-
-                return deferred.promise;
-            };
-
-        }]);
 })();
 (function () {
     "use strict";
@@ -780,62 +780,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('MapService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
-        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.Search = function (predicate, order, page, pageSize, cancelExistingSearch) {
-                cancelExistingSearch = cancelExistingSearch || false;
-
-                if (this.deferredRequest !== null && cancelExistingSearch) {
-                    this.deferredRequest.reject("Cancelled Search Request.");
-                    this.deferredRequest = null;
-                }
-                var deferred = $q.defer();
-
-                var query = new breeze.EntityQuery({
-                    from: "MapApi/Search/",
-                    where: predicate,
-                    orderBy: order,
-                    skip: page * pageSize,
-                    take: pageSize,
-                    parameters: { "companyId" : SelectionApplicationService.GetCompanyId() }
-                });
-
-                breezeservice.executeQuery(query).then(function (data) {
-                    deferred.resolve(data.httpResponse.data);
-                    _self.deferredRequest = null;
-                }, function (msg, code) {
-                    deferred.reject(msg);
-                    _self.deferredRequest = null;
-                });
-
-                this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-            this.Get = function (id) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'Get',
-                    url: '/breeze/MapApi/Get/' + id,
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
-
-                return deferred.promise;
-            };
-
-        }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
     .service('ProductService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
         var _self = this;
@@ -937,6 +881,62 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             return deferred.promise;
         }
     }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('MapService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.Search = function (predicate, order, page, pageSize, cancelExistingSearch) {
+                cancelExistingSearch = cancelExistingSearch || false;
+
+                if (this.deferredRequest !== null && cancelExistingSearch) {
+                    this.deferredRequest.reject("Cancelled Search Request.");
+                    this.deferredRequest = null;
+                }
+                var deferred = $q.defer();
+
+                var query = new breeze.EntityQuery({
+                    from: "MapApi/Search/",
+                    where: predicate,
+                    orderBy: order,
+                    skip: page * pageSize,
+                    take: pageSize,
+                    parameters: { "companyId" : SelectionApplicationService.GetCompanyId() }
+                });
+
+                breezeservice.executeQuery(query).then(function (data) {
+                    deferred.resolve(data.httpResponse.data);
+                    _self.deferredRequest = null;
+                }, function (msg, code) {
+                    deferred.reject(msg);
+                    _self.deferredRequest = null;
+                });
+
+                this.deferredRequest = deferred;
+
+                return deferred.promise;
+            };
+
+            this.Get = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/breeze/MapApi/Get/' + id,
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
+        }]);
 })();
 (function () {
     "use strict";
@@ -1151,73 +1151,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('RoleService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
-                cancelExistingSearch = cancelExistingSearch || false;
-
-                if (this.deferredRequest !== null && cancelExistingSearch) {
-                    this.deferredRequest.reject("Cancelled Search Request.");
-                    this.deferredRequest = null;
-                }
-                var deferred = $q.defer();
-                var query = breeze.EntityQuery.from('RoleApi/Search');
-                if (predicate != null) {
-                    query = query.where(predicate);
-                }
-                query = query.skip(page * pageSize).take(pageSize);
-
-                breezeservice.executeQuery(query).then(function (data) {
-                    deferred.resolve(data.httpResponse.data);
-                    _self.deferredRequest = null;
-                }, function (msg, code) {
-                    deferred.reject(msg);
-                    _self.deferredRequest = null;
-                });
-
-                this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-            this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
-                cancelExistingSearch = cancelExistingSearch || false;
-
-                if (this.deferredRequest !== null && cancelExistingSearch) {
-                    this.deferredRequest.reject("Cancelled Search Request.");
-                    this.deferredRequest = null;
-                }
-                var deferred = $q.defer();
-
-                var query = new breeze.EntityQuery({
-                    from: "RoleApi/Search",
-                    where: predicate,
-                    //orderBy: ["Created desc"],
-                    skip: page * pageSize,
-                    take: pageSize
-                });
-
-                breezeservice.executeQuery(query).then(function (data) {
-                    deferred.resolve(data.httpResponse.data);
-                    _self.deferredRequest = null;
-                }, function (msg, code) {
-                    deferred.reject(msg);
-                    _self.deferredRequest = null;
-                });
-
-                this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-        }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
     .service('ReportService', ['$http', '$q', 'breeze', 'breezeservice',
         function ($http, $q, breeze, breezeservice) {
             var _self = this;
@@ -1345,6 +1278,73 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
             return deferred.promise;
         }
     }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('RoleService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+                cancelExistingSearch = cancelExistingSearch || false;
+
+                if (this.deferredRequest !== null && cancelExistingSearch) {
+                    this.deferredRequest.reject("Cancelled Search Request.");
+                    this.deferredRequest = null;
+                }
+                var deferred = $q.defer();
+                var query = breeze.EntityQuery.from('RoleApi/Search');
+                if (predicate != null) {
+                    query = query.where(predicate);
+                }
+                query = query.skip(page * pageSize).take(pageSize);
+
+                breezeservice.executeQuery(query).then(function (data) {
+                    deferred.resolve(data.httpResponse.data);
+                    _self.deferredRequest = null;
+                }, function (msg, code) {
+                    deferred.reject(msg);
+                    _self.deferredRequest = null;
+                });
+
+                this.deferredRequest = deferred;
+
+                return deferred.promise;
+            };
+
+            this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
+                cancelExistingSearch = cancelExistingSearch || false;
+
+                if (this.deferredRequest !== null && cancelExistingSearch) {
+                    this.deferredRequest.reject("Cancelled Search Request.");
+                    this.deferredRequest = null;
+                }
+                var deferred = $q.defer();
+
+                var query = new breeze.EntityQuery({
+                    from: "RoleApi/Search",
+                    where: predicate,
+                    //orderBy: ["Created desc"],
+                    skip: page * pageSize,
+                    take: pageSize
+                });
+
+                breezeservice.executeQuery(query).then(function (data) {
+                    deferred.resolve(data.httpResponse.data);
+                    _self.deferredRequest = null;
+                }, function (msg, code) {
+                    deferred.reject(msg);
+                    _self.deferredRequest = null;
+                });
+
+                this.deferredRequest = deferred;
+
+                return deferred.promise;
+            };
+
+        }]);
 })();
 (function () {
     "use strict";
@@ -2485,6 +2485,97 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 })(moment);
 (function (moment) {
     "use strict";    
+    angular.module('Main').controller('LocationAddEditController', ['$scope', '$q', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout',
+        'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
+    function controller($scope, $q, $state, $stateParams, $routeParams, $http, $location, $timeout,
+        breezeservice, breeze, LocationService, SelectionApplicationService) {
+        
+        $scope.Init = function () {
+            $scope.item = { Id: null, Name: "", Latitude: null, Longitude: null }
+        }
+        $scope.Init();
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                LocationService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                LocationService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error);
+                });
+            }
+            else {
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
+                LocationService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error);
+                });
+            }
+        }
+
+        $scope.ChangeAddress = function (value) {
+            var address = JSON.stringify(value);
+            return $http.get('http://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
+                return data.data.results;
+            });
+        }
+
+        $scope.SelectAddress = function (item, model, label) {
+            debugger;
+            $scope.item.Latitude = item.geometry.location.lat;
+            $scope.item.Longitude = item.geometry.location.lng;
+            $scope.item.Address = item.formatted_address;
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location',
+        '$timeout', 'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location,
+        $timeout, breezeservice, breeze, LocationService, SelectionApplicationService) {
+        $scope.Search = function () {
+            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                $scope.gridOptions.data = data;
+            });
+        }
+        $scope.gridOptions = {
+            enableFiltering: true,
+            enableSorting: true,
+            data: [],
+            columnDefs: [
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Name', name: 'Customer Name', cellTooltip: true }
+            ]
+        };
+        $scope.Search();
+
+        $scope.Edit = function (row) {
+            $state.go('main.admin.location.addedit', { id: row.Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            LocationService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
     angular.module('Main').controller('ProductAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'ProductService', 'ProductCategoryService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
@@ -2581,18 +2672,15 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 })(moment);
 (function (moment) {
     "use strict";    
-    angular.module('Main').controller('LocationAddEditController', ['$scope', '$q', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout',
-        'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
-    function controller($scope, $q, $state, $stateParams, $routeParams, $http, $location, $timeout,
-        breezeservice, breeze, LocationService, SelectionApplicationService) {
+    angular.module('Main').controller('QuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, SelectionApplicationService) {
         
         $scope.Init = function () {
-            $scope.item = { Id: null, Name: "", Latitude: null, Longitude: null }
+            $scope.item = { Id: null, Name: "" }
         }
-        $scope.Init();
         $scope.Search = function () {
             if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                LocationService.Get($stateParams.id).then(function (data) {
+                QuestionService.Get($stateParams.id).then(function (data) {
                     $scope.item = data;
                 });
             }
@@ -2601,7 +2689,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 
         $scope.Save = function () {
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                LocationService.Update($scope.item.Id, $scope.item).then(function (data) {
+                QuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
@@ -2610,7 +2698,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
             }
             else {
                 $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
-                LocationService.Create($scope.item).then(function (data) {
+                QuestionService.Create($scope.item).then(function (data) {
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
@@ -2618,32 +2706,16 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
                 });
             }
         }
-
-        $scope.ChangeAddress = function (value) {
-            var address = JSON.stringify(value);
-            return $http.get('http://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
-                return data.data.results;
-            });
-        }
-
-        $scope.SelectAddress = function (item, model, label) {
-            debugger;
-            $scope.item.Latitude = item.geometry.location.lat;
-            $scope.item.Longitude = item.geometry.location.lng;
-            $scope.item.Address = item.formatted_address;
-        }
     }]);
 
 })(moment);
 (function (moment) {
     "use strict";    
-    angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, LocationService, SelectionApplicationService) {
+    angular.module('Main').controller('QuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, SelectionApplicationService) {
         $scope.Search = function () {
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-            LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+            QuestionService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.gridOptions.data = data;
             });
         }
@@ -2653,17 +2725,18 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
             data: [],
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Customer Name', cellTooltip: true }
+                { field: 'Name', name: 'Customer Name', cellTooltip: true },
+                { field: 'IsRequired', name: 'Required', cellTooltip: true}
             ]
         };
         $scope.Search();
 
         $scope.Edit = function (row) {
-            $state.go('main.admin.location.addedit', { id: row.Id }, { reload: false });
+            $state.go('main.admin.question.addedit', { id: row.Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
-            LocationService.Delete(Id).then(function (data) {
+            QuestionService.Delete(Id).then(function (data) {
                 $scope.Search();
             })
         }
@@ -2835,6 +2908,116 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 })(moment);
 (function (moment) {
     "use strict";    
+    angular.module('Main').controller('SurveyProductQuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyProductQuestionService',
+        'ProductService','QuestionService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyProductQuestionService,
+        ProductService, QuestionService, SelectionApplicationService) {
+
+        $scope.Init = function(){
+            $scope.item = { Id : null }
+        }
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                SurveyProductQuestionService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.SearchProducts = function (value) {
+            var predicate = {
+                and: [
+                   { "Name": { "substringof": value } },
+                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            return ProductService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+                return data;
+            });
+        }
+
+        $scope.SelectProduct = function (item, model, label) {
+            $scope.item.ProductId = item.Id;
+        }
+
+        $scope.SearchQuestions = function (value) {
+            var predicate = {
+                and: [
+                   { "Name": { "substringof": value } },
+                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            return QuestionService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+                return data;
+            });
+        }
+
+        $scope.SelectQuestion = function (item, model, label) {
+            $scope.item.QuestionId = item.Id;
+        }
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                SurveyProductQuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error);
+                });
+            }
+            else {
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
+                $scope.item.SurveyId = SelectionApplicationService.GetSurveyId();
+                SurveyProductQuestionService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('SurveyProductQuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyProductQuestionService',
+        'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyProductQuestionService,
+        SelectionApplicationService) {
+        $scope.Search = function () {
+            var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
+            SurveyProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                $scope.gridOptions.data = data;
+            });
+        }
+        $scope.gridOptions = {
+            enableFiltering: true,
+            enableSorting: true,
+            data: [],
+            columnDefs: [
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Product.Name', name: 'Product Name', cellTooltip: true },
+                { field: 'Question.Name', name: 'Question Name', cellTooltip: true }
+            ]
+        };
+        $scope.Search();
+
+        $scope.Edit = function (row) {
+            $state.go('main.admin.surveyproductquestion.addedit', { id: row.Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            SurveyProductQuestionService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
     angular.module('Main').controller('SurveyCustomerLocationAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationService',
         'CustomerService', 'LocationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationService,
@@ -2939,189 +3122,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
 
         $scope.Delete = function (Id) {
             SurveyCustomerLocationService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('QuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, SelectionApplicationService) {
-        
-        $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
-        }
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                QuestionService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                QuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error);
-                });
-            }
-            else {
-                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
-                QuestionService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('QuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'QuestionService', 'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, QuestionService, SelectionApplicationService) {
-        $scope.Search = function () {
-            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-            QuestionService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                $scope.gridOptions.data = data;
-            });
-        }
-        $scope.gridOptions = {
-            enableFiltering: true,
-            enableSorting: true,
-            data: [],
-            columnDefs: [
-                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Customer Name', cellTooltip: true },
-                { field: 'IsRequired', name: 'Required', cellTooltip: true}
-            ]
-        };
-        $scope.Search();
-
-        $scope.Edit = function (row) {
-            $state.go('main.admin.question.addedit', { id: row.Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            QuestionService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('SurveyProductQuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyProductQuestionService',
-        'ProductService','QuestionService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyProductQuestionService,
-        ProductService, QuestionService, SelectionApplicationService) {
-
-        $scope.Init = function(){
-            $scope.item = { Id : null }
-        }
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                SurveyProductQuestionService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.SearchProducts = function (value) {
-            var predicate = {
-                and: [
-                   { "Name": { "substringof": value } },
-                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
-                ]
-            }
-            return ProductService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
-                return data;
-            });
-        }
-
-        $scope.SelectProduct = function (item, model, label) {
-            $scope.item.ProductId = item.Id;
-        }
-
-        $scope.SearchQuestions = function (value) {
-            var predicate = {
-                and: [
-                   { "Name": { "substringof": value } },
-                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
-                ]
-            }
-            return QuestionService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
-                return data;
-            });
-        }
-
-        $scope.SelectQuestion = function (item, model, label) {
-            $scope.item.QuestionId = item.Id;
-        }
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                SurveyProductQuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error);
-                });
-            }
-            else {
-                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
-                $scope.item.SurveyId = SelectionApplicationService.GetSurveyId();
-                SurveyProductQuestionService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('SurveyProductQuestionController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyProductQuestionService',
-        'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyProductQuestionService,
-        SelectionApplicationService) {
-        $scope.Search = function () {
-            var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
-            SurveyProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                $scope.gridOptions.data = data;
-            });
-        }
-        $scope.gridOptions = {
-            enableFiltering: true,
-            enableSorting: true,
-            data: [],
-            columnDefs: [
-                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Product.Name', name: 'Product Name', cellTooltip: true },
-                { field: 'Question.Name', name: 'Question Name', cellTooltip: true }
-            ]
-        };
-        $scope.Search();
-
-        $scope.Edit = function (row) {
-            $state.go('main.admin.surveyproductquestion.addedit', { id: row.Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            SurveyProductQuestionService.Delete(Id).then(function (data) {
                 $scope.Search();
             })
         }
@@ -3436,6 +3436,59 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
+        .state('surveydata', {
+            url: "/surveydata/",
+            templateUrl: "ApplicationComponents/DataEntry/SurveyData/MerchandiseSurveyData.html"
+        })
+    });
+    angular.module('Main').controller('MerchandiseSurveyDataController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'uiGridConstants', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
+        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, uiGridConstants, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService,
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService) {
+
+
+        $scope.grid = {
+            options: {
+                showGridFooter: true,
+                enableFiltering: true,
+                enableSorting: true,
+                headerTooltip: true,
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                },
+                enableGridMenu: true,
+                exporterCsvFilename: 'data.csv',
+                exporterPdfOrientation: 'portrait',
+                exporterPdfPageSize: 'LETTER',
+                exporterPdfMaxGridWidth: 450,
+                data: null,
+                columnDefs: [
+                    { field: 'Id', displayName: '', width: '60', enableFiltering: false, enableSorting: false, cellTemplate: '<div><button class="btn btn-danger btn-sm" ng-click="grid.appScope.vm.functions.data.delete(row.entity.Id)">Delete</button></div>' },
+                    { field: 'Id', headerTooltip: true, displayName: 'Id' },
+                    //{ field: 'EmployeeId', cellTooltip: true, headerTooltip: true, displayName: 'Employee Id (unique)' },
+                    //{ field: 'FirstName', cellTooltip: true, headerTooltip: true, displayName: 'First Name' },
+                    //{ field: 'LastName', cellTooltip: true, headerTooltip: true, displayName: 'Last Name' },
+                    //{ field: 'ElectionPeriod', cellTooltip: true, headerTooltip: true, displayName: 'Election Period (unique)', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.ElectionPeriod | date: "MM/dd/yyyy"}}</div>' },
+                    //{ field: 'AmountDueDate', cellTooltip: true, headerTooltip: true, displayName: 'Amount Due Date', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.AmountDueDate | date: "MM/dd/yyyy"}}</div>' },
+                    //{ field: 'SharesVesting', cellTooltip: true, headerTooltip: true, displayName: 'Shares Vesting' },
+                    //{ field: 'IsViewed', cellTooltip: true, headerTooltip: true, displayName: 'Is Viewed' },
+                    //{ field: 'ElectionType', cellTooltip: true, headerTooltip: true, displayName: 'Election Type' },
+                    //{ field: 'Created', cellTooltip: true, headerTooltip: true, displayName: 'Created', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.Created | date: "MM/dd/yyyy"}}</div>' }
+                ]
+            }
+        }
+
+        $scope.Search = function () {
+            
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
         .state('main.merchandise', {
             url: "/merchandise/:redirectState",
             templateUrl: "ApplicationComponents/DataEntry/CustomerLocation/MerchandiseCustomerLocation.html"
@@ -3532,59 +3585,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService)
             else {
                 return true;
             }
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('surveydata', {
-            url: "/surveydata/",
-            templateUrl: "ApplicationComponents/DataEntry/SurveyData/MerchandiseSurveyData.html"
-        })
-    });
-    angular.module('Main').controller('MerchandiseSurveyDataController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'uiGridConstants', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
-        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, uiGridConstants, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService) {
-
-
-        $scope.grid = {
-            options: {
-                showGridFooter: true,
-                enableFiltering: true,
-                enableSorting: true,
-                headerTooltip: true,
-                onRegisterApi: function (gridApi) {
-                    $scope.gridApi = gridApi;
-                },
-                enableGridMenu: true,
-                exporterCsvFilename: 'data.csv',
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 450,
-                data: null,
-                columnDefs: [
-                    { field: 'Id', displayName: '', width: '60', enableFiltering: false, enableSorting: false, cellTemplate: '<div><button class="btn btn-danger btn-sm" ng-click="grid.appScope.vm.functions.data.delete(row.entity.Id)">Delete</button></div>' },
-                    { field: 'Id', headerTooltip: true, displayName: 'Id' },
-                    //{ field: 'EmployeeId', cellTooltip: true, headerTooltip: true, displayName: 'Employee Id (unique)' },
-                    //{ field: 'FirstName', cellTooltip: true, headerTooltip: true, displayName: 'First Name' },
-                    //{ field: 'LastName', cellTooltip: true, headerTooltip: true, displayName: 'Last Name' },
-                    //{ field: 'ElectionPeriod', cellTooltip: true, headerTooltip: true, displayName: 'Election Period (unique)', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.ElectionPeriod | date: "MM/dd/yyyy"}}</div>' },
-                    //{ field: 'AmountDueDate', cellTooltip: true, headerTooltip: true, displayName: 'Amount Due Date', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.AmountDueDate | date: "MM/dd/yyyy"}}</div>' },
-                    //{ field: 'SharesVesting', cellTooltip: true, headerTooltip: true, displayName: 'Shares Vesting' },
-                    //{ field: 'IsViewed', cellTooltip: true, headerTooltip: true, displayName: 'Is Viewed' },
-                    //{ field: 'ElectionType', cellTooltip: true, headerTooltip: true, displayName: 'Election Type' },
-                    //{ field: 'Created', cellTooltip: true, headerTooltip: true, displayName: 'Created', cellTemplate: '<div class="ui-grid-cell-contents">{{row.entity.Created | date: "MM/dd/yyyy"}}</div>' }
-                ]
-            }
-        }
-
-        $scope.Search = function () {
-            
         }
     }]);
 })(moment);

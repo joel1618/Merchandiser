@@ -33,6 +33,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CompanyId = x.CompanyId,
                 Name = x.Name,
                 IsRequired = x.IsRequired,
+                IsTrueFalse = x.IsTrueFalse,
                 Created = x.Created
             });
             return response;

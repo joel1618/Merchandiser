@@ -152,6 +152,7 @@
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsRequired" Type="bit" Nullable="false" />
+          <Property Name="IsTrueFalse" Type="bit" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="Created" Type="datetime" Nullable="false" />
@@ -1122,6 +1123,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Question" FromRole="Question" ToRole="SurveyDetail" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="Question" ToRole="SurveyProductQuestion" />
           <Property Name="IsRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsTrueFalse" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Survey">
           <Key>
@@ -1769,6 +1771,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="MerchandiserModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="IsTrueFalse" ColumnName="IsTrueFalse" />
                 <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />

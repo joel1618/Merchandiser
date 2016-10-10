@@ -15,6 +15,8 @@ namespace Merchandiser.Models
         public string Name { get; set; }
 
         public bool IsRequired { get; set; }
+
+        public bool IsTrueFalse { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }

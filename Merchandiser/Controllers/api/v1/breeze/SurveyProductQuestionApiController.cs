@@ -42,7 +42,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.Question.Id,
                     Name = x.Question.Name,
-                    IsRequired = x.Question.IsRequired
+                    IsRequired = x.Question.IsRequired,
+                    IsTrueFalse = x.Question.IsTrueFalse
                 },
                 Created = x.Created
             });

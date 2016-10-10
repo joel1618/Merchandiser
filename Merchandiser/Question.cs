@@ -29,6 +29,7 @@ namespace Merchandiser
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool IsRequired { get; set; }
+        public bool IsTrueFalse { get; set; }
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

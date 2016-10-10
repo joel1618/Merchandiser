@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <form name="outerForm">
+                <form name="outerForm" novalidate>
                     <label>Before Image</label>
                     <br />
                     <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
@@ -59,10 +59,13 @@
                                 <th>
                                     Answer
                                 </th>
+                                <th ng-show="item.Question.IsTrueFalse">
+
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-form name="innerForm" ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
+                            <tr ng-form name="innerForm" ng-repeat="item in Detail | orderBy: sort.column: sort.descending" >
                                 <td>
                                     {{item.Product.ProductCategory.Name}}
                                 </td>
@@ -74,11 +77,17 @@
                                 </td>
                                 <td>
                                     <md-input-container>
-                                    <input class="form-control input-sm" type="text" name="Answer" placeholder="" ng-model="item.Answer" ng-required="item.Question.IsRequired" />
+                                    <input class="form-control input-sm" type="text" name="Answer" placeholder="" 
+                                           ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse"/>
                                     <div ng-messages="innerForm.Answer.$error">
                                         <div ng-message="required">This is required!</div>
                                     </div>
                                     </md-input-container>
+                                </td>
+                                <td ng-show="item.Question.IsTrueFalse">
+                                    <button ng-click="item.Answer = 'True'" class="btn btn-primary btn-sm">True</button>
+                                    <button ng-click="item.Answer = 'False'" class="btn btn-primary btn-sm">False</button>
+                                    <button ng-click="item.Answer = ''" class="btn btn-primary btn-sm">Clear</button>
                                 </td>
                             </tr>
                         </tbody>

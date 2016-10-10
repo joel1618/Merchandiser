@@ -8,6 +8,11 @@
                 <br />
                 <md-switch class="md-primary" aria-label="Is Required" ng-model="item.IsRequired">
                     <b>Is Required</b>
+                    <small>This option will make the question required</small>
+                </md-switch>
+                <md-switch class="md-primary" aria-label="Is True False" ng-model="item.IsTrueFalse">
+                    <b>Is True False</b>
+                    <small>This option will make the question true or false only</small>
                 </md-switch>
                 <br />
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>

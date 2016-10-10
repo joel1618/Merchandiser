@@ -7,18 +7,20 @@
     [Latitude]      DECIMAL (9, 6)   NULL,
     [Longitude]     DECIMAL (9, 6)   NULL,
     [Notes]         NVARCHAR (MAX)   NULL,
-    [IsBeforeImage] BIT              NOT NULL,
-    [IsAfterImage]  BIT              NOT NULL,
+    [IsBeforeImage] BIT              CONSTRAINT [DF_SurveyHeader_IsBeforeImage] DEFAULT ((0)) NOT NULL,
+    [IsAfterImage]  BIT              CONSTRAINT [DF_SurveyHeader_IsAfterImage] DEFAULT ((0)) NOT NULL,
     [Created]       DATETIME         NOT NULL,
     [CreatedBy]     NVARCHAR (128)   NOT NULL,
     [Modified]      DATETIME         NULL,
     [ModifiedBy]    NVARCHAR (128)   NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [PK__SurveyHe__3214EC076BE46752] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_SurveyHeader_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Customer] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customer] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Survey] FOREIGN KEY ([SurveyId]) REFERENCES [dbo].[Survey] ([Id])
 );
+
+
 
 
 
