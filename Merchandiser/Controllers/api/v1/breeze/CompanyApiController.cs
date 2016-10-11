@@ -47,28 +47,15 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IHttpActionResult AdminSearch()
         {
-            try
-            {
-                throw new NotImplementedException();
-                var response = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
-                    .Select(x => new CompanyViewModel()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Created = x.Created,
-                        CreatedBy = x.CreatedBy
-                    });
-                return Ok(response);
-            }
-            catch(Exception ex)
-            {
-                var config = new RollbarSharp.Configuration("ae90b2c565624ab9b66145339bfb0ebf");
-                config.Environment = "dev";
-                var rollbarClient = new RollbarClient(config);
-                var task = rollbarClient.SendException(ex);
-                task.Wait();
-                return null;
-            }
+            var response = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
+                .Select(x => new CompanyViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Created = x.Created,
+                    CreatedBy = x.CreatedBy
+                });
+            return Ok(response);
         }
 
         [HttpGet]
