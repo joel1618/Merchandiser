@@ -47,6 +47,12 @@ namespace Merchandiser.App_Start
                 cfg.CreateMap<UserRoleViewModel, AspNetUserRole>();
                 cfg.CreateMap<AspNetUserRole, UserRoleViewModel>();
 
+                cfg.CreateMap<RoleViewModel, AspNetRole>();
+                cfg.CreateMap<AspNetRole, RoleViewModel>();
+
+                cfg.CreateMap<UserViewModel, AspNetUser>();
+                cfg.CreateMap<AspNetUser, UserViewModel>();
+
                 cfg.CreateMap<SurveyHeaderViewModel, SurveyHeader>();
                 //.ForMember(p => p.BeforeImage, o=> o.Ignore())
                 //.ForMember(p => p.AfterImage, o=> o.Ignore());
