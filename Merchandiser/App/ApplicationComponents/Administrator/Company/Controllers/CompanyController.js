@@ -9,7 +9,7 @@
         $scope.Search = function () {
             CompanyService.AdminSearch(null, ["Name desc"], 0, 20, false).then(function (data) {
                 $scope.items = data;
-                if (data.length == 1) {
+                if (data != null && data.length == 1) {
                     $scope.Select(data[0].Id);
                 }
             });

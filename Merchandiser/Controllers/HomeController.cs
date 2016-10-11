@@ -28,5 +28,10 @@ namespace Merchandiser.Controllers
 
             return View();
         }
+
+        public ActionResult Error()
+        {
+            return View("Error.cshtml");
+        }
     }
 }

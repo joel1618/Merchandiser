@@ -17,7 +17,9 @@ namespace Merchandiser.App_Start
 
         public static void RegisterBreezePreStart()
         {
+#if DEBUG
             //MetadataScriptWriter.Write();
+#endif
 
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(
                 name: "BreezeApi",

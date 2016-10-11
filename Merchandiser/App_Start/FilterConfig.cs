@@ -1,5 +1,7 @@
-﻿using System.Web;
+﻿using Merchandiser.App_Start;
+using System.Web;
 using System.Web.Mvc;
+using static Merchandiser.MvcApplication;
 
 namespace Merchandiser
 {
@@ -7,7 +9,7 @@ namespace Merchandiser
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
         }
     }
 }

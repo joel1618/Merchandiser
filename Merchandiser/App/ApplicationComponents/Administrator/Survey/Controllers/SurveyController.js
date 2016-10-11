@@ -6,7 +6,7 @@
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
             SurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.items = data;
-                if (data.length == 1) {
+                if (data != null && data.length == 1) {
                     $scope.Select(data[0].Id);
                 }
             });

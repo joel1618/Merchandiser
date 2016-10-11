@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using Merchandiser.ControllerHelpers;
+using SharpRaven;
 
 namespace Merchandiser.Controllers.api.v1.breeze
 {
@@ -18,13 +19,16 @@ namespace Merchandiser.Controllers.api.v1.breeze
         CompanyRepository companyRepository;
         UserRoleRepository userRoleRepository;
         RoleRepository roleRepository;
+        RavenClient ravenClient;
         string userId;
         public CompanyApiController()
         {
             this.companyRepository = new CompanyRepository();
             this.userRoleRepository = new UserRoleRepository();
             this.roleRepository = new RoleRepository();
+            this.ravenClient = new RavenClient("https://4cf38a74fd7246bfae4f01281754324b:cfa61ffc05f04437a6a92ec78c1e1616@sentry.io/105123");
             this.userId = User.Identity.GetUserId();
+
         }
 
         [HttpGet]
@@ -42,9 +46,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<CompanyViewModel> AdminSearch()
+        public IHttpActionResult AdminSearch()
         {
-            var companiesList = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
+            var response = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
                 .Select(x => new CompanyViewModel()
                 {
                     Id = x.Id,
@@ -52,7 +56,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     Created = x.Created,
                     CreatedBy = x.CreatedBy
                 });
-            return companiesList;
+            return Ok(response);
         }
 
         [HttpGet]

@@ -86,7 +86,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             {
                 return BadRequest("This record already exists.");
             }
-            var response = repository.Create(item.ToEntity()).ToViewModel();
+            var response = repository.Create(item.ToEntity()).ToViewModel();            
             return Ok(response);
         }
 
