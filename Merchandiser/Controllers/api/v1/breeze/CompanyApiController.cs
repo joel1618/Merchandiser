@@ -9,7 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using Merchandiser.ControllerHelpers;
-using SharpRaven;
+using RollbarSharp;
+using System.Threading.Tasks;
 
 namespace Merchandiser.Controllers.api.v1.breeze
 {
@@ -19,14 +20,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
         CompanyRepository companyRepository;
         UserRoleRepository userRoleRepository;
         RoleRepository roleRepository;
-        RavenClient ravenClient;
         string userId;
         public CompanyApiController()
         {
             this.companyRepository = new CompanyRepository();
             this.userRoleRepository = new UserRoleRepository();
             this.roleRepository = new RoleRepository();
-            this.ravenClient = new RavenClient("https://4cf38a74fd7246bfae4f01281754324b:cfa61ffc05f04437a6a92ec78c1e1616@sentry.io/105123");
             this.userId = User.Identity.GetUserId();
 
         }
@@ -48,15 +47,28 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IHttpActionResult AdminSearch()
         {
-            var response = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
-                .Select(x => new CompanyViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Created = x.Created,
-                    CreatedBy = x.CreatedBy
-                });
-            return Ok(response);
+            try
+            {
+                throw new NotImplementedException();
+                var response = companyRepository.Search().FilterCompanyByUserAndCompanyAndRole(userId, "Id", "Administrator", userRoleRepository, roleRepository)
+                    .Select(x => new CompanyViewModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Created = x.Created,
+                        CreatedBy = x.CreatedBy
+                    });
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                var config = new RollbarSharp.Configuration("ae90b2c565624ab9b66145339bfb0ebf");
+                config.Environment = "dev";
+                var rollbarClient = new RollbarClient(config);
+                var task = rollbarClient.SendException(ex);
+                task.Wait();
+                return null;
+            }
         }
 
         [HttpGet]

@@ -6,11 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
 using System.Data.Entity;
 using Merchandiser.Migrations;
 using Merchandiser.App_Start;
-using SharpRaven;
 
 namespace Merchandiser
 {
@@ -25,13 +23,15 @@ namespace Merchandiser
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfig.RegisterMappings();
-            //GlobalFilters.Filters.Add(new ExceptionHandlingAttribute());
-#if DEBUG
+
+
+            #if DEBUG
             Database.SetInitializer(new Merchandiser.Migrations.Configuration());
             MerchandiserEntities db = new MerchandiserEntities();
             db.Database.Initialize(true);
             #endif
         }
+
         //SSL Redirect
         //protected void Application_BeginRequest()
         //{
@@ -51,13 +51,11 @@ namespace Merchandiser
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception exception = Server.GetLastError();
-            RavenClient ravenClient = new RavenClient("https://4cf38a74fd7246bfae4f01281754324b:cfa61ffc05f04437a6a92ec78c1e1616@sentry.io/105123");
-            //ravenClient.CaptureException(exception);
-            ravenClient.Capture(new SharpRaven.Data.SentryEvent(exception));
-            Server.ClearError();
+            //Exception exception = Server.GetLastError();
+           
+            //Server.ClearError();
         }
 
-        
+
     }
 }

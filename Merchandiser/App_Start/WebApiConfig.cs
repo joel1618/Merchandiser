@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Merchandiser.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace Merchandiser
 {
@@ -13,6 +15,8 @@ namespace Merchandiser
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.Services.Replace(typeof(IExceptionHandler), new WebApiGlobalExceptionHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
