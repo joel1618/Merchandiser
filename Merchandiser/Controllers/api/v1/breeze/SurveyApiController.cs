@@ -50,7 +50,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name).FirstOrDefault();
             if (record != null)
             {
-                return BadRequest("This record already exists.");
+                return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
             }
             var response = repository.Create(item.ToEntity()).ToViewModel();
             return Ok(response);
@@ -63,7 +63,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name && e.Id != item.Id).FirstOrDefault();
             if (record != null)
             {
-                return BadRequest("This record already exists.");
+                return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
             }
             var response = repository.Update(id, item.ToEntity()).ToViewModel();
             return Ok(response);

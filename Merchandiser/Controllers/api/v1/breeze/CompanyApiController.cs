@@ -70,7 +70,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var record = companyRepository.Search().Where(e => e.CreatedBy == userId && e.Name == item.Name).FirstOrDefault();
             if (record != null)
             {
-                return BadRequest("This record already exists.");
+                return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
             }
 
             item.CreatedBy = User.Identity.GetUserId();
@@ -86,10 +86,16 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public CompanyViewModel Update(Guid id, CompanyViewModel item)
+        public IHttpActionResult Update(Guid id, CompanyViewModel item)
         {
+            var record = companyRepository.Search().Where(e => e.CreatedBy == userId && e.Name == item.Name && e.Id != item.Id).FirstOrDefault();
+            if (record != null)
+            {
+                return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
+            }
             item.ModifiedBy = User.Identity.GetUserId();
-            return companyRepository.Update(id, item.ToEntity()).ToViewModel();
+            var response =companyRepository.Update(id, item.ToEntity()).ToViewModel();
+            return Ok(response);
         }
 
         [HttpDelete]

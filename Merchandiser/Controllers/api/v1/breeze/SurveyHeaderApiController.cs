@@ -98,7 +98,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public SurveyHeaderViewModel UpdateBulk([FromUri()]Guid id, [FromBody()]SurveyHeaderDetailViewModel item)
+        public IHttpActionResult UpdateBulk([FromUri()]Guid id, [FromBody()]SurveyHeaderDetailViewModel item)
         {
             item.Header.ModifiedBy = User.Identity.GetUserId();
             var response = repository.Update(id, item.Header.ToEntity()).ToViewModel();
@@ -108,7 +108,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 detailRepository.Update(detail.Id, detail.ToEntity()).ToViewModel();
             }
             repository.SaveChanges();
-            return response;
+            return Ok(response);
         }
 
         [HttpDelete]

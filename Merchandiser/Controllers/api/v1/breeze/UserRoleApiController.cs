@@ -84,7 +84,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.UserId == user.Id && e.RoleId == item.RoleId).FirstOrDefault();
             if (record != null)
             {
-                return BadRequest("This record already exists.");
+                return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
             }
             var response = repository.Create(item.ToEntity()).ToViewModel();
             user = userManager.FindById(item.UserId);

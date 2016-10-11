@@ -22,7 +22,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error);
+                    toastr.error(error.data, error.statusText);
                 });
             }
             else {
@@ -30,7 +30,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error);
+                    toastr.error(error.data, error.statusText);
                 });
             }
         }
