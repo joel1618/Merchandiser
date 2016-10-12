@@ -33,11 +33,26 @@ namespace Merchandiser
         }
 
         //SSL Redirect
-        //protected void Application_BeginRequest()
-        //{
-        //    if (!Context.Request.IsSecureConnection)
-        //        Response.Redirect(Context.Request.Url.ToString().Replace("http:", "https:"));
-        //}
+        protected void Application_BeginRequest()
+        {
+            if (!Context.Request.IsSecureConnection)
+            {
+                // This is an insecure connection, so redirect to the secure version
+                UriBuilder uri = new UriBuilder(Context.Request.Url);
+                uri.Scheme = "https";
+                if (uri.Port > 32000 && uri.Host.Equals("localhost"))
+                {
+                    // Development box - set uri.Port to 44300 by default
+                    uri.Port = 44347;
+                }
+                else
+                {
+                    uri.Port = 443;
+                }
+
+                Response.Redirect(uri.ToString());
+            }
+        }
 
         //http://stackoverflow.com/questions/3285014/mvc-requirehttps-entire-site
         //protected void Application_BeginRequest(Object sender, EventArgs e)
