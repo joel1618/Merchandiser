@@ -19,8 +19,7 @@
         $scope.Save = function () {
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 SurveyService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
-                    $scope.$parent.gridOptions.data.splice(index, 1, data.data);
+                    $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
                     toastr.error(error.data, error.statusText);
@@ -29,7 +28,7 @@
             else {
                 $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 SurveyService.Create($scope.item).then(function (data) {
-                    $scope.$parent.gridOptions.data.splice($scope.$parent.gridOptions.data.length, 0, data.data);
+                    $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
                     toastr.error(error.data, error.statusText);

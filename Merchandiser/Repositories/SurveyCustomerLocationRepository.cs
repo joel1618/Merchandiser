@@ -29,11 +29,11 @@ namespace Merchandiser.Repositories
         {
             var record = new SurveyCustomerLocation();
             record.Id = Guid.NewGuid();
-            record.Created = DateTime.UtcNow;
-            record.CreatedBy = item.CreatedBy;
             record.SurveyId = item.SurveyId;
-            record.LocationId = item.LocationId;
             record.CustomerId = item.CustomerId;
+            record.LocationId = item.LocationId;
+            record.CreatedBy = item.CreatedBy;
+            record.Created = DateTime.UtcNow;
             record.CompanyId = item.CompanyId;
             context.SurveyCustomerLocations.Add(record);
             context.SaveChanges();

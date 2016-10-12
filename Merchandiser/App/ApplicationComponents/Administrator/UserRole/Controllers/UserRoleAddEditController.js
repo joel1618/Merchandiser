@@ -47,7 +47,7 @@
                 }
                 UserRoleService.Create($scope.item).then(function (data) {
                     debugger;
-                    $scope.$parent.gridOptions.data.splice($scope.$parent.gridOptions.data.length, 0, data.data);
+                    $scope.$parent.gridOptions.data.splice(0, 0, data.data);
                     $scope.Init();
                 }, function (error) {
                     toastr.error(error.data, error.statusText);
