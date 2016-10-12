@@ -17,9 +17,7 @@
         
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
-            $state.go('main.merchandise', {
-                redirectState: 'main.survey'
-            });
+            $state.go('main.selectcompany');
         }
         $scope.BeforeImage = null;
         $scope.AfterImage = null;

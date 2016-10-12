@@ -10,6 +10,15 @@
         });
     };
 
+    this.RedirectState = null;
+    this.GetRedirectState = function () {
+        return this.RedirectState;
+    }
+
+    this.SetRedirectState = function (state) {
+        this.RedirectState = state;
+    }
+
     this.CompanyId = null;
     this.GetCompanyId = function () {
         return this.CompanyId;

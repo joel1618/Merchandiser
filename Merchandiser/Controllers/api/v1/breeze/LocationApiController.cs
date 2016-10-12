@@ -34,7 +34,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Name = x.Name,
                 Created = x.Created,
                 AreaManager = x.AreaManager,
-                Address = x.Address
+                Address = x.Address,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude
             });
             return response;
         }
