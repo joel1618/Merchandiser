@@ -20,10 +20,10 @@
             var predicate = {
                 and: [
                    { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                   { "Latitude": { '>=': $scope.Latitude - .1 } },
-                   { "Latitude": { '<=': $scope.Latitude + .1 } },
-                   { "Longitude": { '>=': $scope.Longitude - .1 } },
-                   { "Longitude": { '<=': $scope.Longitude + .1 } }
+                   { "Latitude": { '>=': $scope.Latitude - .145 } },
+                   { "Latitude": { '<=': $scope.Latitude + .145 } },
+                   { "Longitude": { '>=': $scope.Longitude - .145 } },
+                   { "Longitude": { '<=': $scope.Longitude + .145 } }
                 ]
             }
             LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
