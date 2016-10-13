@@ -79,7 +79,7 @@
                                 <td>
                                     <md-input-container>
                                     <input class="form-control input-sm" type="text" name="Answer" placeholder="" 
-                                           ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse"/>
+                                           ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" maxlength="25" />
                                     <div ng-messages="innerForm.Answer.$error">
                                         <div ng-message="required">This is required!</div>
                                     </div>
