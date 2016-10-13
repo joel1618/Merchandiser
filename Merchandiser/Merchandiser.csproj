@@ -498,6 +498,8 @@
     <Content Include="App\DatabaseServices\UserRole\UserRoleService.js" />
     <Content Include="App\DatabaseServices\User\UserService.js" />
     <Content Include="App\Directives\AffixResizer.js" />
+    <Content Include="App\Directives\AfterImage.js" />
+    <Content Include="App\Directives\BeforeImage.js" />
     <Content Include="App\Directives\Directives.js" />
     <Content Include="bower_components\angular-animate\angular-animate.js" />
     <Content Include="bower_components\angular-animate\angular-animate.min.js" />

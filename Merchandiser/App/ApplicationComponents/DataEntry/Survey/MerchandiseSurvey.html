@@ -37,11 +37,11 @@
                     <br />
                     <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                     <label class="btn btn-primary btn-sm btn-file">
-                        Choose Image <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setBeforeImage(this)">
+                        Choose Image <input before-image type="file" accept="image/*" style="display: none;">
                     </label>
                     <button class="btn btn-danger btn-sm" ng-click="DeleteBeforeImage()" ng-disabled="Header.BeforeImage == null && BeforeImage == null">Delete Image</button>
                     <br />
-                    <img id="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
+                    <img id="BeforeImage" ng-if="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
                     <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
 

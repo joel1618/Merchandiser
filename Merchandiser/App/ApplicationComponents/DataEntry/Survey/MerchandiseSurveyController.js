@@ -56,16 +56,16 @@
         }
         $scope.Search();
 
-        $scope.setBeforeImage = function (element) {
-            var reader = new FileReader();
-            $scope.Header.IsBeforeImage = true;
-            $scope.Header.BeforeImage = element.files[0];
-            reader.onload = function (event) {
-                $scope.BeforeImage = event.target.result;
-                $scope.$apply();
-            }
-            reader.readAsDataURL(element.files[0]);
-        }
+        //$scope.setBeforeImage = function (element) {
+        //    var reader = new FileReader();
+        //    $scope.Header.IsBeforeImage = true;
+        //    $scope.Header.BeforeImage = element.files[0];
+        //    reader.onload = function (event) {
+        //        $scope.BeforeImage = event.target.result;
+        //        $scope.$apply();
+        //    }
+        //    reader.readAsDataURL(element.files[0]);
+        //}
 
         $scope.sort = {
             column: ['Product.Name', 'Product.Name'],
