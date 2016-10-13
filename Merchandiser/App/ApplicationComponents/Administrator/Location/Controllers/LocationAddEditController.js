@@ -48,7 +48,6 @@
         }
 
         $scope.SelectAddress = function (item, model, label) {
-            debugger;
             $scope.item.Latitude = item.geometry.location.lat;
             $scope.item.Longitude = item.geometry.location.lng;
             $scope.item.Address = item.formatted_address;

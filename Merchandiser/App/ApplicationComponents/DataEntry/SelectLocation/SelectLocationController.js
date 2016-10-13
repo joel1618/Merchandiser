@@ -14,16 +14,15 @@
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
         RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
         
+        $scope.LocationServicesDisabled = false;
         $scope.Search = function () {
-            var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
-
             var predicate = {
                 and: [
                    { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                   { "Latitude": { '>=': $scope.Latitude - .145 } },
-                   { "Latitude": { '<=': $scope.Latitude + .145 } },
-                   { "Longitude": { '>=': $scope.Longitude - .145 } },
-                   { "Longitude": { '<=': $scope.Longitude + .145 } }
+                   { "Latitude": { '>=': $scope.Latitude - .0725 } },
+                   { "Latitude": { '<=': $scope.Latitude + .0725 } },
+                   { "Longitude": { '>=': $scope.Longitude - .0725 } },
+                   { "Longitude": { '<=': $scope.Longitude + .0725 } }
                 ]
             }
             LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
@@ -34,7 +33,24 @@
             $scope.Latitude = position.coords.latitude;
             $scope.Longitude = position.coords.longitude;
             $scope.Search();
+        }, function (error) {
+            toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
+            $scope.LocationServicesDisabled = true;
         });
+
+        $scope.ChangeAddress = function (value) {
+            var address = JSON.stringify(value);
+            return $http.get('https://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
+                return data.data.results;
+            });
+        }
+
+        $scope.SelectAddress = function (item, model, label) {
+            $scope.Latitude = item.geometry.location.lat;
+            $scope.Longitude = item.geometry.location.lng;
+            $scope.LocationServicesDisabled = false;
+            $scope.Search();
+        }
 
         $scope.Select = function (item) {
             SelectionApplicationService.SetLocation(item);

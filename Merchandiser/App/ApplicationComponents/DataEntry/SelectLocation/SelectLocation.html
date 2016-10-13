@@ -1,33 +1,48 @@
 ﻿<div ng-controller="SelectLocationController">
     <div class="container">
-        <div class="text-center">
-            <h3>Select Location</h3>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Address</th>
-                        </tr>
-                    </thead>
-                    <tbody ng-repeat="item in Location">
-                        <tr>
-                            <td>
-                                <button class="btn btn-primary btn-sm" ng-click="Select(item)">Select</button>
-                            </td>
-                            <td>
-                                {{item.Name}}
-                            </td>
-                            <td>
-                                {{item.Address}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">Select Location</h3>
+                <label>City or Address</label>
+                <div ng-show="LocationServicesDisabled">
+                    <input type="text"
+                           class="form-control"
+                           typeahead-no-results="noResultsAddress"
+                           ng-model="item.Address"
+                           uib-typeahead="item.formatted_address for item in ChangeAddress($viewValue)"
+                           ng-model-options="{ debounce: { 'default': 2000, 'blur': 0 } }"
+                           typeahead-on-select="SelectAddress($item, $model, $label)" />
+                    <div ng-show="noResultsAddress">
+                        No Results Found!
+                    </div>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="item in Location">
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" ng-click="Select(item)">Select</button>
+                                </td>
+                                <td>
+                                    {{item.Name}}
+                                </td>
+                                <td>
+                                    {{item.Address}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <button class="btn btn-primary pull-right btn-sm" ng-click="Continue()" ng-show="IsContinueShown()">Continue</button>
-        <small>*Locations within 10 miles of your current location</small>
+        <small>*Locations within a 5 mile radius of your current location</small>
     </div>
 </div>
