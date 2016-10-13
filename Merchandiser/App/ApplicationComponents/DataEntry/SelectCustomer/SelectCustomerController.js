@@ -16,7 +16,7 @@
 
         $scope.Search = function () {
             var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
-            CustomerService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+            CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.Customer = data;
             });
         }
@@ -28,13 +28,11 @@
             $state.go('main.selectlocation');
         }
 
-        $scope.Go = function (item) {
-            SelectionApplicationService.SetCustomer(item);
-            SelectionApplicationService.SetCustomerId(item.Id);
-            $state.go(SelectionApplicationService.GetRedirectState());
+        $scope.Continue = function () {
+            $state.go('main.selectlocation');
         }
 
-        $scope.IsGoShown = function () {
+        $scope.IsContinueShown = function () {
             if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
                 return false;
             }

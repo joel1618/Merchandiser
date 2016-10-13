@@ -2,9 +2,8 @@
     <div class="container">
         <div class="text-center">
             <h3>Select Location</h3>
-            <small>*Locations within 10 miles of your current location</small>
             <div>
-                <table border="1">
+                <table>
                     <thead>
                         <tr>
                             <th></th>
@@ -16,16 +15,16 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-sm" ng-click="Select(item)">Select</button>
-                                <button class="btn btn-primary pull-right btn-sm" ng-click="Go(item)" ng-show="IsGoShown()">Go</button>
                             </td>
                             <td>
                                 {{item.Name}}
                             </td>
-                            <td>{{item.Address}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <button class="btn btn-primary pull-right btn-sm" ng-click="Continue()" ng-show="IsContinueShown()">Continue</button>
+        <small>*Locations within 10 miles of your current location</small>
     </div>
 </div>

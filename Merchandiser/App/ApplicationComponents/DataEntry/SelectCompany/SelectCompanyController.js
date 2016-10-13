@@ -27,13 +27,11 @@
             $state.go('main.selectcustomer');
         }
 
-        $scope.Go = function (item) {
-            SelectionApplicationService.SetCompany(item);
-            SelectionApplicationService.SetCompanyId(item.Id);
-            $state.go(SelectionApplicationService.GetRedirectState());
+        $scope.Continue = function () {
+            $state.go('main.selectcustomer');
         }
 
-        $scope.IsGoShown = function () {
+        $scope.IsContinueShown = function () {
             if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
                 return false;
             }

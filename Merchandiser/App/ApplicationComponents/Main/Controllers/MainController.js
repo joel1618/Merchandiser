@@ -7,13 +7,14 @@
             $scope.Username = data;
         });
         $scope.GoTo = function (state) {
-            SelectionApplicationService.SetSurveyHeaderId(null);
-            SelectionApplicationService.SetRedirectState(state);
             if (state == 'main.admin.company.addedit') {
                 SelectionApplicationService.Clear();
                 $state.go(state);
             }
             else {
+                SelectionApplicationService.Clear();
+                
+            SelectionApplicationService.SetRedirectState(state);
                 $state.go('main.selectcompany');
             }
         }

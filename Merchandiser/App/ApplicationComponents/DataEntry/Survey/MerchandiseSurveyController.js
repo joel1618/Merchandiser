@@ -141,9 +141,8 @@
                     $q.all(promises).then(function () {
                         toastr.success("Save successful.");
                         SelectionApplicationService.Clear();
-                        $state.go('main.merchandise', {
-                            redirectState: 'main.survey'
-                        });
+                        SelectionApplicationService.SetRedirectState('main.survey');
+                        $state.go('main.selectcompany');
                     });
                 }, function(error){
                     toastr.error("There was an error creating the survey.");

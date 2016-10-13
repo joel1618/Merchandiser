@@ -42,13 +42,11 @@
             $state.go('main.selectsurvey');
         }
 
-        $scope.Go = function (item) {
-            SelectionApplicationService.SetLocation(item);
-            SelectionApplicationService.SetLocationId(item.Id);
-            $state.go(SelectionApplicationService.GetRedirectState());
+        $scope.Continue = function () {
+            $state.go('main.selectsurvey');
         }
 
-        $scope.IsGoShown = function () {
+        $scope.IsContinueShown = function () {
             if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
                 return false;
             }

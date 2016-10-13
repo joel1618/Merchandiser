@@ -28,7 +28,9 @@
         $scope.Delete = function (Id) {
             LocationService.Delete(Id).then(function (data) {
                 $scope.Search();
-            })
+            }, function (error) {
+                toastr.error(error.data, error.statusText);
+            });
         }
     }]);
 

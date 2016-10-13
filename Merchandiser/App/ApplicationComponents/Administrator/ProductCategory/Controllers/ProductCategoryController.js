@@ -23,7 +23,7 @@
             enableSorting: true,
             data: [],
             columnDefs: [
-                { name: 'Manage', width: '120',  cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Name', name: 'Product Category Name', cellTooltip: true }
             ]
         };
@@ -36,7 +36,9 @@
         $scope.Delete = function (Id) {
             ProductCategoryService.Delete(Id).then(function (data) {
                 $scope.Search();
-            })
+            }, function (error) {
+                toastr.error(error.data, error.statusText);
+            });
         }
     }]);
 

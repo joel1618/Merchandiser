@@ -1,5 +1,5 @@
 ﻿(function (moment) {
-    "use strict";    
+    "use strict";
     angular.module('Main').controller('CustomerController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'SelectionApplicationService',
     function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, CustomerService, SelectionApplicationService) {
         $scope.Search = function () {
@@ -27,7 +27,9 @@
         $scope.Delete = function (Id) {
             CustomerService.Delete(Id).then(function (data) {
                 $scope.Search();
-            })
+            }, function (error) {
+                toastr.error(error.data, error.statusText);
+            });
         }
     }]);
 

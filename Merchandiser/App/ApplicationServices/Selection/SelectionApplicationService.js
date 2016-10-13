@@ -110,6 +110,8 @@
     }
 
     this.Clear = function () {
+        this.RedirectState = null;
+
         this.CompanyId = null;
         this.Company = null;
 
