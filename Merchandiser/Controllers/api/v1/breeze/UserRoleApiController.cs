@@ -81,7 +81,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 return BadRequest("The user does not exist.  Have the user create an account first.");
             }
             item.UserId = user.Id;
-            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.UserId == user.Id && e.RoleId == item.RoleId).FirstOrDefault();
+            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.UserId == user.Id && e.RoleId == item.RoleId && e.CustomerId == item.CustomerId).FirstOrDefault();
             if (record != null)
             {
                 return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");

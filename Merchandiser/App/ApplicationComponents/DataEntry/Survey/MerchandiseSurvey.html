@@ -41,7 +41,7 @@
                     </label>
                     <button class="btn btn-danger btn-sm" ng-click="DeleteBeforeImage()" ng-disabled="Header.BeforeImage == null && BeforeImage == null">Delete Image</button>
                     <br />
-                    <img id="BeforeImage" ng-if="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
+                    <img id="BeforeImage" ng-if="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
                     <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
 
@@ -98,11 +98,11 @@
                     <br />
                     <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                     <label class="btn btn-primary btn-sm btn-file">
-                        Choose File <input type="file" accept="image/*" style="display: none;" onchange="angular.element(this).scope().setAfterImage(this)">
+                        Choose File <input after-image type="file" accept="image/*" style="display: none;">
                     </label>
                     <button class="btn btn-danger btn-sm" ng-click="DeleteAfterImage()" ng-disabled="Header.AfterImage == null && AfterImage == null">Delete Image</button>
                     <br />
-                    <img id="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="max-width:400px; max-height:400px" />
+                    <img id="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
                     <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
                     <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>

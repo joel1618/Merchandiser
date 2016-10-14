@@ -7,8 +7,10 @@
                 <input required type="text" class="form-control" ng-model="item.User.UserName" focus-if="focus" ng-blur="focus = false" />
                 <label>Role</label>
                 <select required class="form-control" ng-model="item.Role" ng-options="x.Name for x in Roles"></select>
-                <label>Customer</label>
-                <select class="form-control" ng-model="item.Customer" ng-options="x.Name for x in Customers"></select>
+                <div ng-show="item.Role.Name == 'Customer'">
+                    <label>Customer</label>
+                    <select class="form-control" ng-model="item.Customer" ng-options="x.Name for x in Customers"></select>
+                </div>
                 <br />
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>

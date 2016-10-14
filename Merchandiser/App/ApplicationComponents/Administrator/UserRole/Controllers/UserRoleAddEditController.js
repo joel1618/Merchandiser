@@ -31,7 +31,6 @@
             }
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 UserRoleService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    debugger;
                     var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
                     $scope.$parent.gridOptions.data.splice(index, 1, data.data);
                     $scope.Init();
@@ -46,7 +45,6 @@
                     $scope.item.CustomerId = $scope.item.Customer.Id;
                 }
                 UserRoleService.Create($scope.item).then(function (data) {
-                    debugger;
                     $scope.$parent.gridOptions.data.splice(0, 0, data.data);
                     $scope.Init();
                 }, function (error) {
@@ -56,6 +54,10 @@
         }
 
         $scope.Validate = function () {
+            if ($scope.item.Role.Name != "Customer") {
+                $scope.item.Customer = null;
+            }
+
             if ($scope.item.Role.Name == "Customer" && $scope.item.Customer == null) {
                 toastr.error("A customer must be selected.");
                 return false;

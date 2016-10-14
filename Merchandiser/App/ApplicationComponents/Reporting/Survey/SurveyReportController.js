@@ -46,7 +46,7 @@
                     UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
                         if (data == true) {
                             $scope.gridOptions.columnDefs.splice(0, 0, {
-                                name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                                name: 'Manage', width: 110, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                             });
                         }
                         else {
@@ -55,30 +55,33 @@
                     }).then(function (data) {
                         if (data == true) {
                             $scope.gridOptions.columnDefs.splice(0, 0, {
-                                name: 'Manage', width: 125, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                                name: 'Manage', width: 110, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                             });
                         }
                     });
                     $scope.gridOptions.columnDefs.splice(1, 0, {
-                        name: 'Before', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeImage.html'
+                        name: 'Images/Notes', width: 65,  cellTooltip: true, headerTooltip: true, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
                     });
-                    $scope.gridOptions.columnDefs.splice(2, 0, {
-                        name: 'After', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/AfterImage.html'
-                    });
-                    $scope.gridOptions.columnDefs.splice(3, 0, {
-                        name: 'Notes', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Notes.html'
+                    //$scope.gridOptions.columnDefs.splice(1, 0, {
+                    //    name: 'Before', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeImage.html'
+                    //});
+                    //$scope.gridOptions.columnDefs.splice(2, 0, {
+                    //    name: 'After', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/AfterImage.html'
+                    //});
+                    //$scope.gridOptions.columnDefs.splice(3, 0, {
+                    //    name: 'Notes', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Notes.html'
+                    //});
+                    $scope.gridOptions.columnDefs.push({
+                        field: 'CustomerName', name: 'Customer Name', cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'CustomerName', name: 'Customer Name', cellTooltip: true
+                        field: 'LocationName', name: 'Location Name', cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'LocationName', name: 'Location Name', cellTooltip: true
+                        field: 'SurveyName', name: 'Survey Name', cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'SurveyName', name: 'Survey Name', cellTooltip: true
-                    });
-                    $scope.gridOptions.columnDefs.push({
-                        field: 'ProductName', name: 'Product Name', cellTooltip: true
+                        field: 'ProductName', name: 'Product Name', cellTooltip: true, headerTooltip: true
                     });
                     var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],
                         length = exclude.length;
@@ -88,12 +91,12 @@
                         keys.push(key)
                         if ((!key.includes("Id") && !key.includes("Name") && !exclude.includes(key))) {
                             $scope.gridOptions.columnDefs.push({
-                                name: key, cellTooltip: true
+                                name: key, cellTooltip: true, headerTooltip: true
                             });
                         }
                     }
                     $scope.gridOptions.columnDefs.push({
-                        name: 'Created', cellTooltip: true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
+                        name: 'Created', cellTooltip: true, headerTooltip:true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | date: "MM/dd/yyyy h:mm:ss a": "UTC"}}</div>'
                     });
                 }, function (error) {
                     toastr.error("There was an error getting all the data.");

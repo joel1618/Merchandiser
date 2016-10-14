@@ -49,7 +49,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public IHttpActionResult Create(QuestionViewModel item)
         {
             item.CreatedBy = User.Identity.GetUserId();
-            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name && e.IsRequired == item.IsRequired).FirstOrDefault();
+            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name).FirstOrDefault();
             if (record != null)
             {
                 return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");

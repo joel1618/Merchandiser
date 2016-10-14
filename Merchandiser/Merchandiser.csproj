@@ -464,6 +464,7 @@
     <Content Include="App\ApplicationComponents\Reporting\Modal\Note\NoteModal.html" />
     <Content Include="App\ApplicationComponents\Reporting\Modal\Note\NoteModalController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\AfterImage.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\BeforeAfterNotes.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\BeforeImage.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\Notes.html" />
