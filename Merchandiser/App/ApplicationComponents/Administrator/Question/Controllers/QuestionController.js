@@ -14,7 +14,7 @@
             data: [],
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Customer Name', cellTooltip: true },
+                { field: 'Name', name: 'Name', cellTooltip: true },
                 { field: 'IsRequired', name: 'Required', cellTooltip: true},
                 { field: 'IsTrueFalse', name: 'True False', cellTooltip: true}
             ]

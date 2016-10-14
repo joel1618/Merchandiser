@@ -3,7 +3,7 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('main.admin.productcategory.addedit', {
-            url: "/addedit",
+            url: "/addedit/:id",
             templateUrl: "ApplicationComponents/Administrator/ProductCategory/Views/ProductCategoryAddEdit.html"
         })
     });

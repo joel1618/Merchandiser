@@ -24,7 +24,7 @@
             data: [],
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Product Category Name', cellTooltip: true }
+                { field: 'Name', name: 'Name', cellTooltip: true }
             ]
         };
         $scope.Search();
