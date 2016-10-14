@@ -9,6 +9,10 @@
     });
     angular.module('Main').controller('ReportController', ['$scope', '$state', 'SelectionApplicationService',
     function controller($scope, $state, SelectionApplicationService) {
+        $scope.SelectedCompany = SelectionApplicationService.GetCompany();
+        $scope.SelectedCustomer = SelectionApplicationService.GetCustomer();
+        $scope.SelectedLocation = SelectionApplicationService.GetLocation();
+        $scope.SelectedSurvey = SelectionApplicationService.GetSurvey();
     }]);
 
 })(moment);
