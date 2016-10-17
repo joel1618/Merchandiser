@@ -17,11 +17,19 @@
         $scope.Search = function () {
             var predicate = {
                 and: [
-                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                   { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
-                   { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
+                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
                 ]
             }
+            if(SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
+                    ]
+                }
+            }
+
             SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
                 $scope.Survey = data;
             });
