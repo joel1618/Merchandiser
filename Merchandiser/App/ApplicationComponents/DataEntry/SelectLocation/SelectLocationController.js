@@ -26,6 +26,9 @@
                 ]
             }
             LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                if (data.length < 1) {
+                    $scope.LocationServicesDisabled = true;
+                }
                 $scope.Location = data;
             });
         }

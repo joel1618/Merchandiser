@@ -3,7 +3,7 @@
             <h4>Positions</h4>
             <ul class="list-group" style="height: 75vh; overflow: hidden; overflow-y: scroll;">
                 <li class="list-group-item" ng-repeat="position in positions" ng-click="SelectPosition(position)" ng-style="position.Id === SelectedPosition.Id ? {'background-color': '#428bca'} : { 'background-color': 'white'} ">
-                    {{position.FirstName}} {{position.LastName}} {{position.Created | date: 'MM/dd/yyyy'}}
+                    {{position.FirstName}} {{position.LastName}} {{position.Created | dateLocalize | date: 'MM/dd/yyyy' }}
                 </li>
             </ul>
         </div>

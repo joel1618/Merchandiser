@@ -5,7 +5,8 @@
                 <h3 class="text-center">Select Location</h3>
                 <button class="btn btn-primary pull-right btn-sm" ng-click="Continue()" ng-show="IsContinueShown()">Continue</button>
                 <div ng-show="LocationServicesDisabled">
-                    <label>City or Address</label>
+                    <label>City or Address</label><br/>
+                    <small>Location services is disabled or your location is not accurate enough.  Search by address or city below.</small>
                     <input type="text"
                            class="form-control"
                            typeahead-no-results="noResultsAddress"
@@ -43,6 +44,8 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-xs btn-primary" ng-click="LocationServicesDisabled = !LocationServicesDisabled">Manual Search</button>
+        <br/>
         <small>*Locations within a 5 mile radius of your current location</small>
     </div>
 </div>
