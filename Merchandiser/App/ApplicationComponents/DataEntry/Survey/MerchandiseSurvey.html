@@ -86,27 +86,28 @@
                                     </md-input-container>
                                 </td>
                                 <td ng-show="item.Question.IsTrueFalse">
-                                    <button ng-click="item.Answer = 'True'" class="btn btn-primary btn-sm">True</button>
-                                    <button ng-click="item.Answer = 'False'" class="btn btn-primary btn-sm">False</button>
-                                    <button ng-click="item.Answer = ''" class="btn btn-primary btn-sm">Clear</button>
+                                    <button ng-click="item.Answer = 'True'" class="btn btn-primary btn-xs">True</button><br />
+                                    <button ng-click="item.Answer = 'False'" class="btn btn-primary btn-xs">False</button><br />
+                                    <button ng-click="item.Answer = ''" class="btn btn-primary btn-xs">Clear</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <br />
+                    <label>After Image</label>
+                    <small>*Please turn phones sideways to take picture.</small>
+                    <br />
+                    <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
+                    <label class="btn btn-primary btn-sm btn-file">
+                        Choose File <input after-image type="file" accept="image/*" style="display: none;">
+                    </label>
+                    <button class="btn btn-danger btn-sm" ng-click="DeleteAfterImage()" ng-disabled="Header.AfterImage == null && AfterImage == null">Delete Image</button>
+                    <br />
+                    <img id="AfterImage" ng-if="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
+                    <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
+                    <br />
                     <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
-                </form>
-                <label>After Image</label>
-                <small>*Please turn phones sideways to take picture.</small>
-                <br />
-                <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
-                <label class="btn btn-primary btn-sm btn-file">
-                    Choose File <input after-image type="file" accept="image/*" style="display: none;">
-                </label>
-                <button class="btn btn-danger btn-sm" ng-click="DeleteAfterImage()" ng-disabled="Header.AfterImage == null && AfterImage == null">Delete Image</button>
-                <br />
-                <img id="AfterImage" ng-if="AfterImage" ng-src="{{AfterImage}}" ng-show="AfterImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
-                <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
-                <br />
+                </form>                
             </div>
         </div>
     </div>

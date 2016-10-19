@@ -14,12 +14,8 @@
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
         RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
         
+        $scope.Survey = [];
         $scope.Search = function () {
-            var predicate = {
-                and: [
-                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-                ]
-            }
             if(SelectionApplicationService.GetRedirectState() == 'main.survey') {
                 var predicate = {
                     and: [
@@ -28,18 +24,34 @@
                        { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
                     ]
                 }
+                SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    angular.forEach(data, function (value, key) {
+                        $scope.Survey.push({
+                            Id: value.Survey.Id,
+                            Name: value.Survey.Name
+                        })
+                    });
+                });
             }
-
-            SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                $scope.Survey = data;
-            });
+            else {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+                    ]
+                }
+                SurveyService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    $scope.Survey = data;
+                });
+            }
         }
         $scope.Search();
 
         $scope.Select = function (item) {
-            SelectionApplicationService.SetSurvey(item.Survey);
-            SelectionApplicationService.SetSurveyId(item.Survey.Id);
-            $state.go(SelectionApplicationService.GetRedirectState());
+            SurveyService.Get(item.Id).then(function (data) {
+                SelectionApplicationService.SetSurvey(data);
+                SelectionApplicationService.SetSurveyId(data.Id);
+                $state.go(SelectionApplicationService.GetRedirectState());
+            });
         }
 
         $scope.Continue = function () {
