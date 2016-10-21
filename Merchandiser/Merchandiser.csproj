@@ -1556,6 +1556,9 @@
     <Content Include="bower_components\ui-grid\src\templates\ui-grid\uiGridRenderContainer.html" />
     <Content Include="bower_components\ui-grid\src\templates\ui-grid\uiGridViewport.html" />
     <Content Include="gulpfile.js" />
+    <Content Include="Properties\PublishProfiles\Merchandiser - FTP.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\Merchandiser - Web Deploy.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\Release.pubxml.user" />
     <Content Include="public\assets\css\site.css" />
     <Content Include="public\assets\css\site.min.css" />
     <Content Include="public\assets\css\ui-grid.svg" />
