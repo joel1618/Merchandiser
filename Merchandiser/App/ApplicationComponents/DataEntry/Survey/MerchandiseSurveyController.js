@@ -38,6 +38,7 @@
             if (SelectionApplicationService.GetSurveyHeaderId() != null) {
                 var predicate = { "Id": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
                 SurveyHeaderService.Search(predicate, ["Created desc"], 0, 1, false).then(function (data) {
+                    $scope.Survey = data[0].Survey;
                     $scope.Header = data[0];
                 })
                 var predicate = { "SurveyHeaderId": { "==": SelectionApplicationService.GetSurveyHeaderId() } };
@@ -50,6 +51,7 @@
             else {
                 var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
                 SurveyProductQuestionService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
+                    $scope.Survey = data[0].Survey;
                     $scope.Detail = data;
                 });
             }

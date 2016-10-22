@@ -23,5 +23,6 @@ namespace Merchandiser.Models
 
         public virtual ProductViewModel Product { get; set; }
         public virtual QuestionViewModel Question { get; set; }
+        public virtual SurveyViewModel Survey { get; set; }
     }
 }

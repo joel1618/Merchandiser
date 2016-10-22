@@ -52,7 +52,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Survey = new SurveyViewModel()
                 {
                     Id = x.Survey.Id,
-                    Name = x.Survey.Name
+                    Name = x.Survey.Name,
+                    IsNoteRequired = x.Survey.IsNoteRequired
                 }
             });
             return response;

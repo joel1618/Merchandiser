@@ -46,6 +46,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     IsRequired = x.Question.IsRequired,
                     IsTrueFalse = x.Question.IsTrueFalse
                 },
+                Survey = new SurveyViewModel()
+                {
+                    Id = x.Survey.Id,
+                    Name = x.Survey.Name,
+                    IsNoteRequired = x.Survey.IsNoteRequired
+                },
                 Created = x.Created
             });
             return response;

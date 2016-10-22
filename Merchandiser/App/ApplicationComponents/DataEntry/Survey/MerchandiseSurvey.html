@@ -1,49 +1,57 @@
 ﻿<div ng-controller="MerchandiseSurveyController">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div affix-resizer>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <div class="panel panel-primary" style="max-width:375px;">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Survey Information</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <label for="surveyName">Survey Name</label>
-                                    <p id="surveyName">{{Survey.Name}}</p>
-                                    <label for="customer">Customer Name</label>
-                                    <p id="customer">{{Customer.Name}}</p>
-                                    <label for="locationName">Location Name</label>
-                                    <p id="locationName">{{Location.Name}}</p>
-                                    <label for="locationAddress">Location Address</label>
-                                    <p id="locationAddress">{{Location.Address}}</p>
-                                    <label for="manager">Location Manager</label>
-                                    <p id="manager">{{Location.AreaManager}}</p>
+            <form name="outerForm" novalidate>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div affix-resizer>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <div class="panel panel-primary" style="max-width:375px;">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Survey Information</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <label for="surveyName">Survey Name</label>
+                                        <p id="surveyName">{{Survey.Name}}</p>
+                                        <label for="customer">Customer Name</label>
+                                        <p id="customer">{{Customer.Name}}</p>
+                                        <label for="locationName">Location Name</label>
+                                        <p id="locationName">{{Location.Name}}</p>
+                                        <label for="locationAddress">Location Address</label>
+                                        <p id="locationAddress">{{Location.Address}}</p>
+                                        <label for="manager">Location Manager</label>
+                                        <p id="manager">{{Location.AreaManager}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-8 col-md-12 col-sm-12">
-                            <label for="notes">Notes</label>
-                            <textarea class="form-control" id="notes" ng-model="Header.Notes" style="height:200px; width:100vh;">{{Header.Notes}}</textarea>
+                            <div class="col-lg-8 col-md-12 col-sm-12" ng-form name="noteForm">
+                                <md-input-container>
+                                    <label for="notes">Notes</label>
+                                    <textarea class="form-control" id="notes" name="Note" ng-model="Header.Notes" style="width:100vh;" md-maxlength="1000" rows="10" md-select-on-focus ng-required="Survey.IsNoteRequired">{{Header.Notes}}</textarea>
+                                    <div ng-messages="noteForm.Note.$error">
+                                        <div ng-message="required" class="my-message">This is required!</div>
+                                        <div ng-message="md-maxlength" class="my-message">
+                                            The max length is 25 characters.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <label>Before Image</label>
-                <small>*Please turn phones sideways to take picture.</small>
-                <br />
-                <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
-                <label class="btn btn-primary btn-sm btn-file">
-                    Choose Image <input before-image type="file" accept="image/*" style="display: none;">
-                </label>
-                <button class="btn btn-danger btn-sm" ng-click="DeleteBeforeImage()" ng-disabled="Header.BeforeImage == null && BeforeImage == null">Delete Image</button>
-                <br />
-                <img id="BeforeImage" ng-if="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
-                <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
-                <br />
-                <form name="outerForm" novalidate>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Before Image</label>
+                    <small>*Please turn phones sideways to take picture.</small>
+                    <br />
+                    <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
+                    <label class="btn btn-primary btn-sm btn-file">
+                        Choose Image <input before-image type="file" accept="image/*" style="display: none;">
+                    </label>
+                    <button class="btn btn-danger btn-sm" ng-click="DeleteBeforeImage()" ng-disabled="Header.BeforeImage == null && BeforeImage == null">Delete Image</button>
+                    <br />
+                    <img id="BeforeImage" ng-if="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
+                    <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
+                    <br />
                     <table border="1">
                         <thead>
                             <tr>
@@ -78,10 +86,13 @@
                                 <td>
                                     <md-input-container>
                                         <input class="form-control input-sm" type="text" name="Answer" placeholder=""
-                                               ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" maxlength="25"
+                                               ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" md-maxlength="25"
                                                style="color:black;" />
                                         <div ng-messages="innerForm.Answer.$error">
-                                            <div ng-message="required">This is required!</div>
+                                            <div ng-message="required" class="my-message">This is required!</div>
+                                            <div ng-message="md-maxlength" class="my-message">
+                                                The max length is 25 characters.
+                                            </div>
                                         </div>
                                     </md-input-container>
                                 </td>
@@ -107,8 +118,8 @@
                     <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
                     <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
-                </form>                
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
