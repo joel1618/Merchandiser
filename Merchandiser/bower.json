@@ -31,7 +31,8 @@
     "angular-material": "1.1.1",
     "ng-focus-if": "1.0.7",
     "angular-bootstrap-affix": "0.2.2",
-    "angular-jquery": "0.2.1"
+    "angular-jquery": "0.2.1",
+    "ui-grid-draggable-rows": "0.3.2"
   },
   "resolutions": {
     "jquery": "1.9.1 - 3",

@@ -28,6 +28,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 SurveyId = x.SurveyId,
+                RowOrder = x.RowOrder,
                 Product = new ProductViewModel()
                 {
                     Id = x.Product.Id,

@@ -13,6 +13,7 @@ namespace Merchandiser.Models
         [Required]
         public Guid CompanyId { get; set; }
         public string Name { get; set; }
+        public bool IsNoteRequired { get; set; }
         public DateTime Modifed { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }

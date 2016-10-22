@@ -3,9 +3,15 @@
     <div class="col-md-4">
         <div ng-form="form">
             <fieldset class="form-group">
-                <label>Question Name</label>
-                <input type="text" class="form-control" ng-model="item.Name" required focus-if="focus" ng-blur="focus = false" />
-                <br />
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input type="text" name="Name" class="form-control" ng-model="item.Name" required focus-if="focus" ng-blur="focus = false" pattern="^[a-zA-Z0-9]+$" />
+                    <div ng-messages="form.Name.$error" role="alert">
+                        <div ng-message-exp="['required', 'pattern']">
+                            Your question must be made up of letters and numbers only.
+                        </div>
+                    </div>
+                </md-input-container>
                 <md-switch class="md-primary" aria-label="Is Required" ng-model="item.IsRequired">
                     <b>Is Required</b>
                     <small>This option will make the question required</small>

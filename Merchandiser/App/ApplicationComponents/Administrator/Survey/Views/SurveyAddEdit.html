@@ -6,6 +6,10 @@
                 <label>Survey Name</label>
                 <input type="text" class="form-control" ng-model="item.Name" required focus-if="focus" ng-blur="focus = false"  />
                 <br />
+                <md-switch class="md-primary" aria-label="Is Note Required" ng-model="item.IsNoteRequired">
+                    <b>Is Note Required</b>
+                    <small>This option will make the survey note required</small>
+                </md-switch>
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>
         </div>

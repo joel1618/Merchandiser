@@ -34,6 +34,7 @@ namespace Merchandiser.Repositories
             record.CreatedBy = item.CreatedBy;
             record.Created = DateTime.UtcNow;
             record.CompanyId = item.CompanyId;
+            record.RowOrder = item.RowOrder;
             context.SurveyProductQuestions.Add(record);
             context.SaveChanges();
             return item;
@@ -42,6 +43,7 @@ namespace Merchandiser.Repositories
         public SurveyProductQuestion Update(Guid id, SurveyProductQuestion item)
         {
             var entity = context.SurveyProductQuestions.Find(id);
+            entity.RowOrder = item.RowOrder;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;

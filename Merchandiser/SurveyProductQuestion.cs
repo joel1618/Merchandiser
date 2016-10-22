@@ -23,6 +23,7 @@ namespace Merchandiser
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public int RowOrder { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Product Product { get; set; }
