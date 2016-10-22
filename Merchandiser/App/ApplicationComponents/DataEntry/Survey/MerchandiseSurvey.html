@@ -27,11 +27,14 @@
                             <div class="col-lg-8 col-md-12 col-sm-12" ng-form name="noteForm">
                                 <md-input-container>
                                     <label for="notes">Notes</label>
-                                    <textarea class="form-control" id="notes" name="Note" ng-model="Header.Notes" style="width:100vh;" md-maxlength="1000" rows="10" md-select-on-focus ng-required="Survey.IsNoteRequired">{{Header.Notes}}</textarea>
+                                    <textarea class="form-control" id="notes" name="Note" ng-model="Header.Notes" style="width:100vh;" md-maxlength="1000" md-minlength="60" rows="10" md-select-on-focus ng-required="Survey.IsNoteRequired">{{Header.Notes}}</textarea>
                                     <div ng-messages="noteForm.Note.$error">
                                         <div ng-message="required" class="my-message">This is required!</div>
                                         <div ng-message="md-maxlength" class="my-message">
-                                            The max length is 25 characters.
+                                            The max length is 1000 characters
+                                        </div>
+                                        <div ng-message="md-minlength" class="my-message">
+                                            The min length is 60 characters
                                         </div>
                                     </div>
                                 </md-input-container>
