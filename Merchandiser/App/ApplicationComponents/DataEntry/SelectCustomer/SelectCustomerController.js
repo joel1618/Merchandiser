@@ -17,7 +17,12 @@
         $scope.Search = function () {
             var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
             CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                $scope.Customer = data;
+                if (data.length == 1) {
+                    $scope.Select(data[0]);
+                }
+                else {
+                    $scope.Customer = data;
+                }
             });
         }
         $scope.Search();

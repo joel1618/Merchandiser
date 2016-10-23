@@ -16,7 +16,12 @@
 
         $scope.Search = function () {
             CompanyService.Search(null, ["Name desc"], 0, 20, false).then(function (data) {
-                $scope.Company = data;
+                if (data.length == 1) {
+                    $scope.Select(data[0]);
+                }
+                else {
+                    $scope.Company = data;
+                }
             });
         }
         $scope.Search();

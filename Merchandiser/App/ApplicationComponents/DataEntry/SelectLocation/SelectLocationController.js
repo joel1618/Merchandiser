@@ -45,8 +45,14 @@
                     ]
                 }
                 LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    if (SelectionApplicationService.GetRole() == "Customer") {
+                        $state.go('main.selectsurvey');
+                    }
                     if (data.length < 1) {
                         $scope.LocationServicesDisabled = true;
+                    }
+                    else if (data.length == 1) {
+                        $scope.Select(data[0]);
                     }
                     $scope.Location = data;
                 });

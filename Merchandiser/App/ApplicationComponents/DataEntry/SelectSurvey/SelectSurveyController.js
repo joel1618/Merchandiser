@@ -40,6 +40,9 @@
                     ]
                 }
                 SurveyService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    if (SelectionApplicationService.GetRole() == "Customer") {
+                        $state.go(SelectionApplicationService.GetRedirectState());
+                    }
                     $scope.Survey = data;
                 });
             }
