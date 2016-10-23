@@ -117,6 +117,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         })
         .then(function (data) {
             if (data.length > 0) {
+                SelectionApplicationService.SetRole("Administrator");
                 $state.go('main.admin.company.addedit');
             }
             else {
@@ -135,6 +136,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         })
         .then(function (data) {
             if (data.length > 0) {
+                SelectionApplicationService.SetRole("Data Entry");
                 SelectionApplicationService.SetRedirectState('main.survey');
                 $state.go('main.selectcompany');
             }
@@ -154,6 +156,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         })
         .then(function (data) {
             if (data.length > 0) {
+                SelectionApplicationService.SetRole("Customer");
                 SelectionApplicationService.SetRedirectState('main.report.surveyreport');
                 $state.go('main.selectcompany');
             }

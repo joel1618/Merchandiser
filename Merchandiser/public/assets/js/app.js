@@ -114,6 +114,16 @@ angular.module('ApplicationServices').service('SelectionApplicationService', fun
         this.NotifyObservers();
     }
 
+    this.Role = null;
+    this.GetRole = function () {
+        return this.Role;
+    }
+
+    this.SetRole = function (role) {
+        this.Role = role;
+        this.NotifyObservers();
+    }
+
     this.Clear = function () {
         this.RedirectState = null;
 
@@ -2255,6 +2265,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         })
         .then(function (data) {
             if (data.length > 0) {
+                SelectionApplicationService.SetRole("Administrator");
                 $state.go('main.admin.company.addedit');
             }
             else {
@@ -2273,6 +2284,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         })
         .then(function (data) {
             if (data.length > 0) {
+                SelectionApplicationService.SetRole("Data Entry");
                 SelectionApplicationService.SetRedirectState('main.survey');
                 $state.go('main.selectcompany');
             }
@@ -2292,6 +2304,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         })
         .then(function (data) {
             if (data.length > 0) {
+                SelectionApplicationService.SetRole("Customer");
                 SelectionApplicationService.SetRedirectState('main.report.surveyreport');
                 $state.go('main.selectcompany');
             }
@@ -2327,6 +2340,10 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                 $window.location.reload();
             });
         }
+
+        SelectionApplicationService.RegisterObserver(function () {
+            $scope.Role = SelectionApplicationService.GetRole();
+        })
     }]);
 
 })(moment);
@@ -3367,6 +3384,50 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
+        .state('main.selectcustomer', {
+            url: "/selectcustomer/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectCustomer/SelectCustomer.html"
+        })
+    });
+    angular.module('Main').controller('SelectCustomerController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
+        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
+        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
+
+        $scope.Search = function () {
+            var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
+            CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                $scope.Customer = data;
+            });
+        }
+        $scope.Search();
+
+        $scope.Select = function (item) {
+            SelectionApplicationService.SetCustomer(item);
+            SelectionApplicationService.SetCustomerId(item.Id);
+            $state.go('main.selectlocation');
+        }
+
+        $scope.Continue = function () {
+            $state.go('main.selectlocation');
+        }
+
+        $scope.IsContinueShown = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
         .state('main.selectlocation', {
             url: "/selectlocation/:redirectState",
             templateUrl: "ApplicationComponents/DataEntry/SelectLocation/SelectLocation.html"
@@ -3465,34 +3526,60 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('main.selectcustomer', {
-            url: "/selectcustomer/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectCustomer/SelectCustomer.html"
+        .state('main.selectsurvey', {
+            url: "/selectsurvey/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectSurvey/SelectSurvey.html"
         })
     });
-    angular.module('Main').controller('SelectCustomerController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+    angular.module('Main').controller('SelectSurveyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
         'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
         RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
-
+        
+        $scope.Survey = [];
         $scope.Search = function () {
-            var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
-            CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                $scope.Customer = data;
-            });
+            if(SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
+                    ]
+                }
+                SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    angular.forEach(data, function (value, key) {
+                        $scope.Survey.push({
+                            Id: value.Survey.Id,
+                            Name: value.Survey.Name
+                        })
+                    });
+                });
+            }
+            else {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+                    ]
+                }
+                SurveyService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    $scope.Survey = data;
+                });
+            }
         }
         $scope.Search();
 
         $scope.Select = function (item) {
-            SelectionApplicationService.SetCustomer(item);
-            SelectionApplicationService.SetCustomerId(item.Id);
-            $state.go('main.selectlocation');
+            SurveyService.Get(item.Id).then(function (data) {
+                SelectionApplicationService.SetSurvey(data);
+                SelectionApplicationService.SetSurveyId(data.Id);
+                $state.go(SelectionApplicationService.GetRedirectState());
+            });
         }
 
         $scope.Continue = function () {
-            $state.go('main.selectlocation');
+            $state.go(SelectionApplicationService.GetRedirectState());
         }
 
         $scope.IsContinueShown = function () {
@@ -3686,76 +3773,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
             }
             else {
                 $scope.Header.IsAfterImage = false;
-            }
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('main.selectsurvey', {
-            url: "/selectsurvey/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectSurvey/SelectSurvey.html"
-        })
-    });
-    angular.module('Main').controller('SelectSurveyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
-        
-        $scope.Survey = [];
-        $scope.Search = function () {
-            if(SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
-                       { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
-                    ]
-                }
-                SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                    angular.forEach(data, function (value, key) {
-                        $scope.Survey.push({
-                            Id: value.Survey.Id,
-                            Name: value.Survey.Name
-                        })
-                    });
-                });
-            }
-            else {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-                    ]
-                }
-                SurveyService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                    $scope.Survey = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Select = function (item) {
-            SurveyService.Get(item.Id).then(function (data) {
-                SelectionApplicationService.SetSurvey(data);
-                SelectionApplicationService.SetSurveyId(data.Id);
-                $state.go(SelectionApplicationService.GetRedirectState());
-            });
-        }
-
-        $scope.Continue = function () {
-            $state.go(SelectionApplicationService.GetRedirectState());
-        }
-
-        $scope.IsContinueShown = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                return false;
-            }
-            else {
-                return true;
             }
         }
     }]);

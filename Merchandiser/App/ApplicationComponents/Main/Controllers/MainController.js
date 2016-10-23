@@ -25,6 +25,10 @@
                 $window.location.reload();
             });
         }
+
+        SelectionApplicationService.RegisterObserver(function () {
+            $scope.Role = SelectionApplicationService.GetRole();
+        })
     }]);
 
 })(moment);

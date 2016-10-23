@@ -109,6 +109,16 @@
         this.NotifyObservers();
     }
 
+    this.Role = null;
+    this.GetRole = function () {
+        return this.Role;
+    }
+
+    this.SetRole = function (role) {
+        this.Role = role;
+        this.NotifyObservers();
+    }
+
     this.Clear = function () {
         this.RedirectState = null;
 
