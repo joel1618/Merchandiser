@@ -15,22 +15,43 @@
         RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
         
         $scope.LocationServicesDisabled = false;
+        $scope.Location = [];
         $scope.Search = function () {
-            var predicate = {
-                and: [
-                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                   { "Latitude": { '>=': $scope.Latitude - .0725 } },
-                   { "Latitude": { '<=': $scope.Latitude + .0725 } },
-                   { "Longitude": { '>=': $scope.Longitude - .0725 } },
-                   { "Longitude": { '<=': $scope.Longitude + .0725 } }
-                ]
-            }
-            LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                if (data.length < 1) {
-                    $scope.LocationServicesDisabled = true;
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
+                    ]
                 }
-                $scope.Location = data;
-            });
+                SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    angular.forEach(data, function (value, key) {
+                        $scope.Location.push({
+                            Id: value.Location.Id,
+                            Name: value.Location.Name,
+                            Address: value.Location.Address
+                        })
+                    });
+                });
+            }
+            else {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
+                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
+                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
+                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
+                    ]
+                }
+                LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    if (data.length < 1) {
+                        $scope.LocationServicesDisabled = true;
+                    }
+                    $scope.Location = data;
+                });
+            }
+            
         }
         navigator.geolocation.getCurrentPosition(function (position) {
             $scope.Latitude = position.coords.latitude;
