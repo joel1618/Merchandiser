@@ -42,6 +42,7 @@
                 ]
             }
             return QuestionService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+
                 return data;
             });
         }
@@ -63,8 +64,10 @@
             else {
                 $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 $scope.item.SurveyId = SelectionApplicationService.GetSurveyId();
+                $scope.item.RowOrder = $scope.$parent.gridOptions.data.length;
                 SurveyProductQuestionService.Create($scope.item).then(function (data) {
-                    $scope.$parent.gridOptions.data.splice(0, 0, data.data);
+                    $scope.$parent.gridOptions.data.splice($scope.$parent.gridOptions.data.length, 0, data.data);
+                    $scope.$parent.gridOptions.gridApi.core.scrollTo($scope.gridOptions.data[$scope.gridOptions.data.length - 1], $scope.gridOptions.columnDefs[0]);
                     $scope.Init();
                 }, function (error) {
                     toastr.error(error.data, error.statusText);

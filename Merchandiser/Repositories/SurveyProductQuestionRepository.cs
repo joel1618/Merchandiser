@@ -37,7 +37,7 @@ namespace Merchandiser.Repositories
             record.RowOrder = item.RowOrder;
             context.SurveyProductQuestions.Add(record);
             context.SaveChanges();
-            return item;
+            return Get(record.Id);
         }
 
         public SurveyProductQuestion Update(Guid id, SurveyProductQuestion item)

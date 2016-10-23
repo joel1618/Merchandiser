@@ -50,7 +50,7 @@
             }
             else {
                 var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
-                SurveyProductQuestionService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
+                SurveyProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
                     $scope.Survey = data[0].Survey;
                     $scope.Detail = data;
                 });
@@ -59,7 +59,7 @@
         $scope.Search();
 
         $scope.sort = {
-            column: ['Product.Name', 'Product.Name'],
+            column: ['RowOrder', 'Product.Name'],
             descending: false
         };
         $scope.changeSorting = function (column) {

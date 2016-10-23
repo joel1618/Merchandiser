@@ -15,9 +15,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
     public class SurveyProductQuestionApiController : ApiController
     {
         SurveyProductQuestionRepository repository;
+        ProductRepository productRepository;
+        QuestionRepository questionRepository;
         public SurveyProductQuestionApiController()
         {
             this.repository = new SurveyProductQuestionRepository();
+            this.productRepository = new ProductRepository();
+            this.questionRepository = new QuestionRepository();
         }
 
         [HttpGet]
@@ -73,6 +77,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
             }
             var response = repository.Create(item.ToEntity()).ToViewModel();
+            response.Product = productRepository.Get(response.ProductId).ToViewModel();
+            response.Question = questionRepository.Get(response.QuestionId).ToViewModel();
             return Ok(response);
         }
 
