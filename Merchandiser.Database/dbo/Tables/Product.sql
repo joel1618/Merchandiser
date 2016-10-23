@@ -7,10 +7,12 @@
     [ModifiedBy]        NVARCHAR (128)   NULL,
     [Created]           DATETIME         NOT NULL,
     [CreatedBy]         NVARCHAR (128)   NOT NULL,
-    CONSTRAINT [PK__Product__3214EC0756B6BF14] PRIMARY KEY CLUSTERED ([Id] ASC),
+    PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Product_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
     CONSTRAINT [FK_Product_ProductCategory] FOREIGN KEY ([ProductCategoryId]) REFERENCES [dbo].[ProductCategory] ([Id])
 );
+
+
 
 
 
