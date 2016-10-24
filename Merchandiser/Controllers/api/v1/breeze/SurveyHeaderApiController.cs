@@ -37,6 +37,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Notes = x.Notes,
                 IsBeforeImage = x.IsBeforeImage,
                 IsAfterImage = x.IsAfterImage,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude,
                 Location = new LocationViewModel()
                 {
                     Id = x.Location.Id,
@@ -54,7 +56,19 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     Id = x.Survey.Id,
                     Name = x.Survey.Name,
                     IsNoteRequired = x.Survey.IsNoteRequired
-                }
+                },
+                CreatedUser = new UserViewModel()
+                {
+                    Id = x.AspNetUser.Id,
+                    UserName = x.AspNetUser.UserName
+                },
+                ModifiedUser = new UserViewModel()
+                {
+                    Id = x.AspNetUser1.Id,
+                    UserName = x.AspNetUser1.UserName
+                },
+                FirstName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().FirstName,
+                LastName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().LastName
             });
             return response;
         }

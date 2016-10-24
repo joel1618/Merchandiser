@@ -19,11 +19,11 @@ namespace Merchandiser
         public System.Guid SurveyId { get; set; }
         public System.Guid ProductId { get; set; }
         public System.Guid QuestionId { get; set; }
+        public int RowOrder { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public int RowOrder { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Product Product { get; set; }

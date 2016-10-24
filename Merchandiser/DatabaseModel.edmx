@@ -534,6 +534,30 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyHeader_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyHeader_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="SurveyHeader" Type="Self.SurveyHeader" Multiplicity="*" />
@@ -757,6 +781,14 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             <End Role="SurveyHeader" EntitySet="SurveyHeader" />
             <End Role="SurveyDetail" EntitySet="SurveyDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_AspNetUsers" Association="Self.FK_SurveyHeader_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_AspNetUsers1" Association="Self.FK_SurveyHeader_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeader" />
+          </AssociationSet>
           <AssociationSet Name="FK_SurveyHeader_Company" Association="Self.FK_SurveyHeader_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="SurveyHeader" EntitySet="SurveyHeader" />
@@ -841,6 +873,14 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <AssociationSet Name="FK_AspNetUsersInfo_AspNetUsers" Association="MerchandiserModel.FK_AspNetUsersInfo_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUsersInfo" EntitySet="AspNetUsersInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_AspNetUsers" Association="MerchandiserModel.FK_SurveyHeader_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyHeader_AspNetUsers1" Association="MerchandiserModel.FK_SurveyHeader_AspNetUsers1">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Company" Association="MerchandiserModel.FK_Customer_Company">
             <End Role="Company" EntitySet="Companies" />
@@ -1008,6 +1048,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="AspNetUserLogins" Relationship="MerchandiserModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetUserRoles" Relationship="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserRole" />
           <NavigationProperty Name="AspNetUsersInfoes" Relationship="MerchandiserModel.FK_AspNetUsersInfo_AspNetUsers" FromRole="AspNetUser" ToRole="AspNetUsersInfo" />
+          <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers" FromRole="AspNetUser" ToRole="SurveyHeader" />
+          <NavigationProperty Name="SurveyHeaders1" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers1" FromRole="AspNetUser" ToRole="SurveyHeader" />
         </EntityType>
         <EntityType Name="AspNetUsersInfo">
           <Key>
@@ -1117,6 +1159,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsTrueFalse" Type="Boolean" Nullable="false" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
@@ -1124,8 +1168,6 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Question" ToRole="Company" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Question" FromRole="Question" ToRole="SurveyDetail" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="Question" ToRole="SurveyProductQuestion" />
-          <Property Name="IsRequired" Type="Boolean" Nullable="false" />
-          <Property Name="IsTrueFalse" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Survey">
           <Key>
@@ -1134,6 +1176,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsNoteRequired" Type="Boolean" Nullable="false" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
@@ -1142,7 +1185,6 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="Survey" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="Survey" ToRole="SurveyHeader" />
           <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="Survey" ToRole="SurveyProductQuestion" />
-          <Property Name="IsNoteRequired" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyCustomerLocation">
           <Key>
@@ -1199,6 +1241,8 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers" FromRole="SurveyHeader" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUser1" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers1" FromRole="SurveyHeader" ToRole="AspNetUser" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="SurveyHeader" ToRole="Company" />
           <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="SurveyHeader" ToRole="Customer" />
           <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="SurveyHeader" ToRole="Location" />
@@ -1214,6 +1258,7 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="SurveyId" Type="Guid" Nullable="false" />
           <Property Name="ProductId" Type="Guid" Nullable="false" />
           <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="RowOrder" Type="Int32" Nullable="false" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
@@ -1222,7 +1267,6 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <NavigationProperty Name="Product" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="SurveyProductQuestion" ToRole="Product" />
           <NavigationProperty Name="Question" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="SurveyProductQuestion" ToRole="Question" />
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="SurveyProductQuestion" ToRole="Survey" />
-          <Property Name="RowOrder" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Map">
           <Key>
@@ -1339,6 +1383,30 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
             </Principal>
             <Dependent Role="AspNetUsersInfo">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_AspNetUsers">
+          <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyHeader_AspNetUsers1">
+          <End Type="MerchandiserModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyHeader">
+              <PropertyRef Name="ModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1775,12 +1843,12 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="MerchandiserModel.Question">
               <MappingFragment StoreEntitySet="Question">
-                <ScalarProperty Name="IsTrueFalse" ColumnName="IsTrueFalse" />
-                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="IsTrueFalse" ColumnName="IsTrueFalse" />
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1790,11 +1858,11 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="Surveys">
             <EntityTypeMapping TypeName="MerchandiserModel.Survey">
               <MappingFragment StoreEntitySet="Survey">
-                <ScalarProperty Name="IsNoteRequired" ColumnName="IsNoteRequired" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="IsNoteRequired" ColumnName="IsNoteRequired" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1855,11 +1923,11 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <EntitySetMapping Name="SurveyProductQuestions">
             <EntityTypeMapping TypeName="MerchandiserModel.SurveyProductQuestion">
               <MappingFragment StoreEntitySet="SurveyProductQuestion">
-                <ScalarProperty Name="RowOrder" ColumnName="RowOrder" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="RowOrder" ColumnName="RowOrder" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />

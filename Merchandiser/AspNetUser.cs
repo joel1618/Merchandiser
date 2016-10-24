@@ -21,6 +21,8 @@ namespace Merchandiser
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetUserRoles = new HashSet<AspNetUserRole>();
             this.AspNetUsersInfoes = new HashSet<AspNetUsersInfo>();
+            this.SurveyHeaders = new HashSet<SurveyHeader>();
+            this.SurveyHeaders1 = new HashSet<SurveyHeader>();
         }
     
         public string Id { get; set; }
@@ -44,5 +46,9 @@ namespace Merchandiser
         public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsersInfo> AspNetUsersInfoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyHeader> SurveyHeaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyHeader> SurveyHeaders1 { get; set; }
     }
 }

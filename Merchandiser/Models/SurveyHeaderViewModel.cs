@@ -25,12 +25,20 @@ namespace Merchandiser.Models
 
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
         public DateTime Modified { get; set; }
         public string ModifiedBy { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
 
         public string Notes { get; set; }
+
+        public virtual UserViewModel CreatedUser { get; set; }
+
+        public virtual UserViewModel ModifiedUser { get; set; }
 
         public virtual LocationViewModel Location { get; set; }
 

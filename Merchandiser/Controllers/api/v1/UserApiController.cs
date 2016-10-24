@@ -11,6 +11,11 @@ namespace Merchandiser.Controllers.api.v1
     {
         public UserApiController() { }
 
+        public IHttpActionResult Search()
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("api/v1/UserApi/GetCurrentUser")]
         [HttpGet]
         public IHttpActionResult GetCurrentUser()

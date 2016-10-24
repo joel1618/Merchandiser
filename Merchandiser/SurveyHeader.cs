@@ -35,6 +35,8 @@ namespace Merchandiser
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual AspNetUser AspNetUser1 { get; set; }
         public virtual Company Company { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Location Location { get; set; }
