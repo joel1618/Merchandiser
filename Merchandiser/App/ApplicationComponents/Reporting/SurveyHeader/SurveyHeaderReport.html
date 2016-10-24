@@ -1,0 +1,7 @@
+﻿<div ng-controller="SurveyHeaderReportController">
+    Start Date:
+    <md-datepicker ng-model="StartDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
+    End Date:
+    <md-datepicker ng-model="EndDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
+    <div class="grid" ui-grid-infinite-scroll ui-grid="gridOptions"></div>
+</div>

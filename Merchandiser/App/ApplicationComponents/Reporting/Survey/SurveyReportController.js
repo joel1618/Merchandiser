@@ -15,9 +15,7 @@
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
         LocationService, CustomerService, SurveyService, MapService, ImageService, DownloadService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
-            $state.go('main.merchandise', {
-                redirectState: 'main.report.surveyreport'
-            });
+            $state.go('main.selectcompany');
         }
 
         $scope.StartDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().startOf('isoWeek').format("DD"));
@@ -38,7 +36,7 @@
         $scope.Page = 0;
         $scope.PageSize = 100;
         $scope.Search = function () {
-            ReportService.Search(SelectionApplicationService.GetCompanyId(), null, SelectionApplicationService.GetCustomerId(),
+            ReportService.Search(SelectionApplicationService.GetCompanyId(), SelectionApplicationService.GetSurveyHeaderId(), SelectionApplicationService.GetCustomerId(),
                 SelectionApplicationService.GetLocationId(), null, SelectionApplicationService.GetSurveyId(), null,
                 moment($scope.StartDate).format('YYYY-MM-DD'), moment($scope.EndDate).format('YYYY-MM-DD'),
                 $scope.Page, $scope.PageSize).then(function (data) {                    
@@ -62,15 +60,6 @@
                     $scope.gridOptions.columnDefs.splice(1, 0, {
                         name: 'Images/Notes', width: 65,  cellTooltip: true, headerTooltip: true, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
                     });
-                    //$scope.gridOptions.columnDefs.splice(1, 0, {
-                    //    name: 'Before', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeImage.html'
-                    //});
-                    //$scope.gridOptions.columnDefs.splice(2, 0, {
-                    //    name: 'After', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/AfterImage.html'
-                    //});
-                    //$scope.gridOptions.columnDefs.splice(3, 0, {
-                    //    name: 'Notes', width: 75, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Notes.html'
-                    //});
                     $scope.gridOptions.columnDefs.push({
                         field: 'CustomerName', name: 'Customer Name', cellTooltip: true, headerTooltip: true
                     });

@@ -463,6 +463,8 @@
     <Content Include="App\ApplicationComponents\Reporting\Modal\Image\ImageModalController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Modal\Note\NoteModal.html" />
     <Content Include="App\ApplicationComponents\Reporting\Modal\Note\NoteModalController.js" />
+    <Content Include="App\ApplicationComponents\Reporting\SurveyHeader\SurveyHeaderReport.html" />
+    <Content Include="App\ApplicationComponents\Reporting\SurveyHeader\SurveyHeaderReportController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\AfterImage.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\BeforeAfterNotes.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\EditDelete.html" />
@@ -2151,7 +2153,6 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\ApplicationComponents\Reporting\Note\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />
