@@ -1,4 +1,5 @@
 ﻿using Breeze.WebApi2;
+using Merchandiser.ControllerHelpers;
 using Merchandiser.Models;
 using Merchandiser.Models.Extensions;
 using Merchandiser.Repositories;
@@ -19,18 +20,21 @@ namespace Merchandiser.Controllers.api.v1.breeze
         SurveyHeaderRepository repository;
         SurveyDetailRepository detailRepository;
         ImageApiController imageApiController;
+        UserRoleRepository userRoleRepository;
         public SurveyHeaderApiController()
         {
             this.context = new MerchandiserEntities();
             this.repository = new SurveyHeaderRepository(context);
             this.detailRepository = new SurveyDetailRepository(context);
             this.imageApiController = new ImageApiController();
+            this.userRoleRepository = new UserRoleRepository();
         }
 
         [HttpGet]
-        public IQueryable<SurveyHeaderViewModel> Search()
+        public IQueryable<SurveyHeaderViewModel> Search(Guid companyId)
         {
-            var response = repository.Search().Select(x => new SurveyHeaderViewModel()
+            var userId = User.Identity.GetUserId();
+            var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new SurveyHeaderViewModel()
             {
                 Id = x.Id,
                 Created = x.Created,
