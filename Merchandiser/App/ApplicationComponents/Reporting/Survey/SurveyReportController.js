@@ -53,12 +53,14 @@
                     }).then(function (data) {
                         if (data == true) {
                             $scope.gridOptions.columnDefs.splice(0, 0, {
-                                name: 'Manage', width: 110, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
+                                name: 'Manage', width: 110, 
+                                cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html'
                             });
                         }
                     });
                     $scope.gridOptions.columnDefs.splice(1, 0, {
-                        name: 'Images/Notes', width: 65,  cellTooltip: true, headerTooltip: true, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
+                        name: 'Images/Notes', width: 65,  cellTooltip: true, headerTooltip: true, 
+                        cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
                     });
                     $scope.gridOptions.columnDefs.push({
                         field: 'CustomerName', name: 'Customer Name', cellTooltip: true, headerTooltip: true
@@ -85,7 +87,8 @@
                         }
                     }
                     $scope.gridOptions.columnDefs.push({
-                        name: 'Created', cellTooltip: true, headerTooltip:true, cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
+                        name: 'Created', cellTooltip: true, headerTooltip: true,
+                        cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
                     });
                 }, function (error) {
                     toastr.error("There was an error getting all the data.");

@@ -39,5 +39,7 @@ namespace Merchandiser
         public DbSet<SurveyProductQuestionViewModel> SurveyProductQuestionViewModel { get; set; }
 
         public DbSet<ProductCategoryViewModel> ProductCategoryViewModel { get; set; }
+
+        public DbSet<SurveyHeaderViewModel> SurveyHeaderViewModel { get; set; }
     }
 }

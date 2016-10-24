@@ -24,14 +24,14 @@
         $scope.DateChange = function () {
             $scope.Page = 0;
             $scope.data = [];
-            $scope.gridOptions.columnDefs = [];
+            //$scope.gridOptions.columnDefs = [];
             $scope.Search();
         }
 
         $scope.Search = function () {
             var predicate = {
                 and: [
-                    { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                    { "Company.Id": { "==": SelectionApplicationService.GetCompanyId() } },
                     { "Created": { ">=": moment($scope.StartDate).format('YYYY-MM-DD') } },
                     { "Created": { "<=": moment($scope.EndDate).format('YYYY-MM-DD') } }
                 ]
@@ -40,7 +40,7 @@
             if (SelectionApplicationService.GetLocationId() != null) { predicate.and.push({ "Location.Id": { "==": SelectionApplicationService.GetLocationId() } }) }
             if (SelectionApplicationService.GetSurveyId() != null) { predicate.and.push({ "Survey.Id": { "==": SelectionApplicationService.GetSurveyId() } }) }
             SurveyHeaderService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
-                $scope.positions = data;
+                $scope.data = data;
             });
         }
         NgMap.getMap().then(function (map) {

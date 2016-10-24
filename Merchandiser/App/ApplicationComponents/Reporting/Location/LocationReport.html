@@ -6,11 +6,11 @@
             <md-datepicker ng-model="EndDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
             <h4>Positions</h4>
             <ul class="list-group" style="height: 75vh; overflow: hidden; overflow-y: scroll;">
-                <li class="list-group-item" ng-repeat="position in positions" ng-click="SelectPosition(position)"
+                <li class="list-group-item" ng-repeat="position in data" ng-click="SelectPosition(position)"
                     ng-style="position.Id === SelectedPosition.Id ? {'background-color': '#428bca'} : { 'background-color': 'white'} ">
                     {{position.UserInfo.FirstName}} {{position.UserInfo.LastName}} {{position.Created | dateLocalize | date: 'MM/dd/yyyy' }} <br />
-                    Customer: {{position.Customer.Name}} <br />
-                    Location: {{position.Location.Name}}
+                    {{position.Customer.Name}} <br />
+                    {{position.Location.Name}}
                 </li>
             </ul>
         </div>

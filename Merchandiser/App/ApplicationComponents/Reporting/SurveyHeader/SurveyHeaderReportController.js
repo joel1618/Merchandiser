@@ -8,7 +8,7 @@
             templateUrl: "ApplicationComponents/Reporting/SurveyHeader/SurveyHeaderReport.html"
         })
     });
-    angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
+    angular.module('Main').controller('SurveyHeaderReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
         'LocationService', 'CustomerService', 'SurveyService', 'MapService', 'ImageService', 'DownloadService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
@@ -36,7 +36,7 @@
         $scope.Search = function () {
             var predicate = {
                 and: [
-                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                   { "Company.Id": { "==": SelectionApplicationService.GetCompanyId() } },
                    { "Created": { ">=" : moment($scope.StartDate).format('YYYY-MM-DD')}},
                    { "Created": { "<=" : moment($scope.EndDate).format('YYYY-MM-DD')}}
                 ]
@@ -49,7 +49,7 @@
             $scope.Page++;
             var predicate = {
                 and: [
-                   { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                   { "Company.Id": { "==": SelectionApplicationService.GetCompanyId() } },
                    { "Created": { ">=": moment($scope.StartDate).format('YYYY-MM-DD') } },
                    { "Created": { "<=": moment($scope.EndDate).format('YYYY-MM-DD') } }
                 ]
@@ -69,8 +69,17 @@
             infiniteScrollRowsFromEnd: 100,
             data: 'data',
             columnDefs: [
-                //{ name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                //{ field: 'Name', name: 'Name', cellTooltip: true }
+                {
+                    name: 'Detail', width: 65, cellTooltip: true, headerTooltip: true,
+                    cellTemplate: '<button class="btn btn-primary btn-sm" ng-click="grid.appScope.ViewDetail(row.entity)">Detail</button>'
+                },
+                { name: 'Images/Notes', width: 65, cellTooltip: true, headerTooltip: true, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html' },
+                { field: 'Customer.Name', name: 'Customer Name', cellTooltip: true, headerTooltip: true },
+                { field: 'Location.Name', name: 'Location Name', cellTooltip: true, headerTooltip: true },
+                {
+                    name: 'Created', cellTooltip: true, headerTooltip: true,
+                    cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
+                }
             ],
             onRegisterApi: function (gridApi) {
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
@@ -79,9 +88,60 @@
         };
         $scope.Search();
 
-        $scope.Select = function (item) {
+        $scope.ViewDetail = function (item) {
             SelectionApplicationService.SetSurveyHeaderId(item.Id);
             $state.go('main.report.surveyreport')
+        }
+
+        $scope.ViewNote = function (id) {
+            MapService.Get(id).then(function (data) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',
+                    controller: 'NoteModalController',
+                    //size: 'lg',
+                    resolve: {
+                        note: function () {
+                            return data.Notes;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function () {
+                    //modal closed
+                }, function () {
+                    //modal dismissed
+                });
+            });
+        }
+
+        $scope.ViewImage = function (id, title) {
+            if (title == 'Before Image') {
+                var image = "/api/v1/ImageApi/GetBeforeImage/" + id;
+            }
+            else {
+                var image = "/api/v1/ImageApi/GetAfterImage/" + id;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'ApplicationComponents/Reporting/Modal/Image/ImageModal.html',
+                controller: 'ImageModalController',
+                //size: 'lg',
+                resolve: {
+                    title: function () {
+                        return title;
+                    },
+                    image: function () {
+                        return image
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                //modal closed
+            }, function () {
+                //modal dismissed
+            });
         }
     }]);
 })(moment);
