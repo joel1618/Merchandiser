@@ -8,7 +8,7 @@
             <ul class="list-group" style="height: 75vh; overflow: hidden; overflow-y: scroll;">
                 <li class="list-group-item" ng-repeat="position in positions" ng-click="SelectPosition(position)"
                     ng-style="position.Id === SelectedPosition.Id ? {'background-color': '#428bca'} : { 'background-color': 'white'} ">
-                    {{position.FirstName}} {{position.LastName}} {{position.Created | dateLocalize | date: 'MM/dd/yyyy' }} <br />
+                    {{position.UserInfo.FirstName}} {{position.UserInfo.LastName}} {{position.Created | dateLocalize | date: 'MM/dd/yyyy' }} <br />
                     Customer: {{position.Customer.Name}} <br />
                     Location: {{position.Location.Name}}
                 </li>

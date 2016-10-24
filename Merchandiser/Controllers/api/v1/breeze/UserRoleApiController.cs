@@ -18,11 +18,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
         UserRoleRepository repository;
         ApplicationUserManager userManager;
         RoleRepository roleRepository;
+        UserRoleRepository userRoleRepository;
         public UserRoleApiController()
         {
             this.repository = new UserRoleRepository();
             this.userManager = System.Web.HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             this.roleRepository = new RoleRepository();
+            this.userRoleRepository = new UserRoleRepository();
         }
 
         [HttpGet]
@@ -56,6 +58,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.Customer.Id,
                     Name = x.Customer.Name
+                } : null,
+                UserInfo = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault() != null ? new UserInfoViewModel()
+                {
+                    Id = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().Id,
+                    FirstName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().FirstName,
+                    LastName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().LastName
                 } : null
             });
             return response;

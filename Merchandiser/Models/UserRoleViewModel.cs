@@ -17,5 +17,7 @@ namespace Merchandiser.Models
         public virtual RoleViewModel Role { get; set; }
         public virtual CompanyViewModel Company { get; set; }
         public virtual CustomerViewModel Customer { get; set; }
+
+        public virtual UserInfoViewModel UserInfo { get; set; }
     }
 }

@@ -356,6 +356,7 @@
     <Compile Include="Models\SurveyHeaderViewModel.cs" />
     <Compile Include="Models\SurveyProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
+    <Compile Include="Models\UserInfoViewModel.cs" />
     <Compile Include="Models\UserRoleViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Product.cs">

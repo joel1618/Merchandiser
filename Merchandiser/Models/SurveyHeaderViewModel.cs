@@ -25,10 +25,6 @@ namespace Merchandiser.Models
 
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
         public DateTime Modified { get; set; }
         public string ModifiedBy { get; set; }
         public decimal? Latitude { get; set; }
@@ -39,6 +35,8 @@ namespace Merchandiser.Models
         public virtual UserViewModel CreatedUser { get; set; }
 
         public virtual UserViewModel ModifiedUser { get; set; }
+
+        public virtual UserInfoViewModel UserInfo { get; set; }
 
         public virtual LocationViewModel Location { get; set; }
 

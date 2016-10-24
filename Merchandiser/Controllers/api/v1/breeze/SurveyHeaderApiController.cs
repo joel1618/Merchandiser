@@ -62,13 +62,17 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     Id = x.AspNetUser.Id,
                     UserName = x.AspNetUser.UserName
                 },
-                ModifiedUser = new UserViewModel()
+                ModifiedUser = x.AspNetUser1 != null ? new UserViewModel()
                 {
                     Id = x.AspNetUser1.Id,
                     UserName = x.AspNetUser1.UserName
-                },
-                FirstName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().FirstName,
-                LastName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().LastName
+                } : null,
+                UserInfo = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault() != null ? new UserInfoViewModel()
+                {
+                    Id = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().Id,
+                    FirstName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().FirstName,
+                    LastName = x.AspNetUser.AspNetUsersInfoes.FirstOrDefault().LastName
+                } : null
             });
             return response;
         }
