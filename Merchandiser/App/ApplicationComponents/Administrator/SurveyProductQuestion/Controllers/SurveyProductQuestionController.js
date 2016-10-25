@@ -7,7 +7,7 @@
         $scope.Search = function () {
             var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
             SurveyProductQuestionService.Search(predicate, ["RowOrder asc"], 0, 100, false).then(function (data) {
-                $scope.gridOptions.data = data;
+                $scope.gridOptions.data = data.Results;
             });
         }
         $scope.gridOptions = {

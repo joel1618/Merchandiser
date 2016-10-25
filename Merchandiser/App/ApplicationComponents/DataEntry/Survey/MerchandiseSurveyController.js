@@ -51,8 +51,8 @@
             else {
                 var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
                 SurveyProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
-                    $scope.Survey = data[0].Survey;
-                    $scope.Detail = data;
+                    $scope.Survey = data.Results[0].Survey;
+                    $scope.Detail = data.Results;
                 });
             }
         }

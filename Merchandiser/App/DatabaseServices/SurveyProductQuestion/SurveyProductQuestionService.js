@@ -20,7 +20,8 @@
                 where: predicate,
                 orderBy: order,
                 skip: page * pageSize,
-                take: pageSize
+                take: pageSize,
+                inlineCount: true
             });
 
             breezeservice.executeQuery(query).then(function (data) {
