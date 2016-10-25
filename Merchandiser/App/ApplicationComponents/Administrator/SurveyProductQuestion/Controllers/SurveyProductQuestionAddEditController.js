@@ -94,6 +94,7 @@
                     $q.all(promises).then(function () {
                         toastr.success($scope.item.ProductName + " questions have been copied to product " + $scope.copyItem.ProductName);
                         $scope.copyItem = { Id: null }
+                        $scope.$parent.Search();
                     });
                 });
             });
