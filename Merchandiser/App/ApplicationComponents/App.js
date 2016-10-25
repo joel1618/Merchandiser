@@ -157,7 +157,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         .then(function (data) {
             if (data.length > 0) {
                 SelectionApplicationService.SetRole("Customer");
-                SelectionApplicationService.SetRedirectState('main.report.surveyreport');
+                SelectionApplicationService.SetRedirectState('main.report.surveyheaderreport');
                 $state.go('main.selectcompany');
             }
             else {
