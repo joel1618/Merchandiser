@@ -277,6 +277,8 @@
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ReportApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\RoleApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\SelectLocationApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\SelectSurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationProductQuestionApiController.cs" />
@@ -332,6 +334,8 @@
     <Compile Include="Models\Extensions\ProductViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\QuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\RoleViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\SelectLocationViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\SelectSurveyViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyCustomerLocationProductQuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyCustomerLocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyDetailViewModelExtension.cs" />
@@ -348,6 +352,8 @@
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\SelectLocationViewModel.cs" />
+    <Compile Include="Models\SelectSurveyViewModel.cs" />
     <Compile Include="Models\SurveyCustomerLocationProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyCustomerLocationViewModel.cs" />
     <Compile Include="Models\SurveyDetailViewModel.cs" />
@@ -503,6 +509,8 @@
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
     <Content Include="App\DatabaseServices\Report\ReportService.js" />
     <Content Include="App\DatabaseServices\Role\RoleService.js" />
+    <Content Include="App\DatabaseServices\SelectLocation\SelectLocation.js" />
+    <Content Include="App\DatabaseServices\SelectSurvey\SelectSurvey.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocationProductQuestion\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />

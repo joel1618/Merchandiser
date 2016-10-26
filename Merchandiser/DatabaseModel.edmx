@@ -262,6 +262,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectLocation' does not have a p
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="CompanyId" Type="uniqueidentifier" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="SurveyCreated" Type="datetime" />
@@ -273,6 +275,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="CompanyId" Type="uniqueidentifier" />
+          <Property Name="LocationId" Type="uniqueidentifier" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="SurveyCreated" Type="datetime" />
         </EntityType>
@@ -763,6 +768,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <EntitySet Name="SelectLocation" EntityType="Self.SelectLocation" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [SelectLocation].[Id] AS [Id], 
+    [SelectLocation].[CustomerId] AS [CustomerId], 
+    [SelectLocation].[CompanyId] AS [CompanyId], 
     [SelectLocation].[Name] AS [Name], 
     [SelectLocation].[Address] AS [Address], 
     [SelectLocation].[SurveyCreated] AS [SurveyCreated]
@@ -771,6 +778,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <EntitySet Name="SelectSurvey" EntityType="Self.SelectSurvey" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [SelectSurvey].[Id] AS [Id], 
+    [SelectSurvey].[CustomerId] AS [CustomerId], 
+    [SelectSurvey].[CompanyId] AS [CompanyId], 
+    [SelectSurvey].[LocationId] AS [LocationId], 
     [SelectSurvey].[Name] AS [Name], 
     [SelectSurvey].[SurveyCreated] AS [SurveyCreated]
     FROM [dbo].[SelectSurvey] AS [SelectSurvey]</DefiningQuery>
@@ -1438,6 +1448,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="CompanyId" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
@@ -1447,6 +1459,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="CompanyId" Type="Guid" />
+          <Property Name="LocationId" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
         </EntityType>
@@ -2192,6 +2207,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
                 <ScalarProperty Name="SurveyCreated" ColumnName="SurveyCreated" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2201,6 +2218,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
               <MappingFragment StoreEntitySet="SelectSurvey">
                 <ScalarProperty Name="SurveyCreated" ColumnName="SurveyCreated" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

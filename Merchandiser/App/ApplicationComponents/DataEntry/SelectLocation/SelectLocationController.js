@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService',
+        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectLocationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService) {
+        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectLocationService) {
         
         $scope.LocationServicesDisabled = false;
         $scope.Location = [];
@@ -24,16 +24,8 @@
                        { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
                     ]
                 }
-                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                    angular.forEach(data, function (value, key) {
-                        var item = {
-                            Id: value.Location.Id,
-                            Name: value.Location.Name
-                        }
-                        if ($scope.Location.indexOf(item) == -1) {
-                            $scope.Location.push(item);
-                        }
-                    });
+                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    $scope.Survey = data;
                 });
             }
             else {

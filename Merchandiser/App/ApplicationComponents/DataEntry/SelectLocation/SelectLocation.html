@@ -25,6 +25,7 @@
                                 <th></th>
                                 <th>Name</th>
                                 <th>Address</th>
+                                <th>Survey Created</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="item in Location">
@@ -37,6 +38,9 @@
                                 </td>
                                 <td>
                                     {{item.Address}}
+                                </td>
+                                <td>
+                                    {{item.SurveyCreated | date: 'MM/dd/yyyy'}}
                                 </td>
                             </tr>
                         </tbody>

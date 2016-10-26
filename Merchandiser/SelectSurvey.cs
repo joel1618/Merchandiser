@@ -15,6 +15,9 @@ namespace Merchandiser
     public partial class SelectSurvey
     {
         public System.Guid Id { get; set; }
+        public Nullable<System.Guid> CustomerId { get; set; }
+        public Nullable<System.Guid> CompanyId { get; set; }
+        public Nullable<System.Guid> LocationId { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> SurveyCreated { get; set; }
     }
