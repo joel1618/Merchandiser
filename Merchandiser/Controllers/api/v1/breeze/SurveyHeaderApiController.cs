@@ -47,6 +47,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 IsAfterImage = x.IsAfterImage,
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
+                SurveyId = x.SurveyId,
+                LocationId = x.LocationId,
+                CustomerId = x.CustomerId,
+                CompanyId = x.CompanyId,
                 Company = new CompanyViewModel()
                 {
                     Id = x.Company.Id,

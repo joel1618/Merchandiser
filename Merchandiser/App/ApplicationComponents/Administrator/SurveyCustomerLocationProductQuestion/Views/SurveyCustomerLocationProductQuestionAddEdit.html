@@ -1,9 +1,9 @@
 ﻿<div ng-controller="SurveyCustomerLocationProductQuestionAddEditController">
-    <h3>Survey Customer Location Detail</h3>
-    <div class="col-md-4">
-        <div ng-form="form">
-            <fieldset class="form-group">
-                <div class="form-inline">
+    <h3></h3>
+    <div ng-form="form">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label>Customer</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsCustomers" ng-model="item.Customer.Name" uib-typeahead="item.Name for item in SearchCustomers($viewValue)"
@@ -19,7 +19,6 @@
                         <div ng-show="noResultsLocation">
                             No Results Found!
                         </div>
-                        <br />
                         <label>Product</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsProduct" ng-model="item.Product.Name" uib-typeahead="item.Name for item in SearchProducts($viewValue)"
                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
@@ -27,7 +26,6 @@
                         <div ng-show="noResultsProduct">
                             No Results Found!
                         </div>
-                        <br />
                         <label>Question</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsQuestion" ng-model="item.Question.Name" uib-typeahead="item.Name for item in SearchQuestions($viewValue)"
                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
@@ -36,10 +34,15 @@
                             No Results Found!
                         </div>
                     </div>
+                </div>
+                <div class="col-md-2">
                     <div class="form-group">
+                        <br /><br /><br /><br /><br /><br />
                         <lable></lable>
                         <button class="btn btn-danger btn-sm" ng-click="Copy()" ng-disabled="copyItem.CustomerId == null || item.CustomerId == null">Copy To</button>
                     </div>
+                </div>
+                <div class="col-md-5">
                     <div class="form-group">
                         <label>Customer</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsCustomersCopy" ng-model="itemCopy.Customer.Name" uib-typeahead="item.Name for item in SearchCustomers($viewValue)"
@@ -55,7 +58,6 @@
                         <div ng-show="noResultsLocationCopy">
                             No Results Found!
                         </div>
-                        <br />
                         <label>Product</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsProductCopy" ng-model="itemCopy.Product.Name" uib-typeahead="item.Name for item in SearchProducts($viewValue)"
                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
@@ -63,11 +65,10 @@
                         <div ng-show="noResultsProductCopy">
                             No Results Found!
                         </div>
-                        <br />
                     </div>
                 </div>
-                <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
-            </fieldset>
+            </div>
         </div>
+        <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
     </div>
 </div>

@@ -12,15 +12,15 @@
                                     </div>
                                     <div class="panel-body">
                                         <label for="surveyName">Survey Name</label>
-                                        <p id="surveyName">{{Survey.Name}}</p>
+                                        <p id="surveyName">{{Survey.Name | limitTo:20}}</p>
                                         <label for="customer">Customer Name</label>
-                                        <p id="customer">{{Customer.Name}}</p>
+                                        <p id="customer">{{Customer.Name | limitTo:20}}</p>
                                         <label for="locationName">Location Name</label>
-                                        <p id="locationName">{{Location.Name}}</p>
+                                        <p id="locationName">{{Location.Name | limitTo:20}}</p>
                                         <label for="locationAddress">Location Address</label>
-                                        <p id="locationAddress">{{Location.Address}}</p>
+                                        <p id="locationAddress">{{Location.Address | limitTo:20}}</p>
                                         <label for="manager">Location Manager</label>
-                                        <p id="manager">{{Location.AreaManager}}</p>
+                                        <p id="manager">{{Location.AreaManager | limitTo:20}}</p>
                                     </div>
                                 </div>
                             </div>

@@ -34,6 +34,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Id = x.Id,
                 Created = x.Created,
                 SurveyHeaderId = x.SurveyHeaderId,
+                ProductId = x.ProductId,
+                CompanyId = x.CompanyId,
+                QuestionId = x.QuestionId,
                 Product = new ProductViewModel()
                 {
                     Id = x.Product.Id,
