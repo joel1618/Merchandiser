@@ -14,8 +14,9 @@ var gulp = require('gulp'),
     merge = require('merge-stream'),
     templateCache = require('gulp-angular-templatecache'),
     sass = require('gulp-sass'),
-    cachebust = require('gulp-cache-bust')
-    htmlreplace = require('gulp-html-replace');
+    cachebust = require('gulp-cache-bust'),
+    htmlreplace = require('gulp-html-replace'),
+    replace = require('gulp-replace');
 
 var path = {
     components: "./bower_components/",
@@ -179,12 +180,10 @@ gulp.task('copy', function () {
 
 gulp.task('cache', function () {
     gulp.src('./Views/Shared/_Layout.cshtml')
-      .pipe(htmlreplace({
-          'vendor': 'vendors.js',
-          'app': 'app.js',
-          'css': 'site.css',
-          'templates': 'templates.js'
-      }))
+      .pipe(replace(/<link name="site" href=".*" rel="stylesheet" \/>/, '<link name="site" href="~/public/assets/css/site.css" rel="stylesheet" />'))
+      .pipe(replace(/<script name="app" src=".*">/, '<script name="app" src="~/public/assets/js/app.js">'))
+      .pipe(replace(/<script name="vendor" src=".*">/, '<script name="vendor" src="~/public/assets/libs/vendor.js">'))
+      .pipe(replace(/<script name="templates" src=".*">/, '<script name="templates" src="~/public/assets/js/templates.js">'))
       .pipe(cachebust({ type: 'timestamp' }))
-      .pipe(gulp.dest('./Views/Shared'));
+      .pipe(gulp.dest('./Views/Shared/'));
 });
