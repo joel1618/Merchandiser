@@ -82,6 +82,7 @@
                     cellTemplate: '<button class="btn btn-primary btn-sm" ng-click="grid.appScope.ViewDetail(row.entity)">Detail</button>'
                 },
                 { name: 'Images/Notes', width: 65, cellTooltip: true, headerTooltip: true, cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html' },
+                { field: 'Survey.Name', name: 'Survey Name', cellTooltip: true, headerTooltip: true },
                 { field: 'Customer.Name', name: 'Customer Name', cellTooltip: true, headerTooltip: true },
                 { field: 'Location.Name', name: 'Location Name', cellTooltip: true, headerTooltip: true },
                 {
