@@ -25,6 +25,7 @@ namespace Merchandiser
             this.Questions = new HashSet<Question>();
             this.Surveys = new HashSet<Survey>();
             this.SurveyCustomerLocations = new HashSet<SurveyCustomerLocation>();
+            this.SurveyCustomerLocationProductQuestions = new HashSet<SurveyCustomerLocationProductQuestion>();
             this.SurveyDetails = new HashSet<SurveyDetail>();
             this.SurveyHeaders = new HashSet<SurveyHeader>();
             this.SurveyProductQuestions = new HashSet<SurveyProductQuestion>();
@@ -53,6 +54,8 @@ namespace Merchandiser
         public virtual ICollection<Survey> Surveys { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SurveyCustomerLocationProductQuestion> SurveyCustomerLocationProductQuestions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyDetail> SurveyDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

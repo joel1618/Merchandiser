@@ -40,6 +40,7 @@ namespace Merchandiser
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
         public virtual DbSet<SurveyCustomerLocation> SurveyCustomerLocations { get; set; }
+        public virtual DbSet<SurveyCustomerLocationProductQuestion> SurveyCustomerLocationProductQuestions { get; set; }
         public virtual DbSet<SurveyDetail> SurveyDetails { get; set; }
         public virtual DbSet<SurveyHeader> SurveyHeaders { get; set; }
         public virtual DbSet<SurveyProductQuestion> SurveyProductQuestions { get; set; }

@@ -38,6 +38,9 @@ namespace Merchandiser.App_Start
                 cfg.CreateMap<SurveyCustomerLocationViewModel, SurveyCustomerLocation>();
                 cfg.CreateMap<SurveyCustomerLocation, SurveyCustomerLocationViewModel>();
 
+                cfg.CreateMap<SurveyCustomerLocationProductQuestionViewModel, SurveyCustomerLocationProductQuestion>();
+                cfg.CreateMap<SurveyCustomerLocationProductQuestion, SurveyCustomerLocationProductQuestionViewModel>();
+
                 cfg.CreateMap<SurveyProductQuestionViewModel, SurveyProductQuestion>();
                 cfg.CreateMap<SurveyProductQuestion, SurveyProductQuestionViewModel>();
 
