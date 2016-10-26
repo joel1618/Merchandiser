@@ -42,7 +42,7 @@
                 ]
             }
             SurveyHeaderService.Search(predicate, ["Created desc"], $scope.Page, 100, false).then(function (data) {
-                $scope.data = data;
+                $scope.data = data.Results;
             });
         }
         $scope.GetDataDown = function () {
@@ -56,8 +56,16 @@
             }
             SurveyHeaderService.Search(predicate, ["Created desc"], $scope.Page, 100, false).then(function (data) {
                 $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                $scope.data = $scope.data.concat(data);
+                $scope.data = $scope.data.concat(data.Results);
+                $scope.gridApi.infiniteScroll.dataLoaded(false, $scope.isMoreData(data.InlineCount));
             });
+        }
+
+        $scope.isMoreData = function(count){
+            if (count > $scope.data.length) {
+                return true;
+            }
+            return false;
         }
 
         $scope.data = [];
@@ -66,7 +74,7 @@
             enableFiltering: true,
             enableSorting: true,
             enableGridMenu: true,
-            infiniteScrollRowsFromEnd: 100,
+            infiniteScrollRowsFromEnd: 50,
             data: 'data',
             columnDefs: [
                 {
@@ -83,6 +91,7 @@
             ],
             onRegisterApi: function (gridApi) {
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
+                //gridApi.options.loadTimeout = true;
                 $scope.gridApi = gridApi;
             }
         };

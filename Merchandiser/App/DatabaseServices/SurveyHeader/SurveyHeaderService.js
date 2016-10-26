@@ -21,6 +21,7 @@
                     orderBy: order,
                     skip: page * pageSize,
                     take: pageSize,
+                    inlineCount: true,
                     parameters: { "companyId": SelectionApplicationService.GetCompanyId() }
                 });
 

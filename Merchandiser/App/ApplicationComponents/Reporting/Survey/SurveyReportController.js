@@ -103,7 +103,7 @@
                 $scope.Page, $scope.PageSize).then(function (data) {
                     $scope.gridApi.infiniteScroll.saveScrollPercentage();
                     $scope.data = $scope.data.concat(data);
-                    //$scope.gridApi.infiniteScroll.dataLoaded(false, $scope.isMoreData());
+                    $scope.gridApi.infiniteScroll.dataLoaded(false, true);
                 });
         }
 
