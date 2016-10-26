@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('SelectSurveyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
+        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
+        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService) {
         
         $scope.Survey = [];
         $scope.Search = function () {
@@ -24,12 +24,15 @@
                        { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
                     ]
                 }
-                SurveyCustomerLocationService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 1000, false).then(function (data) {
                     angular.forEach(data, function (value, key) {
-                        $scope.Survey.push({
+                        var item = {
                             Id: value.Survey.Id,
                             Name: value.Survey.Name
-                        })
+                        }
+                        if ($scope.Survey.indexOf(item) == -1) {
+                            $scope.Survey.push(item);
+                        }                        
                     });
                 });
             }

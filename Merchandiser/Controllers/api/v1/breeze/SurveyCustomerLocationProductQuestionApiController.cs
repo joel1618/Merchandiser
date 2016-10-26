@@ -91,7 +91,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public IHttpActionResult Create(SurveyCustomerLocationProductQuestionViewModel item)
         {
             item.CreatedBy = User.Identity.GetUserId();
-            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.LocationId == item.LocationId && e.CustomerId == item.CustomerId && e.SurveyId == item.SurveyId).FirstOrDefault();
+            var record = repository.Search().Where(e => 
+            e.CompanyId == item.CompanyId && 
+            e.LocationId == item.LocationId && 
+            e.CustomerId == item.CustomerId && 
+            e.ProductId == item.ProductId &&
+            e.QuestionId == item.QuestionId &&
+            e.SurveyId == item.SurveyId).FirstOrDefault();
             if (record != null)
             {
                 return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
@@ -106,8 +112,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public IHttpActionResult Update(Guid id, SurveyCustomerLocationProductQuestionViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
-            var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.LocationId == item.LocationId
-            && e.CustomerId == item.CustomerId && e.SurveyId == item.SurveyId && e.Id != item.Id).FirstOrDefault();
+            var record = repository.Search().Where(e =>
+            e.CompanyId == item.CompanyId &&
+            e.LocationId == item.LocationId &&
+            e.CustomerId == item.CustomerId &&
+            e.ProductId == item.ProductId &&
+            e.QuestionId == item.QuestionId &&
+            e.SurveyId == item.SurveyId && 
+            e.Id != item.Id).FirstOrDefault();
             if (record != null)
             {
                 return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");

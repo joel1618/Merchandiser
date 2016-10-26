@@ -49,7 +49,14 @@
                 $scope.AfterImage = "/api/v1/ImageApi/GetAfterImage/" + SelectionApplicationService.GetSurveyHeaderId();
             }
             else {
-                var predicate = { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } };
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
+                    ]
+                }
                 SurveyProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
                     $scope.Survey = data.Results[0].Survey;
                     $scope.Detail = data.Results;
