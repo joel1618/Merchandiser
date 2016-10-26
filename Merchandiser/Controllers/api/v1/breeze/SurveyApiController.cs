@@ -32,7 +32,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Id = x.Id,
                 CompanyId = x.CompanyId,
                 Name = x.Name,
-                Created = x.Created
+                Created = x.Created,
+                IsEdit = x.IsEdit,
+                IsEditDays = x.IsEditDays.HasValue ? x.IsEditDays.Value : new Nullable<int>(),
+                IsDelete = x.IsDelete,
+                IsDeleteDays = x.IsDeleteDays.HasValue ? x.IsDeleteDays.Value : new Nullable<int>()
             });
             return response;
         }

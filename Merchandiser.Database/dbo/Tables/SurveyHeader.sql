@@ -14,11 +14,15 @@
     [Modified]      DATETIME         NULL,
     [ModifiedBy]    NVARCHAR (128)   NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_SurveyHeader_AspNetUsers] FOREIGN KEY ([CreatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+    CONSTRAINT [FK_SurveyHeader_AspNetUsers1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Customer] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customer] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Survey] FOREIGN KEY ([SurveyId]) REFERENCES [dbo].[Survey] ([Id])
 );
+
+
 
 
 

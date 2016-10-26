@@ -13,6 +13,9 @@
                     $scope.item = data;
                 });
             }
+            else {
+                $scope.Init();
+            }
         }
         $scope.Search();
 

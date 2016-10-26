@@ -91,5 +91,16 @@ namespace Merchandiser.ControllerHelpers
 
             return query;
         }
+
+        public static bool IsAdministrator(string userId, Guid companyId, RoleRepository roleRepository, UserRoleRepository userRoleRepository)
+        {
+            var adminRole = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
+            var userRoles = userRoleRepository.Search().Where(e => e.UserId == userId && e.RoleId == adminRole.Id && e.CompanyId == companyId);
+            if(userRoles.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

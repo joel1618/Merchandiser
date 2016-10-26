@@ -14,6 +14,10 @@ namespace Merchandiser.Models
         public Guid CompanyId { get; set; }
         public string Name { get; set; }
         public bool IsNoteRequired { get; set; }
+        public bool IsEdit { get; set; }
+        public int? IsEditDays { get; set; }
+        public bool IsDelete { get; set; }
+        public int? IsDeleteDays { get; set; }
         public DateTime Modifed { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }

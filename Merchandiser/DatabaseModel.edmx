@@ -166,6 +166,10 @@
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsNoteRequired" Type="bit" Nullable="false" />
+          <Property Name="IsEdit" Type="bit" Nullable="false" />
+          <Property Name="IsEditDays" Type="int" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsDeleteDays" Type="int" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="Created" Type="datetime" Nullable="false" />
@@ -1177,6 +1181,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsNoteRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsEdit" Type="Boolean" Nullable="false" />
+          <Property Name="IsEditDays" Type="Int32" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleteDays" Type="Int32" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
@@ -1862,6 +1870,10 @@ warning 6002: The table/view 'Merchandiser.dbo.Map' does not have a primary key 
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="IsDeleteDays" ColumnName="IsDeleteDays" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsEditDays" ColumnName="IsEditDays" />
+                <ScalarProperty Name="IsEdit" ColumnName="IsEdit" />
                 <ScalarProperty Name="IsNoteRequired" ColumnName="IsNoteRequired" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />

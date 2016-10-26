@@ -26,6 +26,10 @@ namespace Merchandiser
         public System.Guid CompanyId { get; set; }
         public string Name { get; set; }
         public bool IsNoteRequired { get; set; }
+        public bool IsEdit { get; set; }
+        public Nullable<int> IsEditDays { get; set; }
+        public bool IsDelete { get; set; }
+        public Nullable<int> IsDeleteDays { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }

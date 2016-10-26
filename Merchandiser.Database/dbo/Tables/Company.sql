@@ -5,8 +5,14 @@
     [ModifiedBy] NVARCHAR (128)   NULL,
     [Created]    DATETIME         NOT NULL,
     [CreatedBy]  NVARCHAR (128)   NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK__Company__3214EC0776D1896A] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
+
+
+
+
 
 
 

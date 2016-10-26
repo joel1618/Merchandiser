@@ -21,6 +21,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
         SurveyDetailRepository detailRepository;
         ImageApiController imageApiController;
         UserRoleRepository userRoleRepository;
+        SurveyRepository surveyRepository;
+        RoleRepository roleRepository;
         public SurveyHeaderApiController()
         {
             this.context = new MerchandiserEntities();
@@ -28,6 +30,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
             this.detailRepository = new SurveyDetailRepository(context);
             this.imageApiController = new ImageApiController();
             this.userRoleRepository = new UserRoleRepository();
+            this.surveyRepository = new SurveyRepository();
+            this.roleRepository = new RoleRepository();
         }
 
         [HttpGet]
@@ -128,6 +132,24 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpPut]
         public IHttpActionResult UpdateBulk([FromUri()]Guid id, [FromBody()]SurveyHeaderDetailViewModel item)
         {
+            //Validate that survey is editable if not an admin.
+            var userId = User.Identity.GetUserId();
+            if (!ApiFilters.IsAdministrator(userId, item.Header.CompanyId, roleRepository, userRoleRepository))
+            {
+                var survey = surveyRepository.Get(item.Header.SurveyId);
+                if (!survey.IsEdit)
+                {
+                    return BadRequest("The survey is not editable.");
+                }
+                if (survey.IsEditDays.HasValue)
+                {
+                    if (survey.Created.AddDays(Double.Parse(survey.IsEditDays.Value.ToString())) < DateTime.UtcNow)
+                    {
+                        return BadRequest("The time period has already passed to be able to edit this survey.");
+                    }
+                }
+            }
+
             item.Header.ModifiedBy = User.Identity.GetUserId();
             var response = repository.Update(id, item.Header.ToEntity()).ToViewModel();
             foreach (var detail in item.Details)
@@ -151,6 +173,25 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpDelete]
         public IHttpActionResult DeleteBulk(Guid id)
         {
+            //Validate that survey is deletable if not an admin.
+            var userId = User.Identity.GetUserId();
+            var surveyHeader = Get(id);
+            var survey = surveyRepository.Get(surveyHeader.SurveyId);
+            if (!ApiFilters.IsAdministrator(userId, surveyHeader.CompanyId, roleRepository, userRoleRepository))
+            {
+                if (!survey.IsDelete)
+                {
+                    return BadRequest("The survey is not deletable.");
+                }
+                if (survey.IsDeleteDays.HasValue)
+                {
+                    if (survey.Created.AddDays(Double.Parse(survey.IsDeleteDays.Value.ToString())) < DateTime.UtcNow)
+                    {
+                        return BadRequest("The time period has already passed to be able to delete this survey.");
+                    }
+                }
+            }
+
             var details = detailRepository.Search().Where(e => e.SurveyHeaderId == id);
             foreach (var detail in details)
             {
@@ -162,5 +203,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             repository.SaveChanges();
             return Ok();
         }
+
+
     }
 }

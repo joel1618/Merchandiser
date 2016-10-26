@@ -26,8 +26,9 @@ namespace Merchandiser.Repositories
 
         public Survey Create(Survey item)
         {
+            var now = DateTime.UtcNow;
             item.Id = Guid.NewGuid();
-            item.Created = DateTime.UtcNow;
+            item.Created = now;
             context.Surveys.Add(item);
             context.SaveChanges();
             return item;
@@ -38,6 +39,10 @@ namespace Merchandiser.Repositories
             var entity = context.Surveys.Find(id);
             entity.Name = item.Name;
             entity.IsNoteRequired = item.IsNoteRequired;
+            entity.IsEdit = item.IsEdit;
+            entity.IsEditDays = item.IsEditDays;
+            entity.IsDelete = item.IsDelete;
+            entity.IsDeleteDays = item.IsDeleteDays;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;
