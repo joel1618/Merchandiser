@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="body-content" style="padding-top:50px;">
+    <div class="body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -35,10 +35,10 @@
         </footer>
     </div>
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyC4uQEtjaFTuSWFkWKty8uQSC8DBGCU47Q&libraries=placeses,visualization,drawing,geometry,places"></script>
-    @Styles.Render("~/public/assets/css/site.css")
-    @Scripts.Render("~/public/assets/libs/vendor.js")
-    @Scripts.Render("~/public/assets/js/app.js")
-    @Scripts.Render("~/public/assets/js/templates.js")
+    <script src="~/public/assets/css/site.css?t=1477497113391"></script>
+    <script src="~/public/assets/libs/vendor.js?t=1477497113391"></script>
+    <script src="~/public/assets/js/app.js?t=1477497113391"></script>
+    <script src="~/public/assets/js/templates.js?t=1477497113391"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

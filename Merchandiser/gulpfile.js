@@ -13,7 +13,9 @@ var gulp = require('gulp'),
     sourcemaps = require("gulp-sourcemaps"),
     merge = require('merge-stream'),
     templateCache = require('gulp-angular-templatecache'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    cachebust = require('gulp-cache-bust')
+    htmlreplace = require('gulp-html-replace');
 
 var path = {
     components: "./bower_components/",
@@ -88,13 +90,13 @@ gulp.task('app', function () {
         path.app + "ApplicationComponents/Reporting/Location/LocationReportController.js",
         path.app + "ApplicationComponents/Reporting/Modal/**/*.js"
     ])
-           .pipe(sourcemaps.init())
-           .pipe(concat("app.js"))
-           .pipe(gulp.dest(path.pub.js))
-           .pipe(rename("app.min.js"))
-           .pipe(uglify())
-           .pipe(sourcemaps.write("."))
-           .pipe(gulp.dest(path.pub.js));
+    .pipe(sourcemaps.init())
+    .pipe(concat("app.js"))
+    .pipe(gulp.dest(path.pub.js))
+    .pipe(rename("app.min.js"))
+    .pipe(uglify())
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest(path.pub.js));
 });
 
 gulp.task('app:watch', function () {
@@ -173,4 +175,16 @@ gulp.task('copy', function () {
         path.components + 'angular-ui-grid/ui-grid.eot',
         path.components + 'angular-ui-grid/ui-grid.svg'])
         .pipe(gulp.dest(path.pub.css));
+});
+
+gulp.task('cache', function () {
+    gulp.src('./Views/Shared/_Layout.cshtml')
+      .pipe(htmlreplace({
+          'vendor': 'vendors.js',
+          'app': 'app.js',
+          'css': 'site.css',
+          'templates': 'templates.js'
+      }))
+      .pipe(cachebust({ type: 'timestamp' }))
+      .pipe(gulp.dest('./Views/Shared'));
 });
