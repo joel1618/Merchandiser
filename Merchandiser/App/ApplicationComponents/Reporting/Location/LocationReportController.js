@@ -8,9 +8,9 @@
         })
     });
     angular.module('Main').controller('LocationReportController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'MapService', 'SurveyHeaderService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'SurveyHeaderService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, NgMap, $http, $location,
-        $timeout, breezeservice, breeze, MapService, SurveyHeaderService, SelectionApplicationService) {
+        $timeout, breezeservice, breeze, SurveyHeaderService, SelectionApplicationService) {
         $scope.SelectedPosition = null;
 
         $scope.StartDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().startOf('isoWeek').format("DD"));

@@ -24,7 +24,7 @@
                        { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
                     ]
                 }
-                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 1000, false).then(function (data) {
+                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
                     angular.forEach(data, function (value, key) {
                         var item = {
                             Id: value.Location.Id,

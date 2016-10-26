@@ -10,10 +10,10 @@
     });
     angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
-        'LocationService', 'CustomerService', 'SurveyService', 'MapService', 'ImageService', 'DownloadService',
+        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
-        LocationService, CustomerService, SurveyService, MapService, ImageService, DownloadService) {
+        LocationService, CustomerService, SurveyService, ImageService, DownloadService) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.selectcompany');
         }
@@ -160,7 +160,7 @@
         }
 
         $scope.ViewNote = function (id) {
-            MapService.Get(id).then(function (data) {
+            SurveyHeaderService.Get(id).then(function (data) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'ApplicationComponents/Reporting/Modal/Note/NoteModal.html',

@@ -21,13 +21,11 @@ namespace Merchandiser.Controllers.api.v1
     public class DownloadApiController : Controller
     {
         public ReportApiController reportController;
-        public ReportRepository reportRepository;
-        public MapApiController mapController;
+        public SurveyHeaderApiController surveyController;
         public DownloadApiController()
         {
             this.reportController = new ReportApiController();
-            this.reportRepository = new ReportRepository();
-            this.mapController = new MapApiController();
+            this.surveyController = new SurveyHeaderApiController();
         }
 
 
@@ -72,7 +70,7 @@ namespace Merchandiser.Controllers.api.v1
             using (StreamWriter writer = new StreamWriter(stream))
             using (CsvWriter csv = new CsvWriter(writer))
             {
-                var result = mapController.SearchWithNotes(companyId).Where(e => e.CompanyId == companyId && e.Created >= startDate && e.Created <= endDate);
+                var result = surveyController.Search(companyId).Where(e => e.CompanyId == companyId && e.Created >= startDate && e.Created <= endDate);
                 if (result.Count() > 0)
                 {
                     foreach (PropertyInfo propertyInfo in result.First().GetType().GetProperties())
@@ -107,11 +105,6 @@ namespace Merchandiser.Controllers.api.v1
                 array = stream.ToArray();
             }
             return File(array, "text/csv", "NotesLocationExport.csv");
-        }
-
-        public FileResult GetNotes()
-        {
-            throw new NotImplementedException();
         }
     }
 }

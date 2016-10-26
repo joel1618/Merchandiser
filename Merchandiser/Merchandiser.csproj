@@ -270,7 +270,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ImageApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\LocationApiController.cs" />
-    <Compile Include="Controllers\api\v1\breeze\MapApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ProductApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
@@ -316,9 +315,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
-      <DependentUpon>DatabaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Map.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201605180348324_InitialCreate.cs" />
@@ -374,7 +370,6 @@
     </Compile>
     <Compile Include="Repositories\AspNetUsersInfoRepository.cs" />
     <Compile Include="Repositories\LocationRepository.cs" />
-    <Compile Include="Repositories\MapRepository.cs" />
     <Compile Include="Repositories\ProductCategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
@@ -389,6 +384,12 @@
     <Compile Include="Repositories\SurveyProductQuestionRepository.cs" />
     <Compile Include="Repositories\SurveyRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
+    <Compile Include="SelectLocation.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SelectSurvey.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Survey.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
@@ -496,7 +497,6 @@
     <Content Include="App\DatabaseServices\Download\DownloadService.js" />
     <Content Include="App\DatabaseServices\Image\ImageService.js" />
     <Content Include="App\DatabaseServices\Location\LocationService.js" />
-    <Content Include="App\DatabaseServices\Map\MapService.js" />
     <Content Include="App\DatabaseServices\ProductCategory\ProductService.js" />
     <Content Include="App\DatabaseServices\Product\ProductService.js" />
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
