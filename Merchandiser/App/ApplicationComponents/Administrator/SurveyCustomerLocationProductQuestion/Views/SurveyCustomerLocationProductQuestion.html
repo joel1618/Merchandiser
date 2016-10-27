@@ -1,8 +1,11 @@
 ﻿<div ng-controller="SurveyCustomerLocationProductQuestionController">
-    <h3></h3>
     <div class="row">
         <div class="col-md-12">
-            <div class="grid" ui-grid="gridOptions"></div>
+            <button class="btn btn-primary btn-sm" ng-click="Reorder()" 
+                    title="Set the order based on the below order for this customer location only">Set Order</button>
+            <button class="btn btn-danger btn-sm" ng-click="ReorderAll()" 
+                    title="Set the order based on the below order for all product questions grouped by customer and location for the selected survey">Set Order All</button>
+            <div class="grid" ui-grid="gridOptions" ui-grid-infinite-scroll ui-grid-draggable-rows></div>
         </div>
         <hr />
         <div class="col-md-12">
