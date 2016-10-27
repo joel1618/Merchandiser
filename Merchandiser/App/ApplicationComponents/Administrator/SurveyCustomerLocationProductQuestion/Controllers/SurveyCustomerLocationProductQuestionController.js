@@ -8,10 +8,10 @@
         })
     });
     angular.module('Main').controller('SurveyCustomerLocationProductQuestionController', ['$scope', '$state', '$routeParams',
-        '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
+        '$http', '$q', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
         'SelectionApplicationService',
     function controller($scope, $state, $routeParams, 
-    $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
+    $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
         SelectionApplicationService) {
         var predicate = {
             and: [
@@ -42,7 +42,13 @@
                     //$scope.Reorder();
                 });
                 gridApi.core.on.filterChanged($scope, function (column) {
-                    $scope.filterChanged(this.grid.columns);
+                    var grid = this.grid;
+                    if (angular.isDefined($scope.filterTimeout)) {
+                        $timeout.cancel($scope.filterTimeout);
+                    }
+                    $scope.filterTimeout = $timeout(function () {
+                        $scope.filterChanged(grid.columns);
+                    }, 500);
                 });
 
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
@@ -90,7 +96,7 @@
         //TODO: Reorder button.  Don't do on drop.  
         $scope.Reorder = function () {
             //validate
-            if (!ValidateForOrder) {
+            if (!$scope.ValidateForOrdering()) {
                 return;
             }
             //reorder
@@ -98,7 +104,7 @@
             for (var i = 0; i < $scope.gridOptions.data.length; i++) {
                 var row = $scope.gridOptions.data[i];
                 row.RowOrder = i
-                var promise = SurveyProductQuestionService.Update(row.Id, row).then(function (data) {
+                var promise = SurveyCustomerLocationProductQuestionService.Update(row.Id, row).then(function (data) {
                 }, function (error) {
                     toastr.error(error.data, error.statusText);
                 });
@@ -112,7 +118,7 @@
         //TODO: Button and group by customer location and filter based on current selection.  Need validation as well in there.
         $scope.ReorderAll = function () {
             //validate
-            if (!ValidateForOrder) {
+            if (!$scope.ValidateForOrdering()) {
                 return;
             }
             for (var i = 0; i < $scope.gridOptions.data.length; i++) {
@@ -136,7 +142,7 @@
             $scope.Search();
         }
 
-        $scope.ValidateForOrder = function () {
+        $scope.ValidateForOrdering = function () {
             var customer = $scope.gridOptions.data[0].CustomerId;
             var location = $scope.gridOptions.data[0].LocationId;
             for (var i = 0; i < $scope.gridOptions.data.length; i++) {
