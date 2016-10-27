@@ -1,10 +1,21 @@
 ﻿<div ng-controller="SurveyCustomerLocationProductQuestionController">
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary btn-sm" ng-click="Reorder()" 
-                    title="Set the order based on the below order for this customer location only">Set Order</button>
-            <button class="btn btn-danger btn-sm" ng-click="ReorderAll()" 
-                    title="Set the order based on the below order for all product questions grouped by customer and location for the selected survey">Set Order All</button>
+            <div class="pull-right">
+                <button class="btn btn-primary btn-sm" ng-click="Reorder()"
+                        title="Set the order based on the below order for this customer location only">
+                    Set Order
+                </button>
+                <button class="btn btn-danger btn-sm" ng-click="ReorderAll()"
+                        title="Set the order based on the below order for all product questions grouped by customer and location for the selected survey">
+                    Set Order All
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+       
+        <div class="col-md-12">            
             <div class="grid" ui-grid="gridOptions" ui-grid-infinite-scroll ui-grid-draggable-rows></div>
         </div>
         <hr />
