@@ -19,7 +19,7 @@
             ]
         }
         $scope.Search = function () {
-            SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+            SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder asc"], 0, 100, false).then(function (data) {
                 $scope.gridOptions.data = data.Results;
             });
         }
@@ -121,25 +121,29 @@
             if (!$scope.ValidateForOrdering()) {
                 return;
             }
-            for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+            var promise = {}, promises = [];
+            angular.forEach($scope.gridOptions.data, function (item, index) {
                 var predicate = {
                     and: [
                         { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
-                        { "ProductId": { "==": $scope.gridOptions.data[i].ProductId } },
-                        { "QuestionId": { "==": $scope.gridOptions.data[i].QuestionId } }
+                        { "ProductId": { "==": item.ProductId } },
+                        { "QuestionId": { "==": item.QuestionId } }
                     ]
                 }
-                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                    for (var j = 0; j < data.length; j++) {
-                        var row = data[j];
-                        row.RowOrder = i;
+                promise = SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    for (var j = 0; j < data.Results.length; j++) {
+                        var row = data.Results[j];
+                        row.RowOrder = index;
                         SurveyCustomerLocationProductQuestionService.Update(row.Id, row).then(function (data) {
 
                         });
                     }
                 });
-            }
-            $scope.Search();
+                promises.push(promise);
+                $q.all(promises).then(function () {
+                    $scope.Search();
+                })
+            });
         }
 
         $scope.ValidateForOrdering = function () {

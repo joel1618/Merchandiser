@@ -45,8 +45,8 @@ namespace Merchandiser.Migrations
                     AddSurvey(context);
                     AddSurveyCustomerLocation(context);
                     AddSurveyProductQuestion(context);
+                    AddViews(context);
 
-                    
                     context.SaveChanges();
                     context.Database.Connection.Close();
                 }
@@ -136,9 +136,9 @@ namespace Merchandiser.Migrations
         }
         public void AddCustomers(MerchandiserEntities context)
         {
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(),  Name = "Customer 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(),  Name = "Customer 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(),  Name = "Customer 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
@@ -207,6 +207,50 @@ namespace Merchandiser.Migrations
                 SurveyId = survey.Id
             });
             context.SaveChanges();
+        }
+
+        public void AddViews(MerchandiserEntities context)
+        {            
+            string script = @"
+                CREATE VIEW [dbo].[SelectLocation] AS 
+                SELECT 
+                Survey.LocationId AS 'Id', 
+                MAX(Survey.CustomerId) AS 'CustomerId',
+                MAX(Survey.CompanyId) AS 'CompanyId',
+                MAX(Location.Name) AS 'Name',
+                MAX(Location.Address) AS 'Address',
+                MAX(SurveyHeader.Created) AS 'SurveyCreated'
+                FROM SurveyCustomerLocationProductQuestion Survey
+                LEFT JOIN dbo.Location
+                ON Survey.LocationId = Location.Id
+                LEFT JOIN dbo.SurveyHeader
+                ON SurveyHeader.Id = Survey.SurveyId
+                AND SurveyHeader.LocationId = Survey.LocationId
+                AND SurveyHeader.CustomerId = Survey.CustomerId
+                AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))
+                GROUP BY Survey.LocationId
+            ";
+            context.Database.ExecuteSqlCommand(script);
+            script = @"
+                CREATE VIEW [dbo].[SelectSurvey] AS 
+                SELECT 
+                SurveyCLPQ.SurveyId AS 'Id', 
+                MAX(SurveyCLPQ.CustomerId) AS 'CustomerId',
+                MAX(SurveyCLPQ.CompanyId) AS 'CompanyId',
+                MAX(SurveyCLPQ.LocationId) AS 'LocationId',
+                MAX(Survey.Name) AS 'Name',
+                MAX(SurveyHeader.Created) AS 'SurveyCreated'
+                FROM SurveyCustomerLocationProductQuestion SurveyCLPQ
+                LEFT JOIN dbo.Survey
+                ON SurveyCLPQ.SurveyId = Survey.Id
+                LEFT JOIN dbo.SurveyHeader
+                ON SurveyHeader.Id = SurveyCLPQ.SurveyId
+                AND SurveyHeader.LocationId = SurveyCLPQ.LocationId
+                AND SurveyHeader.CustomerId = SurveyCLPQ.CustomerId
+                AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))
+                GROUP BY SurveyCLPQ.SurveyId
+            ";
+            context.Database.ExecuteSqlCommand(script);
         }
     }
 }
