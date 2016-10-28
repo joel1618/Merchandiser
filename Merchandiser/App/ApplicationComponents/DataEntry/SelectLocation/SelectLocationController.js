@@ -28,7 +28,7 @@
                        { "Longitude": { '<=': $scope.Longitude + .0725 } }
                     ]
                 }
-                SelectLocationService.Search(predicate, ["Location.Name asc"], 0, 100, false).then(function (data) {
+                SelectLocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                     $scope.Location = data;
                 });
             }

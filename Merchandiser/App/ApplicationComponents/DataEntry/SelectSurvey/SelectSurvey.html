@@ -10,6 +10,7 @@
                             <tr>
                                 <th></th>
                                 <th>Name</th>
+                                <th>Survey Created</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="item in Survey">
@@ -19,6 +20,9 @@
                                 </td>
                                 <td>
                                     {{item.Name}}
+                                </td>
+                                <td>
+                                    {{item.SurveyCreated | date: 'MM/dd/yyyy'}}
                                 </td>
                             </tr>
                         </tbody>

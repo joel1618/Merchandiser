@@ -510,8 +510,8 @@
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
     <Content Include="App\DatabaseServices\Report\ReportService.js" />
     <Content Include="App\DatabaseServices\Role\RoleService.js" />
-    <Content Include="App\DatabaseServices\SelectLocation\SelectLocation.js" />
-    <Content Include="App\DatabaseServices\SelectSurvey\SelectSurvey.js" />
+    <Content Include="App\DatabaseServices\SelectLocation\SelectLocationService.js" />
+    <Content Include="App\DatabaseServices\SelectSurvey\SelectSurveyService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocationProductQuestion\SurveyCustomerLocationProductQuestionService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />

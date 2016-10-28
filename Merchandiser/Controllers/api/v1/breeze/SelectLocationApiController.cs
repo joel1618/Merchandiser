@@ -24,6 +24,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
+                Address = x.Address,
                 CustomerId = x.CustomerId,
                 Name = x.Name,
                 SurveyCreated = x.SurveyCreated,

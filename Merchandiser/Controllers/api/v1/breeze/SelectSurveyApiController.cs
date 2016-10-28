@@ -20,7 +20,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<SelectSurveyViewModel> Search(Guid companyId)
         {
-            return context.SelectSurveys.Select(x => new SelectSurveyViewModel()
+            var response = context.SelectSurveys.Select(x => new SelectSurveyViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
@@ -29,6 +29,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Name = x.Name,
                 SurveyCreated = x.SurveyCreated
             });
+            return response;
         }
     }
 }
