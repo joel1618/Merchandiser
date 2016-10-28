@@ -147,11 +147,11 @@
             var location = $scope.gridOptions.data[0].LocationId;
             for (var i = 0; i < $scope.gridOptions.data.length; i++) {
                 if (customer != $scope.gridOptions.data[i].CustomerId) {
-                    toastr.error("The grouping does not contain just 1 customer.  Please filter down to just 1 customer first before ordering.");
+                    toastr.error("The grouping does not contain just one customer.  Please filter down to just one customer first before ordering.");
                     return false;
                 }
                 if (location != $scope.gridOptions.data[i].LocationId) {
-                    toastr.error("The grouping does not contain just 1 location.  Please filter down to just 1 location first before ordering.");
+                    toastr.error("The grouping does not contain just one location.  Please filter down to just one location first before ordering.");
                     return false;
                 }
             }
