@@ -20,11 +20,10 @@
                 var predicate = {
                     and: [
                        { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "CustomerId": { "==": SelectionApplicationService.GetCustomerId() } },
                        { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
                     ]
                 }
-                debugger;
                 SelectSurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                     $scope.Survey = data;
                 });

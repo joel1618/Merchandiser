@@ -20,7 +20,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpGet]
         public IQueryable<SelectLocationViewModel> Search(Guid companyId)
         {
-            return context.SelectLocations.Select(x => new SelectLocationViewModel()
+            var response = context.SelectLocations.Select(x => new SelectLocationViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,
@@ -31,6 +31,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Latitude = x.Latitude,
                 Longitude = x.Longitude
             });
+            return response;
         }
     }
 }
