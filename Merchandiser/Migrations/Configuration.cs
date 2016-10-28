@@ -219,6 +219,8 @@ namespace Merchandiser.Migrations
                 MAX(Survey.CompanyId) AS 'CompanyId',
                 MAX(Location.Name) AS 'Name',
                 MAX(Location.Address) AS 'Address',
+                MAX(Location.Latitude) AS 'Latitude',
+                MAX(Location.Longitude) AS 'Longitude',
                 MAX(SurveyHeader.Created) AS 'SurveyCreated'
                 FROM SurveyCustomerLocationProductQuestion Survey
                 LEFT JOIN dbo.Location
