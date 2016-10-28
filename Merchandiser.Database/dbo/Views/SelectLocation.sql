@@ -12,7 +12,7 @@ FROM SurveyCustomerLocationProductQuestion Survey
 LEFT JOIN dbo.Location
 ON Survey.LocationId = Location.Id
 LEFT JOIN dbo.SurveyHeader
-ON SurveyHeader.Id = Survey.SurveyId
+ON SurveyHeader.SurveyId = Survey.SurveyId
 AND SurveyHeader.LocationId = Survey.LocationId
 AND SurveyHeader.CustomerId = Survey.CustomerId
 AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))

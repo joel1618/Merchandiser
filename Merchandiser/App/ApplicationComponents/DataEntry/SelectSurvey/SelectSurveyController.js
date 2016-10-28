@@ -25,7 +25,6 @@
                     ]
                 }
                 SelectSurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    debugger;
                     $scope.Survey = data;
                 });
             }

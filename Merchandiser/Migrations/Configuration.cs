@@ -226,7 +226,7 @@ namespace Merchandiser.Migrations
                 LEFT JOIN dbo.Location
                 ON Survey.LocationId = Location.Id
                 LEFT JOIN dbo.SurveyHeader
-                ON SurveyHeader.Id = Survey.SurveyId
+                ON SurveyHeader.SurveyId = Survey.SurveyId
                 AND SurveyHeader.LocationId = Survey.LocationId
                 AND SurveyHeader.CustomerId = Survey.CustomerId
                 AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))
@@ -246,7 +246,7 @@ namespace Merchandiser.Migrations
                 LEFT JOIN dbo.Survey
                 ON SurveyCLPQ.SurveyId = Survey.Id
                 LEFT JOIN dbo.SurveyHeader
-                ON SurveyHeader.Id = SurveyCLPQ.SurveyId
+                ON SurveyHeader.SurveyId = SurveyCLPQ.SurveyId
                 AND SurveyHeader.LocationId = SurveyCLPQ.LocationId
                 AND SurveyHeader.CustomerId = SurveyCLPQ.CustomerId
                 AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))

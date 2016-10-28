@@ -9,11 +9,11 @@
     });
     angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
-        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
+        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyCustomerLocationProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
         'SelectionApplicationService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyCustomerLocationProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
         
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
@@ -57,7 +57,7 @@
                        { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
                     ]
                 }
-                SurveyProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
+                SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
                     $scope.Survey = data.Results[0].Survey;
                     $scope.Detail = data.Results;
                 });
