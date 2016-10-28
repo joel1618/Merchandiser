@@ -145,7 +145,7 @@ namespace Merchandiser.Migrations
         }
         public void AddLocations(MerchandiserEntities context)
         {
-            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now, Latitude = (decimal)29.592581, Longitude = (decimal)-98.555577, Address = "107 Shavano Dr, Shavano Park, TX 78231, USA" });
             context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
