@@ -26,7 +26,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CompanyId = x.CompanyId,
                 CustomerId = x.CustomerId,
                 Name = x.Name,
-                SurveyCreated = x.SurveyCreated
+                SurveyCreated = x.SurveyCreated,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude
             });
         }
     }

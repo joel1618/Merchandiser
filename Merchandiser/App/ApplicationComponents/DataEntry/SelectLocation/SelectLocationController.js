@@ -20,22 +20,23 @@
             if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
                 var predicate = {
                     and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },                       
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
+                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
+                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
+                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
                     ]
                 }
-                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    $scope.Survey = data;
+                SelectLocationService.Search(predicate, ["Location.Name asc"], 0, 100, false).then(function (data) {
+                    $scope.Location = data;
                 });
             }
             else {
                 var predicate = {
                     and: [
                        { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
-                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
-                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
-                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
                     ]
                 }
                 LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {

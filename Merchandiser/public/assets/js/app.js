@@ -339,108 +339,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('CompanyUserService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-        var _self = this;
-        this.deferredRequest = null;
-
-        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
-            cancelExistingSearch = cancelExistingSearch || false;
-
-            if (this.deferredRequest !== null && cancelExistingSearch) {
-                this.deferredRequest.reject("Cancelled Search Request.");
-                this.deferredRequest = null;
-            }
-            var deferred = $q.defer();
-            var query = breeze.EntityQuery.from('CompanyUserApi/Search');
-            if (predicate != null) {
-                query = query.where(predicate);
-            }
-            query = query.skip(page * pageSize).take(pageSize);
-                        
-            breezeservice.executeQuery(query).then(function (data) {
-                deferred.resolve(data.httpResponse.data);
-                _self.deferredRequest = null;
-            }, function (msg, code) {
-                deferred.reject(msg);
-                _self.deferredRequest = null;
-            });
-            
-            this.deferredRequest = deferred;
-
-            return deferred.promise;
-        };
-
-        this.Get = function (id) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'Get',
-                url: '/breeze/CompanyUserApi/Get/' + id,
-            }).success(function (data, status, headers, config) {
-                deferred.resolve(data);
-            }).error(function (msg, code) {
-                deferred.reject(msg);
-            });
-
-            return deferred.promise;
-        };
-
-        this.Create = function (item) {
-            var deferred = $q.defer();
-
-            $http.post('/breeze/CompanyUserApi/Create', item)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.data.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to create the record.");
-                }
-            });
-
-            return deferred.promise;
-        };
-
-        this.Update = function (id, item) {
-            var deferred = $q.defer();
-
-            $http.put('/breeze/CompanyUserApi/Update/' + id, item)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.data.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to update the record.");
-                }
-            });
-
-            return deferred.promise;
-        }
-
-        this.Delete = function (id) {
-            var deferred = $q.defer();
-
-            $http.delete('/breeze/CompanyUserApi/Delete/' + id)
-            .then(function (response) {
-                deferred.resolve(response);
-            }, function (response) {
-                if (response.data.length > 0) {
-                    deferred.reject(response);
-                } else {
-                    deferred.reject("Failed to delete the record.");
-                }
-            });
-
-            return deferred.promise;
-        }
-    }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
     .service('CustomerService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
         var _self = this;
@@ -546,42 +444,104 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('DownloadService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
-        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
-            var _self = this;
-            this.deferredRequest = null;
+    .service('CompanyUserService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+        var _self = this;
+        this.deferredRequest = null;
 
-            this.DownloadSurveyData = function (id) {
-                var deferred = $q.defer();
+        this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+            cancelExistingSearch = cancelExistingSearch || false;
 
-                $http({
-                    method: 'Get',
-                    url: '/api/v1/DownloadApi/DownloadSurveyData/'
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
+            if (this.deferredRequest !== null && cancelExistingSearch) {
+                this.deferredRequest.reject("Cancelled Search Request.");
+                this.deferredRequest = null;
+            }
+            var deferred = $q.defer();
+            var query = breeze.EntityQuery.from('CompanyUserApi/Search');
+            if (predicate != null) {
+                query = query.where(predicate);
+            }
+            query = query.skip(page * pageSize).take(pageSize);
+                        
+            breezeservice.executeQuery(query).then(function (data) {
+                deferred.resolve(data.httpResponse.data);
+                _self.deferredRequest = null;
+            }, function (msg, code) {
+                deferred.reject(msg);
+                _self.deferredRequest = null;
+            });
+            
+            this.deferredRequest = deferred;
 
-                return deferred.promise;
-            };
+            return deferred.promise;
+        };
 
-            this.DownloadNoteData = function (id) {
-                var deferred = $q.defer();
+        this.Get = function (id) {
+            var deferred = $q.defer();
 
-                $http({
-                    method: 'Get',
-                    url: '/api/v1/DownloadApi/DownloadNoteData/'
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
+            $http({
+                method: 'Get',
+                url: '/breeze/CompanyUserApi/Get/' + id,
+            }).success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            }).error(function (msg, code) {
+                deferred.reject(msg);
+            });
 
-                return deferred.promise;
-            };
+            return deferred.promise;
+        };
 
-        }]);
+        this.Create = function (item) {
+            var deferred = $q.defer();
+
+            $http.post('/breeze/CompanyUserApi/Create', item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.data.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to create the record.");
+                }
+            });
+
+            return deferred.promise;
+        };
+
+        this.Update = function (id, item) {
+            var deferred = $q.defer();
+
+            $http.put('/breeze/CompanyUserApi/Update/' + id, item)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.data.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to update the record.");
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        this.Delete = function (id) {
+            var deferred = $q.defer();
+
+            $http.delete('/breeze/CompanyUserApi/Delete/' + id)
+            .then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                if (response.data.length > 0) {
+                    deferred.reject(response);
+                } else {
+                    deferred.reject("Failed to delete the record.");
+                }
+            });
+
+            return deferred.promise;
+        }
+    }]);
 })();
 (function () {
     "use strict";
@@ -694,6 +654,46 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 
                 return deferred.promise;
             }
+        }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
+    .service('DownloadService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+        function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.DownloadSurveyData = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/DownloadApi/DownloadSurveyData/'
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
+            this.DownloadNoteData = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/api/v1/DownloadApi/DownloadNoteData/'
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
         }]);
 })();
 (function () {
@@ -1212,7 +1212,7 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('SelectLocation', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+    .service('SelectLocationService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
             var _self = this;
             this.deferredRequest = null;
@@ -1253,7 +1253,7 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('SelectSurvey', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+    .service('SelectSurveyService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
             var _self = this;
             this.deferredRequest = null;
@@ -1972,6 +1972,122 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
 (function () {
     "use strict";
     angular.module('DatabaseServices')
+    .service('UserRoleService', ['$http', '$q', 'breeze', 'breezeservice',
+        function ($http, $q, breeze, breezeservice) {
+            var _self = this;
+            this.deferredRequest = null;
+
+            this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
+                cancelExistingSearch = cancelExistingSearch || false;
+
+                if (this.deferredRequest !== null && cancelExistingSearch) {
+                    this.deferredRequest.reject("Cancelled Search Request.");
+                    this.deferredRequest = null;
+                }
+                var deferred = $q.defer();
+                var query = breeze.EntityQuery.from('UserRoleApi/Search');
+                if (predicate != null) {
+                    query = query.where(predicate);
+                }
+                query = query.skip(page * pageSize).take(pageSize);
+
+                breezeservice.executeQuery(query).then(function (data) {
+                    deferred.resolve(data.httpResponse.data);
+                    _self.deferredRequest = null;
+                }, function (msg, code) {
+                    deferred.reject(msg);
+                    _self.deferredRequest = null;
+                });
+
+                this.deferredRequest = deferred;
+
+                return deferred.promise;
+            };
+
+            this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
+                cancelExistingSearch = cancelExistingSearch || false;
+
+                if (this.deferredRequest !== null && cancelExistingSearch) {
+                    this.deferredRequest.reject("Cancelled Search Request.");
+                    this.deferredRequest = null;
+                }
+                var deferred = $q.defer();
+
+                var query = new breeze.EntityQuery({
+                    from: "UserRoleApi/Search",
+                    where: predicate,
+                    //orderBy: ["Created desc"],
+                    skip: page * pageSize,
+                    take: pageSize
+                });
+
+                breezeservice.executeQuery(query).then(function (data) {
+                    deferred.resolve(data.httpResponse.data);
+                    _self.deferredRequest = null;
+                }, function (msg, code) {
+                    deferred.reject(msg);
+                    _self.deferredRequest = null;
+                });
+
+                this.deferredRequest = deferred;
+
+                return deferred.promise;
+            };
+
+            this.Get = function (id) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'Get',
+                    url: '/breeze/UserRoleApi/Get/' + id,
+                }).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (msg, code) {
+                    deferred.reject(msg);
+                });
+
+                return deferred.promise;
+            };
+
+            this.Create = function (item) {
+                var deferred = $q.defer();
+
+                $http.post('/breeze/UserRoleApi/Create', item)
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (response) {
+                    if (response.data.length > 0) {
+                        deferred.reject(response);
+                    } else {
+                        deferred.reject("Failed to create the record.");
+                    }
+                });
+
+                return deferred.promise;
+            };
+
+            this.Delete = function (id) {
+                var deferred = $q.defer();
+
+                $http.delete('/breeze/UserRoleApi/Delete/' + id)
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (response) {
+                    if (response.data.length > 0) {
+                        deferred.reject(response);
+                    } else {
+                        deferred.reject("Failed to delete the record.");
+                    }
+                });
+
+                return deferred.promise;
+            }
+           
+        }]);
+})();
+(function () {
+    "use strict";
+    angular.module('DatabaseServices')
     .service('UserService', ['$http', '$q', 'breeze', 'breezeservice', 'RoleService', 'UserRoleService',
         function ($http, $q, breeze, breezeservice, RoleService, UserRoleService) {
             var _self = this;
@@ -2089,122 +2205,6 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
                 });
                 return deferred.promise;
             }
-        }]);
-})();
-(function () {
-    "use strict";
-    angular.module('DatabaseServices')
-    .service('UserRoleService', ['$http', '$q', 'breeze', 'breezeservice',
-        function ($http, $q, breeze, breezeservice) {
-            var _self = this;
-            this.deferredRequest = null;
-
-            this.Search = function (predicate, page, pageSize, cancelExistingSearch) {
-                cancelExistingSearch = cancelExistingSearch || false;
-
-                if (this.deferredRequest !== null && cancelExistingSearch) {
-                    this.deferredRequest.reject("Cancelled Search Request.");
-                    this.deferredRequest = null;
-                }
-                var deferred = $q.defer();
-                var query = breeze.EntityQuery.from('UserRoleApi/Search');
-                if (predicate != null) {
-                    query = query.where(predicate);
-                }
-                query = query.skip(page * pageSize).take(pageSize);
-
-                breezeservice.executeQuery(query).then(function (data) {
-                    deferred.resolve(data.httpResponse.data);
-                    _self.deferredRequest = null;
-                }, function (msg, code) {
-                    deferred.reject(msg);
-                    _self.deferredRequest = null;
-                });
-
-                this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-            this.SearchJson = function (predicate, page, pageSize, cancelExistingSearch) {
-                cancelExistingSearch = cancelExistingSearch || false;
-
-                if (this.deferredRequest !== null && cancelExistingSearch) {
-                    this.deferredRequest.reject("Cancelled Search Request.");
-                    this.deferredRequest = null;
-                }
-                var deferred = $q.defer();
-
-                var query = new breeze.EntityQuery({
-                    from: "UserRoleApi/Search",
-                    where: predicate,
-                    //orderBy: ["Created desc"],
-                    skip: page * pageSize,
-                    take: pageSize
-                });
-
-                breezeservice.executeQuery(query).then(function (data) {
-                    deferred.resolve(data.httpResponse.data);
-                    _self.deferredRequest = null;
-                }, function (msg, code) {
-                    deferred.reject(msg);
-                    _self.deferredRequest = null;
-                });
-
-                this.deferredRequest = deferred;
-
-                return deferred.promise;
-            };
-
-            this.Get = function (id) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'Get',
-                    url: '/breeze/UserRoleApi/Get/' + id,
-                }).success(function (data, status, headers, config) {
-                    deferred.resolve(data);
-                }).error(function (msg, code) {
-                    deferred.reject(msg);
-                });
-
-                return deferred.promise;
-            };
-
-            this.Create = function (item) {
-                var deferred = $q.defer();
-
-                $http.post('/breeze/UserRoleApi/Create', item)
-                .then(function (response) {
-                    deferred.resolve(response);
-                }, function (response) {
-                    if (response.data.length > 0) {
-                        deferred.reject(response);
-                    } else {
-                        deferred.reject("Failed to create the record.");
-                    }
-                });
-
-                return deferred.promise;
-            };
-
-            this.Delete = function (id) {
-                var deferred = $q.defer();
-
-                $http.delete('/breeze/UserRoleApi/Delete/' + id)
-                .then(function (response) {
-                    deferred.resolve(response);
-                }, function (response) {
-                    if (response.data.length > 0) {
-                        deferred.reject(response);
-                    } else {
-                        deferred.reject("Failed to delete the record.");
-                    }
-                });
-
-                return deferred.promise;
-            }
-           
         }]);
 })();
 var app = angular.module('Directives',[]);
@@ -2524,6 +2524,83 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 })(moment);
 (function (moment) {
     "use strict";    
+    angular.module('Main').controller('CompanyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CompanyService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService) {
+        $scope.Init = function () {
+            $scope.item = { Id: null, Name: "" }
+            $scope.focus = true;
+        }
+        $scope.Init();
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                CompanyService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                CompanyService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+            }
+            else {
+                CompanyService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location',
+        '$timeout', 'breezeservice', 'breeze', 'CompanyService',
+        'UserService', 'RoleService', 'UserRoleService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location,
+        $timeout, breezeservice, breeze, CompanyService,
+        UserService, RoleService, UserRoleService, SelectionApplicationService) {
+        $scope.Search = function () {
+            CompanyService.AdminSearch(null, ["Name desc"], 0, 20, false).then(function (data) {
+                $scope.items = data;
+                if (data != null && data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
+            });
+        }
+        $scope.Search();
+
+        $scope.Edit = function (Id) {
+            $state.go('main.admin.company.addedit', { id: Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            CompanyService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+        
+        $scope.Select = function (Id) {
+            CompanyService.Get(Id).then(function (data) {
+                SelectionApplicationService.SetCompanyId(data.Id);
+                SelectionApplicationService.SetCompany(data);
+            });
+        }
+        
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
     angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http',
         '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http,
@@ -2599,83 +2676,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                 toastr.error(error.data, error.statusText);
             });
         }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('CompanyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CompanyService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService) {
-        $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
-            $scope.focus = true;
-        }
-        $scope.Init();
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                CompanyService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                CompanyService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error.data, error.statusText);
-                });
-            }
-            else {
-                CompanyService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error.data, error.statusText);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'CompanyService',
-        'UserService', 'RoleService', 'UserRoleService', 'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, CompanyService,
-        UserService, RoleService, UserRoleService, SelectionApplicationService) {
-        $scope.Search = function () {
-            CompanyService.AdminSearch(null, ["Name desc"], 0, 20, false).then(function (data) {
-                $scope.items = data;
-                if (data != null && data.length == 1) {
-                    $scope.Select(data[0].Id);
-                }
-            });
-        }
-        $scope.Search();
-
-        $scope.Edit = function (Id) {
-            $state.go('main.admin.company.addedit', { id: Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            CompanyService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
-        }
-        
-        $scope.Select = function (Id) {
-            CompanyService.Get(Id).then(function (data) {
-                SelectionApplicationService.SetCompanyId(data.Id);
-                SelectionApplicationService.SetCompany(data);
-            });
-        }
-        
     }]);
 
 })(moment);
@@ -3892,54 +3892,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('main.selectcompany', {
-            url: "/selectcompany/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectCompany/SelectCompany.html"
-        })
-    });
-    angular.module('Main').controller('SelectCompanyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
-
-        $scope.Search = function () {
-            CompanyService.Search(null, ["Name desc"], 0, 20, false).then(function (data) {
-                if (data.length == 1) {
-                    $scope.Select(data[0]);
-                }
-                else {
-                    $scope.Company = data;
-                }
-            });
-        }
-        $scope.Search();
-
-        $scope.Select = function (item) {
-            SelectionApplicationService.SetCompany(item);
-            SelectionApplicationService.SetCompanyId(item.Id);
-            $state.go('main.selectcustomer');
-        }
-
-        $scope.Continue = function () {
-            $state.go('main.selectcustomer');
-        }
-
-        $scope.IsContinueShown = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
         .state('main.selectcustomer', {
             url: "/selectcustomer/:redirectState",
             templateUrl: "ApplicationComponents/DataEntry/SelectCustomer/SelectCustomer.html"
@@ -3989,88 +3941,38 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
-        .state('main.selectlocation', {
-            url: "/selectlocation/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectLocation/SelectLocation.html"
+        .state('main.selectcompany', {
+            url: "/selectcompany/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectCompany/SelectCompany.html"
         })
     });
-    angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+    angular.module('Main').controller('SelectCompanyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectLocationService',
+        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectLocationService) {
-        
-        $scope.LocationServicesDisabled = false;
-        $scope.Location = [];
-        $scope.Search = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
-                    ]
-                }
-                SurveyCustomerLocationProductQuestionService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    $scope.Survey = data;
-                });
-            }
-            else {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
-                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
-                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
-                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
-                    ]
-                }
-                LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    if (SelectionApplicationService.GetRole() == "Customer") {
-                        $state.go('main.selectsurvey');
-                    }
-                    if (data.length < 1) {
-                        $scope.LocationServicesDisabled = true;
-                    }
-                    else if (data.length == 1) {
-                        $scope.Select(data[0]);
-                    }
-                    $scope.Location = data;
-                });
-            }
-            
-        }
-        navigator.geolocation.getCurrentPosition(function (position) {
-            $scope.Latitude = position.coords.latitude;
-            $scope.Longitude = position.coords.longitude;
-            $scope.Search();
-        }, function (error) {
-            toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
-            $scope.LocationServicesDisabled = true;
-        });
+        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
 
-        $scope.ChangeAddress = function (value) {
-            var address = JSON.stringify(value);
-            return $http.get('https://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
-                return data.data.results;
+        $scope.Search = function () {
+            CompanyService.Search(null, ["Name desc"], 0, 20, false).then(function (data) {
+                if (data.length == 1) {
+                    $scope.Select(data[0]);
+                }
+                else {
+                    $scope.Company = data;
+                }
             });
         }
-
-        $scope.SelectAddress = function (item, model, label) {
-            $scope.Latitude = item.geometry.location.lat;
-            $scope.Longitude = item.geometry.location.lng;
-            $scope.LocationServicesDisabled = false;
-            $scope.Search();
-        }
+        $scope.Search();
 
         $scope.Select = function (item) {
-            SelectionApplicationService.SetLocation(item);
-            SelectionApplicationService.SetLocationId(item.Id);
-            $state.go('main.selectsurvey');
+            SelectionApplicationService.SetCompany(item);
+            SelectionApplicationService.SetCompanyId(item.Id);
+            $state.go('main.selectcustomer');
         }
 
         $scope.Continue = function () {
-            $state.go('main.selectsurvey');
+            $state.go('main.selectcustomer');
         }
 
         $scope.IsContinueShown = function () {
@@ -4139,6 +4041,105 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
         $scope.Continue = function () {
             $state.go(SelectionApplicationService.GetRedirectState());
+        }
+
+        $scope.IsContinueShown = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('main.selectlocation', {
+            url: "/selectlocation/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectLocation/SelectLocation.html"
+        })
+    });
+    angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
+        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectLocationService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
+        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectLocationService) {
+        
+        $scope.LocationServicesDisabled = false;
+        $scope.Location = [];
+        $scope.Search = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },                       
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
+                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
+                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
+                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
+                    ]
+                }
+                SelectLocationService.Search(predicate, ["Location.Name asc"], 0, 100, false).then(function (data) {
+                    $scope.Location = data;
+                });
+            }
+            else {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
+                    ]
+                }
+                LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    if (SelectionApplicationService.GetRole() == "Customer") {
+                        $state.go('main.selectsurvey');
+                    }
+                    if (data.length < 1) {
+                        $scope.LocationServicesDisabled = true;
+                    }
+                    else if (data.length == 1) {
+                        $scope.Select(data[0]);
+                    }
+                    $scope.Location = data;
+                });
+            }
+            
+        }
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $scope.Latitude = position.coords.latitude;
+            $scope.Longitude = position.coords.longitude;
+            $scope.Search();
+        }, function (error) {
+            toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
+            $scope.LocationServicesDisabled = true;
+        });
+
+        $scope.ChangeAddress = function (value) {
+            var address = JSON.stringify(value);
+            return $http.get('https://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
+                return data.data.results;
+            });
+        }
+
+        $scope.SelectAddress = function (item, model, label) {
+            $scope.Latitude = item.geometry.location.lat;
+            $scope.Longitude = item.geometry.location.lng;
+            $scope.LocationServicesDisabled = false;
+            $scope.Search();
+        }
+
+        $scope.Select = function (item) {
+            SelectionApplicationService.SetLocation(item);
+            SelectionApplicationService.SetLocationId(item.Id);
+            $state.go('main.selectsurvey');
+        }
+
+        $scope.Continue = function () {
+            $state.go('main.selectsurvey');
         }
 
         $scope.IsContinueShown = function () {

@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('SelectLocation', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+    .service('SelectLocationService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
             var _self = this;
             this.deferredRequest = null;
