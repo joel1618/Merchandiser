@@ -511,7 +511,7 @@
     <Content Include="App\DatabaseServices\Role\RoleService.js" />
     <Content Include="App\DatabaseServices\SelectLocation\SelectLocation.js" />
     <Content Include="App\DatabaseServices\SelectSurvey\SelectSurvey.js" />
-    <Content Include="App\DatabaseServices\SurveyCustomerLocationProductQuestion\SurveyCustomerLocationService.js" />
+    <Content Include="App\DatabaseServices\SurveyCustomerLocationProductQuestion\SurveyCustomerLocationProductQuestionService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />
     <Content Include="App\DatabaseServices\SurveyHeader\SurveyHeaderService.js" />

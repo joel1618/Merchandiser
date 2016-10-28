@@ -24,6 +24,7 @@
         meta.setEntityTypeForResourceName("LocationApi/Search", "LocationViewModel");
         meta.setEntityTypeForResourceName("SurveyCustomerLocationApi/Search", "SurveyCustomerLocationViewModel");
         meta.setEntityTypeForResourceName("SurveyProductQuestionApi/Search", "SurveyProductQuestionViewModel");
+        meta.setEntityTypeForResourceName("SurveyCustomerLocationProductQuestionApi/Search", "SurveyCustomerLocationProductQuestionViewModel");
         meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
         meta.setEntityTypeForResourceName("MapApi/Search", "MapViewModel");
         meta.setEntityTypeForResourceName("ProductCategoryApi/Search", "ProductCategoryViewModel");

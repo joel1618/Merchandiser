@@ -41,6 +41,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 SurveyId = x.SurveyId,
                 LocationId = x.LocationId,
                 CustomerId = x.CustomerId,
+                RowOrder = x.RowOrder,
                 Customer = new CustomerViewModel()
                 {
                     Id = x.Customer.Id,
@@ -105,6 +106,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var response = repository.Create(item.ToEntity()).ToViewModel();
             response.Customer = customerRepository.Get(response.CustomerId).ToViewModel();
             response.Location = locationRepository.Get(response.LocationId).ToViewModel();
+            response.Product = productRepository.Get(response.ProductId).ToViewModel();
+            response.Question = questionRepository.Get(response.QuestionId).ToViewModel();
             return Ok(response);
         }
 

@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('SurveyCustomerLocationProductQuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams',
     '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
-        'CustomerService', 'LocationService', 'SelectionApplicationService',
+        'CustomerService', 'LocationService', 'ProductService', 'QuestionService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams,
         $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
-        CustomerService, LocationService, SelectionApplicationService) {
+        CustomerService, LocationService, ProductService, QuestionService, SelectionApplicationService) {
 
         $scope.Init = function () {
             $scope.item = {
@@ -178,7 +178,7 @@
                 }
                 $q.all(promises).then(function () {
                     toastr.success("The specified survey data has been copied over.");
-                    $scope.copyItem = { Id: null }
+                    $scope.itemCopy = { Id: null }
                     $scope.$parent.Search();
                 });
             });
