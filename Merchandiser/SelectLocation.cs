@@ -19,8 +19,8 @@ namespace Merchandiser
         public Nullable<System.Guid> CompanyId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public Nullable<System.DateTime> SurveyCreated { get; set; }
         public Nullable<decimal> Latitude { get; set; }
         public Nullable<decimal> Longitude { get; set; }
+        public Nullable<System.DateTime> SurveyCreated { get; set; }
     }
 }

@@ -45,6 +45,10 @@ namespace Merchandiser.Repositories
             var entity = context.SurveyCustomerLocationProductQuestions.Find(id);
             entity.Modified = DateTime.UtcNow;
             entity.RowOrder = item.RowOrder;
+            entity.QuestionId = item.QuestionId;
+            entity.ProductId = item.ProductId;
+            entity.LocationId = item.LocationId;
+            entity.CustomerId = item.CustomerId;
             context.SaveChanges();
             return entity;
         }

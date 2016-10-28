@@ -1456,9 +1456,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <Property Name="CompanyId" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SelectSurvey">
           <Key>
@@ -2210,9 +2210,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <EntitySetMapping Name="SelectLocations">
             <EntityTypeMapping TypeName="MerchandiserModel.SelectLocation">
               <MappingFragment StoreEntitySet="SelectLocation">
+                <ScalarProperty Name="SurveyCreated" ColumnName="SurveyCreated" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="SurveyCreated" ColumnName="SurveyCreated" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
