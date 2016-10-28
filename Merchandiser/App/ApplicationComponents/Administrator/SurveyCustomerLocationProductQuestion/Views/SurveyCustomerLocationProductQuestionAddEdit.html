@@ -54,14 +54,14 @@
                         <label>Location</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsLocationCopy" ng-model="itemCopy.Location.Name" uib-typeahead="item.Name for item in SearchLocations($viewValue)"
                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
-                               typeahead-on-select="SelectLocation($item, $model, $label)" />
+                               typeahead-on-select="SelectLocationCopy($item, $model, $label)" />
                         <div ng-show="noResultsLocationCopy">
                             No Results Found!
                         </div>
                         <label>Product</label>
                         <input type="text" class="form-control" typeahead-no-results="noResultsProductCopy" ng-model="itemCopy.Product.Name" uib-typeahead="item.Name for item in SearchProducts($viewValue)"
                                ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
-                               typeahead-on-select="SelectProduct($item, $model, $label)" />
+                               typeahead-on-select="SelectProductCopy($item, $model, $label)" />
                         <div ng-show="noResultsProductCopy">
                             No Results Found!
                         </div>

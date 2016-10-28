@@ -8,10 +8,10 @@
         })
     });
     angular.module('Main').controller('SurveyCustomerLocationProductQuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams',
-    '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
+    '$http', '$q', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
         'CustomerService', 'LocationService', 'ProductService', 'QuestionService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams,
-        $http, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
+        $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
         CustomerService, LocationService, ProductService, QuestionService, SelectionApplicationService) {
 
         $scope.Init = function () {
@@ -153,6 +153,8 @@
             }
             if ($scope.item.LocationId != null) { predicate.and.push({ "LocationId": { '==': $scope.item.LocationId } }) }
             if ($scope.item.ProductId != null) { predicate.and.push({ "ProductId": { '==': $scope.item.ProductId } }) }
+            if ($scope.item.QuestionId != null) { predicate.and.push({ "QuestionId": { '==': $scope.item.QuestionId } }) }
+            var promise = {}, promises = [];
             SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder asc"], 0, 100, false).then(function (data) {
                 for (var i = 0; i < data.Results.length; i++) {
                     var item = {
@@ -162,19 +164,22 @@
                         CustomerId: $scope.itemCopy.CustomerId,
                         LocationId: $scope.itemCopy.LocationId,
                         ProductId: $scope.itemCopy.ProductId,
-                        QuestionId: data.Results[i].Question.Id,
+                        QuestionId: $scope.itemCopy.QuestionId,
                     }
                     if ($scope.itemCopy.LocationId == null) {
-                        data.Results[i].Location.Id;
+                        item.LocationId = data.Results[i].Location.Id;
                     }
                     if ($scope.itemCopy.ProductId == null) {
-                        data.Results[i].Product.Id;
+                        item.ProductId = data.Results[i].Product.Id;
                     }
-                    var promise = SurveyProductQuestionService.Create(item).then(function (data) {
+                    if ($scope.itemCopy.QuestionId == null) {
+                        item.QuestionId = data.Results[i].Question.Id;
+                    }
+                    promise = SurveyCustomerLocationProductQuestionService.Create(item).then(function (data) {
 
                     });
-                    $scope.$parent.gridOptions.data.push(data);
-                    promises.push(promise);
+                    //$scope.$parent.gridOptions.data.push(data);
+                    promises.push(promise);                   
                 }
                 $q.all(promises).then(function () {
                     toastr.success("The specified survey data has been copied over.");
