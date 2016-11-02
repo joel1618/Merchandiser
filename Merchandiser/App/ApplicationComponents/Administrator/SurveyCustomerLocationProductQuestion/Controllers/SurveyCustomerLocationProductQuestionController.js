@@ -20,14 +20,14 @@
         }
         $scope.Search = function () {
             SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder asc"], 0, 100, false).then(function (data) {
-                $scope.gridOptions.data = data.Results;
+                $scope.data = data.Results;
             });
         }
         $scope.gridOptions = {
             showGridFooter: true,
             enableFiltering: true,
             enableSorting: true,
-            data: [],
+            data: 'data',
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Customer.Name', name: 'Customer Name', cellTooltip: true },
@@ -101,8 +101,8 @@
             }
             //reorder
             var promises = [], promise = {};
-            for (var i = 0; i < $scope.gridOptions.data.length; i++) {
-                var row = $scope.gridOptions.data[i];
+            for (var i = 0; i < $scope.data.length; i++) {
+                var row = $scope.data[i];
                 row.RowOrder = i
                 var promise = SurveyCustomerLocationProductQuestionService.Update(row.Id, row).then(function (data) {
                 }, function (error) {
@@ -122,7 +122,7 @@
                 return;
             }
             var promise = {}, promises = [];
-            angular.forEach($scope.gridOptions.data, function (item, index) {
+            angular.forEach($scope.data, function (item, index) {
                 var predicate = {
                     and: [
                         { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
@@ -147,14 +147,14 @@
         }
 
         $scope.ValidateForOrdering = function () {
-            var customer = $scope.gridOptions.data[0].CustomerId;
-            var location = $scope.gridOptions.data[0].LocationId;
-            for (var i = 0; i < $scope.gridOptions.data.length; i++) {
-                if (customer != $scope.gridOptions.data[i].CustomerId) {
+            var customer = $scope.data[0].CustomerId;
+            var location = $scope.data[0].LocationId;
+            for (var i = 0; i < $scope.data.length; i++) {
+                if (customer != $scope.data[i].CustomerId) {
                     toastr.error("The grouping does not contain just one customer.  Please filter down to just one customer first before ordering.");
                     return false;
                 }
-                if (location != $scope.gridOptions.data[i].LocationId) {
+                if (location != $scope.data[i].LocationId) {
                     toastr.error("The grouping does not contain just one location.  Please filter down to just one location first before ordering.");
                     return false;
                 }
