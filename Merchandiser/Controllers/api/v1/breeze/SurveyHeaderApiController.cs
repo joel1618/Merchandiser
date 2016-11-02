@@ -38,7 +38,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public IQueryable<SurveyHeaderViewModel> Search(Guid companyId)
         {
             var userId = User.Identity.GetUserId();
-            var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "CustomerId", userRoleRepository).Select(x => new SurveyHeaderViewModel()
+            var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, "CreatedBy", "CompanyId", "CustomerId", userRoleRepository).Select(x => new SurveyHeaderViewModel()
             {
                 Id = x.Id,
                 Created = x.Created,
@@ -143,7 +143,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 var survey = surveyRepository.Get(item.Header.SurveyId);
                 if (!survey.IsEdit)
                 {
-                    return BadRequest("The survey is not editable.");
+                    return BadRequest("The survey is set to be uneditable.");
                 }
                 if (survey.IsEditDays.HasValue)
                 {

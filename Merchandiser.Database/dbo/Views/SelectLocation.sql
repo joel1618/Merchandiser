@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dbo].[SelectLocation] AS 
 SELECT 
 Survey.LocationId AS 'Id', 
-MAX(Survey.CustomerId) AS 'CustomerId',
+Survey.CustomerId AS 'CustomerId',
 MAX(Survey.CompanyId) AS 'CompanyId',
 MAX(Location.Name) AS 'Name',
 MAX(Location.Address) AS 'Address',
@@ -16,5 +16,5 @@ ON SurveyHeader.SurveyId = Survey.SurveyId
 AND SurveyHeader.LocationId = Survey.LocationId
 AND SurveyHeader.CustomerId = Survey.CustomerId
 AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))
-GROUP BY Survey.LocationId
+GROUP BY Survey.LocationId, Survey.CustomerId
 

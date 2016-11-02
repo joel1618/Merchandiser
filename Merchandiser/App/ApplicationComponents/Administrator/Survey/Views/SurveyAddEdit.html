@@ -14,7 +14,7 @@
                     <small>This option will control whether or not data entry can edit a created survey</small>
                 </md-switch>
                 <label>Survey Editable Days</label>
-                <input type="number" class="form-control" ng-model="item.IsEditDays" required />
+                <input type="number" class="form-control" ng-model="item.IsEditDays" />
                 <small>This is how many days after creation the survey is editable</small>
                 <br />
                 <md-switch class="md-primary" aria-label="Is Deletable" ng-model="item.IsDelete">
@@ -22,7 +22,7 @@
                     <small>This option will control whether or not data entry can delete a created survey</small>
                 </md-switch>
                 <label>Survey Deletable Days</label>
-                <input type="number" class="form-control" ng-model="item.IsDeleteDays" required />
+                <input type="number" class="form-control" ng-model="item.IsDeleteDays" />
                 <small>This is how many days after creation the survey is deletable</small>
                 <br />
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>

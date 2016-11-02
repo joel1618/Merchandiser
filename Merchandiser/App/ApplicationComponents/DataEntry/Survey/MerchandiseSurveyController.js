@@ -105,7 +105,7 @@
                         toastr.success("Save successful.");
                     });
                 }, function (error) {
-                    toastr.error("There was an error updating the survey.");
+                    toastr.error(error);
                 });
             }
             else {
@@ -132,7 +132,7 @@
                         $state.go('main.selectcompany');
                     });
                 }, function(error){
-                    toastr.error("There was an error creating the survey.");
+                    toastr.error(error);
                 });
                 promises.push(promise);  
             }
