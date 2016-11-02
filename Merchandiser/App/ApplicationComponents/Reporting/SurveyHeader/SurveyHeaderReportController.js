@@ -41,6 +41,9 @@
                    { "Created": { "<=" : moment($scope.EndDate).format('YYYY-MM-DD')}}
                 ]
             }
+            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "Customer.Id": { "==": SelectionApplicationService.GetCustomerId() } }) }
+            if (SelectionApplicationService.GetLocationId() != null) { predicate.and.push({ "Location.Id": { "==": SelectionApplicationService.GetLocationId() } }) }
+            if (SelectionApplicationService.GetSurveyId() != null) { predicate.and.push({ "Survey.Id": { "==": SelectionApplicationService.GetSurveyId() } }) }
             SurveyHeaderService.Search(predicate, ["Created desc"], $scope.Page, 100, false).then(function (data) {
                 $scope.data = data.Results;
             });
@@ -54,6 +57,9 @@
                    { "Created": { "<=": moment($scope.EndDate).format('YYYY-MM-DD') } }
                 ]
             }
+            if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "Customer.Id": { "==": SelectionApplicationService.GetCustomerId() } }) }
+            if (SelectionApplicationService.GetLocationId() != null) { predicate.and.push({ "Location.Id": { "==": SelectionApplicationService.GetLocationId() } }) }
+            if (SelectionApplicationService.GetSurveyId() != null) { predicate.and.push({ "Survey.Id": { "==": SelectionApplicationService.GetSurveyId() } }) }
             SurveyHeaderService.Search(predicate, ["Created desc"], $scope.Page, 100, false).then(function (data) {
                 $scope.gridApi.infiniteScroll.saveScrollPercentage();
                 $scope.data = $scope.data.concat(data.Results);

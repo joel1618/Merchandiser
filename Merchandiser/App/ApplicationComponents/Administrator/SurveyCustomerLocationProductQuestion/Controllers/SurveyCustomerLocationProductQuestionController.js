@@ -13,6 +13,7 @@
     function controller($scope, $state, $routeParams, 
     $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
         SelectionApplicationService) {
+        $scope.Page = 0;
         var predicate = {
             and: [
                 { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }

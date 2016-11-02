@@ -16,9 +16,14 @@
         
         $scope.LocationServicesDisabled = false;
         $scope.Location = [];
+        $scope.predicate = {
+            and: [
+               { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            ]
+        }
         $scope.Search = function () {
             if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                var predicate = {
+                $scope.predicate = {
                     and: [
                        { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },                       
                        { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
@@ -28,18 +33,12 @@
                        { "Longitude": { '<=': $scope.Longitude + .0725 } }
                     ]
                 }
-                SelectLocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                SelectLocationService.Search($scope.predicate, ["Name asc"], 0, 100, false).then(function (data) {
                     $scope.Location = data;
                 });
             }
             else {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } }
-                    ]
-                }
-                LocationService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                LocationService.Search($scope.predicate, ["Name asc"], 0, 100, false).then(function (data) {
                     if (SelectionApplicationService.GetRole() == "Customer") {
                         $state.go('main.selectsurvey');
                     }
@@ -74,6 +73,14 @@
             $scope.Latitude = item.geometry.location.lat;
             $scope.Longitude = item.geometry.location.lng;
             $scope.LocationServicesDisabled = false;
+            if (SelectionApplicationService.GetRedirectState() != 'main.survey') {
+                $scope.predicate.and = [];
+                $scope.predicate.and.push({ "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } });
+                $scope.predicate.and.push({ "Latitude": { '>=': $scope.Latitude - .0725 } });
+                $scope.predicate.and.push({ "Latitude": { '<=': $scope.Latitude + .0725 } });
+                $scope.predicate.and.push({ "Longitude": { '>=': $scope.Longitude - .0725 } });
+                $scope.predicate.and.push({ "Longitude": { '<=': $scope.Longitude + .0725 } });
+            }
             $scope.Search();
         }
 

@@ -27,7 +27,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public IQueryable<SurveyViewModel> Search(Guid companyId)
         {
             var userId = User.Identity.GetUserId();
-            var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new SurveyViewModel()
+            var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", null, userRoleRepository).Select(x => new SurveyViewModel()
             {
                 Id = x.Id,
                 CompanyId = x.CompanyId,

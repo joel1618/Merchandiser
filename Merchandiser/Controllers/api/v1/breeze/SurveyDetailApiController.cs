@@ -29,12 +29,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
         public IQueryable<SurveyDetailViewModel> Search(Guid companyId)
         {
             var userId = User.Identity.GetUserId();
-            return repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new SurveyDetailViewModel()
+            return repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", null, userRoleRepository).Select(x => new SurveyDetailViewModel()
             {
                 Id = x.Id,
                 Created = x.Created,
                 SurveyHeaderId = x.SurveyHeaderId,
-                ProductId = x.ProductId,
+                ProductId = x.ProductId,                
                 CompanyId = x.CompanyId,
                 QuestionId = x.QuestionId,
                 Product = new ProductViewModel()
