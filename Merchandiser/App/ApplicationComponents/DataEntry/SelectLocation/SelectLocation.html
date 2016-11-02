@@ -40,7 +40,7 @@
                                     {{item.Address}}
                                 </td>
                                 <td>
-                                    {{item.SurveyCreated | date: 'MM/dd/yyyy'}}
+                                    {{item.SurveyCreated | dateLocalize | date: 'MM/dd/yyyy h:mm:ss a'}}
                                 </td>
                             </tr>
                         </tbody>

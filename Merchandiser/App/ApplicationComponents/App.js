@@ -7,8 +7,12 @@ angular.module('Main').config(function (blockUIConfig) {
 });
 app.filter('dateLocalize', function () {
     return function (utcDate) {
-    var dt = new Date(utcDate + 'Z').getTime();
-    return dt;
+        if (utcDate == null)
+            return "";
+        else {
+            var dt = new Date(utcDate + 'Z').getTime();
+            return dt;
+        }        
     }
 });
 app.config(function ($stateProvider, $urlRouterProvider) {
