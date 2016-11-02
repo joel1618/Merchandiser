@@ -237,9 +237,9 @@ namespace Merchandiser.Migrations
                 CREATE VIEW [dbo].[SelectSurvey] AS 
                 SELECT 
                 SurveyCLPQ.SurveyId AS 'Id', 
-                MAX(SurveyCLPQ.CustomerId) AS 'CustomerId',
-                MAX(SurveyCLPQ.CompanyId) AS 'CompanyId',
-                MAX(SurveyCLPQ.LocationId) AS 'LocationId',
+                SurveyCLPQ.CustomerId AS 'CustomerId',
+                SurveyCLPQ.CompanyId AS 'CompanyId',
+                SurveyCLPQ.LocationId AS 'LocationId',
                 MAX(Survey.Name) AS 'Name',
                 MAX(SurveyHeader.Created) AS 'SurveyCreated'
                 FROM SurveyCustomerLocationProductQuestion SurveyCLPQ
@@ -250,7 +250,7 @@ namespace Merchandiser.Migrations
                 AND SurveyHeader.LocationId = SurveyCLPQ.LocationId
                 AND SurveyHeader.CustomerId = SurveyCLPQ.CustomerId
                 AND SurveyHeader.Created > CONVERT(DATETIME, DATEDIFF(DAY, 1, GETUTCDATE()))
-                GROUP BY SurveyCLPQ.SurveyId
+				GROUP BY SurveyCLPQ.SurveyId, SurveyCLPQ.CustomerId, SurveyCLPQ.CompanyId, SurveyCLPQ.LocationId
             ";
             context.Database.ExecuteSqlCommand(script);
         }
