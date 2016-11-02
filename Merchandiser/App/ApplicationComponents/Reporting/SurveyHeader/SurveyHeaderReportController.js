@@ -18,8 +18,8 @@
             $state.go('main.selectcompany');
         }
 
-        $scope.StartDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().startOf('isoWeek').format("DD"));
-        $scope.EndDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().add(2, "days").format("DD"));
+        $scope.StartDate = new Date(moment().startOf('isoWeek').format("YYYY-MM-DD 00:00:00"));
+        $scope.EndDate = new Date(moment().add(2, "days").format("YYYY-MM-DD : 23:59:59"));
         $scope.myDate = new Date();
         $scope.MinDate = new Date(
             $scope.myDate.getFullYear(),

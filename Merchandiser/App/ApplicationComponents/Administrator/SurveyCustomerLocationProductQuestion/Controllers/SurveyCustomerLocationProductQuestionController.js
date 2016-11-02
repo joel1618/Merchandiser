@@ -37,7 +37,7 @@
                 { field: 'RowOrder', width: '120', name: 'Order', cellTooltip: true }
             ],
             onRegisterApi: function (gridApi) {
-                $scope.gridOptions.gridApi = gridApi;
+                $scope.gridApi = gridApi;
                 gridApi.draggableRows.on.rowDropped($scope, function (info, dropTarget) {
                     //$scope.Reorder();
                 });

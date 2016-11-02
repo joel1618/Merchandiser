@@ -13,8 +13,8 @@
         $timeout, breezeservice, breeze, SurveyHeaderService, SelectionApplicationService) {
         $scope.SelectedPosition = null;
 
-        $scope.StartDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().startOf('isoWeek').format("DD"));
-        $scope.EndDate = new Date(moment().format("YYYY"), moment().format("MM") - 1, moment().add(2, "days").format("DD"));
+        $scope.StartDate = new Date(moment().startOf('isoWeek').format("YYYY-MM-DD 00:00:00"));
+        $scope.EndDate = new Date(moment().add(2, "days").format("YYYY-MM-DD : 23:59:59"));
         $scope.myDate = new Date();
         $scope.MinDate = new Date(
             $scope.myDate.getFullYear(),
@@ -40,7 +40,7 @@
             if (SelectionApplicationService.GetLocationId() != null) { predicate.and.push({ "Location.Id": { "==": SelectionApplicationService.GetLocationId() } }) }
             if (SelectionApplicationService.GetSurveyId() != null) { predicate.and.push({ "Survey.Id": { "==": SelectionApplicationService.GetSurveyId() } }) }
             SurveyHeaderService.Search(predicate, ["Created desc"], 0, 100, false).then(function (data) {
-                $scope.data = data;
+                $scope.data = data.Results;
             });
         }
         NgMap.getMap().then(function (map) {

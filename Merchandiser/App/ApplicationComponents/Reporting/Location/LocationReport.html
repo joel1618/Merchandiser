@@ -18,10 +18,10 @@
             <ng-map zoom="10" center="current-location" style="height: 75vh; ">
                 <info-window id="myInfoWindow">
                     <div ng-non-bindable>
-                        {{position.FirstName}} {{position.LastName}}
+                        {{position.UserInfo.FirstName}} {{position.UserInfo.LastName}}
                     </div>
                 </info-window>
-                <div ng-repeat="position in positions track by $index">
+                <div ng-repeat="position in data track by $index">
                     <marker id="{{$index}}" position="{{position.Latitude}}, {{position.Longitude}}" on-click="SelectMarker(event, position)"></marker>
                 </div>
             </ng-map>
