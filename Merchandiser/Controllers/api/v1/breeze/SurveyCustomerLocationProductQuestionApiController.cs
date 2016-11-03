@@ -106,6 +106,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 return Content(System.Net.HttpStatusCode.BadRequest, "This record already exists.");
             }
             var response = repository.Create(item.ToEntity()).ToViewModel();
+            //TODO: context.ObjectContext.ContextOptions.LazyLoadingEnabled = lazyLoadingEnabled;
             response.Customer = customerRepository.Get(response.CustomerId).ToViewModel();
             response.Location = locationRepository.Get(response.LocationId).ToViewModel();
             response.Product = productRepository.Get(response.ProductId).ToViewModel();
