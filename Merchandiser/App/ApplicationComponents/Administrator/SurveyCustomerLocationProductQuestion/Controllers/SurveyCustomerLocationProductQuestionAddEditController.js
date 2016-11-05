@@ -124,7 +124,7 @@
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 SurveyCustomerLocationProductQuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
                     var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
-                    $scope.$parent.gridOptions.data.splice(index, 1, data.data);
+                    $scope.$parent.data.splice(index, 1, data.data);
                     $scope.Init();
                 }, function (error) {
                     toastr.error(error.data, error.statusText);
@@ -134,7 +134,7 @@
                 $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 $scope.item.SurveyId = SelectionApplicationService.GetSurveyId();
                 SurveyCustomerLocationProductQuestionService.Create($scope.item).then(function (data) {
-                    $scope.$parent.gridOptions.data.splice(0, 0, data.data);
+                    $scope.$parent.data.splice(0, 0, data.data);
                     $scope.item.QuestionId = null; $scope.item.Question.Name = null;
                     //$scope.Init();
                 }, function (error) {
