@@ -29,7 +29,6 @@
         $scope.DateChange = function () {
             $scope.Page = 0;
             $scope.data = [];
-            $scope.gridOptions.columnDefs = [];
             $scope.Search();
         }
 

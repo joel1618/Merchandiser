@@ -129,7 +129,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();
             builder.Append(AppDomain.CurrentDomain.BaseDirectory);
-            builder.Append("\\SurveyImages\\BeforeImages\\");
+            builder.Append("..\\Merchandiser\\Images\\BeforeImages\\");
             for (int i = 0; i < 8; i++)
             {
                 builder.Append(guid[i]);
@@ -143,7 +143,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();
             builder.Append(AppDomain.CurrentDomain.BaseDirectory);
-            builder.Append("\\SurveyImages\\AfterImages\\");
+            builder.Append("..\\Merchandiser\\Images\\AfterImages\\");
             for (int i = 0; i < 8; i++)
             {
                 builder.Append(guid[i]);
