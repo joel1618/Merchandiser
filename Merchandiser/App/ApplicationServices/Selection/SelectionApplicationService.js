@@ -123,7 +123,7 @@
 
         this.StartDate = new Date(moment().startOf('isoWeek').format("YYYY-MM-DD 00:00:00"));
         this.GetStartDate = function () {
-            return this.GetStartDate;
+            return this.StartDate;
         }
 
         this.SetStartDate = function (date) {
@@ -132,7 +132,7 @@
 
         this.EndDate = new Date(moment().add(2, "days").format("YYYY-MM-DD : 23:59:59"));
         this.GetEndDate = function () {
-            return this.GetEndDate;
+            return this.EndDate;
         }
 
         this.SetEndDate = function (date) {

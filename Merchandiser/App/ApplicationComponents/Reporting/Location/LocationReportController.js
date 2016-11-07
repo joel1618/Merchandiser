@@ -14,7 +14,7 @@
         $scope.SelectedPosition = null;
 
         $scope.StartDate = SelectionApplicationService.GetStartDate();
-        $scope.EndDate = SelectionApplicationService.GetEndDate;
+        $scope.EndDate = SelectionApplicationService.GetEndDate();
         $scope.myDate = new Date();
         $scope.MinDate = new Date(
             $scope.myDate.getFullYear(),
