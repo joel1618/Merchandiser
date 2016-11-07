@@ -35,7 +35,7 @@
                     $scope.$parent.gridOptions.data.splice(index, 1, data.data);
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error.data, error.statusText);
+                    toastr.error(error);
                 });
             }
             else {
@@ -48,7 +48,7 @@
                     $scope.$parent.gridOptions.data.splice(0, 0, data.data);
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error.data, error.statusText);
+                    toastr.error(error);
                 });
             }
         }

@@ -25,7 +25,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error.data, error.statusText);
+                    toastr.error(error);
                 });
             }
             else {
@@ -34,7 +34,7 @@
                     $scope.$parent.Search();
                     $scope.Init();
                 }, function (error) {
-                    toastr.error(error.data, error.statusText);
+                    toastr.error(error);
                 });
             }
         }
