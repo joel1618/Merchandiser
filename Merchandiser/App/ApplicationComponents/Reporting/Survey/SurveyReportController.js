@@ -18,8 +18,8 @@
             $state.go('main.selectcompany');
         }
 
-        $scope.StartDate = new Date(moment().startOf('isoWeek').format("YYYY-MM-DD 00:00:00"));
-        $scope.EndDate = new Date(moment().add(2, "days").format("YYYY-MM-DD : 23:59:59"));
+        $scope.StartDate = SelectionApplicationService.GetStartDate();
+        $scope.EndDate = SelectionApplicationService.GetEndDate;
         $scope.myDate = new Date();
         $scope.MinDate = new Date(
             $scope.myDate.getFullYear(),
@@ -27,6 +27,8 @@
             $scope.myDate.getDate());
         $scope.MaxDate = $scope.EndDate;
         $scope.DateChange = function () {
+            SelectionApplicationService.SetStartDate($scope.StartDate);
+            SelectionApplicationService.SetEndDate($scope.EndDate);
             $scope.Page = 0;
             $scope.data = [];
             $scope.gridOptions.columnDefs = [];
