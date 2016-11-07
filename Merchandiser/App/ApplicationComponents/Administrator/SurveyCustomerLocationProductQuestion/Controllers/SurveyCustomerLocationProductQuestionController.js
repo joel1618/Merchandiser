@@ -10,7 +10,7 @@
     angular.module('Main').controller('SurveyCustomerLocationProductQuestionController', ['$scope', '$state', '$routeParams',
         '$http', '$q', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
         'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, 
+    function controller($scope, $state, $routeParams,
     $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
         SelectionApplicationService) {
         $scope.Page = 0;
@@ -54,16 +54,21 @@
 
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
             },
-            rowTemplate: '<div grid="grid" class="ui-grid-draggable-row" draggable="true"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'custom\': true }" ui-grid-cell></div></div>',           
+            rowTemplate: '<div grid="grid" class="ui-grid-draggable-row" draggable="true"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'custom\': true }" ui-grid-cell></div></div>',
         };
         $scope.Search();
 
         $scope.filterChanged = function (gridColumns) {
+            var equalsColumns = ["RowOrder"];
             predicate.and.length = 1;
             angular.forEach(gridColumns, function (column) {
                 if (typeof column.filters !== 'undefined' && column.filters !== null &&
                         column.filters.length > 0 && column.filters[0].term != null && column.filters[0].term.trim().length > 0) {
+
                     var operandName = "contains"; var fieldName = column.field; var termName = column.filters[0].term;
+                    if (equalsColumns.contains(column.field)) {
+                        operandName = "==";
+                    }
                     var filter = {};
                     var field = {}
                     field[operandName] = termName;
