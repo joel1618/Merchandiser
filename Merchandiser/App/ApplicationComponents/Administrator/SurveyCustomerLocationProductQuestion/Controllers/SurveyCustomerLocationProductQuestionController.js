@@ -49,7 +49,7 @@
                     }
                     $scope.filterTimeout = $timeout(function () {
                         $scope.filterChanged(grid.columns);
-                    }, 500);
+                    }, 1000);
                 });
 
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
