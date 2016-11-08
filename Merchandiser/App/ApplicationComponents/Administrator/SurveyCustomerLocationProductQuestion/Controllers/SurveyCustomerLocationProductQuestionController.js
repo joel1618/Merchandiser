@@ -7,10 +7,10 @@
             templateUrl: "ApplicationComponents/Administrator/SurveyCustomerLocationProductQuestion/Views/SurveyCustomerLocationProductQuestion.html"
         })
     });
-    angular.module('Main').controller('SurveyCustomerLocationProductQuestionController', ['$scope', '$state', '$routeParams',
+    angular.module('Main').controller('SurveyCustomerLocationProductQuestionController', ['$scope', '$state', '$routeParams', 'uiGridConstants',
         '$http', '$q', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
         'SelectionApplicationService',
-    function controller($scope, $state, $routeParams,
+    function controller($scope, $state, $routeParams, uiGridConstants,
     $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
         SelectionApplicationService) {
         $scope.Page = 0;
@@ -19,13 +19,16 @@
                 { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
             ]
         }
+        var sort = ["RowOrder asc"];
         $scope.Search = function () {
-            SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder asc"], 0, 100, false).then(function (data) {
+            SurveyCustomerLocationProductQuestionService.Search(predicate, sort, 0, 100, false).then(function (data) {
                 $scope.data = data.Results;
                 $scope.gridApi.infiniteScroll.dataLoaded(false, data.InlineCount);
             });
         }
         $scope.gridOptions = {
+            useExternalSorting: true,
+            useExternalFiltering: true,
             showGridFooter: true,
             enableFiltering: true,
             enableSorting: true,
@@ -51,6 +54,10 @@
                     $scope.filterTimeout = $timeout(function () {
                         $scope.filterChanged(grid.columns);
                     }, 1000);
+                });
+
+                gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
+                    $scope.sortChanged(sortColumns);
                 });
 
                 gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
@@ -81,6 +88,27 @@
             });
             $scope.Search();
         }
+
+        $scope.sortChanged = function (sortColumns) {
+            sort.length = 0;
+            $scope.data = [];
+            $scope.Page = 0;
+            if (sortColumns.length > 0) {
+                angular.forEach(sortColumns, function (column) {
+                    if (column.sort.direction == uiGridConstants.DESC) {
+                        sort.push(column.field + " desc");
+                    }
+                    else {
+                        sort.push(column.field + " asc");
+                    }                   
+                });
+            }
+            else {
+                sort = ["RowOrder asc"];
+            }
+
+            $scope.Search();
+        };
 
         $scope.GetDataDown = function () {
             $scope.Page++;
@@ -124,7 +152,6 @@
             });
         }
 
-        //TODO: Button and group by customer location and filter based on current selection.  Need validation as well in there.
         $scope.ReorderAll = function () {
             //validate
             if (!$scope.ValidateForOrdering()) {
