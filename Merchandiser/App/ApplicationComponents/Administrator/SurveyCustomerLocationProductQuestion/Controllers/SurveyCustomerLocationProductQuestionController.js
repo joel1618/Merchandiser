@@ -22,6 +22,7 @@
         $scope.Search = function () {
             SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder asc"], 0, 100, false).then(function (data) {
                 $scope.data = data.Results;
+                $scope.gridApi.infiniteScroll.dataLoaded(false, data.InlineCount);
             });
         }
         $scope.gridOptions = {
@@ -61,12 +62,14 @@
         $scope.filterChanged = function (gridColumns) {
             var equalsColumns = ["RowOrder"];
             predicate.and.length = 1;
+            $scope.data = [];
+            $scope.Page = 0;
             angular.forEach(gridColumns, function (column) {
                 if (typeof column.filters !== 'undefined' && column.filters !== null &&
                         column.filters.length > 0 && column.filters[0].term != null && column.filters[0].term.trim().length > 0) {
 
                     var operandName = "contains"; var fieldName = column.field; var termName = column.filters[0].term;
-                    if (equalsColumns.contains(column.field)) {
+                    if (equalsColumns.indexOf(column.field) != -1) {
                         operandName = "==";
                     }
                     var filter = {};
