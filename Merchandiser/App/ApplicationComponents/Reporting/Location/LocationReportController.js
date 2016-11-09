@@ -8,11 +8,12 @@
         })
     });
     angular.module('Main').controller('LocationReportController', ['$scope', '$state', '$stateParams', 'NgMap', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'SurveyHeaderService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'SurveyHeaderService', 'SelectUserService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, NgMap, $http, $location,
-        $timeout, breezeservice, breeze, SurveyHeaderService, SelectionApplicationService) {
+        $timeout, breezeservice, breeze, SurveyHeaderService, SelectUserService, SelectionApplicationService) {
         $scope.SelectedPosition = null;
 
+        
         $scope.StartDate = SelectionApplicationService.GetStartDate();
         $scope.EndDate = SelectionApplicationService.GetEndDate();
         $scope.myDate = new Date();
@@ -28,16 +29,17 @@
             $scope.data = [];
             //$scope.gridOptions.columnDefs = [];
             $scope.Search();
+            $scope.SearchUsers();
+        }
+        var predicate = {
+            and: [
+                { "Company.Id": { "==": SelectionApplicationService.GetCompanyId() } },
+                { "Created": { ">=": moment($scope.StartDate).format('YYYY-MM-DD') } },
+                { "Created": { "<=": moment($scope.EndDate).format('YYYY-MM-DD') } }
+            ]
         }
 
         $scope.Search = function () {
-            var predicate = {
-                and: [
-                    { "Company.Id": { "==": SelectionApplicationService.GetCompanyId() } },
-                    { "Created": { ">=": moment($scope.StartDate).format('YYYY-MM-DD') } },
-                    { "Created": { "<=": moment($scope.EndDate).format('YYYY-MM-DD') } }
-                ]
-            }
             if (SelectionApplicationService.GetCustomerId() != null) { predicate.and.push({ "Customer.Id": { "==": SelectionApplicationService.GetCustomerId() } }) }
             if (SelectionApplicationService.GetLocationId() != null) { predicate.and.push({ "Location.Id": { "==": SelectionApplicationService.GetLocationId() } }) }
             if (SelectionApplicationService.GetSurveyId() != null) { predicate.and.push({ "Survey.Id": { "==": SelectionApplicationService.GetSurveyId() } }) }
@@ -45,6 +47,24 @@
                 $scope.data = data.Results;
             });
         }
+
+        $scope.SearchUsers = function(){
+            var predicateUser = {
+                and: [
+                    { "Company.Id": { "==": SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            SelectUserService.Search(predicateUser, ["LastName desc"], 0, 100, false).then(function (data) {
+                $scope.users = data.Results
+            })
+        }
+
+        $scope.UserChanged = function () {
+            predicate.and.length = 3;
+            predicate.and.push({ "CreatedBy": { "==": $scope.user.UserId } });
+            $scope.Search();
+        }
+
         NgMap.getMap().then(function (map) {
             $scope.map = map;
         });

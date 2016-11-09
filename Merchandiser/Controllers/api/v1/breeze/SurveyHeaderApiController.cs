@@ -41,7 +41,6 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, "CreatedBy", "CompanyId", "CustomerId", userRoleRepository).Select(x => new SurveyHeaderViewModel()
             {
                 Id = x.Id,
-                Created = x.Created,
                 Notes = x.Notes,
                 IsBeforeImage = x.IsBeforeImage,
                 IsAfterImage = x.IsAfterImage,
@@ -51,6 +50,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 LocationId = x.LocationId,
                 CustomerId = x.CustomerId,
                 CompanyId = x.CompanyId,
+                Created = x.Created,
+                CreatedBy = x.CreatedBy,
                 Company = new CompanyViewModel()
                 {
                     Id = x.Company.Id,

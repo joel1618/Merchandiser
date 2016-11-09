@@ -5,29 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-
 namespace Merchandiser.Controllers.api.v1.breeze
 {
     [BreezeController]
-    public class SelectSurveyApiController : ApiController
+    public class SelectUserApiController : ApiController
     {
         MerchandiserEntities context;
-        public SelectSurveyApiController()
+        public SelectUserApiController()
         {
             this.context = new MerchandiserEntities();
         }
 
         [HttpGet]
-        public IQueryable<SelectSurveyViewModel> Search(Guid companyId)
+        public IQueryable<SelectUserViewModel> Search(Guid companyId)
         {
-            var response = context.SelectSurveys.Where(e => e.CompanyId == companyId).Select(x => new SelectSurveyViewModel()
+            var response = context.SelectUsers.Where(e => e.CompanyId == companyId).Select(x => new SelectUserViewModel()
             {
-                Id = x.Id,
                 CompanyId = x.CompanyId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                Name = x.Name,
-                SurveyCreated = x.SurveyCreated
+                Email = x.Email,
+                FirstName = x.FirstName,
+                LastName = x.LastName, 
+                UserId = x.UserId
             });
             return response;
         }

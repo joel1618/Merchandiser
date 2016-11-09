@@ -31,6 +31,7 @@
         meta.setEntityTypeForResourceName("SurveyHeaderApi/Search", "SurveyHeaderViewModel");
         meta.setEntityTypeForResourceName("SelectLocationApi/Search", "SelectLocationViewModel");        
         meta.setEntityTypeForResourceName("SelectSurveyApi/Search", "SelectSurveyViewModel");
+        meta.setEntityTypeForResourceName("SelectUserApi/Search", "SelectUserViewModel");
         var service = {
             executeQuery: executeQuery,
             all: all

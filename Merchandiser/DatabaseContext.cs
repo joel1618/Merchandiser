@@ -45,5 +45,7 @@ namespace Merchandiser
         public DbSet<SurveyHeaderViewModel> SurveyHeaderViewModel { get; set; }
         public DbSet<SelectLocationViewModel> SelectLocationViewModel { get; set; }
         public DbSet<SelectSurveyViewModel> SelectSurveyViewModel { get; set; }
+
+        public DbSet<SelectUserViewModel> SelectUserViewModel { get; set; }
     }
 }
