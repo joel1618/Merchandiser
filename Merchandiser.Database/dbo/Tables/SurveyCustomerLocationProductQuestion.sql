@@ -23,7 +23,8 @@
 
 
 
+
+
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_SurveyCustomerLocationProductQuestion]
-    ON [dbo].[SurveyCustomerLocationProductQuestion]([CompanyId] ASC, [SurveyId] ASC, [CustomerId] ASC, [LocationId] ASC, [ProductId] ASC, [QuestionId] ASC);
+
 

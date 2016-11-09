@@ -76,6 +76,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -260,9 +261,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectLocation' does not have a p
         <EntityType Name="SelectLocation">
           <Key>
             <PropertyRef Name="Id" />
+            
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
@@ -275,11 +277,14 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
         <EntityType Name="SelectSurvey">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
+            
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" />
-          <Property Name="CompanyId" Type="uniqueidentifier" />
-          <Property Name="LocationId" Type="uniqueidentifier" />
+          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="SurveyCreated" Type="datetime" />
         </EntityType>
@@ -1206,6 +1211,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_AspNetUsersInfo_AspNetUsers" FromRole="AspNetUsersInfo" ToRole="AspNetUser" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -1452,7 +1458,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="CustomerId" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1465,9 +1471,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" />
-          <Property Name="CompanyId" Type="Guid" />
-          <Property Name="LocationId" Type="Guid" />
+          <Property Name="CustomerId" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="LocationId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
         </EntityType>
@@ -2010,6 +2016,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <EntitySetMapping Name="AspNetUsersInfoes">
             <EntityTypeMapping TypeName="MerchandiserModel.AspNetUsersInfo">
               <MappingFragment StoreEntitySet="AspNetUsersInfo">
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
