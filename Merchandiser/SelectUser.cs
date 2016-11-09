@@ -12,15 +12,12 @@ namespace Merchandiser
     using System;
     using System.Collections.Generic;
     
-    public partial class SelectLocation
+    public partial class SelectUser
     {
-        public System.Guid Id { get; set; }
-        public System.Guid CustomerId { get; set; }
-        public Nullable<System.Guid> CompanyId { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public Nullable<decimal> Latitude { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
-        public Nullable<System.DateTime> SurveyCreated { get; set; }
+        public System.Guid CompanyId { get; set; }
+        public string UserId { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

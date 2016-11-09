@@ -288,6 +288,19 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="SurveyCreated" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SelectUser">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -794,6 +807,15 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
     [SelectSurvey].[SurveyCreated] AS [SurveyCreated]
     FROM [dbo].[SelectSurvey] AS [SelectSurvey]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="SelectUser" EntityType="Self.SelectUser" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SelectUser].[CompanyId] AS [CompanyId], 
+    [SelectUser].[UserId] AS [UserId], 
+    [SelectUser].[Email] AS [Email], 
+    [SelectUser].[FirstName] AS [FirstName], 
+    [SelectUser].[LastName] AS [LastName]
+    FROM [dbo].[SelectUser] AS [SelectUser]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AspNetUserRoles_Company" Association="Self.FK_AspNetUserRoles_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -1125,6 +1147,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
             <End Role="SurveyDetail" EntitySet="SurveyDetails" />
           </AssociationSet>
+          <EntitySet Name="SelectUsers" EntityType="MerchandiserModel.SelectUser" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -1941,6 +1964,17 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SelectUser">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2237,6 +2271,17 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectUsers">
+            <EntityTypeMapping TypeName="MerchandiserModel.SelectUser">
+              <MappingFragment StoreEntitySet="SelectUser">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

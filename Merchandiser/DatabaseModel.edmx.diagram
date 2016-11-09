@@ -64,6 +64,7 @@
         <AssociationConnector Association="MerchandiserModel.FK_SurveyHeader_Survey" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyProductQuestion_Survey" />
         <AssociationConnector Association="MerchandiserModel.FK_SurveyDetail_SurveyHeader" />
+        <EntityTypeShape EntityType="MerchandiserModel.SelectUser" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
