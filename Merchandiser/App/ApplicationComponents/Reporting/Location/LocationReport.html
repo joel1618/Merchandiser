@@ -12,7 +12,7 @@
             <label>User</label>
             <md-select ng-model="user" ng-change="UserChanged()">
                 <md-option><em>None</em></md-option>
-                <md-option ng-repeat="user in users in ctrl.states" ng-value="user" ng-disabled="$index === 1">
+                <md-option ng-repeat="user in users" ng-value="user" ng-disabled="$index === 1">
                     {{user.FirstName}} {{user.LastName}}<br />
                     {{user.Email}}
                 </md-option>
