@@ -7,20 +7,20 @@
                 <li ui-sref-active="active" class="list-group-item" ng-click="Route('main.report.locationreport')" ui-sref="main.report.locationreport">Location Report</li>
             </ul>
             <div ng-show="SelectedCompany != null">
-                <label class="small">Selected Company</label>
-                <small>{{SelectedCompany.Name}}</small>
+                <label class="small" for="selectedCompany">Selected Company</label>
+                <p id="selectedCompany">{{SelectedCompany.Name}}</p>
             </div>
             <div ng-show="SelectedCustomer != null">
-                <label class="small">Selected Customer</label>
-                <small>{{SelectedCustomer.Name}}</small>
+                <label class="small" for="selectedCustomer">Selected Customer</label>
+                <p id="selectedCustomer">{{SelectedCustomer.Name}}</p>
             </div>
             <div ng-show="SelectedLocation != null">
-                <label class="small">Selected Location</label>
-                <small>{{SelectedLocation.Name}}</small>
+                <label class="small" for="selectedLocation">Selected Location</label>
+                <p id="selectedLocation">{{SelectedLocation.Name}}</p>
             </div>
             <div ng-show="SelectedSurvey != null">
-                <label class="small">Selected Survey</label>
-                <small>{{SelectedSurvey.Name}}</small>
+                <label class="small" for="selectedSurvey">Selected Survey</label>
+                <p id="selectedSurvey">{{SelectedSurvey.Name}}</p>
             </div>
         </div>
         <div class="col-md-11">
