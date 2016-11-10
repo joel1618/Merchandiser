@@ -62,8 +62,9 @@ namespace Merchandiser.Controllers.api.v1
             }
             return File(array, "text/csv", "SurveyDataExport.csv");
         }
-
-        public FileResult DownloadNoteData(Guid companyId, DateTime startDate, DateTime endDate)
+        
+        public FileResult DownloadNoteData(Guid companyId, Guid? surveyHeaderId, Guid? customerId,
+        Guid? locationId, Guid? productId, Guid? surveyId, DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
             string[] excludeColumns = new string[] { "LocationId", "SurveyId", "CompanyId", "CustomerId" };

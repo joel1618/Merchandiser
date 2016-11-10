@@ -224,7 +224,15 @@
         }
 
         $scope.DownloadNoteData = function () {
-            window.open('/DownloadApi/DownloadNoteData?companyId=' + SelectionApplicationService.GetCompanyId() + '&startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') + '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
+            window.open('/DownloadApi/DownloadNoteData' +
+                '?companyId=' + SelectionApplicationService.GetCompanyId() +
+                '&surveyHeaderId=' + SelectionApplicationService.GetSurveyHeaderId() +
+                '&customerId=' + SelectionApplicationService.GetCustomerId() +
+                '&locationId=' + SelectionApplicationService.GetLocationId() +
+                '&productId=null' +
+                '&surveyId=' + SelectionApplicationService.GetSurveyId() +
+                '&startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') +
+                '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
         }
     }]);
 })(moment);
