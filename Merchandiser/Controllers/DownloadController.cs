@@ -29,7 +29,8 @@ namespace Merchandiser.Controllers.api.v1
         }
 
 
-        public FileResult DownloadSurveyData(DateTime startDate, DateTime endDate)
+        public FileResult DownloadSurveyData(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, 
+            Guid? locationId, Guid? productId, Guid? surveyId, DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
             using (MemoryStream stream = new MemoryStream())

@@ -211,9 +211,16 @@
                 //modal dismissed
             });
         }
-
         $scope.DownloadSurveyData = function () {
-            window.open('/DownloadApi/DownloadSurveyData?startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') + '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
+            window.open('/DownloadApi/DownloadSurveyData' +
+                '?companyId=' + SelectionApplicationService.GetCompanyId() +
+                '&surveyHeaderId=' + SelectionApplicationService.GetSurveyHeaderId() +
+                '&customerId=' + SelectionApplicationService.GetCustomerId() +
+                '&locationId=' + SelectionApplicationService.GetLocationId() +
+                '&productId=null' +
+                '&surveyId=' + SelectionApplicationService.GetSurveyId() +
+                '&startDate=' + moment($scope.StartDate).format('YYYY-MM-DD') +
+                '&endDate=' + moment($scope.EndDate).format('YYYY-MM-DD'), '_blank', '');
         }
 
         $scope.DownloadNoteData = function () {
