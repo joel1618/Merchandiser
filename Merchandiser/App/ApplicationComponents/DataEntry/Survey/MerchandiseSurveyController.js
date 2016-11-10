@@ -188,5 +188,21 @@
                 $scope.Header.IsAfterImage = false;
             }
         }
+
+        $scope.NextInput = function () {
+            var $activeElement = angular.element(document.activeElement);
+            var next = $activeElement.next();
+            if (next.length) {
+                next[0].focus();
+            }
+        }
+
+        $scope.PrevInput = function () {
+            var $activeElement = angular.element(document.activeElement);
+            var next = $activeElement.prev();
+            if (next.length) {
+                next[0].focus();
+            }
+        }
     }]);
 })(moment);
