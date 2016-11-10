@@ -1,28 +1,24 @@
 ﻿<div ng-controller="LocationReportController">
     <div class="col-md-2">
-        <md-input-container>
-            <label>Start Date</label>
-            <md-datepicker ng-model="StartDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
-        </md-input-container>
-        <md-input-container>
-            <label>End Date</label>
-            <md-datepicker ng-model="EndDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
-        </md-input-container>
-        <md-input-container>
-            <label>User</label>
-            <md-select ng-model="user" ng-change="UserChanged()">
-                <md-option><em>None</em></md-option>
-                <md-option ng-repeat="user in users" ng-value="user" ng-disabled="$index === 1">
-                    {{user.FirstName}} {{user.LastName}}<br />
-                    {{user.Email}}
-                </md-option>
-            </md-select>
-        </md-input-container>
+        <label>Start Date</label>
+        <md-datepicker ng-model="StartDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
+        <label>End Date</label>
+        <md-datepicker ng-model="EndDate" md-placeholder="Enter date" md-min-date="MinDate" md-max-date="MaxDate" ng-change="DateChange()"></md-datepicker>
+        <label>User</label>
+        <md-select ng-model="User" ng-change="Search()" aria-label="User">
+            <md-option><em>None</em></md-option>
+            <md-option ng-repeat="User in users" ng-value="User">
+                {{User.FirstName}} {{User.LastName}}<br />
+                {{User.Email}}
+            </md-option>
+        </md-select>
         <h4>Positions</h4>
         <ul class="list-group" style="height: 75vh; overflow: hidden; overflow-y: scroll;">
             <li class="list-group-item" ng-repeat="position in data" ng-click="SelectPosition(position)"
                 ng-style="position.Id === SelectedPosition.Id ? {'background-color': '#428bca'} : { 'background-color': 'white'} ">
-                {{position.UserInfo.FirstName}} {{position.UserInfo.LastName}} {{position.Created | dateLocalize | date: 'MM/dd/yyyy' }} <br />
+                {{position.UserInfo.FirstName}} {{position.UserInfo.LastName}} <br/>
+                {{position.CreatedUser.UserName}} <br />
+                {{position.Created | dateLocalize | date: 'MM/dd/yyyy hh:mm:ss a' }} <br />
                 {{position.Customer.Name}} <br />
                 {{position.Location.Name}}
             </li>

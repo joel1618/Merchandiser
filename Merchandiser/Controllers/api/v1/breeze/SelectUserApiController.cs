@@ -25,7 +25,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Email = x.Email,
                 FirstName = x.FirstName,
                 LastName = x.LastName, 
-                UserId = x.UserId
+                Id = x.Id
             });
             return response;
         }

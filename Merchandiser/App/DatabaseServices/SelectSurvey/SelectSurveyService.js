@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('DatabaseServices')
-    .service('SelectUserService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
+    .service('SelectSurveyService', ['$http', '$q', 'breeze', 'breezeservice', 'SelectionApplicationService',
         function ($http, $q, breeze, breezeservice, SelectionApplicationService) {
             var _self = this;
             this.deferredRequest = null;
@@ -16,7 +16,7 @@
                 var deferred = $q.defer();
 
                 var query = new breeze.EntityQuery({
-                    from: "SelectUserApi/Search",
+                    from: "SelectSurveyApi/Search",
                     where: predicate,
                     orderBy: order,
                     skip: page * pageSize,

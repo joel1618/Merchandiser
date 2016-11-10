@@ -1,7 +1,7 @@
 ﻿CREATE VIEW [dbo].[SelectUser] AS
 select
+userRoles.UserId as 'Id',
 userRoles.CompanyId,
-userRoles.UserId,
 min(users.Email) as 'Email',
 min(userInfo.FirstName) as 'FirstName',
 min(userInfo.LastName) as 'LastName'
