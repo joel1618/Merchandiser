@@ -189,17 +189,25 @@
             }
         }
 
+        $scope.previousElementId = "input0";
+        document.getElementById($scope.previousElementId).focus();
+        $scope.OnBlur = function (event) {
+            if (event.currentTarget.id.includes("input")) {
+                $scope.previousElementId = event.currentTarget.id;
+            }
+        }
+
         $scope.NextInput = function () {
-            var $activeElement = angular.element(document.activeElement);
-            var next = $activeElement.next();
+            var element = document.getElementById($scope.previousElementId);
+            var next = element.next();
             if (next.length) {
                 next[0].focus();
             }
         }
 
         $scope.PrevInput = function () {
-            var $activeElement = angular.element(document.activeElement);
-            var next = $activeElement.prev();
+            var element = document.getElementById($scope.previousElementId);
+            var next = element.prev();
             if (next.length) {
                 next[0].focus();
             }

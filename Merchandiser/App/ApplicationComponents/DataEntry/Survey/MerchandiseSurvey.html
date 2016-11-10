@@ -88,7 +88,7 @@
                                 </td>
                                 <td>
                                     <md-input-container>
-                                        <input class="form-control input-sm" type="text" name="Answer" placeholder=""
+                                        <input id="{{'input' + $index}}" class="form-control input-sm" type="text" name="Answer" placeholder="" ng-blur="OnBlur($event)"
                                                ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" md-maxlength="25"
                                                style="color:black;" />
                                         <div ng-messages="innerForm.Answer.$error">
