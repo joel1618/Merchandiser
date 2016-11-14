@@ -41,6 +41,7 @@ namespace Merchandiser.Repositories
             var entity = context.Products.Find(id);
             entity.Name = item.Name;
             entity.ProductCategoryId = item.ProductCategoryId;
+            entity.ProductTypeHeaderId = item.ProductTypeHeaderId;
             entity.Modified = DateTime.UtcNow;
             context.SaveChanges();
             return entity;

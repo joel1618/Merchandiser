@@ -442,6 +442,14 @@
     <Content Include="App\ApplicationComponents\Administrator\ProductCategory\Controllers\ProductCategoryController.js" />
     <Content Include="App\ApplicationComponents\Administrator\ProductCategory\Views\ProductCategory.html" />
     <Content Include="App\ApplicationComponents\Administrator\ProductCategory\Views\ProductCategoryAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeDetail\Controllers\ProductTypeDetailAddEditController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeDetail\Controllers\ProductTypeDetailController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeDetail\Views\ProductTypeDetail.html" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeDetail\Views\ProductTypeDetailAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Controllers\ProductTypeHeaderAddEditController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Controllers\ProductTypeHeaderController.js" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeaderTypeHeader.html" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeaderAddEdit.html" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Views\SurveyCustomerLocationProductQuestion.html" />
@@ -513,6 +521,8 @@
     <Content Include="App\DatabaseServices\Image\ImageService.js" />
     <Content Include="App\DatabaseServices\Location\LocationService.js" />
     <Content Include="App\DatabaseServices\ProductCategory\ProductService.js" />
+    <Content Include="App\DatabaseServices\ProductTypeDetail\ProductTypeHeaderService.js" />
+    <Content Include="App\DatabaseServices\ProductTypeHeader\ProductTypeDetailService.js" />
     <Content Include="App\DatabaseServices\Product\ProductService.js" />
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
@@ -2180,8 +2190,6 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\ApplicationComponents\Administrator\ProductTypeDetail\" />
-    <Folder Include="App\ApplicationComponents\Administrator\ProductTypeHeader\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />
