@@ -30,6 +30,7 @@ namespace Merchandiser.Repositories
             item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             item.ProductCategory = null;
+            item.ProductTypeHeader = null;
             context.Products.Add(item);
             context.SaveChanges();
             return item;
