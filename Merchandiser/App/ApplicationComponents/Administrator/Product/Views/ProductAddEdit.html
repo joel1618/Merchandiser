@@ -13,6 +13,13 @@
                 <div ng-show="noResultsProductCategory">
                     No Results Found!
                 </div>
+                <label>Product Type</label>
+                <input type="text" class="form-control" typeahead-no-results="noResultsProductType" ng-model="item.ProductCategory.Name" uib-typeahead="item.Name for item in SearchProductTypes($viewValue)"
+                       ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+                       typeahead-on-select="SelectProductType($item, $model, $label)" />
+                <div ng-show="noResultsProductType">
+                    No Results Found!
+                </div>
                 <br/>
                 <button class="btn btn-primary pull-right" ng-click="Save()" ng-disabled="!form.$valid">Save</button>
             </fieldset>

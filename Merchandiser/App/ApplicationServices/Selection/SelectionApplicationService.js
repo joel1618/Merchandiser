@@ -139,6 +139,15 @@
             this.EndDate = date;
         }
 
+        this.ProductTypeHeader = null;
+        this.GetProductTypeHeader = function () {
+            return this.ProductTypeHeader;
+        }
+
+        this.SetProductTypeHeader = function (item) {
+            this.ProductTypeHeader = item;
+        }
+
         this.Clear = function () {
             this.RedirectState = null;
 

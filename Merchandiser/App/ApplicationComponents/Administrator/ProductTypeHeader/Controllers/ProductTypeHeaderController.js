@@ -7,13 +7,13 @@
             templateUrl: "ApplicationComponents/Administrator/ProductTypeHeader/Views/ProductTypeHeader.html"
         })
     });
-    angular.module('Main').controller('ProductTypeHeaderController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductService',
+    angular.module('Main').controller('ProductTypeHeaderController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductTypeHeaderService',
         'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductService,
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductTypeHeaderService,
         SelectionApplicationService) {
         $scope.Search = function () {
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-            ProductService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+            ProductTypeHeaderService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.gridOptions.data = data;
 
             });
@@ -24,18 +24,17 @@
             data: [],
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Name', cellTooltip: true },
-                { field: 'ProductCategory.Name', name: 'Category Name', cellTooltip: true }
+                { field: 'Name', name: 'Name', cellTooltip: true }
             ]
         };
         $scope.Search();
 
         $scope.Edit = function (row) {
-            $state.go('main.admin.product.addedit', { id: row.Id }, { reload: false });
+            $state.go('main.admin.producttypeheader.addedit', { id: row.Id }, { reload: false });
         }
 
         $scope.Delete = function (Id) {
-            ProductService.Delete(Id).then(function (data) {
+            ProductTypeHeaderService.Delete(Id).then(function (data) {
                 $scope.Search();
             }, function (error) {
                 toastr.error(error.data, error.statusText);

@@ -26,6 +26,14 @@
                         $state.go(state);
                     }
                 }
+                else if(state == "main.admin.producttypedetail.addedit") {
+                    if (SelectionApplicationService.GetProductTypeHeader() == null) {
+                        toastr.error("A product type must be selected first.");
+                    }
+                    else {
+                        $state.go(state);
+                    }
+                }
                 else {
                     if (SelectionApplicationService.GetCompany() == null || SelectionApplicationService.GetCompanyId() == null) {
                         toastr.error("A company must be selected first.");

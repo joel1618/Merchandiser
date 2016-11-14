@@ -448,7 +448,7 @@
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeDetail\Views\ProductTypeDetailAddEdit.html" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Controllers\ProductTypeHeaderAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Controllers\ProductTypeHeaderController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeaderTypeHeader.html" />
+    <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeader.html" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeaderAddEdit.html" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionController.js" />
@@ -479,14 +479,6 @@
     <Content Include="App\ApplicationComponents\Administrator\Question\Controllers\QuestionController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Question\Views\Question.html" />
     <Content Include="App\ApplicationComponents\Administrator\Question\Views\QuestionAddEdit.html" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocation\Controllers\SurveyCustomerLocationAddEditController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocation\Controllers\SurveyCustomerLocationController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocation\Views\SurveyCustomerLocation.html" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocation\Views\SurveyCustomerLocationAddEdit.html" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyProductQuestion\Controllers\SurveyProductQuestionAddEditController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyProductQuestion\Controllers\SurveyProductQuestionController.js" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyProductQuestion\Views\SurveyProductQuestion.html" />
-    <Content Include="App\ApplicationComponents\Administrator\SurveyProductQuestion\Views\SurveyProductQuestionAddEdit.html" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Controllers\SurveyAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Controllers\SurveyController.js" />
     <Content Include="App\ApplicationComponents\Administrator\Survey\Views\Survey.html" />
@@ -521,8 +513,8 @@
     <Content Include="App\DatabaseServices\Image\ImageService.js" />
     <Content Include="App\DatabaseServices\Location\LocationService.js" />
     <Content Include="App\DatabaseServices\ProductCategory\ProductService.js" />
-    <Content Include="App\DatabaseServices\ProductTypeDetail\ProductTypeHeaderService.js" />
-    <Content Include="App\DatabaseServices\ProductTypeHeader\ProductTypeDetailService.js" />
+    <Content Include="App\DatabaseServices\ProductTypeHeader\ProductTypeHeaderService.js" />
+    <Content Include="App\DatabaseServices\ProductTypeDetail\ProductTypeDetailService.js" />
     <Content Include="App\DatabaseServices\Product\ProductService.js" />
     <Content Include="App\DatabaseServices\DatabaseServices.js" />
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />

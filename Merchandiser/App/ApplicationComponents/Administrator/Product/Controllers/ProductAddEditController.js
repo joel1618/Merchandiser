@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('ProductAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'ProductService', 'ProductCategoryService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'ProductService', 'ProductCategoryService', 'ProductTypeHeaderService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, ProductService, ProductCategoryService, SelectionApplicationService) {
+        $timeout, breezeservice, breeze, ProductService, ProductCategoryService, ProductTypeHeaderService, SelectionApplicationService) {
        
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
@@ -33,6 +33,22 @@
 
         $scope.SelectProductCategory = function (item, model, label) {
             $scope.item.ProductCategoryId = item.Id;
+        }
+
+        $scope.SearchProductTypes = function (value) {
+            var predicate = {
+                and: [
+                   { "Name": { "substringof": value } },
+                   { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
+                ]
+            }
+            return ProductTypeService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+                return data;
+            });
+        }
+
+        $scope.SelectProductType = function (item, model, label) {
+            $scope.item.ProductTypeHeaderId = item.Id;
         }
 
         $scope.Save = function () {

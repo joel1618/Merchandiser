@@ -84,22 +84,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/addedit/:id",
             templateUrl: "ApplicationComponents/Administrator/Question/Views/QuestionAddEdit.html",
         })
-        .state('main.admin.surveycustomerlocation', {
-            url: "/survey/customerlocation",
-            templateUrl: "ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocation.html"
-        })
-        .state('main.admin.surveycustomerlocation.addedit', {
-            url: "/addedit/:id",
-            templateUrl: "ApplicationComponents/Administrator/SurveyCustomerLocation/Views/SurveyCustomerLocationAddEdit.html",
-        })
-        .state('main.admin.surveyproductquestion', {
-            url: "/survey/productquestion",
-            templateUrl: "ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestion.html"
-        })
-        .state('main.admin.surveyproductquestion.addedit', {
-            url: "/addedit/:id",
-            templateUrl: "ApplicationComponents/Administrator/SurveyProductQuestion/Views/SurveyProductQuestionAddEdit.html",
-        })
 });
 app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService, SelectionApplicationService) {
     UserService

@@ -19,5 +19,7 @@ namespace Merchandiser.Models
         public string ModifiedBy { get; set; }
 
         public virtual ProductCategoryViewModel ProductCategory { get; set; }
+
+        public virtual ProductTypeHeaderViewModel ProductTypeHeader { get; set; }
     }
 }

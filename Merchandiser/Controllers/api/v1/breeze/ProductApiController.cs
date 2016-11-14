@@ -40,6 +40,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.ProductCategory.Id,
                     Name = x.ProductCategory.Name
+                } : null,
+                ProductTypeHeader = x.ProductTypeHeader != null ? new ProductTypeHeaderViewModel()
+                {
+                    Id = x.ProductTypeHeader.Id,
+                    Name = x.ProductTypeHeader.Name
                 } : null
             });
             return response;
