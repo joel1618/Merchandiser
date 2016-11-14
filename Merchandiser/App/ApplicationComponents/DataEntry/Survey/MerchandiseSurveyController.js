@@ -19,6 +19,7 @@
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
             $state.go('main.selectcompany');
         }
+        $scope.previousElementId = "input0";
         $scope.BeforeImage = null;
         $scope.AfterImage = null;
         $scope.Company = SelectionApplicationService.GetCompany(); $scope.Survey = SelectionApplicationService.GetSurvey();
@@ -64,6 +65,9 @@
             }
         }
         $scope.Search();
+        angular.element(document).ready(function () {
+            document.getElementById($scope.previousElementId).focus();
+        });
 
         $scope.sort = {
             column: ['RowOrder', 'Product.Name'],
@@ -189,8 +193,6 @@
             }
         }
 
-        $scope.previousElementId = "input0";
-        document.getElementById($scope.previousElementId).focus();
         $scope.OnBlur = function (event) {
             if (event.currentTarget.id.includes("input")) {
                 $scope.previousElementId = event.currentTarget.id;
@@ -198,19 +200,13 @@
         }
 
         $scope.NextInput = function () {
-            var element = document.getElementById($scope.previousElementId);
-            var next = element.next();
-            if (next.length) {
-                next[0].focus();
-            }
+            var index = Number(parseInt($scope.previousElementId.substring(5, 7))) + Number(1);
+            document.getElementById('input' + index).focus();
         }
 
         $scope.PrevInput = function () {
-            var element = document.getElementById($scope.previousElementId);
-            var next = element.prev();
-            if (next.length) {
-                next[0].focus();
-            }
+            var index = Number(parseInt($scope.previousElementId.substring(5, 7))) - Number(1);
+            document.getElementById('input' + index).focus();
         }
     }]);
 })(moment);
