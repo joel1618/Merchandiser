@@ -10,10 +10,11 @@
     angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
         'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyCustomerLocationProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
-        'SelectionApplicationService',
+        'SelectionApplicationService', 'SelectCustomerLocationProductQuestionService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyCustomerLocationProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService, SelectionApplicationService) {
+        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyCustomerLocationProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService,
+        SelectionApplicationService, SelectCustomerLocationProductQuestionService) {
         
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {

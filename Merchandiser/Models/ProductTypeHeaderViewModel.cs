@@ -14,5 +14,7 @@ namespace Merchandiser.Models
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+
+        public virtual List<ProductTypeDetailViewModel> Details { get; set; }
     }
 }

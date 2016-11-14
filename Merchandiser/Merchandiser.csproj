@@ -279,6 +279,7 @@
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ReportApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\RoleApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\SelectCustomerLocationProductQuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SelectLocationApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SelectSurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SelectUserApiController.cs" />
@@ -359,6 +360,7 @@
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\SelectCustomerLocationProductQuestionViewModel.cs" />
     <Compile Include="Models\SelectLocationViewModel.cs" />
     <Compile Include="Models\SelectSurveyViewModel.cs" />
     <Compile Include="Models\SelectUserViewModel.cs" />
@@ -520,6 +522,7 @@
     <Content Include="App\DatabaseServices\Question\QuestionService.js" />
     <Content Include="App\DatabaseServices\Report\ReportService.js" />
     <Content Include="App\DatabaseServices\Role\RoleService.js" />
+    <Content Include="App\DatabaseServices\SelectCustomerLocationProductQuestion\SelectCustomerLocationProductQuestionService.js" />
     <Content Include="App\DatabaseServices\SelectLocation\SelectLocationService.js" />
     <Content Include="App\DatabaseServices\SelectSurvey\SelectSurveyService.js" />
     <Content Include="App\DatabaseServices\SelectUser\SelectUserService.js" />
