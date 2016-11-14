@@ -15,6 +15,12 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -131,6 +137,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProductCategoryId" Type="uniqueidentifier" />
+          <Property Name="ProductTypeHeaderId" Type="uniqueidentifier" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -138,6 +145,31 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductTypeDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductTypeHeaderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductTypeHeader">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -180,20 +212,6 @@
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <EntityType Name="SurveyCustomerLocation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Modified" Type="datetime" />
-          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="SurveyCustomerLocationProductQuestion">
           <Key>
             <PropertyRef Name="Id" />
@@ -220,6 +238,7 @@
           <Property Name="SurveyHeaderId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductTypeDetailId" Type="uniqueidentifier" />
           <Property Name="Answer" Type="nvarchar" MaxLength="1000" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -245,27 +264,12 @@
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
-        <EntityType Name="SurveyProductQuestion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RowOrder" Type="int" Nullable="false" />
-          <Property Name="Modified" Type="datetime" />
-          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Merchandiser.dbo.SelectLocation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SelectLocation">
           <Key>
             <PropertyRef Name="Id" />
-            
+            <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
@@ -281,9 +285,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
         <EntityType Name="SelectSurvey">
           <Key>
             <PropertyRef Name="Id" />
-            
-            
-            
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="LocationId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
@@ -445,6 +449,18 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product_ProductTypeHeader">
+          <End Role="ProductTypeHeader" Type="Self.ProductTypeHeader" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypeHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductCategory_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="*" />
@@ -453,6 +469,42 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProductCategory">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTypeDetail_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="ProductTypeDetail" Type="Self.ProductTypeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeDetail">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTypeDetail_ProductTypeHeader">
+          <End Role="ProductTypeHeader" Type="Self.ProductTypeHeader" Multiplicity="1" />
+          <End Role="ProductTypeDetail" Type="Self.ProductTypeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypeHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeDetail">
+              <PropertyRef Name="ProductTypeHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTypeHeader_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="ProductTypeHeader" Type="Self.ProductTypeHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeHeader">
               <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -478,54 +530,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Principal>
             <Dependent Role="Survey">
               <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="SurveyCustomerLocation" Type="Self.SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="SurveyCustomerLocation" Type="Self.SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Location">
-          <End Role="Location" Type="Self.Location" Multiplicity="1" />
-          <End Role="SurveyCustomerLocation" Type="Self.SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="LocationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Survey">
-          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
-          <End Role="SurveyCustomerLocation" Type="Self.SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Survey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="SurveyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -625,6 +629,18 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyDetail_ProductTypeDetail">
+          <End Role="ProductTypeDetail" Type="Self.ProductTypeDetail" Multiplicity="0..1" />
+          <End Role="SurveyDetail" Type="Self.SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypeDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="ProductTypeDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyDetail_Question">
           <End Role="Question" Type="Self.Question" Multiplicity="1" />
           <End Role="SurveyDetail" Type="Self.SurveyDetail" Multiplicity="*" />
@@ -721,56 +737,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyProductQuestion_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="SurveyProductQuestion" Type="Self.SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyProductQuestion_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="SurveyProductQuestion" Type="Self.SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyProductQuestion_Question">
-          <End Role="Question" Type="Self.Question" Multiplicity="1" />
-          <End Role="SurveyProductQuestion" Type="Self.SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyProductQuestion_Survey">
-          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
-          <End Role="SurveyProductQuestion" Type="Self.SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Survey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="SurveyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MerchandiserModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -782,13 +751,13 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTypeDetail" EntityType="Self.ProductTypeDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTypeHeader" EntityType="Self.ProductTypeHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Survey" EntityType="Self.Survey" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyCustomerLocation" EntityType="Self.SurveyCustomerLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyCustomerLocationProductQuestion" EntityType="Self.SurveyCustomerLocationProductQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyDetail" EntityType="Self.SurveyDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyHeader" EntityType="Self.SurveyHeader" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyProductQuestion" EntityType="Self.SurveyProductQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SelectLocation" EntityType="Self.SelectLocation" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [SelectLocation].[Id] AS [Id], 
@@ -864,9 +833,25 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="ProductCategory" EntitySet="ProductCategory" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductTypeHeader" Association="Self.FK_Product_ProductTypeHeader">
+            <End Role="ProductTypeHeader" EntitySet="ProductTypeHeader" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductCategory_Company" Association="Self.FK_ProductCategory_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="ProductCategory" EntitySet="ProductCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTypeDetail_Company" Association="Self.FK_ProductTypeDetail_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ProductTypeDetail" EntitySet="ProductTypeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTypeDetail_ProductTypeHeader" Association="Self.FK_ProductTypeDetail_ProductTypeHeader">
+            <End Role="ProductTypeHeader" EntitySet="ProductTypeHeader" />
+            <End Role="ProductTypeDetail" EntitySet="ProductTypeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTypeHeader_Company" Association="Self.FK_ProductTypeHeader_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="ProductTypeHeader" EntitySet="ProductTypeHeader" />
           </AssociationSet>
           <AssociationSet Name="FK_Question_Company" Association="Self.FK_Question_Company">
             <End Role="Company" EntitySet="Company" />
@@ -875,22 +860,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <AssociationSet Name="FK_Survey_Company" Association="Self.FK_Survey_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Survey" EntitySet="Survey" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Company" Association="Self.FK_SurveyCustomerLocation_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Customer" Association="Self.FK_SurveyCustomerLocation_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Location" Association="Self.FK_SurveyCustomerLocation_Location">
-            <End Role="Location" EntitySet="Location" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Survey" Association="Self.FK_SurveyCustomerLocation_Survey">
-            <End Role="Survey" EntitySet="Survey" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocation" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Company" Association="Self.FK_SurveyCustomerLocationProductQuestion_Company">
             <End Role="Company" EntitySet="Company" />
@@ -922,6 +891,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           </AssociationSet>
           <AssociationSet Name="FK_SurveyDetail_Product" Association="Self.FK_SurveyDetail_Product">
             <End Role="Product" EntitySet="Product" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_ProductTypeDetail" Association="Self.FK_SurveyDetail_ProductTypeDetail">
+            <End Role="ProductTypeDetail" EntitySet="ProductTypeDetail" />
             <End Role="SurveyDetail" EntitySet="SurveyDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyDetail_Question" Association="Self.FK_SurveyDetail_Question">
@@ -956,22 +929,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="Survey" EntitySet="Survey" />
             <End Role="SurveyHeader" EntitySet="SurveyHeader" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Company" Association="Self.FK_SurveyProductQuestion_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Product" Association="Self.FK_SurveyProductQuestion_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Question" Association="Self.FK_SurveyProductQuestion_Question">
-            <End Role="Question" EntitySet="Question" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Survey" Association="Self.FK_SurveyProductQuestion_Survey">
-            <End Role="Survey" EntitySet="Survey" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestion" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -979,6 +936,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
       <Schema Namespace="MerchandiserModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MerchandiserEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="MerchandiserModel.C__MigrationHistory" />
+          <EntitySet Name="C__RefactorLog" EntityType="MerchandiserModel.C__RefactorLog" />
           <EntitySet Name="AspNetRoles" EntityType="MerchandiserModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="MerchandiserModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="MerchandiserModel.AspNetUserLogin" />
@@ -990,15 +948,16 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySet Name="Locations" EntityType="MerchandiserModel.Location" />
           <EntitySet Name="Products" EntityType="MerchandiserModel.Product" />
           <EntitySet Name="ProductCategories" EntityType="MerchandiserModel.ProductCategory" />
+          <EntitySet Name="ProductTypeDetails" EntityType="MerchandiserModel.ProductTypeDetail" />
+          <EntitySet Name="ProductTypeHeaders" EntityType="MerchandiserModel.ProductTypeHeader" />
           <EntitySet Name="Questions" EntityType="MerchandiserModel.Question" />
           <EntitySet Name="Surveys" EntityType="MerchandiserModel.Survey" />
-          <EntitySet Name="SurveyCustomerLocations" EntityType="MerchandiserModel.SurveyCustomerLocation" />
           <EntitySet Name="SurveyCustomerLocationProductQuestions" EntityType="MerchandiserModel.SurveyCustomerLocationProductQuestion" />
           <EntitySet Name="SurveyDetails" EntityType="MerchandiserModel.SurveyDetail" />
           <EntitySet Name="SurveyHeaders" EntityType="MerchandiserModel.SurveyHeader" />
-          <EntitySet Name="SurveyProductQuestions" EntityType="MerchandiserModel.SurveyProductQuestion" />
           <EntitySet Name="SelectLocations" EntityType="MerchandiserModel.SelectLocation" />
           <EntitySet Name="SelectSurveys" EntityType="MerchandiserModel.SelectSurvey" />
+          <EntitySet Name="SelectUsers" EntityType="MerchandiserModel.SelectUser" />
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
@@ -1051,6 +1010,14 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="Company" EntitySet="Companies" />
             <End Role="ProductCategory" EntitySet="ProductCategories" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductTypeDetail_Company" Association="MerchandiserModel.FK_ProductTypeDetail_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="ProductTypeDetail" EntitySet="ProductTypeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTypeHeader_Company" Association="MerchandiserModel.FK_ProductTypeHeader_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="ProductTypeHeader" EntitySet="ProductTypeHeaders" />
+          </AssociationSet>
           <AssociationSet Name="FK_Question_Company" Association="MerchandiserModel.FK_Question_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Question" EntitySet="Questions" />
@@ -1058,10 +1025,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <AssociationSet Name="FK_Survey_Company" Association="MerchandiserModel.FK_Survey_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Survey" EntitySet="Surveys" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Company" Association="MerchandiserModel.FK_SurveyCustomerLocation_Company">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocations" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Company" Association="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Company">
             <End Role="Company" EntitySet="Companies" />
@@ -1075,14 +1038,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="Company" EntitySet="Companies" />
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Company" Association="MerchandiserModel.FK_SurveyProductQuestion_Company">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Customer" Association="MerchandiserModel.FK_SurveyCustomerLocation_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocations" />
-          </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Customer" Association="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="SurveyCustomerLocationProductQuestion" EntitySet="SurveyCustomerLocationProductQuestions" />
@@ -1090,10 +1045,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <AssociationSet Name="FK_SurveyHeader_Customer" Association="MerchandiserModel.FK_SurveyHeader_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Location" Association="MerchandiserModel.FK_SurveyCustomerLocation_Location">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocations" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Location" Association="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Location">
             <End Role="Location" EntitySet="Locations" />
@@ -1107,6 +1058,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="ProductCategory" EntitySet="ProductCategories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductTypeHeader" Association="MerchandiserModel.FK_Product_ProductTypeHeader">
+            <End Role="ProductTypeHeader" EntitySet="ProductTypeHeaders" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Product" Association="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="SurveyCustomerLocationProductQuestion" EntitySet="SurveyCustomerLocationProductQuestions" />
@@ -1115,9 +1070,13 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="Product" EntitySet="Products" />
             <End Role="SurveyDetail" EntitySet="SurveyDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Product" Association="MerchandiserModel.FK_SurveyProductQuestion_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
+          <AssociationSet Name="FK_ProductTypeDetail_ProductTypeHeader" Association="MerchandiserModel.FK_ProductTypeDetail_ProductTypeHeader">
+            <End Role="ProductTypeHeader" EntitySet="ProductTypeHeaders" />
+            <End Role="ProductTypeDetail" EntitySet="ProductTypeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyDetail_ProductTypeDetail" Association="MerchandiserModel.FK_SurveyDetail_ProductTypeDetail">
+            <End Role="ProductTypeDetail" EntitySet="ProductTypeDetails" />
+            <End Role="SurveyDetail" EntitySet="SurveyDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Question" Association="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Question">
             <End Role="Question" EntitySet="Questions" />
@@ -1127,14 +1086,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="Question" EntitySet="Questions" />
             <End Role="SurveyDetail" EntitySet="SurveyDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Question" Association="MerchandiserModel.FK_SurveyProductQuestion_Question">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyCustomerLocation_Survey" Association="MerchandiserModel.FK_SurveyCustomerLocation_Survey">
-            <End Role="Survey" EntitySet="Surveys" />
-            <End Role="SurveyCustomerLocation" EntitySet="SurveyCustomerLocations" />
-          </AssociationSet>
           <AssociationSet Name="FK_SurveyCustomerLocationProductQuestion_Survey" Association="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Survey">
             <End Role="Survey" EntitySet="Surveys" />
             <End Role="SurveyCustomerLocationProductQuestion" EntitySet="SurveyCustomerLocationProductQuestions" />
@@ -1143,15 +1094,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <End Role="Survey" EntitySet="Surveys" />
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyProductQuestion_Survey" Association="MerchandiserModel.FK_SurveyProductQuestion_Survey">
-            <End Role="Survey" EntitySet="Surveys" />
-            <End Role="SurveyProductQuestion" EntitySet="SurveyProductQuestions" />
-          </AssociationSet>
           <AssociationSet Name="FK_SurveyDetail_SurveyHeader" Association="MerchandiserModel.FK_SurveyDetail_SurveyHeader">
             <End Role="SurveyHeader" EntitySet="SurveyHeaders" />
             <End Role="SurveyDetail" EntitySet="SurveyDetails" />
           </AssociationSet>
-          <EntitySet Name="SelectUsers" EntityType="MerchandiserModel.SelectUser" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -1162,6 +1108,12 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1237,8 +1189,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_AspNetUsersInfo_AspNetUsers" FromRole="AspNetUsersInfo" ToRole="AspNetUser" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_AspNetUsersInfo_AspNetUsers" FromRole="AspNetUsersInfo" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -1255,13 +1207,13 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <NavigationProperty Name="Locations" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Company" ToRole="Location" />
           <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Company" ToRole="Product" />
           <NavigationProperty Name="ProductCategories" Relationship="MerchandiserModel.FK_ProductCategory_Company" FromRole="Company" ToRole="ProductCategory" />
+          <NavigationProperty Name="ProductTypeDetails" Relationship="MerchandiserModel.FK_ProductTypeDetail_Company" FromRole="Company" ToRole="ProductTypeDetail" />
+          <NavigationProperty Name="ProductTypeHeaders" Relationship="MerchandiserModel.FK_ProductTypeHeader_Company" FromRole="Company" ToRole="ProductTypeHeader" />
           <NavigationProperty Name="Questions" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Company" ToRole="Question" />
           <NavigationProperty Name="Surveys" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Company" ToRole="Survey" />
-          <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Company" FromRole="Company" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Company" FromRole="Company" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Company" FromRole="Company" ToRole="SurveyDetail" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="Company" ToRole="SurveyHeader" />
-          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Company" FromRole="Company" ToRole="SurveyProductQuestion" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -1278,7 +1230,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserRoles" Relationship="MerchandiserModel.FK_AspNetUserRoles_Customer" FromRole="Customer" ToRole="AspNetUserRole" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Customer_Company" FromRole="Customer" ToRole="Company" />
-          <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="Customer" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Customer" FromRole="Customer" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="Customer" ToRole="SurveyHeader" />
         </EntityType>
@@ -1298,14 +1249,13 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location" ToRole="Company" />
-          <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="Location" ToRole="SurveyCustomerLocation" />
-          <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Location" FromRole="Location" ToRole="SurveyCustomerLocationProductQuestion" />
-          <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="Location" ToRole="SurveyHeader" />
           <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Zip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Location_Location" FromRole="Location" ToRole="Company" />
+          <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Location" FromRole="Location" ToRole="SurveyCustomerLocationProductQuestion" />
+          <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="Location" ToRole="SurveyHeader" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -1314,6 +1264,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="ProductCategoryId" Type="Guid" />
+          <Property Name="ProductTypeHeaderId" Type="Guid" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1321,9 +1272,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Product_Company" FromRole="Product" ToRole="Company" />
           <NavigationProperty Name="ProductCategory" Relationship="MerchandiserModel.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
+          <NavigationProperty Name="ProductTypeHeader" Relationship="MerchandiserModel.FK_Product_ProductTypeHeader" FromRole="Product" ToRole="ProductTypeHeader" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Product" FromRole="Product" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Product" FromRole="Product" ToRole="SurveyDetail" />
-          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="Product" ToRole="SurveyProductQuestion" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -1338,6 +1289,37 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_ProductCategory_Company" FromRole="ProductCategory" ToRole="Company" />
           <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_ProductCategory" FromRole="ProductCategory" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductTypeDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="ProductTypeHeaderId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_ProductTypeDetail_Company" FromRole="ProductTypeDetail" ToRole="Company" />
+          <NavigationProperty Name="ProductTypeHeader" Relationship="MerchandiserModel.FK_ProductTypeDetail_ProductTypeHeader" FromRole="ProductTypeDetail" ToRole="ProductTypeHeader" />
+          <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_ProductTypeDetail" FromRole="ProductTypeDetail" ToRole="SurveyDetail" />
+        </EntityType>
+        <EntityType Name="ProductTypeHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_ProductTypeHeader_Company" FromRole="ProductTypeHeader" ToRole="Company" />
+          <NavigationProperty Name="Products" Relationship="MerchandiserModel.FK_Product_ProductTypeHeader" FromRole="ProductTypeHeader" ToRole="Product" />
+          <NavigationProperty Name="ProductTypeDetails" Relationship="MerchandiserModel.FK_ProductTypeDetail_ProductTypeHeader" FromRole="ProductTypeHeader" ToRole="ProductTypeDetail" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -1355,7 +1337,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Question_Company" FromRole="Question" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Question" FromRole="Question" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_Question" FromRole="Question" ToRole="SurveyDetail" />
-          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="Question" ToRole="SurveyProductQuestion" />
         </EntityType>
         <EntityType Name="Survey">
           <Key>
@@ -1374,28 +1355,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Survey" ToRole="Company" />
-          <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="Survey" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Survey" FromRole="Survey" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="Survey" ToRole="SurveyHeader" />
-          <NavigationProperty Name="SurveyProductQuestions" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="Survey" ToRole="SurveyProductQuestion" />
-        </EntityType>
-        <EntityType Name="SurveyCustomerLocation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="SurveyId" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="LocationId" Type="Guid" Nullable="false" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Company" FromRole="SurveyCustomerLocation" ToRole="Company" />
-          <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Customer" FromRole="SurveyCustomerLocation" ToRole="Customer" />
-          <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="SurveyCustomerLocation" ToRole="Location" />
-          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Survey" FromRole="SurveyCustomerLocation" ToRole="Survey" />
         </EntityType>
         <EntityType Name="SurveyCustomerLocationProductQuestion">
           <Key>
@@ -1429,6 +1390,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="SurveyHeaderId" Type="Guid" Nullable="false" />
           <Property Name="ProductId" Type="Guid" Nullable="false" />
           <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="ProductTypeDetailId" Type="Guid" />
           <Property Name="Answer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1436,6 +1398,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyDetail_Company" FromRole="SurveyDetail" ToRole="Company" />
           <NavigationProperty Name="Product" Relationship="MerchandiserModel.FK_SurveyDetail_Product" FromRole="SurveyDetail" ToRole="Product" />
+          <NavigationProperty Name="ProductTypeDetail" Relationship="MerchandiserModel.FK_SurveyDetail_ProductTypeDetail" FromRole="SurveyDetail" ToRole="ProductTypeDetail" />
           <NavigationProperty Name="Question" Relationship="MerchandiserModel.FK_SurveyDetail_Question" FromRole="SurveyDetail" ToRole="Question" />
           <NavigationProperty Name="SurveyHeader" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyDetail" ToRole="SurveyHeader" />
         </EntityType>
@@ -1465,28 +1428,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
           <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
         </EntityType>
-        <EntityType Name="SurveyProductQuestion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="SurveyId" Type="Guid" Nullable="false" />
-          <Property Name="ProductId" Type="Guid" Nullable="false" />
-          <Property Name="QuestionId" Type="Guid" Nullable="false" />
-          <Property Name="RowOrder" Type="Int32" Nullable="false" />
-          <Property Name="Modified" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Company" FromRole="SurveyProductQuestion" ToRole="Company" />
-          <NavigationProperty Name="Product" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Product" FromRole="SurveyProductQuestion" ToRole="Product" />
-          <NavigationProperty Name="Question" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Question" FromRole="SurveyProductQuestion" ToRole="Question" />
-          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyProductQuestion_Survey" FromRole="SurveyProductQuestion" ToRole="Survey" />
-        </EntityType>
         <EntityType Name="SelectLocation">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CustomerId" Type="Guid" Nullable="false" />
@@ -1500,6 +1445,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
         <EntityType Name="SelectSurvey">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="LocationId" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CustomerId" Type="Guid" Nullable="false" />
@@ -1507,6 +1455,17 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="LocationId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SelectUser">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
@@ -1672,6 +1631,30 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductTypeDetail_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.ProductTypeDetail" Role="ProductTypeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeDetail">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTypeHeader_Company">
+          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="MerchandiserModel.ProductTypeHeader" Role="ProductTypeHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeHeader">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Question_Company">
           <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
           <End Type="MerchandiserModel.Question" Role="Question" Multiplicity="*" />
@@ -1692,18 +1675,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Survey">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Company">
-          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyCustomerLocation" Role="SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
               <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1744,30 +1715,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyProductQuestion_Company">
-          <End Type="MerchandiserModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyProductQuestion" Role="SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Customer">
-          <End Type="MerchandiserModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyCustomerLocation" Role="SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SurveyCustomerLocationProductQuestion_Customer">
           <End Type="MerchandiserModel.Customer" Role="Customer" Multiplicity="1" />
           <End Type="MerchandiserModel.SurveyCustomerLocationProductQuestion" Role="SurveyCustomerLocationProductQuestion" Multiplicity="*" />
@@ -1789,18 +1736,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Principal>
             <Dependent Role="SurveyHeader">
               <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Location">
-          <End Type="MerchandiserModel.Location" Role="Location" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyCustomerLocation" Role="SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="LocationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1840,6 +1775,18 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product_ProductTypeHeader">
+          <End Type="MerchandiserModel.ProductTypeHeader" Role="ProductTypeHeader" Multiplicity="0..1" />
+          <End Type="MerchandiserModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypeHeader">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyCustomerLocationProductQuestion_Product">
           <End Type="MerchandiserModel.Product" Role="Product" Multiplicity="1" />
           <End Type="MerchandiserModel.SurveyCustomerLocationProductQuestion" Role="SurveyCustomerLocationProductQuestion" Multiplicity="*" />
@@ -1864,15 +1811,27 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyProductQuestion_Product">
-          <End Type="MerchandiserModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyProductQuestion" Role="SurveyProductQuestion" Multiplicity="*" />
+        <Association Name="FK_ProductTypeDetail_ProductTypeHeader">
+          <End Type="MerchandiserModel.ProductTypeHeader" Role="ProductTypeHeader" Multiplicity="1" />
+          <End Type="MerchandiserModel.ProductTypeDetail" Role="ProductTypeDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="ProductTypeHeader">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="ProductId" />
+            <Dependent Role="ProductTypeDetail">
+              <PropertyRef Name="ProductTypeHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyDetail_ProductTypeDetail">
+          <End Type="MerchandiserModel.ProductTypeDetail" Role="ProductTypeDetail" Multiplicity="0..1" />
+          <End Type="MerchandiserModel.SurveyDetail" Role="SurveyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTypeDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SurveyDetail">
+              <PropertyRef Name="ProductTypeDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1900,30 +1859,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyProductQuestion_Question">
-          <End Type="MerchandiserModel.Question" Role="Question" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyProductQuestion" Role="SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyCustomerLocation_Survey">
-          <End Type="MerchandiserModel.Survey" Role="Survey" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyCustomerLocation" Role="SurveyCustomerLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Survey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyCustomerLocation">
-              <PropertyRef Name="SurveyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SurveyCustomerLocationProductQuestion_Survey">
           <End Type="MerchandiserModel.Survey" Role="Survey" Multiplicity="1" />
           <End Type="MerchandiserModel.SurveyCustomerLocationProductQuestion" Role="SurveyCustomerLocationProductQuestion" Multiplicity="*" />
@@ -1948,18 +1883,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyProductQuestion_Survey">
-          <End Type="MerchandiserModel.Survey" Role="Survey" Multiplicity="1" />
-          <End Type="MerchandiserModel.SurveyProductQuestion" Role="SurveyProductQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Survey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SurveyProductQuestion">
-              <PropertyRef Name="SurveyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SurveyDetail_SurveyHeader">
           <End Type="MerchandiserModel.SurveyHeader" Role="SurveyHeader" Multiplicity="1" />
           <End Type="MerchandiserModel.SurveyDetail" Role="SurveyDetail" Multiplicity="*" />
@@ -1972,17 +1895,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SelectUser">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1996,6 +1908,13 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="MerchandiserModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2123,6 +2042,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductTypeHeaderId" ColumnName="ProductTypeHeaderId" />
                 <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2132,6 +2052,33 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySetMapping Name="ProductCategories">
             <EntityTypeMapping TypeName="MerchandiserModel.ProductCategory">
               <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypeDetails">
+            <EntityTypeMapping TypeName="MerchandiserModel.ProductTypeDetail">
+              <MappingFragment StoreEntitySet="ProductTypeDetail">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductTypeHeaderId" ColumnName="ProductTypeHeaderId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypeHeaders">
+            <EntityTypeMapping TypeName="MerchandiserModel.ProductTypeHeader">
+              <MappingFragment StoreEntitySet="ProductTypeHeader">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -2175,21 +2122,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SurveyCustomerLocations">
-            <EntityTypeMapping TypeName="MerchandiserModel.SurveyCustomerLocation">
-              <MappingFragment StoreEntitySet="SurveyCustomerLocation">
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SurveyCustomerLocationProductQuestions">
             <EntityTypeMapping TypeName="MerchandiserModel.SurveyCustomerLocationProductQuestion">
               <MappingFragment StoreEntitySet="SurveyCustomerLocationProductQuestion">
@@ -2216,6 +2148,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="ProductTypeDetailId" ColumnName="ProductTypeDetailId" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="SurveyHeaderId" ColumnName="SurveyHeaderId" />
@@ -2238,22 +2171,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SurveyProductQuestions">
-            <EntityTypeMapping TypeName="MerchandiserModel.SurveyProductQuestion">
-              <MappingFragment StoreEntitySet="SurveyProductQuestion">
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="RowOrder" ColumnName="RowOrder" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2289,11 +2206,11 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySetMapping Name="SelectUsers">
             <EntityTypeMapping TypeName="MerchandiserModel.SelectUser">
               <MappingFragment StoreEntitySet="SelectUser">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

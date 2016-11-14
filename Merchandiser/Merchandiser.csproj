@@ -274,6 +274,8 @@
     <Compile Include="Controllers\api\v1\breeze\CustomerApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\CompanyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ProductCategoryApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\ProductTypeDetailApiController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\ProductTypeHeaderApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\QuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ReportApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\RoleApiController.cs" />
@@ -281,11 +283,9 @@
     <Compile Include="Controllers\api\v1\breeze\SelectSurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SelectUserApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyApiController.cs" />
-    <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyCustomerLocationProductQuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyDetailApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\SurveyHeaderApiController.cs" />
-    <Compile Include="Controllers\api\v1\breeze\SurveyProductQuestionApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\UserRoleApiController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\api\v1\UserApiController.cs" />
@@ -296,6 +296,9 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__RefactorLog.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseContext.cs" />
@@ -333,16 +336,16 @@
     <Compile Include="Models\Extensions\CustomerViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\LocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\ProductCategoryViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\ProductTypeDetailViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\ProductTypeHeaderViewModelExtension.cs" />
     <Compile Include="Models\Extensions\ProductViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\QuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\RoleViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SelectLocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SelectSurveyViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyCustomerLocationProductQuestionViewModelExtension.cs" />
-    <Compile Include="Models\Extensions\SurveyCustomerLocationViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyDetailViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyHeaderViewModelExtension.cs" />
-    <Compile Include="Models\Extensions\SurveyProductQuestionViewModelExtension.cs" />
     <Compile Include="Models\Extensions\SurveyViewModelExtension.cs" />
     <Compile Include="Models\Extensions\UserRoleViewModelExtension.cs" />
     <Compile Include="Models\Extensions\UserViewModelExtension.cs" />
@@ -351,6 +354,8 @@
     <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\MapViewModel.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
+    <Compile Include="Models\ProductTypeDetailViewModel.cs" />
+    <Compile Include="Models\ProductTypeHeaderViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
@@ -358,11 +363,9 @@
     <Compile Include="Models\SelectSurveyViewModel.cs" />
     <Compile Include="Models\SelectUserViewModel.cs" />
     <Compile Include="Models\SurveyCustomerLocationProductQuestionViewModel.cs" />
-    <Compile Include="Models\SurveyCustomerLocationViewModel.cs" />
     <Compile Include="Models\SurveyDetailViewModel.cs" />
     <Compile Include="Models\SurveyHeaderDetailViewModel.cs" />
     <Compile Include="Models\SurveyHeaderViewModel.cs" />
-    <Compile Include="Models\SurveyProductQuestionViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
     <Compile Include="Models\UserInfoViewModel.cs" />
     <Compile Include="Models\UserRoleViewModel.cs" />
@@ -371,6 +374,12 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductCategory.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductTypeDetail.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductTypeHeader.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -383,14 +392,14 @@
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
+    <Compile Include="Repositories\ProductTypeDetailRepository.cs" />
+    <Compile Include="Repositories\ProductTypeHeaderRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SurveyCustomerLocationProductQuestionRepository.cs" />
-    <Compile Include="Repositories\SurveyCustomerLocationRepository.cs" />
     <Compile Include="Repositories\SurveyDetailRepository.cs" />
     <Compile Include="Repositories\SurveyHeaderRepository.cs" />
-    <Compile Include="Repositories\SurveyProductQuestionRepository.cs" />
     <Compile Include="Repositories\SurveyRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="SelectLocation.cs">
@@ -406,9 +415,6 @@
     <Compile Include="Survey.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SurveyCustomerLocation.cs">
-      <DependentUpon>DatabaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="SurveyCustomerLocationProductQuestion.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
@@ -416,9 +422,6 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SurveyHeader.cs">
-      <DependentUpon>DatabaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SurveyProductQuestion.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -519,10 +522,8 @@
     <Content Include="App\DatabaseServices\SelectSurvey\SelectSurveyService.js" />
     <Content Include="App\DatabaseServices\SelectUser\SelectUserService.js" />
     <Content Include="App\DatabaseServices\SurveyCustomerLocationProductQuestion\SurveyCustomerLocationProductQuestionService.js" />
-    <Content Include="App\DatabaseServices\SurveyCustomerLocation\SurveyCustomerLocationService.js" />
     <Content Include="App\DatabaseServices\SurveyDetail\SurveyDetailService.js" />
     <Content Include="App\DatabaseServices\SurveyHeader\SurveyHeaderService.js" />
-    <Content Include="App\DatabaseServices\SurveyProductQuestion\SurveyProductQuestionService.js" />
     <Content Include="App\DatabaseServices\Survey\SurveyService.js" />
     <Content Include="App\DatabaseServices\UserRole\UserRoleService.js" />
     <Content Include="App\DatabaseServices\User\UserService.js" />
@@ -2179,6 +2180,8 @@
     <Content Include="Views\Merchandise\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\ApplicationComponents\Administrator\ProductTypeDetail\" />
+    <Folder Include="App\ApplicationComponents\Administrator\ProductTypeHeader\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />

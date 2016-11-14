@@ -12,30 +12,25 @@ namespace Merchandiser
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class ProductTypeDetail
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public ProductTypeDetail()
         {
-            this.SurveyCustomerLocationProductQuestions = new HashSet<SurveyCustomerLocationProductQuestion>();
             this.SurveyDetails = new HashSet<SurveyDetail>();
         }
     
         public System.Guid Id { get; set; }
         public System.Guid CompanyId { get; set; }
-        public Nullable<System.Guid> ProductCategoryId { get; set; }
-        public Nullable<System.Guid> ProductTypeHeaderId { get; set; }
+        public System.Guid ProductTypeHeaderId { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
-        public System.DateTime Created { get; set; }
+        public Nullable<System.DateTime> Modified { get; set; }
         public string CreatedBy { get; set; }
+        public System.DateTime Created { get; set; }
     
         public virtual Company Company { get; set; }
-        public virtual ProductCategory ProductCategory { get; set; }
         public virtual ProductTypeHeader ProductTypeHeader { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SurveyCustomerLocationProductQuestion> SurveyCustomerLocationProductQuestions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyDetail> SurveyDetails { get; set; }
     }

@@ -35,14 +35,8 @@ namespace Merchandiser.App_Start
                 cfg.CreateMap<SurveyViewModel, Survey>();
                 cfg.CreateMap<Survey, SurveyViewModel>();
 
-                cfg.CreateMap<SurveyCustomerLocationViewModel, SurveyCustomerLocation>();
-                cfg.CreateMap<SurveyCustomerLocation, SurveyCustomerLocationViewModel>();
-
                 cfg.CreateMap<SurveyCustomerLocationProductQuestionViewModel, SurveyCustomerLocationProductQuestion>();
                 cfg.CreateMap<SurveyCustomerLocationProductQuestion, SurveyCustomerLocationProductQuestionViewModel>();
-
-                cfg.CreateMap<SurveyProductQuestionViewModel, SurveyProductQuestion>();
-                cfg.CreateMap<SurveyProductQuestion, SurveyProductQuestionViewModel>();
 
                 cfg.CreateMap<QuestionViewModel, Question>();
                 cfg.CreateMap<Question, QuestionViewModel>();
@@ -71,6 +65,12 @@ namespace Merchandiser.App_Start
 
                 cfg.CreateMap<SelectSurveyViewModel, SelectSurvey>();
                 cfg.CreateMap<SelectSurvey, SelectSurveyViewModel>();
+
+                cfg.CreateMap<ProductTypeDetailViewModel, ProductTypeDetail>();
+                cfg.CreateMap<ProductTypeDetail, ProductTypeDetailViewModel>();
+
+                cfg.CreateMap<ProductTypeHeaderViewModel, ProductTypeHeader>();
+                cfg.CreateMap<ProductTypeHeader, ProductTypeHeaderViewModel>();
             });
         }
     }

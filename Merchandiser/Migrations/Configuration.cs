@@ -43,8 +43,6 @@ namespace Merchandiser.Migrations
                     AddProducts(context);
                     AddQuestions(context);
                     AddSurvey(context);
-                    AddSurveyCustomerLocation(context);
-                    AddSurveyProductQuestion(context);
                     AddViews(context);
 
                     context.SaveChanges();
@@ -184,38 +182,6 @@ namespace Merchandiser.Migrations
             context.Surveys.Add(new Survey() { Id = Guid.NewGuid(), Name = "Survey 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
             survey = context.Surveys.Where(e => e.Name == "Survey 1").FirstOrDefault();
-        }
-        public void AddSurveyCustomerLocation(MerchandiserEntities context)
-        {
-            var customer = context.Customers.Where(e => e.Name == "Customer 1").FirstOrDefault();
-            var location = context.Locations.Where(e => e.Name == "Location 1").FirstOrDefault();
-            context.SurveyCustomerLocations.Add(new SurveyCustomerLocation()
-            {
-                Id = Guid.NewGuid(),
-                CustomerId = customer.Id,
-                LocationId = location.Id,
-                CompanyId = company.Id,
-                CreatedBy = user.Id,
-                Created = DateTime.Now,
-                SurveyId = survey.Id
-            });
-            context.SaveChanges();
-        }
-        public void AddSurveyProductQuestion(MerchandiserEntities context)
-        {
-            var product = context.Products.Where(e => e.Name == "Product 1").FirstOrDefault();
-            var question = context.Questions.Where(e => e.Name == "Question 1").FirstOrDefault();
-            context.SurveyProductQuestions.Add(new SurveyProductQuestion()
-            {
-                Id = Guid.NewGuid(),
-                ProductId = product.Id,
-                QuestionId = question.Id,
-                CompanyId = company.Id,
-                CreatedBy = user.Id,
-                Created = DateTime.Now,
-                SurveyId = survey.Id
-            });
-            context.SaveChanges();
         }
 
         public void AddViews(MerchandiserEntities context)
