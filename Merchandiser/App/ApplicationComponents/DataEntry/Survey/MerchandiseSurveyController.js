@@ -65,9 +65,6 @@
             }
         }
         $scope.Search();
-        angular.element(document).ready(function () {
-            document.getElementById($scope.previousElementId).focus();
-        });
 
         $scope.sort = {
             column: ['RowOrder', 'Product.Name'],
