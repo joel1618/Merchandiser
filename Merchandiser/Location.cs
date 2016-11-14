@@ -55,6 +55,14 @@ public partial class Location
 
     public string CreatedBy { get; set; }
 
+    public string Phone { get; set; }
+
+    public string City { get; set; }
+
+    public string State { get; set; }
+
+    public string Zip { get; set; }
+
 
 
     public virtual Company Company { get; set; }

@@ -119,6 +119,10 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -1298,6 +1302,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <NavigationProperty Name="SurveyCustomerLocations" Relationship="MerchandiserModel.FK_SurveyCustomerLocation_Location" FromRole="Location" ToRole="SurveyCustomerLocation" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Location" FromRole="Location" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="Location" ToRole="SurveyHeader" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -2088,6 +2096,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="MerchandiserModel.Location">
               <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

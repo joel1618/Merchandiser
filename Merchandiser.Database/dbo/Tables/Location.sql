@@ -11,9 +11,15 @@
     [ModifiedBy]  NVARCHAR (128)   NULL,
     [Created]     DATETIME         NOT NULL,
     [CreatedBy]   NVARCHAR (128)   NOT NULL,
+    [Phone]       NVARCHAR (100)   NULL,
+    [City]        NVARCHAR (100)   NULL,
+    [State]       NVARCHAR (100)   NULL,
+    [Zip]         NVARCHAR (100)   NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Location_Location] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id])
 );
+
+
 
 
 

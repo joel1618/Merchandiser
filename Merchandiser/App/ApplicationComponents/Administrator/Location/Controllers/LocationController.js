@@ -16,7 +16,11 @@
             data: [],
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Name', cellTooltip: true }
+                { field: 'Name', name: 'Name', cellTooltip: true },
+                { field: 'Phone', name: 'Phone', cellTooltip: true },
+                { field: 'City', name: 'City', cellTooltip: true },
+                { field: 'State', name: 'State', cellTooltip: true },
+                { field: 'Zip', name: 'Zip', cellTooltip: true }
             ]
         };
         $scope.Search();

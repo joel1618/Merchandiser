@@ -43,6 +43,10 @@ namespace Merchandiser.Repositories
             entity.Modified = DateTime.UtcNow;
             entity.Latitude = item.Latitude;
             entity.Longitude = item.Longitude;
+            entity.City = item.City;
+            entity.State = item.State;
+            entity.Zip = item.Zip;
+            entity.Phone = item.Phone;
             context.SaveChanges();
             return entity;
         }

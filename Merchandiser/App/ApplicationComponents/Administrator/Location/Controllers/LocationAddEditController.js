@@ -51,6 +51,9 @@
             $scope.item.Latitude = item.geometry.location.lat;
             $scope.item.Longitude = item.geometry.location.lng;
             $scope.item.Address = item.formatted_address;
+            $scope.item.City = item.address_components[3].long_name;
+            $scope.item.State = item.address_components[5].long_name;
+            $scope.item.Zip = item.address_components[7].long_name;
         }
     }]);
 
