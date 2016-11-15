@@ -18,7 +18,8 @@
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Name', name: 'Name', cellTooltip: true },
-                { field: 'ProductCategory.Name', name: 'Category Name', cellTooltip: true }
+                { field: 'ProductCategory.Name', name: 'Category Name', cellTooltip: true },
+                { field: 'ProductTypeHeader.Name', name: 'Product Type Name', cellTooltip: true }
             ]
         };
         $scope.Search();

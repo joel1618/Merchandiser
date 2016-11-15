@@ -23,7 +23,7 @@
             enableSorting: true,
             data: [],
             columnDefs: [
-                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { name: 'Manage', width: '180', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/SelectEditDelete.html' },
                 { field: 'Name', name: 'Name', cellTooltip: true }
             ]
         };
@@ -38,6 +38,12 @@
                 $scope.Search();
             }, function (error) {
                 toastr.error(error.data, error.statusText);
+            });
+        }
+
+        $scope.Select = function (Id) {
+            ProductTypeHeaderService.Get(Id).then(function (data) {
+                SelectionApplicationService.SetProductTypeHeader(data);
             });
         }
     }]);

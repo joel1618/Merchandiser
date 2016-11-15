@@ -22,8 +22,6 @@
         meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
         meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
         meta.setEntityTypeForResourceName("LocationApi/Search", "LocationViewModel");
-        meta.setEntityTypeForResourceName("SurveyCustomerLocationApi/Search", "SurveyCustomerLocationViewModel");
-        meta.setEntityTypeForResourceName("SurveyProductQuestionApi/Search", "SurveyProductQuestionViewModel");
         meta.setEntityTypeForResourceName("SurveyCustomerLocationProductQuestionApi/Search", "SurveyCustomerLocationProductQuestionViewModel");
         meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
         meta.setEntityTypeForResourceName("MapApi/Search", "MapViewModel");
@@ -32,6 +30,9 @@
         meta.setEntityTypeForResourceName("SelectLocationApi/Search", "SelectLocationViewModel");        
         meta.setEntityTypeForResourceName("SelectSurveyApi/Search", "SelectSurveyViewModel");
         meta.setEntityTypeForResourceName("SelectUserApi/Search", "SelectUserViewModel");
+        meta.setEntityTypeForResourceName("SelectCustomerLocationProductQuestionApi/Search", "SelectCustomerLocationProductQuestionViewModel");
+        meta.setEntityTypeForResourceName("ProductTypeHeaderApi/Search", "ProductTypeHeaderViewModel");
+        meta.setEntityTypeForResourceName("ProductTypeDetailApi/Search", "ProductTypeDetailViewModel");
         var service = {
             executeQuery: executeQuery,
             all: all

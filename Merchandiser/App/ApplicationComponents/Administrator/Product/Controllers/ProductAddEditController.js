@@ -42,12 +42,13 @@
                    { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } }
                 ]
             }
-            return ProductTypeService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+            return ProductTypeHeaderService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
                 return data;
             });
         }
 
         $scope.SelectProductType = function (item, model, label) {
+            debugger;
             $scope.item.ProductTypeHeaderId = item.Id;
         }
 

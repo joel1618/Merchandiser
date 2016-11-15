@@ -146,6 +146,7 @@
 
         this.SetProductTypeHeader = function (item) {
             this.ProductTypeHeader = item;
+            this.NotifyObservers();
         }
 
         this.Clear = function () {

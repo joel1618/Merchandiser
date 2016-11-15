@@ -8,7 +8,7 @@
         })
     });
     angular.module('Main').controller('ProductTypeDetailAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'ProductService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'ProductTypeDetailService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
         $timeout, breezeservice, breeze, ProductTypeDetailService, SelectionApplicationService) {
        
@@ -38,6 +38,7 @@
             }
             else {
                 $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
+                $scope.item.ProductTypeHeaderId = SelectionApplicationService.GetProductTypeHeader().Id;
                 ProductTypeDetailService.Create($scope.item).then(function (data) {
                     $scope.$parent.gridOptions.data.splice(0, 0, data.data);
                     $scope.Init();

@@ -500,6 +500,7 @@
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\EditDelete.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\BeforeImage.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\Notes.html" />
+    <Content Include="App\ApplicationComponents\Reporting\Survey\CellTemplates\SelectEditDelete.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReport.html" />
     <Content Include="App\ApplicationComponents\Reporting\Survey\SurveyReportController.js" />
     <Content Include="App\ApplicationComponents\Reporting\Report\Report.html" />

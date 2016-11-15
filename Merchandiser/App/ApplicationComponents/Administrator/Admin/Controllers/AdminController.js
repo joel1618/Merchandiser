@@ -13,6 +13,11 @@
             $scope.SelectedSurvey = SelectionApplicationService.GetSurvey();
         })
 
+        $scope.SelectedProductTypeHeader = null;
+        SelectionApplicationService.RegisterObserver(function () {
+            $scope.SelectedProductTypeHeader = SelectionApplicationService.GetProductTypeHeader();
+        })
+
         $scope.Route = function (state) {
             if (state == "main.admin.company.addedit") {
                 $state.go(state);
