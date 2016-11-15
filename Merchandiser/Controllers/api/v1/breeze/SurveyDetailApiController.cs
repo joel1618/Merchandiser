@@ -48,7 +48,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
                     Id = x.Question.Id,
                     Name = x.Question.Name,
                     IsRequired = x.Question.IsRequired
-                }
+                },
+                ProductTypeDetail = new ProductTypeDetailViewModel()
+                {
+                    Name = x.ProductTypeDetail.Name                    
+                },
+                ProductTypeDetailId = x.ProductTypeDetail != null ? x.ProductTypeDetail.Id : new Nullable<Guid>()
             });
         }
 

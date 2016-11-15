@@ -9,10 +9,10 @@
     });
     angular.module('Main').controller('SelectCompanyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationService', 'SelectionApplicationService',
+        'RoleService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationService, SelectionApplicationService) {
+        RoleService, SelectionApplicationService) {
 
         $scope.Search = function () {
             CompanyService.Search(null, ["Name desc"], 0, 20, false).then(function (data) {

@@ -18,6 +18,8 @@ namespace Merchandiser.Models
         public Guid ProductId { get; set; }
         [Required]
         public Guid QuestionId { get; set; }
+
+        public Guid? ProductTypeDetailId { get; set; }
         public string Answer { get; set; }
         public DateTime Modifed { get; set; }
         public DateTime Created { get; set; }
@@ -26,5 +28,7 @@ namespace Merchandiser.Models
 
         public virtual ProductViewModel Product { get; set; }
         public virtual QuestionViewModel Question { get; set; }
+
+        public virtual ProductTypeDetailViewModel ProductTypeDetail { get; set; }
     }
 }

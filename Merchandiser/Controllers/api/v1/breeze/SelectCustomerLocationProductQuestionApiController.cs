@@ -32,19 +32,50 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CustomerId = sclpq.CustomerId,
                 LocationId = sclpq.LocationId,
                 ProductId = sclpq.ProductId,
-                Company = sclpq.Company.ToViewModel(),
+                ProductTypeDetailId = productTypeDetail != null ? productTypeDetail.Id : new Nullable<Guid>(),
+                Company = new CompanyViewModel()
+                {
+                    Id = sclpq.Company.Id,
+                    Name = sclpq.Company.Name,
+                    Created = sclpq.Company.Created,
+                    CreatedBy = sclpq.Company.CreatedBy
+                },
                 Created = sclpq.Created,
                 CreatedBy = sclpq.CreatedBy,
-                Customer = sclpq.Customer.ToViewModel(),
-                Location = sclpq.Location.ToViewModel(),
+                Customer = new CustomerViewModel()
+                {
+                    Id = sclpq.Customer.Id,
+                    Name = sclpq.Customer.Name
+                },
+                Location = new LocationViewModel()
+                {
+                    Id = sclpq.Location.Id,
+                    Name = sclpq.Location.Name
+                },
                 Modified = sclpq.Modified,
                 ModifiedBy = sclpq.ModifiedBy,
-                Product = sclpq.Product.ToViewModel(),
-                Question = sclpq.Question.ToViewModel(),
+                Product = new ProductViewModel()
+                {
+                    Id = sclpq.Product.Id,
+                    Name = sclpq.Product.Name
+                },
+                Question = new QuestionViewModel()
+                {
+                    Id = sclpq.Question.Id,
+                    Name = sclpq.Question.Name
+                },
                 QuestionId = sclpq.QuestionId,
                 RowOrder = sclpq.RowOrder,
-                Survey = sclpq.Survey.ToViewModel(),
-                ProductTypeDetail = productTypeDetail.ToViewModel()
+                Survey = new SurveyViewModel()
+                {
+                    Id = sclpq.Survey.Id,
+                    Name = sclpq.Survey.Name
+                },
+                ProductTypeDetail = productTypeDetail != null ? new ProductTypeDetailViewModel()
+                {
+                    Id = productTypeDetail.Id,
+                    Name = productTypeDetail.Name
+                } : null
             };
             return response;
         }

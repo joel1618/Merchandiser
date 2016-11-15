@@ -16,11 +16,12 @@
                 var deferred = $q.defer();
 
                 var query = new breeze.EntityQuery({
-                    from: "SelectCustomerLocationProductQuestionServiceApi/Search",
+                    from: "SelectCustomerLocationProductQuestionApi/Search",
                     where: predicate,
                     orderBy: order,
                     skip: page * pageSize,
                     take: pageSize,
+                    inlineCount: true,
                     parameters: { "companyId": SelectionApplicationService.GetCompanyId() }
                 });
 

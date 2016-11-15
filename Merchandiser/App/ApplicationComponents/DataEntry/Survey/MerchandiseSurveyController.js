@@ -9,11 +9,11 @@
     });
     angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
-        'UserService', 'SurveyCustomerLocationService', 'SurveyProductQuestionService', 'SurveyCustomerLocationProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
+        'UserService', 'SurveyCustomerLocationProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
         'SelectionApplicationService', 'SelectCustomerLocationProductQuestionService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
         CompanyService, LocationService, CustomerService, SurveyService,
-        UserService, SurveyCustomerLocationService, SurveyProductQuestionService, SurveyCustomerLocationProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService,
+        UserService, SurveyCustomerLocationProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService,
         SelectionApplicationService, SelectCustomerLocationProductQuestionService) {
         
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
@@ -59,7 +59,7 @@
                        { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
                     ]
                 }
-                SurveyCustomerLocationProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
+                SelectCustomerLocationProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
                     $scope.Survey = data.Results[0].Survey;
                     $scope.Detail = data.Results;
                 });

@@ -61,6 +61,9 @@
                                 <th ng-click="changeSorting('Product.ProductCategory.Name')">
                                     <a>Category</a>
                                 </th>
+                                <th ng-click="changeSorting('ProductTypeDetail.Name')">
+                                    <a>Type</a>
+                                </th>
                                 <th ng-click="changeSorting('Product.Name')">
                                     <a>Product</a>
                                 </th>
@@ -79,6 +82,9 @@
                             <tr ng-form name="innerForm" ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
                                 <td>
                                     {{item.Product.ProductCategory.Name}}
+                                </td>
+                                <td>
+                                    {{item.ProductTypeDetail.Name}}
                                 </td>
                                 <td>
                                     {{item.Product.Name}}
