@@ -74,6 +74,9 @@
                         field: 'SurveyName', name: 'Survey Name', cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
+                        field: 'ProductTypeDetailName', name: 'Product Type Name', cellTooltip: true, headerTooltip: true
+                    });
+                    $scope.gridOptions.columnDefs.push({
                         field: 'ProductName', name: 'Product Name', cellTooltip: true, headerTooltip: true
                     });
                     var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],

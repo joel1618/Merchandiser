@@ -25,8 +25,9 @@ namespace Merchandiser.Repositories
                 context.Database.Connection.Open();
                 cmd.CommandText = @"DECLARE @cols NVARCHAR(MAX), @sql NVARCHAR(MAX)
                     SET @cols = STUFF((SELECT DISTINCT ',' + QUOTENAME(Question.Name)
-                     from SurveyHeader
-                     left join SurveyDetail on SurveyHeader.Id = SurveyDetail.SurveyHeaderId
+                    from SurveyHeader
+                    left join SurveyDetail on SurveyHeader.Id = SurveyDetail.SurveyHeaderId
+                    left join ProductTypeDetail on SurveyDetail.ProductTypeDetailId = ProductTypeDetail.Id
                     left join Customer on SurveyHeader.CustomerId = Customer.Id
                     left join Location on SurveyHeader.LocationId = Location.Id
                     left join Company on SurveyHeader.CompanyId = Company.Id
@@ -67,7 +68,8 @@ namespace Merchandiser.Repositories
                      FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '')
 
 				    SET @sql = 'SELECT Id, UserName, FirstName, LastName, SurveyId, SurveyName, CompanyId, 
-					CompanyName, LocationId, LocationName, CustomerId, CustomerName, ProductId, ProductName, Created, IsBeforeImage, IsAfterImage, ' + @cols + '
+					CompanyName, LocationId, LocationName, CustomerId, CustomerName, ProductId, ProductName, 
+                    ProductTypeDetailId, ProductTypeDetailName, Created, IsBeforeImage, IsAfterImage, ' + @cols + '
                     from 
 					(
 					select 
@@ -85,6 +87,8 @@ namespace Merchandiser.Repositories
 					Customer.Name as ''CustomerName'',
 					Product.Id as ''ProductId'',
 					Product.Name as ''ProductName'', 
+                    ProductTypeDetail.Id as ''ProductTypeDetailId'',
+                    ProductTypeDetail.Name as ''ProductTypeDetailName'',
                     SurveyHeader.Created as ''Created'',
                     SurveyHeader.IsBeforeImage as ''IsBeforeImage'',
                     SurveyHeader.IsAfterImage as ''IsAfterImage'',
@@ -93,6 +97,7 @@ namespace Merchandiser.Repositories
                     
                     from SurveyHeader
                     left join SurveyDetail on SurveyHeader.Id = SurveyDetail.SurveyHeaderId
+                    left join ProductTypeDetail on SurveyDetail.ProductTypeDetailId = ProductTypeDetail.Id
                     left join Customer on SurveyHeader.CustomerId = Customer.Id
                     left join Location on SurveyHeader.LocationId = Location.Id
                     left join Company on SurveyHeader.CompanyId = Company.Id

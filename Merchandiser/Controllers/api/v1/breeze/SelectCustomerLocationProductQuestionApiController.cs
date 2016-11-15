@@ -23,7 +23,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
         {
             var response =
             from sclpq in context.SurveyCustomerLocationProductQuestions
-            join productTypeDetail in context.ProductTypeDetails on sclpq.Product.ProductTypeHeaderId equals productTypeDetail.ProductTypeHeaderId
+            join productTypeDetail in context.ProductTypeDetails on sclpq.Product.ProductTypeHeaderId equals productTypeDetail.ProductTypeHeaderId into ps
+            from productTypeDetail in ps.DefaultIfEmpty()
             select new SelectCustomerLocationProductQuestionViewModel()
             {
                 Id = sclpq.Id,
