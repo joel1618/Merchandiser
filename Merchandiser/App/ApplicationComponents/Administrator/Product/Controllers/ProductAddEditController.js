@@ -48,7 +48,6 @@
         }
 
         $scope.SelectProductType = function (item, model, label) {
-            debugger;
             $scope.item.ProductTypeHeaderId = item.Id;
         }
 
