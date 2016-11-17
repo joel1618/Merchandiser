@@ -37,7 +37,7 @@ namespace Merchandiser.Controllers.api.v1
             using (StreamWriter writer = new StreamWriter(stream))
             using (CsvWriter csv = new CsvWriter(writer))
             {
-                var result = reportController.Search(null, null, null, null, null, null, null, startDate, endDate, 0, 100000);
+                var result = reportController.Search(companyId, surveyHeaderId, customerId, locationId, productId, surveyId, null, startDate, endDate, 0, 100000);
                 var contentResult = result as OkNegotiatedContentResult<List<Dictionary<string, object>>>;
                 var content = contentResult.Content;
                 if (content.Count() > 0)
