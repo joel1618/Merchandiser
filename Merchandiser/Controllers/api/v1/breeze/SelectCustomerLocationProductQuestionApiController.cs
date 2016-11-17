@@ -70,7 +70,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Survey = new SurveyViewModel()
                 {
                     Id = sclpq.Survey.Id,
-                    Name = sclpq.Survey.Name
+                    Name = sclpq.Survey.Name,
+                    IsNoteRequired = sclpq.Survey.IsNoteRequired
                 },
                 ProductTypeDetail = productTypeDetail != null ? new ProductTypeDetailViewModel()
                 {

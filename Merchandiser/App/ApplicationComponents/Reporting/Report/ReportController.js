@@ -20,7 +20,7 @@
 
         $scope.ClearSelectedSurveyHeaderId = function () {
             $scope.SelectedSurveyHeaderId = null;
-            SelectionApplicationService.SetSelectedSurveyHeaderId(null);
+            SelectionApplicationService.SetSurveyHeaderId(null);
             $state.go('main.report.surveyheaderreport');
         }
     }]);
