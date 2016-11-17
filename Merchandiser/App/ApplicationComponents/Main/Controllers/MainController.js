@@ -3,7 +3,7 @@
     angular.module('Main').controller('MainController', ['$scope', '$http', '$window', '$state', 'UserService', 'SelectionApplicationService',
     function controller($scope, $http, $window, $state, UserService, SelectionApplicationService) {
 
-        UserService.GetCurrentUsername().then(function(data){
+        UserService.GetCurrentUsername().then(function (data) {
             $scope.Username = data;
         });
         $scope.GoTo = function (state) {
@@ -13,15 +13,15 @@
             }
             else {
                 SelectionApplicationService.Clear();
-                
-            SelectionApplicationService.SetRedirectState(state);
+
+                SelectionApplicationService.SetRedirectState(state);
                 $state.go('main.selectcompany');
             }
         }
 
         $scope.Logout = function () {
             SelectionApplicationService.Clear();
-            $http.post('/Account/LogOff').then(function(data){
+            $http.post('/Account/LogOff').then(function (data) {
                 $window.location.reload();
             });
         }

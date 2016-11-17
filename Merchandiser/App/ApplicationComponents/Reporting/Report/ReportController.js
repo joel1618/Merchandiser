@@ -13,6 +13,16 @@
         $scope.SelectedCustomer = SelectionApplicationService.GetCustomer();
         $scope.SelectedLocation = SelectionApplicationService.GetLocation();
         $scope.SelectedSurvey = SelectionApplicationService.GetSurvey();
+        $scope.SelectedSurveyHeaderId = SelectionApplicationService.GetSurveyHeaderId();
+        SelectionApplicationService.RegisterObserver(function () {
+            $scope.SelectedSurveyHeaderId = SelectionApplicationService.GetSurveyHeaderId();
+        })
+
+        $scope.ClearSelectedSurveyHeaderId = function () {
+            $scope.SelectedSurveyHeaderId = null;
+            SelectionApplicationService.SetSelectedSurveyHeaderId(null);
+            $state.go('main.report.surveyheaderreport');
+        }
     }]);
 
 })(moment);

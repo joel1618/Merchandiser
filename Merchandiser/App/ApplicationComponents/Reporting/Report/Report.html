@@ -22,6 +22,9 @@
                 <label class="small" for="selectedSurvey">Selected Survey</label>
                 <p id="selectedSurvey">{{SelectedSurvey.Name}}</p>
             </div>
+            <div ng-show="SelectedSurveyHeaderId != null">
+                <button class="btn btn-danger btn-sm" ng-click="ClearSelectedSurveyHeaderId()">Clear Selected Survey Instance</button>
+            </div>
         </div>
         <div class="col-md-11">
             <div class="row">
