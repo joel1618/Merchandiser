@@ -36,7 +36,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 AreaManager = x.AreaManager,
                 Address = x.Address,
                 Latitude = x.Latitude,
-                Longitude = x.Longitude
+                Longitude = x.Longitude,
+                Phone = x.Phone,
+                City = x.City,
+                State = x.State,
+                Zip = x.Zip
             });
             return response;
         }

@@ -179,65 +179,6 @@
     var services = angular.module('DatabaseServices', []);
 })();
 (function () {
-
-    angular.module('DatabaseServices').factory('breezeservice',
-    ['$http', '$q', '$timeout', 'breeze', service]);
-
-    function service($http, $q, $timeout, breeze) {
-        var serviceName = '/breeze'; // route to the same origin Web Api controller
-        var dataService = new breeze.DataService({
-            serviceName: serviceName,
-            hasServerMetadata: false  // don't ask the server for metadata
-        });
-        var metadataStore = new breeze.MetadataStore();
-        //manager.enableSaveQueuing(true);
-        metadataStore.importMetadata(window.breeze.metadata);
-        //var masterManager = new breeze.EntityManager(serviceName);
-        var manager = new breeze.EntityManager({
-            dataService: dataService,
-            metadataStore: metadataStore
-        });
-        var meta = manager.metadataStore;
-        meta.setEntityTypeForResourceName("UserRoleApi/Search", "UserRoleViewModel");
-        meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
-        meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
-        meta.setEntityTypeForResourceName("LocationApi/Search", "LocationViewModel");
-        meta.setEntityTypeForResourceName("SurveyCustomerLocationProductQuestionApi/Search", "SurveyCustomerLocationProductQuestionViewModel");
-        meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
-        meta.setEntityTypeForResourceName("MapApi/Search", "MapViewModel");
-        meta.setEntityTypeForResourceName("ProductCategoryApi/Search", "ProductCategoryViewModel");
-        meta.setEntityTypeForResourceName("SurveyHeaderApi/Search", "SurveyHeaderViewModel");
-        meta.setEntityTypeForResourceName("SelectLocationApi/Search", "SelectLocationViewModel");        
-        meta.setEntityTypeForResourceName("SelectSurveyApi/Search", "SelectSurveyViewModel");
-        meta.setEntityTypeForResourceName("SelectUserApi/Search", "SelectUserViewModel");
-        meta.setEntityTypeForResourceName("SelectCustomerLocationProductQuestionApi/Search", "SelectCustomerLocationProductQuestionViewModel");
-        meta.setEntityTypeForResourceName("ProductTypeHeaderApi/Search", "ProductTypeHeaderViewModel");
-        meta.setEntityTypeForResourceName("ProductTypeDetailApi/Search", "ProductTypeDetailViewModel");
-        var service = {
-            executeQuery: executeQuery,
-            all: all
-        };
-        return service;
-
-        function executeQuery(query) {
-            return manager.executeQuery(query).then(function (data) {
-                return data;
-            });
-        }
-
-        function all() {
-            var query = breeze.EntityQuery
-                .from(resourceName);
-
-            return executeQuery(query);
-        }
-    }
-})();
-window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
-{"schema":{"namespace":"Merchandiser","alias":"Self","annotation:UseStrongSpatialTypes":"false","xmlns:annotation":"http://schemas.microsoft.com/ado/2009/02/edm/annotation","xmlns:customannotation":"http://schemas.microsoft.com/ado/2013/11/edm/customannotation","xmlns":"http://schemas.microsoft.com/ado/2009/11/edm","cSpaceOSpaceMapping":"[[\"Merchandiser.CompanyViewModel\",\"Merchandiser.Models.CompanyViewModel\"],[\"Merchandiser.CustomerViewModel\",\"Merchandiser.Models.CustomerViewModel\"],[\"Merchandiser.MapViewModel\",\"Merchandiser.Models.MapViewModel\"],[\"Merchandiser.ProductCategoryViewModel\",\"Merchandiser.Models.ProductCategoryViewModel\"],[\"Merchandiser.ProductTypeDetailViewModel\",\"Merchandiser.Models.ProductTypeDetailViewModel\"],[\"Merchandiser.ProductTypeHeaderViewModel\",\"Merchandiser.Models.ProductTypeHeaderViewModel\"],[\"Merchandiser.RoleViewModel\",\"Merchandiser.Models.RoleViewModel\"],[\"Merchandiser.SelectCustomerLocationProductQuestionViewModel\",\"Merchandiser.Models.SelectCustomerLocationProductQuestionViewModel\"],[\"Merchandiser.LocationViewModel\",\"Merchandiser.Models.LocationViewModel\"],[\"Merchandiser.ProductViewModel\",\"Merchandiser.Models.ProductViewModel\"],[\"Merchandiser.QuestionViewModel\",\"Merchandiser.Models.QuestionViewModel\"],[\"Merchandiser.SurveyViewModel\",\"Merchandiser.Models.SurveyViewModel\"],[\"Merchandiser.SelectLocationViewModel\",\"Merchandiser.Models.SelectLocationViewModel\"],[\"Merchandiser.SelectSurveyViewModel\",\"Merchandiser.Models.SelectSurveyViewModel\"],[\"Merchandiser.SelectUserViewModel\",\"Merchandiser.Models.SelectUserViewModel\"],[\"Merchandiser.SurveyCustomerLocationProductQuestionViewModel\",\"Merchandiser.Models.SurveyCustomerLocationProductQuestionViewModel\"],[\"Merchandiser.SurveyHeaderViewModel\",\"Merchandiser.Models.SurveyHeaderViewModel\"],[\"Merchandiser.UserViewModel\",\"Merchandiser.Models.UserViewModel\"],[\"Merchandiser.UserInfoViewModel\",\"Merchandiser.Models.UserInfoViewModel\"],[\"Merchandiser.UserRoleViewModel\",\"Merchandiser.Models.UserRoleViewModel\"]]","entityType":[{"name":"CompanyViewModel","customannotation:ClrType":"Merchandiser.Models.CompanyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"CustomerViewModel","customannotation:ClrType":"Merchandiser.Models.CustomerViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsSendReport","type":"Edm.Boolean","nullable":"false"},{"name":"SendReport","type":"Edm.DateTime"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"MapViewModel","customannotation:ClrType":"Merchandiser.Models.MapViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CompanyName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CustomerName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LocationName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SurveyName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"ProductCategoryViewModel","customannotation:ClrType":"Merchandiser.Models.ProductCategoryViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"ProductTypeDetailViewModel","customannotation:ClrType":"Merchandiser.Models.ProductTypeDetailViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductTypeHeaderId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"}]},{"name":"ProductTypeHeaderViewModel","customannotation:ClrType":"Merchandiser.Models.ProductTypeHeaderViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"Details","relationship":"Self.ProductTypeHeaderViewModel_Details","fromRole":"ProductTypeHeaderViewModel_Details_Source","toRole":"ProductTypeHeaderViewModel_Details_Target"}},{"name":"RoleViewModel","customannotation:ClrType":"Merchandiser.Models.RoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SelectCustomerLocationProductQuestionViewModel","customannotation:ClrType":"Merchandiser.Models.SelectCustomerLocationProductQuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"RowOrder","type":"Edm.Int32","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Company","fromRole":"SelectCustomerLocationProductQuestionViewModel_Company_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Company_Target"},{"name":"Customer","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Customer","fromRole":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Location","fromRole":"SelectCustomerLocationProductQuestionViewModel_Location_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Location_Target"},{"name":"Product","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Product","fromRole":"SelectCustomerLocationProductQuestionViewModel_Product_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Product_Target"},{"name":"ProductTypeDetail","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","fromRole":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Target"},{"name":"Question","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Question","fromRole":"SelectCustomerLocationProductQuestionViewModel_Question_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Question_Target"},{"name":"Survey","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Survey","fromRole":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Survey_Target"}]},{"name":"LocationViewModel","customannotation:ClrType":"Merchandiser.Models.LocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Phone","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"City","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"State","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Zip","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"ProductViewModel","customannotation:ClrType":"Merchandiser.Models.ProductViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductCategoryId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"ProductCategory","relationship":"Self.ProductViewModel_ProductCategory","fromRole":"ProductViewModel_ProductCategory_Source","toRole":"ProductViewModel_ProductCategory_Target"},{"name":"ProductTypeHeader","relationship":"Self.ProductViewModel_ProductTypeHeader","fromRole":"ProductViewModel_ProductTypeHeader_Source","toRole":"ProductViewModel_ProductTypeHeader_Target"}]},{"name":"QuestionViewModel","customannotation:ClrType":"Merchandiser.Models.QuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsRequired","type":"Edm.Boolean","nullable":"false"},{"name":"IsTrueFalse","type":"Edm.Boolean","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsNoteRequired","type":"Edm.Boolean","nullable":"false"},{"name":"IsEdit","type":"Edm.Boolean","nullable":"false"},{"name":"IsEditDays","type":"Edm.Int32"},{"name":"IsDelete","type":"Edm.Boolean","nullable":"false"},{"name":"IsDeleteDays","type":"Edm.Int32"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SelectLocationViewModel","customannotation:ClrType":"Merchandiser.Models.SelectLocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"},{"name":"CompanyId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SurveyCreated","type":"Edm.DateTime"}]},{"name":"SelectSurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SelectSurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"},{"name":"CompanyId","type":"Edm.Guid"},{"name":"LocationId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SurveyCreated","type":"Edm.DateTime"}]},{"name":"SelectUserViewModel","customannotation:ClrType":"Merchandiser.Models.SelectUserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Email","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyCustomerLocationProductQuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"RowOrder","type":"Edm.Int32","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Company","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Company_Target"},{"name":"Customer","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Customer","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Location","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Location_Target"},{"name":"Product","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Product","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Product_Target"},{"name":"Question","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Question","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Question_Target"},{"name":"Survey","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Survey","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target"}]},{"name":"SurveyHeaderViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyHeaderViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"IsBeforeImage","type":"Edm.Boolean","nullable":"false"},{"name":"IsAfterImage","type":"Edm.Boolean","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime","nullable":"false"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyHeaderViewModel_Company","fromRole":"SurveyHeaderViewModel_Company_Source","toRole":"SurveyHeaderViewModel_Company_Target"},{"name":"CreatedUser","relationship":"Self.SurveyHeaderViewModel_CreatedUser","fromRole":"SurveyHeaderViewModel_CreatedUser_Source","toRole":"SurveyHeaderViewModel_CreatedUser_Target"},{"name":"Customer","relationship":"Self.SurveyHeaderViewModel_Customer","fromRole":"SurveyHeaderViewModel_Customer_Source","toRole":"SurveyHeaderViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyHeaderViewModel_Location","fromRole":"SurveyHeaderViewModel_Location_Source","toRole":"SurveyHeaderViewModel_Location_Target"},{"name":"ModifiedUser","relationship":"Self.SurveyHeaderViewModel_ModifiedUser","fromRole":"SurveyHeaderViewModel_ModifiedUser_Source","toRole":"SurveyHeaderViewModel_ModifiedUser_Target"},{"name":"Survey","relationship":"Self.SurveyHeaderViewModel_Survey","fromRole":"SurveyHeaderViewModel_Survey_Source","toRole":"SurveyHeaderViewModel_Survey_Target"},{"name":"UserInfo","relationship":"Self.SurveyHeaderViewModel_UserInfo","fromRole":"SurveyHeaderViewModel_UserInfo_Source","toRole":"SurveyHeaderViewModel_UserInfo_Target"}]},{"name":"UserViewModel","customannotation:ClrType":"Merchandiser.Models.UserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserInfoViewModel","customannotation:ClrType":"Merchandiser.Models.UserInfoViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserRoleViewModel","customannotation:ClrType":"Merchandiser.Models.UserRoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"Company","relationship":"Self.UserRoleViewModel_Company","fromRole":"UserRoleViewModel_Company_Source","toRole":"UserRoleViewModel_Company_Target"},{"name":"Customer","relationship":"Self.UserRoleViewModel_Customer","fromRole":"UserRoleViewModel_Customer_Source","toRole":"UserRoleViewModel_Customer_Target"},{"name":"Role","relationship":"Self.UserRoleViewModel_Role","fromRole":"UserRoleViewModel_Role_Source","toRole":"UserRoleViewModel_Role_Target"},{"name":"User","relationship":"Self.UserRoleViewModel_User","fromRole":"UserRoleViewModel_User_Source","toRole":"UserRoleViewModel_User_Target"},{"name":"UserInfo","relationship":"Self.UserRoleViewModel_UserInfo","fromRole":"UserRoleViewModel_UserInfo_Source","toRole":"UserRoleViewModel_UserInfo_Target"}]}],"association":[{"name":"ProductTypeHeaderViewModel_Details","end":[{"role":"ProductTypeHeaderViewModel_Details_Source","type":"Edm.Self.ProductTypeHeaderViewModel","multiplicity":"0..1"},{"role":"ProductTypeHeaderViewModel_Details_Target","type":"Edm.Self.ProductTypeDetailViewModel","multiplicity":"*"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","type":"Edm.Self.ProductViewModel","multiplicity":"*"},{"role":"ProductViewModel_ProductCategory_Target","type":"Edm.Self.ProductCategoryViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"ProductViewModel_ProductCategory_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"ProductViewModel_ProductCategory_Source","propertyRef":{"name":"ProductCategoryId"}}}},{"name":"ProductViewModel_ProductTypeHeader","end":[{"role":"ProductViewModel_ProductTypeHeader_Source","type":"Edm.Self.ProductViewModel","multiplicity":"*"},{"role":"ProductViewModel_ProductTypeHeader_Target","type":"Edm.Self.ProductTypeHeaderViewModel","multiplicity":"0..1"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Target","type":"Edm.Self.ProductViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Target","type":"Edm.Self.ProductTypeDetailViewModel","multiplicity":"0..1"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Target","type":"Edm.Self.QuestionViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Source","propertyRef":{"name":"QuestionId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Target","type":"Edm.Self.ProductViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Target","type":"Edm.Self.QuestionViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","propertyRef":{"name":"QuestionId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyHeaderViewModel_Company","end":[{"role":"SurveyHeaderViewModel_Company_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyHeaderViewModel_CreatedUser","end":[{"role":"SurveyHeaderViewModel_CreatedUser_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_CreatedUser_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}]},{"name":"SurveyHeaderViewModel_Customer","end":[{"role":"SurveyHeaderViewModel_Customer_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyHeaderViewModel_Location","end":[{"role":"SurveyHeaderViewModel_Location_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyHeaderViewModel_ModifiedUser","end":[{"role":"SurveyHeaderViewModel_ModifiedUser_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_ModifiedUser_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}]},{"name":"SurveyHeaderViewModel_Survey","end":[{"role":"SurveyHeaderViewModel_Survey_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyHeaderViewModel_UserInfo","end":[{"role":"SurveyHeaderViewModel_UserInfo_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_UserInfo_Target","type":"Edm.Self.UserInfoViewModel","multiplicity":"0..1"}]},{"name":"UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Role_Target","type":"Edm.Self.RoleViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Role_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Role_Source","propertyRef":{"name":"RoleId"}}}},{"name":"UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_User_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_User_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_User_Source","propertyRef":{"name":"UserId"}}}},{"name":"UserRoleViewModel_UserInfo","end":[{"role":"UserRoleViewModel_UserInfo_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_UserInfo_Target","type":"Edm.Self.UserInfoViewModel","multiplicity":"0..1"}]}],"entityContainer":{"name":"DatabaseContext","customannotation:UseClrTypes":"true","entitySet":[{"name":"CompanyViewModel","entityType":"Self.CompanyViewModel"},{"name":"CustomerViewModel","entityType":"Self.CustomerViewModel"},{"name":"MapViewModel","entityType":"Self.MapViewModel"},{"name":"ProductCategoryViewModel","entityType":"Self.ProductCategoryViewModel"},{"name":"ProductTypeDetailViewModel","entityType":"Self.ProductTypeDetailViewModel"},{"name":"ProductTypeHeaderViewModel","entityType":"Self.ProductTypeHeaderViewModel"},{"name":"RoleViewModel","entityType":"Self.RoleViewModel"},{"name":"SelectCustomerLocationProductQuestionViewModel","entityType":"Self.SelectCustomerLocationProductQuestionViewModel"},{"name":"LocationViewModels","entityType":"Self.LocationViewModel"},{"name":"ProductViewModels","entityType":"Self.ProductViewModel"},{"name":"QuestionViewModels","entityType":"Self.QuestionViewModel"},{"name":"SurveyViewModels","entityType":"Self.SurveyViewModel"},{"name":"SelectLocationViewModel","entityType":"Self.SelectLocationViewModel"},{"name":"SelectSurveyViewModel","entityType":"Self.SelectSurveyViewModel"},{"name":"SelectUserViewModel","entityType":"Self.SelectUserViewModel"},{"name":"SurveyCustomerLocationProductQuestionViewModel","entityType":"Self.SurveyCustomerLocationProductQuestionViewModel"},{"name":"SurveyHeaderViewModel","entityType":"Self.SurveyHeaderViewModel"},{"name":"UserViewModels","entityType":"Self.UserViewModel"},{"name":"UserInfoViewModels","entityType":"Self.UserInfoViewModel"},{"name":"UserRoleViewModel","entityType":"Self.UserRoleViewModel"}],"associationSet":[{"name":"ProductTypeHeaderViewModel_Details","association":"Self.ProductTypeHeaderViewModel_Details","end":[{"role":"ProductTypeHeaderViewModel_Details_Source","entitySet":"ProductTypeHeaderViewModel"},{"role":"ProductTypeHeaderViewModel_Details_Target","entitySet":"ProductTypeDetailViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Company","association":"Self.SelectCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Customer","association":"Self.SelectCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Location","association":"Self.SelectCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"ProductViewModel_ProductCategory","association":"Self.ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","entitySet":"ProductViewModels"},{"role":"ProductViewModel_ProductCategory_Target","entitySet":"ProductCategoryViewModel"}]},{"name":"ProductViewModel_ProductTypeHeader","association":"Self.ProductViewModel_ProductTypeHeader","end":[{"role":"ProductViewModel_ProductTypeHeader_Source","entitySet":"ProductViewModels"},{"role":"ProductViewModel_ProductTypeHeader_Target","entitySet":"ProductTypeHeaderViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Product","association":"Self.SelectCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Target","entitySet":"ProductViewModels"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","association":"Self.SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Target","entitySet":"ProductTypeDetailViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Question","association":"Self.SelectCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Target","entitySet":"QuestionViewModels"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Survey","association":"Self.SelectCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Company","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Customer","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Location","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Product","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Target","entitySet":"ProductViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Question","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Target","entitySet":"QuestionViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Survey","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"SurveyHeaderViewModel_Company","association":"Self.SurveyHeaderViewModel_Company","end":[{"role":"SurveyHeaderViewModel_Company_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"SurveyHeaderViewModel_CreatedUser","association":"Self.SurveyHeaderViewModel_CreatedUser","end":[{"role":"SurveyHeaderViewModel_CreatedUser_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_CreatedUser_Target","entitySet":"UserViewModels"}]},{"name":"SurveyHeaderViewModel_Customer","association":"Self.SurveyHeaderViewModel_Customer","end":[{"role":"SurveyHeaderViewModel_Customer_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyHeaderViewModel_Location","association":"Self.SurveyHeaderViewModel_Location","end":[{"role":"SurveyHeaderViewModel_Location_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyHeaderViewModel_ModifiedUser","association":"Self.SurveyHeaderViewModel_ModifiedUser","end":[{"role":"SurveyHeaderViewModel_ModifiedUser_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_ModifiedUser_Target","entitySet":"UserViewModels"}]},{"name":"SurveyHeaderViewModel_Survey","association":"Self.SurveyHeaderViewModel_Survey","end":[{"role":"SurveyHeaderViewModel_Survey_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"SurveyHeaderViewModel_UserInfo","association":"Self.SurveyHeaderViewModel_UserInfo","end":[{"role":"SurveyHeaderViewModel_UserInfo_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_UserInfo_Target","entitySet":"UserInfoViewModels"}]},{"name":"UserRoleViewModel_Company","association":"Self.UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"UserRoleViewModel_Customer","association":"Self.UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"UserRoleViewModel_Role","association":"Self.UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Role_Target","entitySet":"RoleViewModel"}]},{"name":"UserRoleViewModel_User","association":"Self.UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_User_Target","entitySet":"UserViewModels"}]},{"name":"UserRoleViewModel_UserInfo","association":"Self.UserRoleViewModel_UserInfo","end":[{"role":"UserRoleViewModel_UserInfo_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_UserInfo_Target","entitySet":"UserInfoViewModels"}]}]}}}
-);
-
-(function () {
     "use strict";
     angular.module('DatabaseServices')
     .service('CompanyService', ['$http', '$q', 'breeze', 'breezeservice',
@@ -371,6 +312,65 @@ window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
         }
     }]);
 })();
+(function () {
+
+    angular.module('DatabaseServices').factory('breezeservice',
+    ['$http', '$q', '$timeout', 'breeze', service]);
+
+    function service($http, $q, $timeout, breeze) {
+        var serviceName = '/breeze'; // route to the same origin Web Api controller
+        var dataService = new breeze.DataService({
+            serviceName: serviceName,
+            hasServerMetadata: false  // don't ask the server for metadata
+        });
+        var metadataStore = new breeze.MetadataStore();
+        //manager.enableSaveQueuing(true);
+        metadataStore.importMetadata(window.breeze.metadata);
+        //var masterManager = new breeze.EntityManager(serviceName);
+        var manager = new breeze.EntityManager({
+            dataService: dataService,
+            metadataStore: metadataStore
+        });
+        var meta = manager.metadataStore;
+        meta.setEntityTypeForResourceName("UserRoleApi/Search", "UserRoleViewModel");
+        meta.setEntityTypeForResourceName("CompanyApi/Search", "CompanyViewModel");
+        meta.setEntityTypeForResourceName("CustomerApi/Search", "CustomerViewModel");
+        meta.setEntityTypeForResourceName("LocationApi/Search", "LocationViewModel");
+        meta.setEntityTypeForResourceName("SurveyCustomerLocationProductQuestionApi/Search", "SurveyCustomerLocationProductQuestionViewModel");
+        meta.setEntityTypeForResourceName("RoleApi/Search", "RoleViewModel");
+        meta.setEntityTypeForResourceName("MapApi/Search", "MapViewModel");
+        meta.setEntityTypeForResourceName("ProductCategoryApi/Search", "ProductCategoryViewModel");
+        meta.setEntityTypeForResourceName("SurveyHeaderApi/Search", "SurveyHeaderViewModel");
+        meta.setEntityTypeForResourceName("SelectLocationApi/Search", "SelectLocationViewModel");        
+        meta.setEntityTypeForResourceName("SelectSurveyApi/Search", "SelectSurveyViewModel");
+        meta.setEntityTypeForResourceName("SelectUserApi/Search", "SelectUserViewModel");
+        meta.setEntityTypeForResourceName("SelectCustomerLocationProductQuestionApi/Search", "SelectCustomerLocationProductQuestionViewModel");
+        meta.setEntityTypeForResourceName("ProductTypeHeaderApi/Search", "ProductTypeHeaderViewModel");
+        meta.setEntityTypeForResourceName("ProductTypeDetailApi/Search", "ProductTypeDetailViewModel");
+        var service = {
+            executeQuery: executeQuery,
+            all: all
+        };
+        return service;
+
+        function executeQuery(query) {
+            return manager.executeQuery(query).then(function (data) {
+                return data;
+            });
+        }
+
+        function all() {
+            var query = breeze.EntityQuery
+                .from(resourceName);
+
+            return executeQuery(query);
+        }
+    }
+})();
+window.breeze = window.breeze || {}; window.breeze.metadata = JSON.stringify(
+{"schema":{"namespace":"Merchandiser","alias":"Self","annotation:UseStrongSpatialTypes":"false","xmlns:annotation":"http://schemas.microsoft.com/ado/2009/02/edm/annotation","xmlns:customannotation":"http://schemas.microsoft.com/ado/2013/11/edm/customannotation","xmlns":"http://schemas.microsoft.com/ado/2009/11/edm","cSpaceOSpaceMapping":"[[\"Merchandiser.CompanyViewModel\",\"Merchandiser.Models.CompanyViewModel\"],[\"Merchandiser.CustomerViewModel\",\"Merchandiser.Models.CustomerViewModel\"],[\"Merchandiser.MapViewModel\",\"Merchandiser.Models.MapViewModel\"],[\"Merchandiser.ProductCategoryViewModel\",\"Merchandiser.Models.ProductCategoryViewModel\"],[\"Merchandiser.ProductTypeDetailViewModel\",\"Merchandiser.Models.ProductTypeDetailViewModel\"],[\"Merchandiser.ProductTypeHeaderViewModel\",\"Merchandiser.Models.ProductTypeHeaderViewModel\"],[\"Merchandiser.RoleViewModel\",\"Merchandiser.Models.RoleViewModel\"],[\"Merchandiser.SelectCustomerLocationProductQuestionViewModel\",\"Merchandiser.Models.SelectCustomerLocationProductQuestionViewModel\"],[\"Merchandiser.LocationViewModel\",\"Merchandiser.Models.LocationViewModel\"],[\"Merchandiser.ProductViewModel\",\"Merchandiser.Models.ProductViewModel\"],[\"Merchandiser.QuestionViewModel\",\"Merchandiser.Models.QuestionViewModel\"],[\"Merchandiser.SurveyViewModel\",\"Merchandiser.Models.SurveyViewModel\"],[\"Merchandiser.SelectLocationViewModel\",\"Merchandiser.Models.SelectLocationViewModel\"],[\"Merchandiser.SelectSurveyViewModel\",\"Merchandiser.Models.SelectSurveyViewModel\"],[\"Merchandiser.SelectUserViewModel\",\"Merchandiser.Models.SelectUserViewModel\"],[\"Merchandiser.SurveyCustomerLocationProductQuestionViewModel\",\"Merchandiser.Models.SurveyCustomerLocationProductQuestionViewModel\"],[\"Merchandiser.SurveyHeaderViewModel\",\"Merchandiser.Models.SurveyHeaderViewModel\"],[\"Merchandiser.UserViewModel\",\"Merchandiser.Models.UserViewModel\"],[\"Merchandiser.UserInfoViewModel\",\"Merchandiser.Models.UserInfoViewModel\"],[\"Merchandiser.UserRoleViewModel\",\"Merchandiser.Models.UserRoleViewModel\"]]","entityType":[{"name":"CompanyViewModel","customannotation:ClrType":"Merchandiser.Models.CompanyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"CustomerViewModel","customannotation:ClrType":"Merchandiser.Models.CustomerViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsSendReport","type":"Edm.Boolean","nullable":"false"},{"name":"SendReport","type":"Edm.DateTime"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"MapViewModel","customannotation:ClrType":"Merchandiser.Models.MapViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CompanyName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"CustomerName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LocationName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SurveyName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"ProductCategoryViewModel","customannotation:ClrType":"Merchandiser.Models.ProductCategoryViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"ProductTypeDetailViewModel","customannotation:ClrType":"Merchandiser.Models.ProductTypeDetailViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductTypeHeaderId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"}]},{"name":"ProductTypeHeaderViewModel","customannotation:ClrType":"Merchandiser.Models.ProductTypeHeaderViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":{"name":"Details","relationship":"Self.ProductTypeHeaderViewModel_Details","fromRole":"ProductTypeHeaderViewModel_Details_Source","toRole":"ProductTypeHeaderViewModel_Details_Target"}},{"name":"RoleViewModel","customannotation:ClrType":"Merchandiser.Models.RoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SelectCustomerLocationProductQuestionViewModel","customannotation:ClrType":"Merchandiser.Models.SelectCustomerLocationProductQuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"RowOrder","type":"Edm.Int32","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Company","fromRole":"SelectCustomerLocationProductQuestionViewModel_Company_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Company_Target"},{"name":"Customer","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Customer","fromRole":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Location","fromRole":"SelectCustomerLocationProductQuestionViewModel_Location_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Location_Target"},{"name":"Product","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Product","fromRole":"SelectCustomerLocationProductQuestionViewModel_Product_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Product_Target"},{"name":"ProductTypeDetail","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","fromRole":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Target"},{"name":"Question","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Question","fromRole":"SelectCustomerLocationProductQuestionViewModel_Question_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Question_Target"},{"name":"Survey","relationship":"Self.SelectCustomerLocationProductQuestionViewModel_Survey","fromRole":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","toRole":"SelectCustomerLocationProductQuestionViewModel_Survey_Target"}]},{"name":"LocationViewModel","customannotation:ClrType":"Merchandiser.Models.LocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Store","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Phone","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"City","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"State","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Zip","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"AreaManager","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"ProductViewModel","customannotation:ClrType":"Merchandiser.Models.ProductViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"ProductCategoryId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"ProductCategory","relationship":"Self.ProductViewModel_ProductCategory","fromRole":"ProductViewModel_ProductCategory_Source","toRole":"ProductViewModel_ProductCategory_Target"},{"name":"ProductTypeHeader","relationship":"Self.ProductViewModel_ProductTypeHeader","fromRole":"ProductViewModel_ProductTypeHeader_Source","toRole":"ProductViewModel_ProductTypeHeader_Target"}]},{"name":"QuestionViewModel","customannotation:ClrType":"Merchandiser.Models.QuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsRequired","type":"Edm.Boolean","nullable":"false"},{"name":"IsTrueFalse","type":"Edm.Boolean","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"IsNoteRequired","type":"Edm.Boolean","nullable":"false"},{"name":"IsEdit","type":"Edm.Boolean","nullable":"false"},{"name":"IsEditDays","type":"Edm.Int32"},{"name":"IsDelete","type":"Edm.Boolean","nullable":"false"},{"name":"IsDeleteDays","type":"Edm.Int32"},{"name":"Modifed","type":"Edm.DateTime","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SelectLocationViewModel","customannotation:ClrType":"Merchandiser.Models.SelectLocationViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"},{"name":"CompanyId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Address","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SurveyCreated","type":"Edm.DateTime"}]},{"name":"SelectSurveyViewModel","customannotation:ClrType":"Merchandiser.Models.SelectSurveyViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"},{"name":"CompanyId","type":"Edm.Guid"},{"name":"LocationId","type":"Edm.Guid"},{"name":"Name","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"SurveyCreated","type":"Edm.DateTime"}]},{"name":"SelectUserViewModel","customannotation:ClrType":"Merchandiser.Models.SelectUserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"Email","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyCustomerLocationProductQuestionViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"ProductId","type":"Edm.Guid","nullable":"false"},{"name":"QuestionId","type":"Edm.Guid","nullable":"false"},{"name":"RowOrder","type":"Edm.Int32","nullable":"false"},{"name":"Modified","type":"Edm.DateTime"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Company","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Company_Target"},{"name":"Customer","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Customer","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Location","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Location_Target"},{"name":"Product","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Product","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Product_Target"},{"name":"Question","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Question","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Question_Target"},{"name":"Survey","relationship":"Self.SurveyCustomerLocationProductQuestionViewModel_Survey","fromRole":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","toRole":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target"}]},{"name":"SurveyHeaderViewModel","customannotation:ClrType":"Merchandiser.Models.SurveyHeaderViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"SurveyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid","nullable":"false"},{"name":"LocationId","type":"Edm.Guid","nullable":"false"},{"name":"IsBeforeImage","type":"Edm.Boolean","nullable":"false"},{"name":"IsAfterImage","type":"Edm.Boolean","nullable":"false"},{"name":"Created","type":"Edm.DateTime","nullable":"false"},{"name":"CreatedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Modified","type":"Edm.DateTime","nullable":"false"},{"name":"ModifiedBy","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"Latitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Longitude","type":"Edm.Decimal","precision":"18","scale":"2"},{"name":"Notes","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}],"navigationProperty":[{"name":"Company","relationship":"Self.SurveyHeaderViewModel_Company","fromRole":"SurveyHeaderViewModel_Company_Source","toRole":"SurveyHeaderViewModel_Company_Target"},{"name":"CreatedUser","relationship":"Self.SurveyHeaderViewModel_CreatedUser","fromRole":"SurveyHeaderViewModel_CreatedUser_Source","toRole":"SurveyHeaderViewModel_CreatedUser_Target"},{"name":"Customer","relationship":"Self.SurveyHeaderViewModel_Customer","fromRole":"SurveyHeaderViewModel_Customer_Source","toRole":"SurveyHeaderViewModel_Customer_Target"},{"name":"Location","relationship":"Self.SurveyHeaderViewModel_Location","fromRole":"SurveyHeaderViewModel_Location_Source","toRole":"SurveyHeaderViewModel_Location_Target"},{"name":"ModifiedUser","relationship":"Self.SurveyHeaderViewModel_ModifiedUser","fromRole":"SurveyHeaderViewModel_ModifiedUser_Source","toRole":"SurveyHeaderViewModel_ModifiedUser_Target"},{"name":"Survey","relationship":"Self.SurveyHeaderViewModel_Survey","fromRole":"SurveyHeaderViewModel_Survey_Source","toRole":"SurveyHeaderViewModel_Survey_Target"},{"name":"UserInfo","relationship":"Self.SurveyHeaderViewModel_UserInfo","fromRole":"SurveyHeaderViewModel_UserInfo_Source","toRole":"SurveyHeaderViewModel_UserInfo_Target"}]},{"name":"UserViewModel","customannotation:ClrType":"Merchandiser.Models.UserViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"UserName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserInfoViewModel","customannotation:ClrType":"Merchandiser.Models.UserInfoViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true","nullable":"false"},{"name":"FirstName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"},{"name":"LastName","type":"Edm.String","maxLength":"Max","fixedLength":"false","unicode":"true"}]},{"name":"UserRoleViewModel","customannotation:ClrType":"Merchandiser.Models.UserRoleViewModel, Merchandiser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","key":{"propertyRef":{"name":"Id"}},"property":[{"name":"Id","type":"Edm.Guid","nullable":"false"},{"name":"UserId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"RoleId","type":"Edm.String","maxLength":"128","fixedLength":"false","unicode":"true"},{"name":"CompanyId","type":"Edm.Guid","nullable":"false"},{"name":"CustomerId","type":"Edm.Guid"}],"navigationProperty":[{"name":"Company","relationship":"Self.UserRoleViewModel_Company","fromRole":"UserRoleViewModel_Company_Source","toRole":"UserRoleViewModel_Company_Target"},{"name":"Customer","relationship":"Self.UserRoleViewModel_Customer","fromRole":"UserRoleViewModel_Customer_Source","toRole":"UserRoleViewModel_Customer_Target"},{"name":"Role","relationship":"Self.UserRoleViewModel_Role","fromRole":"UserRoleViewModel_Role_Source","toRole":"UserRoleViewModel_Role_Target"},{"name":"User","relationship":"Self.UserRoleViewModel_User","fromRole":"UserRoleViewModel_User_Source","toRole":"UserRoleViewModel_User_Target"},{"name":"UserInfo","relationship":"Self.UserRoleViewModel_UserInfo","fromRole":"UserRoleViewModel_UserInfo_Source","toRole":"UserRoleViewModel_UserInfo_Target"}]}],"association":[{"name":"ProductTypeHeaderViewModel_Details","end":[{"role":"ProductTypeHeaderViewModel_Details_Source","type":"Edm.Self.ProductTypeHeaderViewModel","multiplicity":"0..1"},{"role":"ProductTypeHeaderViewModel_Details_Target","type":"Edm.Self.ProductTypeDetailViewModel","multiplicity":"*"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","type":"Edm.Self.ProductViewModel","multiplicity":"*"},{"role":"ProductViewModel_ProductCategory_Target","type":"Edm.Self.ProductCategoryViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"ProductViewModel_ProductCategory_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"ProductViewModel_ProductCategory_Source","propertyRef":{"name":"ProductCategoryId"}}}},{"name":"ProductViewModel_ProductTypeHeader","end":[{"role":"ProductViewModel_ProductTypeHeader_Source","type":"Edm.Self.ProductViewModel","multiplicity":"*"},{"role":"ProductViewModel_ProductTypeHeader_Target","type":"Edm.Self.ProductTypeHeaderViewModel","multiplicity":"0..1"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Target","type":"Edm.Self.ProductViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Target","type":"Edm.Self.ProductTypeDetailViewModel","multiplicity":"0..1"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Target","type":"Edm.Self.QuestionViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Source","propertyRef":{"name":"QuestionId"}}}},{"name":"SelectCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","type":"Edm.Self.SelectCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Target","type":"Edm.Self.ProductViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","propertyRef":{"name":"ProductId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Target","type":"Edm.Self.QuestionViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","propertyRef":{"name":"QuestionId"}}}},{"name":"SurveyCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","type":"Edm.Self.SurveyCustomerLocationProductQuestionViewModel","multiplicity":"*"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyHeaderViewModel_Company","end":[{"role":"SurveyHeaderViewModel_Company_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"SurveyHeaderViewModel_CreatedUser","end":[{"role":"SurveyHeaderViewModel_CreatedUser_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_CreatedUser_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}]},{"name":"SurveyHeaderViewModel_Customer","end":[{"role":"SurveyHeaderViewModel_Customer_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"SurveyHeaderViewModel_Location","end":[{"role":"SurveyHeaderViewModel_Location_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Location_Target","type":"Edm.Self.LocationViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Location_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Location_Source","propertyRef":{"name":"LocationId"}}}},{"name":"SurveyHeaderViewModel_ModifiedUser","end":[{"role":"SurveyHeaderViewModel_ModifiedUser_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_ModifiedUser_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}]},{"name":"SurveyHeaderViewModel_Survey","end":[{"role":"SurveyHeaderViewModel_Survey_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_Survey_Target","type":"Edm.Self.SurveyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"SurveyHeaderViewModel_Survey_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"SurveyHeaderViewModel_Survey_Source","propertyRef":{"name":"SurveyId"}}}},{"name":"SurveyHeaderViewModel_UserInfo","end":[{"role":"SurveyHeaderViewModel_UserInfo_Source","type":"Edm.Self.SurveyHeaderViewModel","multiplicity":"*"},{"role":"SurveyHeaderViewModel_UserInfo_Target","type":"Edm.Self.UserInfoViewModel","multiplicity":"0..1"}]},{"name":"UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Company_Target","type":"Edm.Self.CompanyViewModel","multiplicity":"1","onDelete":{"action":"Cascade"}}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Company_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Company_Source","propertyRef":{"name":"CompanyId"}}}},{"name":"UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Customer_Target","type":"Edm.Self.CustomerViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Customer_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Customer_Source","propertyRef":{"name":"CustomerId"}}}},{"name":"UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_Role_Target","type":"Edm.Self.RoleViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_Role_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_Role_Source","propertyRef":{"name":"RoleId"}}}},{"name":"UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_User_Target","type":"Edm.Self.UserViewModel","multiplicity":"0..1"}],"referentialConstraint":{"principal":{"role":"UserRoleViewModel_User_Target","propertyRef":{"name":"Id"}},"dependent":{"role":"UserRoleViewModel_User_Source","propertyRef":{"name":"UserId"}}}},{"name":"UserRoleViewModel_UserInfo","end":[{"role":"UserRoleViewModel_UserInfo_Source","type":"Edm.Self.UserRoleViewModel","multiplicity":"*"},{"role":"UserRoleViewModel_UserInfo_Target","type":"Edm.Self.UserInfoViewModel","multiplicity":"0..1"}]}],"entityContainer":{"name":"DatabaseContext","customannotation:UseClrTypes":"true","entitySet":[{"name":"CompanyViewModel","entityType":"Self.CompanyViewModel"},{"name":"CustomerViewModel","entityType":"Self.CustomerViewModel"},{"name":"MapViewModel","entityType":"Self.MapViewModel"},{"name":"ProductCategoryViewModel","entityType":"Self.ProductCategoryViewModel"},{"name":"ProductTypeDetailViewModel","entityType":"Self.ProductTypeDetailViewModel"},{"name":"ProductTypeHeaderViewModel","entityType":"Self.ProductTypeHeaderViewModel"},{"name":"RoleViewModel","entityType":"Self.RoleViewModel"},{"name":"SelectCustomerLocationProductQuestionViewModel","entityType":"Self.SelectCustomerLocationProductQuestionViewModel"},{"name":"LocationViewModels","entityType":"Self.LocationViewModel"},{"name":"ProductViewModels","entityType":"Self.ProductViewModel"},{"name":"QuestionViewModels","entityType":"Self.QuestionViewModel"},{"name":"SurveyViewModels","entityType":"Self.SurveyViewModel"},{"name":"SelectLocationViewModel","entityType":"Self.SelectLocationViewModel"},{"name":"SelectSurveyViewModel","entityType":"Self.SelectSurveyViewModel"},{"name":"SelectUserViewModel","entityType":"Self.SelectUserViewModel"},{"name":"SurveyCustomerLocationProductQuestionViewModel","entityType":"Self.SurveyCustomerLocationProductQuestionViewModel"},{"name":"SurveyHeaderViewModel","entityType":"Self.SurveyHeaderViewModel"},{"name":"UserViewModels","entityType":"Self.UserViewModel"},{"name":"UserInfoViewModels","entityType":"Self.UserInfoViewModel"},{"name":"UserRoleViewModel","entityType":"Self.UserRoleViewModel"}],"associationSet":[{"name":"ProductTypeHeaderViewModel_Details","association":"Self.ProductTypeHeaderViewModel_Details","end":[{"role":"ProductTypeHeaderViewModel_Details_Source","entitySet":"ProductTypeHeaderViewModel"},{"role":"ProductTypeHeaderViewModel_Details_Target","entitySet":"ProductTypeDetailViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Company","association":"Self.SelectCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Customer","association":"Self.SelectCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Location","association":"Self.SelectCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"ProductViewModel_ProductCategory","association":"Self.ProductViewModel_ProductCategory","end":[{"role":"ProductViewModel_ProductCategory_Source","entitySet":"ProductViewModels"},{"role":"ProductViewModel_ProductCategory_Target","entitySet":"ProductCategoryViewModel"}]},{"name":"ProductViewModel_ProductTypeHeader","association":"Self.ProductViewModel_ProductTypeHeader","end":[{"role":"ProductViewModel_ProductTypeHeader_Source","entitySet":"ProductViewModels"},{"role":"ProductViewModel_ProductTypeHeader_Target","entitySet":"ProductTypeHeaderViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Product","association":"Self.SelectCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Product_Target","entitySet":"ProductViewModels"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","association":"Self.SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_ProductTypeDetail_Target","entitySet":"ProductTypeDetailViewModel"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Question","association":"Self.SelectCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Question_Target","entitySet":"QuestionViewModels"}]},{"name":"SelectCustomerLocationProductQuestionViewModel_Survey","association":"Self.SelectCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Source","entitySet":"SelectCustomerLocationProductQuestionViewModel"},{"role":"SelectCustomerLocationProductQuestionViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Company","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Company","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Customer","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Customer","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Location","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Location","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Product","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Product","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Product_Target","entitySet":"ProductViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Question","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Question","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Question_Target","entitySet":"QuestionViewModels"}]},{"name":"SurveyCustomerLocationProductQuestionViewModel_Survey","association":"Self.SurveyCustomerLocationProductQuestionViewModel_Survey","end":[{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Source","entitySet":"SurveyCustomerLocationProductQuestionViewModel"},{"role":"SurveyCustomerLocationProductQuestionViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"SurveyHeaderViewModel_Company","association":"Self.SurveyHeaderViewModel_Company","end":[{"role":"SurveyHeaderViewModel_Company_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"SurveyHeaderViewModel_CreatedUser","association":"Self.SurveyHeaderViewModel_CreatedUser","end":[{"role":"SurveyHeaderViewModel_CreatedUser_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_CreatedUser_Target","entitySet":"UserViewModels"}]},{"name":"SurveyHeaderViewModel_Customer","association":"Self.SurveyHeaderViewModel_Customer","end":[{"role":"SurveyHeaderViewModel_Customer_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"SurveyHeaderViewModel_Location","association":"Self.SurveyHeaderViewModel_Location","end":[{"role":"SurveyHeaderViewModel_Location_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Location_Target","entitySet":"LocationViewModels"}]},{"name":"SurveyHeaderViewModel_ModifiedUser","association":"Self.SurveyHeaderViewModel_ModifiedUser","end":[{"role":"SurveyHeaderViewModel_ModifiedUser_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_ModifiedUser_Target","entitySet":"UserViewModels"}]},{"name":"SurveyHeaderViewModel_Survey","association":"Self.SurveyHeaderViewModel_Survey","end":[{"role":"SurveyHeaderViewModel_Survey_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_Survey_Target","entitySet":"SurveyViewModels"}]},{"name":"SurveyHeaderViewModel_UserInfo","association":"Self.SurveyHeaderViewModel_UserInfo","end":[{"role":"SurveyHeaderViewModel_UserInfo_Source","entitySet":"SurveyHeaderViewModel"},{"role":"SurveyHeaderViewModel_UserInfo_Target","entitySet":"UserInfoViewModels"}]},{"name":"UserRoleViewModel_Company","association":"Self.UserRoleViewModel_Company","end":[{"role":"UserRoleViewModel_Company_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Company_Target","entitySet":"CompanyViewModel"}]},{"name":"UserRoleViewModel_Customer","association":"Self.UserRoleViewModel_Customer","end":[{"role":"UserRoleViewModel_Customer_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Customer_Target","entitySet":"CustomerViewModel"}]},{"name":"UserRoleViewModel_Role","association":"Self.UserRoleViewModel_Role","end":[{"role":"UserRoleViewModel_Role_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_Role_Target","entitySet":"RoleViewModel"}]},{"name":"UserRoleViewModel_User","association":"Self.UserRoleViewModel_User","end":[{"role":"UserRoleViewModel_User_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_User_Target","entitySet":"UserViewModels"}]},{"name":"UserRoleViewModel_UserInfo","association":"Self.UserRoleViewModel_UserInfo","end":[{"role":"UserRoleViewModel_UserInfo_Source","entitySet":"UserRoleViewModel"},{"role":"UserRoleViewModel_UserInfo_Target","entitySet":"UserInfoViewModels"}]}]}}}
+);
+
 (function () {
     "use strict";
     angular.module('DatabaseServices')
@@ -2646,83 +2646,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 })(moment);
 (function (moment) {
     "use strict";    
-    angular.module('Main').controller('CompanyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CompanyService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService) {
-        $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
-            $scope.focus = true;
-        }
-        $scope.Init();
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                CompanyService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                CompanyService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error.data, error.statusText);
-                });
-            }
-            else {
-                CompanyService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error.data, error.statusText);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'CompanyService',
-        'UserService', 'RoleService', 'UserRoleService', 'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, CompanyService,
-        UserService, RoleService, UserRoleService, SelectionApplicationService) {
-        $scope.Search = function () {
-            CompanyService.AdminSearch(null, ["Name desc"], 0, 20, false).then(function (data) {
-                $scope.items = data;
-                if (data != null && data.length == 1) {
-                    $scope.Select(data[0].Id);
-                }
-            });
-        }
-        $scope.Search();
-
-        $scope.Edit = function (Id) {
-            $state.go('main.admin.company.addedit', { id: Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            CompanyService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
-        }
-        
-        $scope.Select = function (Id) {
-            CompanyService.Get(Id).then(function (data) {
-                SelectionApplicationService.SetCompanyId(data.Id);
-                SelectionApplicationService.SetCompany(data);
-            });
-        }
-        
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
     angular.module('Main').controller('CustomerAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http',
         '$location', '$timeout', 'breezeservice', 'breeze', 'CustomerService', 'SelectionApplicationService',
     function controller($scope, $state, $stateParams, $routeParams, $http,
@@ -2903,100 +2826,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
 })(moment);
 (function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('main.admin.productcategory.addedit', {
-            url: "/addedit/:id",
-            templateUrl: "ApplicationComponents/Administrator/ProductCategory/Views/ProductCategoryAddEdit.html"
-        })
-    });
-    angular.module('Main').controller('ProductCategoryAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductCategoryService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductCategoryService, SelectionApplicationService) {
-       
-        $scope.Init = function () {
-            $scope.item = { Id: null, Name: "" }
-            $scope.focus = true;
-        }
-        $scope.Init();
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                ProductCategoryService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                ProductCategoryService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
-                    $scope.$parent.gridOptions.data.splice(index, 1, data.data);
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error.data, error.statusText);
-                });
-            }
-            else {
-                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
-                ProductCategoryService.Create($scope.item).then(function (data) {
-                    $scope.$parent.gridOptions.data.splice(0, 0, data.data);
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error.data, error.statusText);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('main.admin.productcategory', {
-            url: "/productcategory",
-            templateUrl: "ApplicationComponents/Administrator/ProductCategory/Views/ProductCategory.html"
-        })
-    });
-    angular.module('Main').controller('ProductCategoryController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductCategoryService',
-        'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductCategoryService,
-        SelectionApplicationService) {
-        $scope.Search = function () {
-            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-            ProductCategoryService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                $scope.gridOptions.data = data;
-
-            });
-        }
-        $scope.gridOptions = {
-            enableFiltering: true,
-            enableSorting: true,
-            data: [],
-            columnDefs: [
-                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
-                { field: 'Name', name: 'Name', cellTooltip: true }
-            ]
-        };
-        $scope.Search();
-
-        $scope.Edit = function (row) {
-            $state.go('main.admin.productcategory.addedit', { id: row.Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            ProductCategoryService.Delete(Id).then(function (data) {
-                $scope.Search();
-            }, function (error) {
-                toastr.error(error.data, error.statusText);
-            });
-        }
-    }]);
-
-})(moment);
-(function (moment) {
     "use strict";    
     angular.module('Main').controller('ProductAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'ProductService', 'ProductCategoryService', 'ProductTypeHeaderService', 'SelectionApplicationService',
@@ -3104,6 +2933,100 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
         $scope.Delete = function (Id) {
             ProductService.Delete(Id).then(function (data) {
+                $scope.Search();
+            }, function (error) {
+                toastr.error(error.data, error.statusText);
+            });
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('main.admin.productcategory.addedit', {
+            url: "/addedit/:id",
+            templateUrl: "ApplicationComponents/Administrator/ProductCategory/Views/ProductCategoryAddEdit.html"
+        })
+    });
+    angular.module('Main').controller('ProductCategoryAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductCategoryService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductCategoryService, SelectionApplicationService) {
+       
+        $scope.Init = function () {
+            $scope.item = { Id: null, Name: "" }
+            $scope.focus = true;
+        }
+        $scope.Init();
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                ProductCategoryService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                ProductCategoryService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
+                    $scope.$parent.gridOptions.data.splice(index, 1, data.data);
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+            }
+            else {
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
+                ProductCategoryService.Create($scope.item).then(function (data) {
+                    $scope.$parent.gridOptions.data.splice(0, 0, data.data);
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('main.admin.productcategory', {
+            url: "/productcategory",
+            templateUrl: "ApplicationComponents/Administrator/ProductCategory/Views/ProductCategory.html"
+        })
+    });
+    angular.module('Main').controller('ProductCategoryController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'ProductCategoryService',
+        'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, ProductCategoryService,
+        SelectionApplicationService) {
+        $scope.Search = function () {
+            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            ProductCategoryService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                $scope.gridOptions.data = data;
+
+            });
+        }
+        $scope.gridOptions = {
+            enableFiltering: true,
+            enableSorting: true,
+            data: [],
+            columnDefs: [
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Name', name: 'Name', cellTooltip: true }
+            ]
+        };
+        $scope.Search();
+
+        $scope.Edit = function (row) {
+            $state.go('main.admin.productcategory.addedit', { id: row.Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            ProductCategoryService.Delete(Id).then(function (data) {
                 $scope.Search();
             }, function (error) {
                 toastr.error(error.data, error.statusText);
@@ -3277,6 +3200,9 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
             ProductTypeHeaderService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.gridOptions.data = data;
+                if (data != null && data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
 
             });
         }
@@ -3384,83 +3310,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                 $scope.Search();
             }, function (error) {
                 toastr.error(error.data, error.statusText);
-            });
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('SurveyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService) {
-        
-        $scope.Init = function(){
-            $scope.item = { Id: null, Name: "" }
-            $scope.focus = true;
-        }
-        $scope.Search = function () {
-            if ($stateParams.id !== undefined && $stateParams.id !== "") {
-                SurveyService.Get($stateParams.id).then(function (data) {
-                    $scope.item = data;
-                });
-            }
-            else {
-                $scope.Init();
-            }
-        }
-        $scope.Search();
-
-        $scope.Save = function () {
-            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
-                SurveyService.Update($scope.item.Id, $scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error);
-                });
-            }
-            else {
-                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
-                SurveyService.Create($scope.item).then(function (data) {
-                    $scope.$parent.Search();
-                    $scope.Init();
-                }, function (error) {
-                    toastr.error(error);
-                });
-            }
-        }
-    }]);
-
-})(moment);
-(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService',
-    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService) {
-        $scope.Search = function () {
-            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-            SurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                $scope.items = data;
-                if (data != null && data.length == 1) {
-                    $scope.Select(data[0].Id);
-                }
-            });
-        }
-        $scope.Search();
-
-        $scope.Edit = function (Id) {
-            $state.go('main.admin.survey.addedit', { id: Id }, { reload: false });
-        }
-
-        $scope.Delete = function (Id) {
-            SurveyService.Delete(Id).then(function (data) {
-                $scope.Search();
-            })
-        }
-
-        $scope.Select = function (Id) {
-            SurveyService.Get(Id).then(function (data) {
-                SelectionApplicationService.SetSurveyId(data.Id);
-                SelectionApplicationService.SetSurvey(data);
             });
         }
     }]);
@@ -3868,6 +3717,83 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
 })(moment);
 (function (moment) {
+    "use strict";    
+    angular.module('Main').controller('SurveyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService) {
+        
+        $scope.Init = function(){
+            $scope.item = { Id: null, Name: "" }
+            $scope.focus = true;
+        }
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                SurveyService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+            else {
+                $scope.Init();
+            }
+        }
+        $scope.Search();
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                SurveyService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error);
+                });
+            }
+            else {
+                $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
+                SurveyService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('SurveyController', ['$scope', '$state', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location, $timeout, breezeservice, breeze, SurveyService, SelectionApplicationService) {
+        $scope.Search = function () {
+            var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            SurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                $scope.items = data;
+                if (data != null && data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
+            });
+        }
+        $scope.Search();
+
+        $scope.Edit = function (Id) {
+            $state.go('main.admin.survey.addedit', { id: Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            SurveyService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+
+        $scope.Select = function (Id) {
+            SurveyService.Get(Id).then(function (data) {
+                SelectionApplicationService.SetSurveyId(data.Id);
+                SelectionApplicationService.SetSurvey(data);
+            });
+        }
+    }]);
+
+})(moment);
+(function (moment) {
     "use strict";
     angular.module('Main').controller('UserRoleAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'UserRoleService', 'CustomerService', 'RoleService', 'SelectionApplicationService',
@@ -3970,6 +3896,83 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
 })(moment);
 (function (moment) {
+    "use strict";    
+    angular.module('Main').controller('CompanyAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'CompanyService',
+    function controller($scope, $state, $stateParams, $routeParams, $http, $location, $timeout, breezeservice, breeze, CompanyService) {
+        $scope.Init = function () {
+            $scope.item = { Id: null, Name: "" }
+            $scope.focus = true;
+        }
+        $scope.Init();
+        $scope.Search = function () {
+            if ($stateParams.id !== undefined && $stateParams.id !== "") {
+                CompanyService.Get($stateParams.id).then(function (data) {
+                    $scope.item = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.Save = function () {
+            if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
+                CompanyService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+            }
+            else {
+                CompanyService.Create($scope.item).then(function (data) {
+                    $scope.$parent.Search();
+                    $scope.Init();
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+            }
+        }
+    }]);
+
+})(moment);
+(function (moment) {
+    "use strict";    
+    angular.module('Main').controller('CompanyController', ['$scope', '$state', '$routeParams', '$http', '$location',
+        '$timeout', 'breezeservice', 'breeze', 'CompanyService',
+        'UserService', 'RoleService', 'UserRoleService', 'SelectionApplicationService',
+    function controller($scope, $state, $routeParams, $http, $location,
+        $timeout, breezeservice, breeze, CompanyService,
+        UserService, RoleService, UserRoleService, SelectionApplicationService) {
+        $scope.Search = function () {
+            CompanyService.AdminSearch(null, ["Name desc"], 0, 20, false).then(function (data) {
+                $scope.items = data;
+                if (data != null && data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
+            });
+        }
+        $scope.Search();
+
+        $scope.Edit = function (Id) {
+            $state.go('main.admin.company.addedit', { id: Id }, { reload: false });
+        }
+
+        $scope.Delete = function (Id) {
+            CompanyService.Delete(Id).then(function (data) {
+                $scope.Search();
+            })
+        }
+        
+        $scope.Select = function (Id) {
+            CompanyService.Get(Id).then(function (data) {
+                SelectionApplicationService.SetCompanyId(data.Id);
+                SelectionApplicationService.SetCompany(data);
+            });
+        }
+        
+    }]);
+
+})(moment);
+(function (moment) {
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
@@ -4005,6 +4008,55 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
         $scope.Continue = function () {
             $state.go('main.selectcustomer');
+        }
+
+        $scope.IsContinueShown = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('main.selectcustomer', {
+            url: "/selectcustomer/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectCustomer/SelectCustomer.html"
+        })
+    });
+    angular.module('Main').controller('SelectCustomerController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
+        'RoleService', 'SelectionApplicationService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
+        RoleService, SelectionApplicationService) {
+
+        $scope.Search = function () {
+            var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
+            CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                if (data.length == 1) {
+                    $scope.Select(data[0]);
+                }
+                else {
+                    $scope.Customer = data;
+                }
+            });
+        }
+        $scope.Search();
+
+        $scope.Select = function (item) {
+            SelectionApplicationService.SetCustomer(item);
+            SelectionApplicationService.SetCustomerId(item.Id);
+            $state.go('main.selectlocation');
+        }
+
+        $scope.Continue = function () {
+            $state.go('main.selectlocation');
         }
 
         $scope.IsContinueShown = function () {
@@ -4111,123 +4163,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
         $scope.Continue = function () {
             $state.go('main.selectsurvey');
-        }
-
-        $scope.IsContinueShown = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('main.selectcustomer', {
-            url: "/selectcustomer/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectCustomer/SelectCustomer.html"
-        })
-    });
-    angular.module('Main').controller('SelectCustomerController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SelectionApplicationService) {
-
-        $scope.Search = function () {
-            var predicate = { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } };
-            CustomerService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                if (data.length == 1) {
-                    $scope.Select(data[0]);
-                }
-                else {
-                    $scope.Customer = data;
-                }
-            });
-        }
-        $scope.Search();
-
-        $scope.Select = function (item) {
-            SelectionApplicationService.SetCustomer(item);
-            SelectionApplicationService.SetCustomerId(item.Id);
-            $state.go('main.selectlocation');
-        }
-
-        $scope.Continue = function () {
-            $state.go('main.selectlocation');
-        }
-
-        $scope.IsContinueShown = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-    }]);
-})(moment);
-(function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('main.selectsurvey', {
-            url: "/selectsurvey/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectSurvey/SelectSurvey.html"
-        })
-    });
-    angular.module('Main').controller('SelectSurveyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectSurveyService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectSurveyService) {
-        
-        $scope.Survey = [];
-        $scope.Search = function () {
-            if(SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
-                       { "CustomerId": { "==": SelectionApplicationService.GetCustomerId() } },
-                       { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
-                    ]
-                }
-                SelectSurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    $scope.Survey = data;
-                });
-            }
-            else {
-                var predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-                    ]
-                }
-                SurveyService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
-                    if (SelectionApplicationService.GetRole() == "Customer") {
-                        $state.go(SelectionApplicationService.GetRedirectState());
-                    }
-                    $scope.Survey = data;
-                });
-            }
-        }
-        $scope.Search();
-
-        $scope.Select = function (item) {
-            SurveyService.Get(item.Id).then(function (data) {
-                SelectionApplicationService.SetSurvey(data);
-                SelectionApplicationService.SetSurveyId(data.Id);
-                $state.go(SelectionApplicationService.GetRedirectState());
-            });
-        }
-
-        $scope.Continue = function () {
-            $state.go(SelectionApplicationService.GetRedirectState());
         }
 
         $scope.IsContinueShown = function () {
@@ -4448,6 +4383,74 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
         $scope.PrevInput = function () {
             var index = Number(parseInt($scope.previousElementId.substring(5, 7))) - Number(1);
             document.getElementById('input' + index).focus();
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
+        .state('main.selectsurvey', {
+            url: "/selectsurvey/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectSurvey/SelectSurvey.html"
+        })
+    });
+    angular.module('Main').controller('SelectSurveyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
+        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectSurveyService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
+        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectSurveyService) {
+        
+        $scope.Survey = [];
+        $scope.Search = function () {
+            if(SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },
+                       { "CustomerId": { "==": SelectionApplicationService.GetCustomerId() } },
+                       { "LocationId": { "==": SelectionApplicationService.GetLocationId() } }
+                    ]
+                }
+                SelectSurveyService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    $scope.Survey = data;
+                });
+            }
+            else {
+                var predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+                    ]
+                }
+                SurveyService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    if (SelectionApplicationService.GetRole() == "Customer") {
+                        $state.go(SelectionApplicationService.GetRedirectState());
+                    }
+                    $scope.Survey = data;
+                });
+            }
+        }
+        $scope.Search();
+
+        $scope.Select = function (item) {
+            SurveyService.Get(item.Id).then(function (data) {
+                SelectionApplicationService.SetSurvey(data);
+                SelectionApplicationService.SetSurveyId(data.Id);
+                $state.go(SelectionApplicationService.GetRedirectState());
+            });
+        }
+
+        $scope.Continue = function () {
+            $state.go(SelectionApplicationService.GetRedirectState());
+        }
+
+        $scope.IsContinueShown = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     }]);
 })(moment);

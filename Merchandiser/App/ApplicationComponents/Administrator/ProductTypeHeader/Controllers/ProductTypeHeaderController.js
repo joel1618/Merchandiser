@@ -15,6 +15,9 @@
             var predicate = { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
             ProductTypeHeaderService.Search(predicate, ["Name asc"], 0, 100, false).then(function (data) {
                 $scope.gridOptions.data = data;
+                if (data != null && data.length == 1) {
+                    $scope.Select(data[0].Id);
+                }
 
             });
         }
