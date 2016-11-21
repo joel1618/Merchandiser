@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('LocationAddEditController', ['$scope', '$q', '$state', '$stateParams', '$routeParams', '$http', '$location', '$timeout',
-        'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
+        'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService', 'blockUIConfig',
     function controller($scope, $q, $state, $stateParams, $routeParams, $http, $location, $timeout,
-        breezeservice, breeze, LocationService, SelectionApplicationService) {
+        breezeservice, breeze, LocationService, SelectionApplicationService, blockUIConfig) {
         
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "", Latitude: null, Longitude: null }
@@ -41,8 +41,10 @@
         }
 
         $scope.ChangeAddress = function (value) {
+            blockUIConfig.autoBlock = false;
             var address = JSON.stringify(value);
             return $http.get('https://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
+                blockUIConfig.autoBlock = true;
                 return data.data.results;
             });
         }

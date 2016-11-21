@@ -9,11 +9,11 @@
     });
     angular.module('Main').controller('SurveyCustomerLocationProductQuestionAddEditController', ['$scope', '$state', '$stateParams', '$routeParams',
     '$http', '$q', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
-        'CustomerService', 'LocationService', 'ProductService', 'QuestionService', 'SelectionApplicationService',
+        'CustomerService', 'LocationService', 'ProductService', 'QuestionService', 'SelectionApplicationService', 'blockUIConfig',
     function controller($scope, $state, $stateParams, $routeParams,
         $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
-        CustomerService, LocationService, ProductService, QuestionService, SelectionApplicationService) {
-
+        CustomerService, LocationService, ProductService, QuestionService, SelectionApplicationService, blockUIConfig) {
+        blockUIConfig.autoBlock = false;
         $scope.Init = function () {
             $scope.item = {
                 Question: { Name: null },
@@ -121,12 +121,15 @@
         }
 
         $scope.Save = function () {
+            blockUIConfig.autoBlock = true;
             if ($scope.item.Id !== undefined && $scope.item.Id !== null && $scope.item.Id !== "") {
                 SurveyCustomerLocationProductQuestionService.Update($scope.item.Id, $scope.item).then(function (data) {
+                    blockUIConfig.autoBlock = false;
                     var index = $scope.$parent.gridOptions.data.map(function (e) { return e.Id; }).indexOf(data.data.Id);
                     $scope.$parent.data.splice(index, 1, data.data);
                     $scope.Init();
                 }, function (error) {
+                    blockUIConfig.autoBlock = false;
                     toastr.error(error.data, error.statusText);
                 });
             }
@@ -134,16 +137,19 @@
                 $scope.item.CompanyId = SelectionApplicationService.GetCompanyId();
                 $scope.item.SurveyId = SelectionApplicationService.GetSurveyId();
                 SurveyCustomerLocationProductQuestionService.Create($scope.item).then(function (data) {
+                    blockUIConfig.autoBlock = false;
                     $scope.$parent.data.splice(0, 0, data.data);
                     $scope.item.QuestionId = null; $scope.item.Question.Name = null;
                     //$scope.Init();
                 }, function (error) {
+                    blockUIConfig.autoBlock = false;
                     toastr.error(error.data, error.statusText);
                 });
             }
         }
 
         $scope.Copy = function () {
+            blockUIConfig.autoBlock = true;
             var predicate = {
                 and: [
                    { "CompanyId": { '==': SelectionApplicationService.GetCompanyId() } },
@@ -182,6 +188,7 @@
                     promises.push(promise);                   
                 }
                 $q.all(promises).then(function () {
+                    blockUIConfig.autoBlock = false;
                     toastr.success("The specified survey data has been copied over.");
                     $scope.itemCopy = { Id: null }
                     $scope.$parent.Search();

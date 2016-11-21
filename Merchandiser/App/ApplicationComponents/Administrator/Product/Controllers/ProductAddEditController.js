@@ -1,9 +1,9 @@
 ﻿(function (moment) {
     "use strict";    
     angular.module('Main').controller('ProductAddEditController', ['$scope', '$state', '$stateParams', '$routeParams', '$http', '$location',
-        '$timeout', 'breezeservice', 'breeze', 'ProductService', 'ProductCategoryService', 'ProductTypeHeaderService', 'SelectionApplicationService',
+        '$timeout', 'breezeservice', 'breeze', 'ProductService', 'ProductCategoryService', 'ProductTypeHeaderService', 'SelectionApplicationService', 'blockUIConfig',
     function controller($scope, $state, $stateParams, $routeParams, $http, $location,
-        $timeout, breezeservice, breeze, ProductService, ProductCategoryService, ProductTypeHeaderService, SelectionApplicationService) {
+        $timeout, breezeservice, breeze, ProductService, ProductCategoryService, ProductTypeHeaderService, SelectionApplicationService, blockUIConfig) {
        
         $scope.Init = function () {
             $scope.item = { Id: null, Name: "" }
@@ -36,6 +36,7 @@
         }
 
         $scope.SearchProductTypes = function (value) {
+            blockUIConfig.autoBlock = false;
             var predicate = {
                 and: [
                    { "Name": { "substringof": value } },
@@ -43,6 +44,7 @@
                 ]
             }
             return ProductTypeHeaderService.Search(predicate, ["Name asc"], 0, 20, false).then(function (data) {
+                blockUIConfig.autoBlock = true;
                 return data;
             });
         }
