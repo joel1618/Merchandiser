@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-6">
                     <label>Before Image</label>
                     <small>*Please turn phones sideways to take picture.</small>
                     <br />
@@ -55,7 +55,41 @@
                     <img id="BeforeImage" ng-if="BeforeImage" ng-src="{{BeforeImage}}" ng-show="BeforeImage !== null" alt="No Image Found" style="height: 100%; width:100%; max-width:200px; max-height:200px" />
                     <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
-                    <table border="1">
+                    <div ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
+                        <br/>
+                        <div style="border:dotted gray 1px;" >
+                            <div ng-form name="innerForm" style="padding:5px;">
+                                <a ng-click="changeSorting('Product.ProductCategory.Name')">&nbsp;&nbsp;Category</a>
+                                <p>{{item.Product.ProductCategory.Name}}</p>
+                                <a ng-click="changeSorting('ProductTypeDetail.Name')">&nbsp;&nbsp;Type</a>
+                                <p>{{item.ProductTypeDetail.Name}}</p>
+                                <a ng-click="changeSorting('Product.Name')">&nbsp;&nbsp;Product</a>
+                                <p>{{item.Product.Name}}</p>
+                                <a ng-click="changeSorting('Question.Name')">&nbsp;&nbsp;Question</a>
+                                <p>{{item.Question.Name}}</p>
+                                <label>&nbsp;&nbsp;Answer</label>
+                                <div>
+                                    <md-input-container>
+                                        <div ng-show="item.Question.IsTrueFalse">
+                                            <button ng-click="item.Answer = 'True'" class="btn btn-primary btn-sm">True</button>
+                                            <button ng-click="item.Answer = 'False'" class="btn btn-primary btn-sm">False</button>
+                                            <button ng-click="item.Answer = ''" class="btn btn-primary btn-sm">Clear</button>
+                                        </div>
+                                        <input id="{{'input' + $index}}" class="form-control input-sm" type="text" name="Answer" placeholder="" ng-blur="OnBlur($event)"
+                                               ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" md-maxlength="1000"
+                                               style="color:black;" />
+                                        <div ng-messages="innerForm.Answer.$error">
+                                            <div ng-message="required" class="my-message">This is required!</div>
+                                            <div ng-message="md-maxlength" class="my-message">
+                                                The max length is 1000 characters.
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<table border="1">
                         <thead>
                             <tr>
                                 <th ng-click="changeSorting('Product.ProductCategory.Name')">
@@ -112,7 +146,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>-->
                     <br />
                     <label>After Image</label>
                     <small>*Please turn phones sideways to take picture.</small>
@@ -127,6 +161,8 @@
                     <!--<canvas id="CanvasAfterImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
                     <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6">
                 </div>
             </form>
             <nav class="navbar navbar-inverse navbar-fixed-bottom">

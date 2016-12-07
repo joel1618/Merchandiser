@@ -63,7 +63,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Question = new QuestionViewModel()
                 {
                     Id = sclpq.Question.Id,
-                    Name = sclpq.Question.Name
+                    Name = sclpq.Question.Name,
+                    IsRequired = sclpq.Question.IsRequired,
+                    IsTrueFalse = sclpq.Question.IsTrueFalse
                 },
                 QuestionId = sclpq.QuestionId,
                 RowOrder = sclpq.RowOrder,
