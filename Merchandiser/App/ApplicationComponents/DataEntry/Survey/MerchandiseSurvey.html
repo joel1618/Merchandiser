@@ -75,7 +75,7 @@
                                             <button ng-click="item.Answer = 'False'" class="btn btn-primary btn-sm">False</button>
                                             <button ng-click="item.Answer = ''" class="btn btn-primary btn-sm">Clear</button>
                                         </div>
-                                        <input id="{{'input' + $index}}" class="form-control input-sm" type="text" name="Answer" placeholder="" ng-blur="OnBlur($event)"
+                                        <input type="text" id="{{'input' + $index}}" class="form-control input-sm" type="text" name="Answer" placeholder="" ng-blur="OnBlur($event)"
                                                ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" md-maxlength="1000"
                                                style="color:black;" />
                                         <div ng-messages="innerForm.Answer.$error">

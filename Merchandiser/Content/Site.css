@@ -19,8 +19,8 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
+input[type='text'],
+input[type='number'],
 textarea {
     max-width: 280px;
     /*http://stackoverflow.com/questions/11064237/prevent-iphone-from-zooming-form*/
