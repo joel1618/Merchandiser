@@ -10,10 +10,10 @@
     });
     angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
-        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService',
+        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService', 'uiGridConstants',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
-        LocationService, CustomerService, SurveyService, ImageService, DownloadService) {
+        LocationService, CustomerService, SurveyService, ImageService, DownloadService, uiGridConstants) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.selectcompany');
         }
@@ -65,19 +65,19 @@
                         cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'CustomerName', name: 'Customer Name', cellTooltip: true, headerTooltip: true
+                        field: 'CustomerName', name: 'Customer Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'LocationName', name: 'Location Name', cellTooltip: true, headerTooltip: true
+                        field: 'LocationName', name: 'Location Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'SurveyName', name: 'Survey Name', cellTooltip: true, headerTooltip: true
+                        field: 'SurveyName', name: 'Survey Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'ProductTypeDetailName', name: 'Product Type Name', cellTooltip: true, headerTooltip: true
+                        field: 'ProductTypeDetailName', name: 'Product Type Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'ProductName', name: 'Product Name', cellTooltip: true, headerTooltip: true
+                        field: 'ProductName', name: 'Product Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],
                         length = exclude.length;
@@ -87,12 +87,12 @@
                         keys.push(key)
                         if ((!key.includes("Id") && !key.includes("Name") && !exclude.includes(key))) {
                             $scope.gridOptions.columnDefs.push({
-                                name: key, cellTooltip: true, headerTooltip: true
+                                name: key, cellTooltip: true, width: 100, headerTooltip: true
                             });
                         }
                     }
                     $scope.gridOptions.columnDefs.push({
-                        name: 'Created', cellTooltip: true, headerTooltip: true,
+                        name: 'Created', cellTooltip: true, width: 100, headerTooltip: true,
                         cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
                     });
                 }, function (error) {
@@ -119,6 +119,7 @@
             enableSorting: true,
             enableGridMenu: true,
             infiniteScrollRowsFromEnd: 100,
+            enableHorizontalScrollbar: uiGridConstants.scrollbars.WHEN_NEEDED,
             //exporterCsvFilename: 'myFile.csv',
             //exporterPdfOrientation: 'portrait',
             //exporterPdfPageSize: 'LETTER',

@@ -2864,7 +2864,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
 
 })(moment);
 (function (moment) {
-    "use strict";    
+    "use strict";
     angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
     function controller($scope, $state, $routeParams, $http, $location,
@@ -2883,6 +2883,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Name', name: 'Name', cellTooltip: true },
                 { field: 'Phone', name: 'Phone', cellTooltip: true },
+                { field: 'Address', name: 'Address', cellTooltip: true },
                 { field: 'City', name: 'City', cellTooltip: true },
                 { field: 'State', name: 'State', cellTooltip: true },
                 { field: 'Zip', name: 'Zip', cellTooltip: true }
@@ -4035,6 +4036,112 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     "use strict";
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
+        .state('main.selectlocation', {
+            url: "/selectlocation/:redirectState",
+            templateUrl: "ApplicationComponents/DataEntry/SelectLocation/SelectLocation.html"
+        })
+    });
+    angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
+        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectLocationService',
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
+        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectLocationService) {
+        
+        $scope.LocationServicesDisabled = false;
+        $scope.Location = [];
+        $scope.predicate = {
+            and: [
+               { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
+            ]
+        }
+        $scope.Search = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                $scope.predicate = {
+                    and: [
+                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },                       
+                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
+                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
+                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
+                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
+                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
+                    ]
+                }
+                SelectLocationService.Search($scope.predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    $scope.Location = data;
+                });
+            }
+            else {
+                LocationService.Search($scope.predicate, ["Name asc"], 0, 100, false).then(function (data) {
+                    if (SelectionApplicationService.GetRole() == "Customer") {
+                        $state.go('main.selectsurvey');
+                    }
+                    if (data.length < 1) {
+                        $scope.LocationServicesDisabled = true;
+                    }
+                    else if (data.length == 1) {
+                        $scope.Select(data[0]);
+                    }
+                    $scope.Location = data;
+                });
+            }
+            
+        }
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $scope.Latitude = position.coords.latitude;
+            $scope.Longitude = position.coords.longitude;
+            $scope.Search();
+        }, function (error) {
+            toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
+            $scope.LocationServicesDisabled = true;
+        });
+
+        $scope.ChangeAddress = function (value) {
+            var address = JSON.stringify(value);
+            return $http.get('https://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
+                return data.data.results;
+            });
+        }
+
+        $scope.SelectAddress = function (item, model, label) {
+            $scope.Latitude = item.geometry.location.lat;
+            $scope.Longitude = item.geometry.location.lng;
+            $scope.LocationServicesDisabled = false;
+            if (SelectionApplicationService.GetRedirectState() != 'main.survey') {
+                $scope.predicate.and = [];
+                $scope.predicate.and.push({ "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } });
+                $scope.predicate.and.push({ "Latitude": { '>=': $scope.Latitude - .0725 } });
+                $scope.predicate.and.push({ "Latitude": { '<=': $scope.Latitude + .0725 } });
+                $scope.predicate.and.push({ "Longitude": { '>=': $scope.Longitude - .0725 } });
+                $scope.predicate.and.push({ "Longitude": { '<=': $scope.Longitude + .0725 } });
+            }
+            $scope.Search();
+        }
+
+        $scope.Select = function (item) {
+            SelectionApplicationService.SetLocation(item);
+            SelectionApplicationService.SetLocationId(item.Id);
+            $state.go('main.selectsurvey');
+        }
+
+        $scope.Continue = function () {
+            $state.go('main.selectsurvey');
+        }
+
+        $scope.IsContinueShown = function () {
+            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }]);
+})(moment);
+(function (moment) {
+    "use strict";
+    angular.module('Main').config(function ($stateProvider) {
+        $stateProvider
         .state('main.selectcustomer', {
             url: "/selectcustomer/:redirectState",
             templateUrl: "ApplicationComponents/DataEntry/SelectCustomer/SelectCustomer.html"
@@ -4267,7 +4374,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                     details.push({
                         CompanyId: companyId,
                         ProductId: value.Product.Id,
-                        ProductTypeDetailId: value.ProductTypeDetail.Id,
+                        ProductTypeDetailId: value.ProductTypeDetail != null ? value.ProductTypeDetail.Id : null,
                         QuestionId: value.Question.Id,
                         Answer: value.Answer
                     });
@@ -4360,112 +4467,6 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     }]);
 })(moment);
 (function (moment) {
-    "use strict";
-    angular.module('Main').config(function ($stateProvider) {
-        $stateProvider
-        .state('main.selectlocation', {
-            url: "/selectlocation/:redirectState",
-            templateUrl: "ApplicationComponents/DataEntry/SelectLocation/SelectLocation.html"
-        })
-    });
-    angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
-        'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectLocationService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
-        RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectLocationService) {
-        
-        $scope.LocationServicesDisabled = false;
-        $scope.Location = [];
-        $scope.predicate = {
-            and: [
-               { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } }
-            ]
-        }
-        $scope.Search = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                $scope.predicate = {
-                    and: [
-                       { "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } },                       
-                       { "CustomerId": { '==': SelectionApplicationService.GetCustomerId() } },
-                       { "Latitude": { '>=': $scope.Latitude - .0725 } },
-                       { "Latitude": { '<=': $scope.Latitude + .0725 } },
-                       { "Longitude": { '>=': $scope.Longitude - .0725 } },
-                       { "Longitude": { '<=': $scope.Longitude + .0725 } }
-                    ]
-                }
-                SelectLocationService.Search($scope.predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    $scope.Location = data;
-                });
-            }
-            else {
-                LocationService.Search($scope.predicate, ["Name asc"], 0, 100, false).then(function (data) {
-                    if (SelectionApplicationService.GetRole() == "Customer") {
-                        $state.go('main.selectsurvey');
-                    }
-                    if (data.length < 1) {
-                        $scope.LocationServicesDisabled = true;
-                    }
-                    else if (data.length == 1) {
-                        $scope.Select(data[0]);
-                    }
-                    $scope.Location = data;
-                });
-            }
-            
-        }
-        navigator.geolocation.getCurrentPosition(function (position) {
-            $scope.Latitude = position.coords.latitude;
-            $scope.Longitude = position.coords.longitude;
-            $scope.Search();
-        }, function (error) {
-            toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
-            $scope.LocationServicesDisabled = true;
-        });
-
-        $scope.ChangeAddress = function (value) {
-            var address = JSON.stringify(value);
-            return $http.get('https://maps.google.com/maps/api/geocode/json?address=' + address + '&sensor=false').then(function (data) {
-                return data.data.results;
-            });
-        }
-
-        $scope.SelectAddress = function (item, model, label) {
-            $scope.Latitude = item.geometry.location.lat;
-            $scope.Longitude = item.geometry.location.lng;
-            $scope.LocationServicesDisabled = false;
-            if (SelectionApplicationService.GetRedirectState() != 'main.survey') {
-                $scope.predicate.and = [];
-                $scope.predicate.and.push({ "CompanyId": { "==": SelectionApplicationService.GetCompanyId() } });
-                $scope.predicate.and.push({ "Latitude": { '>=': $scope.Latitude - .0725 } });
-                $scope.predicate.and.push({ "Latitude": { '<=': $scope.Latitude + .0725 } });
-                $scope.predicate.and.push({ "Longitude": { '>=': $scope.Longitude - .0725 } });
-                $scope.predicate.and.push({ "Longitude": { '<=': $scope.Longitude + .0725 } });
-            }
-            $scope.Search();
-        }
-
-        $scope.Select = function (item) {
-            SelectionApplicationService.SetLocation(item);
-            SelectionApplicationService.SetLocationId(item.Id);
-            $state.go('main.selectsurvey');
-        }
-
-        $scope.Continue = function () {
-            $state.go('main.selectsurvey');
-        }
-
-        $scope.IsContinueShown = function () {
-            if (SelectionApplicationService.GetRedirectState() == 'main.survey') {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-    }]);
-})(moment);
-(function (moment) {
     "use strict";    
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
@@ -4505,10 +4506,10 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     });
     angular.module('Main').controller('SurveyReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
-        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService',
+        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService', 'uiGridConstants',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
-        LocationService, CustomerService, SurveyService, ImageService, DownloadService) {
+        LocationService, CustomerService, SurveyService, ImageService, DownloadService, uiGridConstants) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.selectcompany');
         }
@@ -4560,19 +4561,19 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                         cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'CustomerName', name: 'Customer Name', cellTooltip: true, headerTooltip: true
+                        field: 'CustomerName', name: 'Customer Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'LocationName', name: 'Location Name', cellTooltip: true, headerTooltip: true
+                        field: 'LocationName', name: 'Location Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'SurveyName', name: 'Survey Name', cellTooltip: true, headerTooltip: true
+                        field: 'SurveyName', name: 'Survey Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'ProductTypeDetailName', name: 'Product Type Name', cellTooltip: true, headerTooltip: true
+                        field: 'ProductTypeDetailName', name: 'Product Type Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'ProductName', name: 'Product Name', cellTooltip: true, headerTooltip: true
+                        field: 'ProductName', name: 'Product Name', width: 100, cellTooltip: true, headerTooltip: true
                     });
                     var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],
                         length = exclude.length;
@@ -4582,12 +4583,12 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
                         keys.push(key)
                         if ((!key.includes("Id") && !key.includes("Name") && !exclude.includes(key))) {
                             $scope.gridOptions.columnDefs.push({
-                                name: key, cellTooltip: true, headerTooltip: true
+                                name: key, cellTooltip: true, width: 100, headerTooltip: true
                             });
                         }
                     }
                     $scope.gridOptions.columnDefs.push({
-                        name: 'Created', cellTooltip: true, headerTooltip: true,
+                        name: 'Created', cellTooltip: true, width: 100, headerTooltip: true,
                         cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
                     });
                 }, function (error) {
@@ -4614,6 +4615,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
             enableSorting: true,
             enableGridMenu: true,
             infiniteScrollRowsFromEnd: 100,
+            enableHorizontalScrollbar: uiGridConstants.scrollbars.WHEN_NEEDED,
             //exporterCsvFilename: 'myFile.csv',
             //exporterPdfOrientation: 'portrait',
             //exporterPdfPageSize: 'LETTER',
@@ -4746,10 +4748,10 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
     });
     angular.module('Main').controller('SurveyHeaderReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
-        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService',
+        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService', 'uiGridConstants',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
-        LocationService, CustomerService, SurveyService, ImageService, DownloadService) {
+        LocationService, CustomerService, SurveyService, ImageService, DownloadService, uiGridConstants) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.selectcompany');
         }
@@ -4818,6 +4820,7 @@ app.run(function ($rootScope, $state, UserService, RoleService, UserRoleService,
             enableSorting: true,
             enableGridMenu: true,
             infiniteScrollRowsFromEnd: 50,
+            enableHorizontalScrollbar: 0,
             data: 'data',
             columnDefs: [
                 {

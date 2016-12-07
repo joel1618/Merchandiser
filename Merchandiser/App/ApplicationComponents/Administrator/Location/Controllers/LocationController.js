@@ -1,5 +1,5 @@
 ﻿(function (moment) {
-    "use strict";    
+    "use strict";
     angular.module('Main').controller('LocationController', ['$scope', '$state', '$routeParams', '$http', '$location',
         '$timeout', 'breezeservice', 'breeze', 'LocationService', 'SelectionApplicationService',
     function controller($scope, $state, $routeParams, $http, $location,
@@ -18,6 +18,7 @@
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Name', name: 'Name', cellTooltip: true },
                 { field: 'Phone', name: 'Phone', cellTooltip: true },
+                { field: 'Address', name: 'Address', cellTooltip: true },
                 { field: 'City', name: 'City', cellTooltip: true },
                 { field: 'State', name: 'State', cellTooltip: true },
                 { field: 'Zip', name: 'Zip', cellTooltip: true }

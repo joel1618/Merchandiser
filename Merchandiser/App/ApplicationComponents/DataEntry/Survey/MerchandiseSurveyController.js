@@ -117,7 +117,7 @@
                     details.push({
                         CompanyId: companyId,
                         ProductId: value.Product.Id,
-                        ProductTypeDetailId: value.ProductTypeDetail.Id,
+                        ProductTypeDetailId: value.ProductTypeDetail != null ? value.ProductTypeDetail.Id : null,
                         QuestionId: value.Question.Id,
                         Answer: value.Answer
                     });

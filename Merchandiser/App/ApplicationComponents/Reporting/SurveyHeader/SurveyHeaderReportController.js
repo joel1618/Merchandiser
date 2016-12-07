@@ -10,10 +10,10 @@
     });
     angular.module('Main').controller('SurveyHeaderReportController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$uibModal',
         '$timeout', 'breezeservice', 'breeze', 'ReportService', 'SurveyHeaderService', 'SelectionApplicationService', 'UserService',
-        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService',
+        'LocationService', 'CustomerService', 'SurveyService', 'ImageService', 'DownloadService', 'uiGridConstants',
     function controller($scope, $q, $state, $stateParams, $http, $location, $uibModal,
         $timeout, breezeservice, breeze, ReportService, SurveyHeaderService, SelectionApplicationService, UserService,
-        LocationService, CustomerService, SurveyService, ImageService, DownloadService) {
+        LocationService, CustomerService, SurveyService, ImageService, DownloadService, uiGridConstants) {
         if (SelectionApplicationService.GetCompanyId() == null) {
             $state.go('main.selectcompany');
         }
@@ -82,6 +82,7 @@
             enableSorting: true,
             enableGridMenu: true,
             infiniteScrollRowsFromEnd: 50,
+            enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
             data: 'data',
             columnDefs: [
                 {
