@@ -61,6 +61,12 @@
                 }
                 SelectCustomerLocationProductQuestionService.Search(predicate, ["RowOrder desc"], 0, 100, false).then(function (data) {
                     $scope.Survey = data.Results[0].Survey;
+                    $scope.Header.Address = data.Results[0].Location.Address;
+                    $scope.Header.AreaManager = data.Results[0].Location.AreaManager;
+                    $scope.Header.City = data.Results[0].Location.City;
+                    $scope.Header.State = data.Results[0].Location.State;
+                    $scope.Header.Zip = data.Results[0].Location.Zip;
+                    $scope.Header.Phone = data.Results[0].Location.Phone;
                     $scope.Detail = data.Results;
                 });
             }

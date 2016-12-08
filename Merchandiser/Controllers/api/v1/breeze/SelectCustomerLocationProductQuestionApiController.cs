@@ -51,7 +51,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Location = new LocationViewModel()
                 {
                     Id = sclpq.Location.Id,
-                    Name = sclpq.Location.Name
+                    Name = sclpq.Location.Name,
+                    Address = sclpq.Location.Address,
+                    AreaManager = sclpq.Location.AreaManager,
+                    City = sclpq.Location.City,
+                    State = sclpq.Location.State,
+                    Zip = sclpq.Location.Zip,
+                    Phone = sclpq.Location.Phone
                 },
                 Modified = sclpq.Modified,
                 ModifiedBy = sclpq.ModifiedBy,
