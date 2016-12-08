@@ -22,7 +22,7 @@
         $scope.Logout = function () {
             SelectionApplicationService.Clear();
             $http.post('/Account/LogOff').then(function (data) {
-                $window.location.reload();
+                $window.location = '/Home/Index';
             });
         }
 

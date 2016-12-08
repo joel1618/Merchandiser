@@ -8,11 +8,17 @@ namespace Merchandiser.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
+        
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Merchandise");
-            //return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Merchandise");
+            }
+            else
+            {
+                return Redirect("~/Template/Index");
+            }
         }
 
         public ActionResult About()
