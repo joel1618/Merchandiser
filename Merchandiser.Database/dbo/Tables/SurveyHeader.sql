@@ -13,6 +13,15 @@
     [CreatedBy]     NVARCHAR (128)   NOT NULL,
     [Modified]      DATETIME         NULL,
     [ModifiedBy]    NVARCHAR (128)   NULL,
+    [Address]       NVARCHAR (100)   NULL,
+    [AreaManager]   NVARCHAR (100)   NULL,
+    [Phone]         NVARCHAR (100)   NULL,
+    [City]          NVARCHAR (100)   NULL,
+    [State]         NVARCHAR (100)   NULL,
+    [Zip]           NVARCHAR (100)   NULL,
+    [IsReviewed]    BIT              CONSTRAINT [DF_SurveyHeader_IsReviewed] DEFAULT ((0)) NOT NULL,
+    [ReviewedBy]    NVARCHAR (128)   NULL,
+    [Reviewed]      DATETIME         NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_SurveyHeader_AspNetUsers] FOREIGN KEY ([CreatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
     CONSTRAINT [FK_SurveyHeader_AspNetUsers1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
@@ -21,6 +30,8 @@
     CONSTRAINT [FK_SurveyHeader_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Survey] FOREIGN KEY ([SurveyId]) REFERENCES [dbo].[Survey] ([Id])
 );
+
+
 
 
 

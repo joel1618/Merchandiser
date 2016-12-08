@@ -32,6 +32,19 @@ namespace Merchandiser.Models
 
         public string Notes { get; set; }
 
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public string AreaManager { get; set; }
+
+        public bool IsReviewed { get; set; }
+
+        public DateTime? Reviewed { get; set; }
+
+        public string ReviewedBy { get; set; }
+
         public virtual UserViewModel CreatedUser { get; set; }
 
         public virtual UserViewModel ModifiedUser { get; set; }

@@ -34,6 +34,15 @@ namespace Merchandiser
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }
+        public string Address { get; set; }
+        public string AreaManager { get; set; }
+        public string Phone { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
+        public bool IsReviewed { get; set; }
+        public string ReviewedBy { get; set; }
+        public Nullable<System.DateTime> Reviewed { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }

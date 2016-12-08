@@ -52,6 +52,15 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CompanyId = x.CompanyId,
                 Created = x.Created,
                 CreatedBy = x.CreatedBy,
+                AreaManager = x.AreaManager,
+                Address = x.Address,
+                City = x.City,
+                State = x.State,
+                Zip = x.Zip,
+                Phone = x.Phone,
+                IsReviewed = x.IsReviewed,
+                Reviewed = x.Reviewed.HasValue ? x.Reviewed.Value : new Nullable<DateTime>(),
+                ReviewedBy = x.ReviewedBy,
                 Company = new CompanyViewModel()
                 {
                     Id = x.Company.Id,
@@ -114,6 +123,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var id = Guid.NewGuid();
             item.Header.Id = id;
             item.Header.CreatedBy = User.Identity.GetUserId();
+            if (item.Header.IsReviewed)
+            {
+                item.Header.ReviewedBy = User.Identity.GetUserId();
+            }
             var response = repository.Create(item.Header.ToEntity()).ToViewModel();
             foreach (var detail in item.Details)
             {
