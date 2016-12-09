@@ -21,6 +21,12 @@
                                         <p id="locationAddress">{{Header.Address}}</p>
                                         <label for="manager">Location Manager</label>
                                         <p id="manager">{{Header.AreaManager | limitTo:20}}</p>
+                                        <label for="review">Review Survey</label>
+                                        <div id="review" ng-show="IsAdministrator">
+                                            <button class="btn btn-danger" ng-show="Header.IsReviewed" ng-click="Header.IsReviewed = false">UnReview</button>
+                                            <button class="btn btn-success" ng-show="!Header.IsReviewed" ng-click="Header.IsReviewed = true">Review</button>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -43,8 +49,10 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6">
+                    <button class="btn btn-primary btn-sm pull-right" ng-click="Save()" ng-disabled="outerForm.$invalid">Save</button>
+                    <br />
                     <label>Before Image</label>
-                    <small>*Please turn phones sideways to take picture.</small>
+                    <p><small>*Please turn phones sideways to take picture.</small></p>
                     <br />
                     <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                     <label class="btn btn-primary btn-sm btn-file">
@@ -56,8 +64,8 @@
                     <!--<canvas id="CanvasBeforeImage" style="max-width:400px; max-height:400px"></canvas>-->
                     <br />
                     <div ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
-                        <br/>
-                        <div style="border:dotted gray 1px;" >
+                        <br />
+                        <div style="border:dotted gray 1px;">
                             <div ng-form name="innerForm" style="padding:5px;">
                                 &nbsp;&nbsp;<a ng-click="changeSorting('Product.ProductCategory.Name')">Category</a>
                                 <p>{{item.Product.ProductCategory.Name}}</p>
@@ -89,67 +97,9 @@
                             </div>
                         </div>
                     </div>
-                    <!--<table border="1">
-                        <thead>
-                            <tr>
-                                <th ng-click="changeSorting('Product.ProductCategory.Name')">
-                                    <a>Category</a>
-                                </th>
-                                <th ng-click="changeSorting('ProductTypeDetail.Name')">
-                                    <a>Type</a>
-                                </th>
-                                <th ng-click="changeSorting('Product.Name')">
-                                    <a>Product</a>
-                                </th>
-                                <th ng-click="changeSorting('Question.Name')">
-                                    <a>Question</a>
-                                </th>
-                                <th>
-                                    Answer
-                                </th>
-                                <th ng-show="item.Question.IsTrueFalse">
-
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-form name="innerForm" ng-repeat="item in Detail | orderBy: sort.column: sort.descending">
-                                <td>
-                                    {{item.Product.ProductCategory.Name}}
-                                </td>
-                                <td>
-                                    {{item.ProductTypeDetail.Name}}
-                                </td>
-                                <td>
-                                    {{item.Product.Name}}
-                                </td>
-                                <td>
-                                    {{item.Question.Name}}
-                                </td>
-                                <td>
-                                    <md-input-container>
-                                        <input id="{{'input' + $index}}" class="form-control input-sm" type="text" name="Answer" placeholder="" ng-blur="OnBlur($event)"
-                                               ng-model="item.Answer" ng-required="item.Question.IsRequired" ng-disabled="item.Question.IsTrueFalse" md-maxlength="25"
-                                               style="color:black;" />
-                                        <div ng-messages="innerForm.Answer.$error">
-                                            <div ng-message="required" class="my-message">This is required!</div>
-                                            <div ng-message="md-maxlength" class="my-message">
-                                                The max length is 25 characters.
-                                            </div>
-                                        </div>
-                                    </md-input-container>
-                                </td>
-                                <td ng-show="item.Question.IsTrueFalse">
-                                    <button ng-click="item.Answer = 'True'" class="btn btn-primary btn-xs">True</button><br />
-                                    <button ng-click="item.Answer = 'False'" class="btn btn-primary btn-xs">False</button><br />
-                                    <button ng-click="item.Answer = ''" class="btn btn-primary btn-xs">Clear</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>-->
                     <br />
                     <label>After Image</label>
-                    <small>*Please turn phones sideways to take picture.</small>
+                    <p><small>*Please turn phones sideways to take picture.</small></p>
                     <br />
                     <!--http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields-->
                     <label class="btn btn-primary btn-sm btn-file">

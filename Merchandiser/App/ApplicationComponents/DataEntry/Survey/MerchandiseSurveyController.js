@@ -23,6 +23,7 @@
         $scope.previousElementId = "input0";
         $scope.BeforeImage = null;
         $scope.AfterImage = null;
+        $scope.IsAdministrator = false;
         $scope.Company = SelectionApplicationService.GetCompany(); $scope.Survey = SelectionApplicationService.GetSurvey();
         $scope.Customer = SelectionApplicationService.GetCustomer(); $scope.Location = SelectionApplicationService.GetLocation();
         $scope.Header = {
@@ -72,6 +73,10 @@
                     $scope.Detail = data.Results;
                 });
             }
+
+            UserService.IsAdministrator(SelectionApplicationService.GetCompanyId()).then(function (data) {
+                $scope.IsAdministrator = data;
+            });
         }
         $scope.Search();
 
