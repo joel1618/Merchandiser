@@ -18,7 +18,7 @@
                                         <label for="locationName">Location Name</label>
                                         <p id="locationName">{{Header.LocationName | limitTo:20}}</p>
                                         <label for="locationAddress">Location Address</label>
-                                        <p id="locationAddress">{{Header.Address | limitTo:20}}</p>
+                                        <p id="locationAddress">{{Header.Address}}</p>
                                         <label for="manager">Location Manager</label>
                                         <p id="manager">{{Header.AreaManager | limitTo:20}}</p>
                                     </div>
@@ -59,13 +59,13 @@
                         <br/>
                         <div style="border:dotted gray 1px;" >
                             <div ng-form name="innerForm" style="padding:5px;">
-                                <a ng-click="changeSorting('Product.ProductCategory.Name')">&nbsp;&nbsp;Category</a>
+                                &nbsp;&nbsp;<a ng-click="changeSorting('Product.ProductCategory.Name')">Category</a>
                                 <p>{{item.Product.ProductCategory.Name}}</p>
-                                <a ng-click="changeSorting('ProductTypeDetail.Name')">&nbsp;&nbsp;Type</a>
+                                &nbsp;&nbsp;<a ng-click="changeSorting('ProductTypeDetail.Name')">Type</a>
                                 <p>{{item.ProductTypeDetail.Name}}</p>
-                                <a ng-click="changeSorting('Product.Name')">&nbsp;&nbsp;Product</a>
+                                &nbsp;&nbsp;<a ng-click="changeSorting('Product.Name')">Product</a>
                                 <p>{{item.Product.Name}}</p>
-                                <a ng-click="changeSorting('Question.Name')">&nbsp;&nbsp;Question</a>
+                                &nbsp;&nbsp;<a ng-click="changeSorting('Question.Name')">Question</a>
                                 <p>{{item.Question.Name}}</p>
                                 <label>&nbsp;&nbsp;Answer</label>
                                 <div>
