@@ -34,6 +34,9 @@ namespace Merchandiser.Repositories
         public SurveyHeader Update(Guid id, SurveyHeader item)
         {
             var entity = context.SurveyHeaders.Find(id);
+            entity.IsReviewed = item.IsReviewed;
+            entity.Reviewed = item.Reviewed;
+            entity.ReviewedBy = item.ReviewedBy;
             entity.Notes = item.Notes;
             entity.IsAfterImage = item.IsAfterImage;
             entity.IsBeforeImage = item.IsBeforeImage;

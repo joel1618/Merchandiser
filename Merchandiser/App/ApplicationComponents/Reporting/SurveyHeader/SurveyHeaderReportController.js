@@ -93,6 +93,7 @@
                 { field: 'Survey.Name', name: 'Survey Name', cellTooltip: true, headerTooltip: true },
                 { field: 'Customer.Name', name: 'Customer Name', cellTooltip: true, headerTooltip: true },
                 { field: 'Location.Name', name: 'Location Name', cellTooltip: true, headerTooltip: true },
+                { field: 'IsReviewed', name: 'Reviewed', cellTooltip: true, headerTooltip: true },
                 {
                     name: 'Created', cellTooltip: true, headerTooltip: true,
                     cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
