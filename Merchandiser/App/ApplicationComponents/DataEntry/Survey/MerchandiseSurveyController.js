@@ -215,5 +215,13 @@
             var index = Number(parseInt($scope.previousElementId.substring(5, 7))) - Number(1);
             document.getElementById('input' + index).focus();
         }
+
+        $timeout(function () {
+            var element = document.getElementById('input0');
+            if (element != null) {
+                element.focus();
+            }
+        }, 500);
+        
     }]);
 })(moment);
