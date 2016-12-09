@@ -33,6 +33,8 @@ namespace Merchandiser
         public string ModifiedBy { get; set; }
         public System.DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public bool IsCreate { get; set; }
+        public Nullable<int> IsCreateDays { get; set; }
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

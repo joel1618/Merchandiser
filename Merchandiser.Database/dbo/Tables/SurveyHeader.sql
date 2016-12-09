@@ -22,6 +22,8 @@
     [IsReviewed]    BIT              CONSTRAINT [DF_SurveyHeader_IsReviewed] DEFAULT ((0)) NOT NULL,
     [ReviewedBy]    NVARCHAR (128)   NULL,
     [Reviewed]      DATETIME         NULL,
+    [LocationName]  NVARCHAR (100)   NULL,
+    [CustomerName]  NVARCHAR (100)   NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_SurveyHeader_AspNetUsers] FOREIGN KEY ([CreatedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
     CONSTRAINT [FK_SurveyHeader_AspNetUsers1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[AspNetUsers] ([Id]),
@@ -30,6 +32,10 @@
     CONSTRAINT [FK_SurveyHeader_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),
     CONSTRAINT [FK_SurveyHeader_Survey] FOREIGN KEY ([SurveyId]) REFERENCES [dbo].[Survey] ([Id])
 );
+
+
+
+
 
 
 

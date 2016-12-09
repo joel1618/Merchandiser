@@ -61,6 +61,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 IsReviewed = x.IsReviewed,
                 Reviewed = x.Reviewed.HasValue ? x.Reviewed.Value : new Nullable<DateTime>(),
                 ReviewedBy = x.ReviewedBy,
+                CustomerName = x.CustomerName,
+                LocationName = x.LocationName,
                 Company = new CompanyViewModel()
                 {
                     Id = x.Company.Id,
@@ -120,12 +122,24 @@ namespace Merchandiser.Controllers.api.v1.breeze
         [HttpPost]
         public IHttpActionResult CreateBulk([FromBody()]SurveyHeaderDetailViewModel item)
         {
+            //Validate that survey is createable if not an admin.
+            var userId = User.Identity.GetUserId();
+            if (!ApiFilters.IsAdministrator(userId, item.Header.CompanyId, roleRepository, userRoleRepository))
+            {
+                var survey = surveyRepository.Get(item.Header.SurveyId);
+                if (!survey.IsCreate)
+                {
+                    return BadRequest("The survey is set to be uncreatable.");
+                }
+            }
+
             var id = Guid.NewGuid();
             item.Header.Id = id;
             item.Header.CreatedBy = User.Identity.GetUserId();
             if (item.Header.IsReviewed)
             {
                 item.Header.ReviewedBy = User.Identity.GetUserId();
+                item.Header.Reviewed = DateTime.UtcNow;
             }
             var response = repository.Create(item.Header.ToEntity()).ToViewModel();
             foreach (var detail in item.Details)
@@ -159,9 +173,11 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     return BadRequest("The survey is set to be uneditable.");
                 }
+
                 if (survey.IsEditDays.HasValue)
                 {
-                    if (survey.Created.AddDays(Double.Parse(survey.IsEditDays.Value.ToString())) < DateTime.UtcNow)
+                    var createdSurvey = Get(item.Header.Id);
+                    if (createdSurvey.Created.AddDays(Double.Parse(survey.IsEditDays.Value.ToString())) < DateTime.UtcNow)
                     {
                         return BadRequest("The time period has already passed to be able to edit this survey.");
                     }
@@ -169,6 +185,17 @@ namespace Merchandiser.Controllers.api.v1.breeze
             }
 
             item.Header.ModifiedBy = User.Identity.GetUserId();
+            //Manage reviewed state
+            if (!item.Header.IsReviewed)
+            {
+                item.Header.ReviewedBy = null;
+                item.Header.Reviewed = null;
+            }
+            else if (item.Header.IsReviewed && item.Header.Reviewed == null)
+            {
+                item.Header.ReviewedBy = User.Identity.GetUserId();
+                item.Header.Reviewed = DateTime.UtcNow;
+            }
             var response = repository.Update(id, item.Header.ToEntity()).ToViewModel();
             foreach (var detail in item.Details)
             {
@@ -203,7 +230,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 }
                 if (survey.IsDeleteDays.HasValue)
                 {
-                    if (survey.Created.AddDays(Double.Parse(survey.IsDeleteDays.Value.ToString())) < DateTime.UtcNow)
+                    if (surveyHeader.Created.AddDays(Double.Parse(survey.IsDeleteDays.Value.ToString())) < DateTime.UtcNow)
                     {
                         return BadRequest("The time period has already passed to be able to delete this survey.");
                     }

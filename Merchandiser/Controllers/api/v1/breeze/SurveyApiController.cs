@@ -33,6 +33,8 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CompanyId = x.CompanyId,
                 Name = x.Name,
                 Created = x.Created,
+                IsCreate = x.IsCreate,
+                IsCreateDays = x.IsCreateDays.HasValue ? x.IsCreateDays.Value : new Nullable<int>(),
                 IsEdit = x.IsEdit,
                 IsEditDays = x.IsEditDays.HasValue ? x.IsEditDays.Value : new Nullable<int>(),
                 IsDelete = x.IsDelete,

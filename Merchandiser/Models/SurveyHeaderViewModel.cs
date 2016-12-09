@@ -39,6 +39,10 @@ namespace Merchandiser.Models
         public string Zip { get; set; }
         public string AreaManager { get; set; }
 
+        public string CustomerName { get; set; }
+
+        public string LocationName { get; set; }
+
         public bool IsReviewed { get; set; }
 
         public DateTime? Reviewed { get; set; }

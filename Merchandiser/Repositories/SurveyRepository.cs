@@ -39,6 +39,8 @@ namespace Merchandiser.Repositories
             var entity = context.Surveys.Find(id);
             entity.Name = item.Name;
             entity.IsNoteRequired = item.IsNoteRequired;
+            entity.IsCreate = item.IsCreate;
+            entity.IsCreateDays = item.IsCreateDays;
             entity.IsEdit = item.IsEdit;
             entity.IsEditDays = item.IsEditDays;
             entity.IsDelete = item.IsDelete;

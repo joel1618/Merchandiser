@@ -67,6 +67,8 @@
                     $scope.Header.State = data.Results[0].Location.State;
                     $scope.Header.Zip = data.Results[0].Location.Zip;
                     $scope.Header.Phone = data.Results[0].Location.Phone;
+                    $scope.Header.LocationName = data.Results[0].Location.Name;
+                    $scope.Header.CustomerName = data.Results[0].Customer.Name;
                     $scope.Detail = data.Results;
                 });
             }

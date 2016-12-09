@@ -203,6 +203,8 @@
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsNoteRequired" Type="bit" Nullable="false" />
+          <Property Name="IsCreate" Type="bit" Nullable="false" />
+          <Property Name="IsCreateDays" Type="int" />
           <Property Name="IsEdit" Type="bit" Nullable="false" />
           <Property Name="IsEditDays" Type="int" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
@@ -272,6 +274,8 @@
           <Property Name="IsReviewed" Type="bit" Nullable="false" />
           <Property Name="ReviewedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="Reviewed" Type="datetime" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Merchandiser.dbo.SelectLocation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1366,6 +1370,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Survey" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Survey" FromRole="Survey" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="Survey" ToRole="SurveyHeader" />
+          <Property Name="IsCreate" Type="Boolean" Nullable="false" />
+          <Property Name="IsCreateDays" Type="Int32" />
         </EntityType>
         <EntityType Name="SurveyCustomerLocationProductQuestion">
           <Key>
@@ -1445,6 +1451,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="IsReviewed" Type="Boolean" Nullable="false" />
           <Property Name="ReviewedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Reviewed" Type="DateTime" Precision="3" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SelectLocation">
           <Key>
@@ -2125,6 +2133,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySetMapping Name="Surveys">
             <EntityTypeMapping TypeName="MerchandiserModel.Survey">
               <MappingFragment StoreEntitySet="Survey">
+                <ScalarProperty Name="IsCreateDays" ColumnName="IsCreateDays" />
+                <ScalarProperty Name="IsCreate" ColumnName="IsCreate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -2178,6 +2188,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySetMapping Name="SurveyHeaders">
             <EntityTypeMapping TypeName="MerchandiserModel.SurveyHeader">
               <MappingFragment StoreEntitySet="SurveyHeader">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="Reviewed" ColumnName="Reviewed" />
                 <ScalarProperty Name="ReviewedBy" ColumnName="ReviewedBy" />
                 <ScalarProperty Name="IsReviewed" ColumnName="IsReviewed" />

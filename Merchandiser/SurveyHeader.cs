@@ -43,6 +43,8 @@ namespace Merchandiser
         public bool IsReviewed { get; set; }
         public string ReviewedBy { get; set; }
         public Nullable<System.DateTime> Reviewed { get; set; }
+        public string LocationName { get; set; }
+        public string CustomerName { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
