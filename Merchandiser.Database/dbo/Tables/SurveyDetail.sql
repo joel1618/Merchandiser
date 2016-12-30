@@ -20,3 +20,10 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [NonClusteredIndex-20161230-104028]
+    ON [dbo].[SurveyDetail]([CompanyId] ASC, [SurveyHeaderId] ASC);
+
