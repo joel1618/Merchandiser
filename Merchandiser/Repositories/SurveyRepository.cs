@@ -19,7 +19,7 @@ namespace Merchandiser.Repositories
             return context.Surveys;
         }
 
-        public Survey Get(Guid id)
+        public Survey Get(int id)
         {
             return context.Surveys.Find(id);
         }
@@ -27,14 +27,13 @@ namespace Merchandiser.Repositories
         public Survey Create(Survey item)
         {
             var now = DateTime.UtcNow;
-            item.Id = Guid.NewGuid();
             item.Created = now;
             context.Surveys.Add(item);
             context.SaveChanges();
             return item;
         }
 
-        public Survey Update(Guid id, Survey item)
+        public Survey Update(int id, Survey item)
         {
             var entity = context.Surveys.Find(id);
             entity.Name = item.Name;
@@ -50,7 +49,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

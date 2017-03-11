@@ -24,7 +24,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<QuestionViewModel> Search(Guid companyId)
+        public IQueryable<QuestionViewModel> Search(int companyId)
         {
             var userId = User.Identity.GetUserId();
             var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new QuestionViewModel()
@@ -40,7 +40,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public QuestionViewModel Get(Guid id)
+        public QuestionViewModel Get(int id)
         {
             return repository.Get(id).ToViewModel();
         }
@@ -59,7 +59,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public IHttpActionResult Update(Guid id, QuestionViewModel item)
+        public IHttpActionResult Update(int id, QuestionViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
             var record = repository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name && e.Id != item.Id).FirstOrDefault();
@@ -72,7 +72,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             repository.Delete(id);
         }

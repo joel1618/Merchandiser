@@ -19,21 +19,20 @@ namespace Merchandiser.Repositories
             return context.Questions;
         }
 
-        public Question Get(Guid id)
+        public Question Get(int id)
         {
             return context.Questions.Find(id);
         }
 
         public Question Create(Question item)
         {
-            item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             context.Questions.Add(item);
             context.SaveChanges();
             return item;
         }
 
-        public Question Update(Guid id, Question item)
+        public Question Update(int id, Question item)
         {
             var entity = context.Questions.Find(id);
             entity.Name = item.Name;
@@ -44,7 +43,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

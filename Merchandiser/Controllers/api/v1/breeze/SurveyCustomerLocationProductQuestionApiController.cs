@@ -90,7 +90,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public SurveyCustomerLocationProductQuestionViewModel Get(Guid id)
+        public SurveyCustomerLocationProductQuestionViewModel Get(int id)
         {
             return repository.Get(id).ToViewModel();
         }
@@ -120,7 +120,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public IHttpActionResult Update(Guid id, SurveyCustomerLocationProductQuestionViewModel item)
+        public IHttpActionResult Update(int id, SurveyCustomerLocationProductQuestionViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
             var record = repository.Search().Where(e =>
@@ -140,7 +140,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             repository.Delete(id);
         }

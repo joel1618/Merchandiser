@@ -7,7 +7,7 @@ namespace Merchandiser.Models
 {
     public class MapViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
         public DateTime Created { get; set; }
@@ -15,10 +15,10 @@ namespace Merchandiser.Models
         public string LastName { get; set; }
 
         public string Notes { get; set; }
-        public Guid CompanyId { get; set; }
-        public Guid CustomerId { get; set; }
-        public Guid LocationId { get; set; }
-        public Guid SurveyId { get; set; }
+        public int CompanyId { get; set; }
+        public int CustomerId { get; set; }
+        public int LocationId { get; set; }
+        public int SurveyId { get; set; }
 
         public string CompanyName { get; set; }
         public string CustomerName { get; set; }

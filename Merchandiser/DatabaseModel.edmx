@@ -51,11 +51,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -88,7 +88,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -99,8 +99,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsSendReport" Type="bit" Nullable="false" />
           <Property Name="SendReport" Type="datetime" />
@@ -113,8 +113,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Store" Type="nvarchar" MaxLength="100" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
@@ -134,10 +134,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductCategoryId" Type="uniqueidentifier" />
-          <Property Name="ProductTypeHeaderId" Type="uniqueidentifier" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" />
+          <Property Name="ProductTypeHeaderId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -148,8 +148,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -160,9 +160,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductTypeHeaderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="ProductTypeHeaderId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="Modified" Type="datetime" />
@@ -173,8 +173,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -185,8 +185,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsRequired" Type="bit" Nullable="false" />
           <Property Name="IsTrueFalse" Type="bit" Nullable="false" />
@@ -199,8 +199,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsNoteRequired" Type="bit" Nullable="false" />
           <Property Name="IsCreate" Type="bit" Nullable="false" />
@@ -218,13 +218,13 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="SurveyId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
           <Property Name="RowOrder" Type="int" Nullable="false" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -235,12 +235,12 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SurveyHeaderId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductTypeDetailId" Type="uniqueidentifier" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="SurveyHeaderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="ProductTypeDetailId" Type="int" />
           <Property Name="Answer" Type="nvarchar" MaxLength="1000" />
           <Property Name="Modified" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="128" />
@@ -251,11 +251,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="SurveyId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Notes" Type="nvarchar(max)" />
@@ -284,9 +284,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectLocation' does not have a p
             <PropertyRef Name="Id" />
             <PropertyRef Name="CustomerId" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
@@ -302,10 +302,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectSurvey' does not have a pri
             <PropertyRef Name="CompanyId" />
             <PropertyRef Name="LocationId" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="LocationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="SurveyCreated" Type="datetime" />
         </EntityType>
@@ -317,10 +317,27 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <PropertyRef Name="CompanyId" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwBuildSurvey">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LocationId" Type="int" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="QuestionName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SurveyId" Type="int" />
         </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
@@ -802,6 +819,20 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
     [SelectUser].[LastName] AS [LastName]
     FROM [dbo].[SelectUser] AS [SelectUser]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vwBuildSurvey" EntityType="Self.vwBuildSurvey" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwBuildSurvey].[CompanyId] AS [CompanyId], 
+    [vwBuildSurvey].[CustomerId] AS [CustomerId], 
+    [vwBuildSurvey].[CustomerName] AS [CustomerName], 
+    [vwBuildSurvey].[LocationId] AS [LocationId], 
+    [vwBuildSurvey].[LocationName] AS [LocationName], 
+    [vwBuildSurvey].[ProductId] AS [ProductId], 
+    [vwBuildSurvey].[ProductName] AS [ProductName], 
+    [vwBuildSurvey].[QuestionId] AS [QuestionId], 
+    [vwBuildSurvey].[QuestionName] AS [QuestionName], 
+    [vwBuildSurvey].[SurveyId] AS [SurveyId]
+    FROM [dbo].[vwBuildSurvey] AS [vwBuildSurvey]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AspNetUserRoles_Company" Association="Self.FK_AspNetUserRoles_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -971,6 +1002,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySet Name="SelectLocations" EntityType="MerchandiserModel.SelectLocation" />
           <EntitySet Name="SelectSurveys" EntityType="MerchandiserModel.SelectSurvey" />
           <EntitySet Name="SelectUsers" EntityType="MerchandiserModel.SelectUser" />
+          <EntitySet Name="vwBuildSurveys" EntityType="MerchandiserModel.vwBuildSurvey" />
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
@@ -1161,11 +1193,11 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" />
           <NavigationProperty Name="AspNetRole" Relationship="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" FromRole="AspNetUserRole" ToRole="AspNetRole" />
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_AspNetUserRoles_Company" FromRole="AspNetUserRole" ToRole="Company" />
           <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_AspNetUserRoles_Customer" FromRole="AspNetUserRole" ToRole="Customer" />
@@ -1209,7 +1241,7 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1232,8 +1264,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsSendReport" Type="Boolean" Nullable="false" />
           <Property Name="SendReport" Type="DateTime" Precision="3" />
@@ -1250,8 +1282,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Store" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
@@ -1274,10 +1306,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="ProductCategoryId" Type="Guid" />
-          <Property Name="ProductTypeHeaderId" Type="Guid" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Int32" />
+          <Property Name="ProductTypeHeaderId" Type="Int32" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1293,8 +1325,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1307,9 +1339,9 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="ProductTypeHeaderId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="ProductTypeHeaderId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
@@ -1323,8 +1355,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1338,8 +1370,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsRequired" Type="Boolean" Nullable="false" />
           <Property Name="IsTrueFalse" Type="Boolean" Nullable="false" />
@@ -1355,10 +1387,12 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsNoteRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsCreate" Type="Boolean" Nullable="false" />
+          <Property Name="IsCreateDays" Type="Int32" />
           <Property Name="IsEdit" Type="Boolean" Nullable="false" />
           <Property Name="IsEditDays" Type="Int32" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
@@ -1370,20 +1404,18 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_Survey_Company" FromRole="Survey" ToRole="Company" />
           <NavigationProperty Name="SurveyCustomerLocationProductQuestions" Relationship="MerchandiserModel.FK_SurveyCustomerLocationProductQuestion_Survey" FromRole="Survey" ToRole="SurveyCustomerLocationProductQuestion" />
           <NavigationProperty Name="SurveyHeaders" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="Survey" ToRole="SurveyHeader" />
-          <Property Name="IsCreate" Type="Boolean" Nullable="false" />
-          <Property Name="IsCreateDays" Type="Int32" />
         </EntityType>
         <EntityType Name="SurveyCustomerLocationProductQuestion">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="SurveyId" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="LocationId" Type="Guid" Nullable="false" />
-          <Property Name="ProductId" Type="Guid" Nullable="false" />
-          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="SurveyId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="RowOrder" Type="Int32" Nullable="false" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1400,12 +1432,12 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="SurveyHeaderId" Type="Guid" Nullable="false" />
-          <Property Name="ProductId" Type="Guid" Nullable="false" />
-          <Property Name="QuestionId" Type="Guid" Nullable="false" />
-          <Property Name="ProductTypeDetailId" Type="Guid" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="SurveyHeaderId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="ProductTypeDetailId" Type="Int32" />
           <Property Name="Answer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -1421,11 +1453,11 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="SurveyId" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="LocationId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="SurveyId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
           <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1435,13 +1467,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Modified" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers" FromRole="SurveyHeader" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUser1" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers1" FromRole="SurveyHeader" ToRole="AspNetUser" />
-          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="SurveyHeader" ToRole="Company" />
-          <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="SurveyHeader" ToRole="Customer" />
-          <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="SurveyHeader" ToRole="Location" />
-          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
-          <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="AreaManager" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1453,15 +1478,22 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="Reviewed" Type="DateTime" Precision="3" />
           <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers" FromRole="SurveyHeader" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUser1" Relationship="MerchandiserModel.FK_SurveyHeader_AspNetUsers1" FromRole="SurveyHeader" ToRole="AspNetUser" />
+          <NavigationProperty Name="Company" Relationship="MerchandiserModel.FK_SurveyHeader_Company" FromRole="SurveyHeader" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="MerchandiserModel.FK_SurveyHeader_Customer" FromRole="SurveyHeader" ToRole="Customer" />
+          <NavigationProperty Name="Location" Relationship="MerchandiserModel.FK_SurveyHeader_Location" FromRole="SurveyHeader" ToRole="Location" />
+          <NavigationProperty Name="Survey" Relationship="MerchandiserModel.FK_SurveyHeader_Survey" FromRole="SurveyHeader" ToRole="Survey" />
+          <NavigationProperty Name="SurveyDetails" Relationship="MerchandiserModel.FK_SurveyDetail_SurveyHeader" FromRole="SurveyHeader" ToRole="SurveyDetail" />
         </EntityType>
         <EntityType Name="SelectLocation">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="CustomerId" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
@@ -1475,10 +1507,10 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <PropertyRef Name="CompanyId" />
             <PropertyRef Name="LocationId" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
-          <Property Name="LocationId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SurveyCreated" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1488,10 +1520,25 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
             <PropertyRef Name="CompanyId" />
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Guid" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwBuildSurvey">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LocationId" Type="Int32" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="QuestionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SurveyId" Type="Int32" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
@@ -2133,8 +2180,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <EntitySetMapping Name="Surveys">
             <EntityTypeMapping TypeName="MerchandiserModel.Survey">
               <MappingFragment StoreEntitySet="Survey">
-                <ScalarProperty Name="IsCreateDays" ColumnName="IsCreateDays" />
-                <ScalarProperty Name="IsCreate" ColumnName="IsCreate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -2143,6 +2188,8 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="IsEditDays" ColumnName="IsEditDays" />
                 <ScalarProperty Name="IsEdit" ColumnName="IsEdit" />
+                <ScalarProperty Name="IsCreateDays" ColumnName="IsCreateDays" />
+                <ScalarProperty Name="IsCreate" ColumnName="IsCreate" />
                 <ScalarProperty Name="IsNoteRequired" ColumnName="IsNoteRequired" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
@@ -2250,6 +2297,22 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwBuildSurveys">
+            <EntityTypeMapping TypeName="MerchandiserModel.vwBuildSurvey">
+              <MappingFragment StoreEntitySet="vwBuildSurvey">
+                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+                <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

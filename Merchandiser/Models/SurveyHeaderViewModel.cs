@@ -10,15 +10,15 @@ namespace Merchandiser.Models
     public class SurveyHeaderViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
         [Required]
-        public Guid SurveyId { get; set; }
+        public int SurveyId { get; set; }
         [Required]
-        public Guid CustomerId { get; set; }
+        public int CustomerId { get; set; }
         [Required]
-        public Guid LocationId { get; set; }
+        public int LocationId { get; set; }
 
         public bool IsBeforeImage { get; set; }
         public bool IsAfterImage { get; set; }

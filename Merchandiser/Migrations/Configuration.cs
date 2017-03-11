@@ -124,62 +124,62 @@ namespace Merchandiser.Migrations
         }
         public void AddCompany(MerchandiserEntities context)
         {
-            context.Companies.Add(new Company() { Id = Guid.NewGuid(), Name = "Company 1", CreatedBy = user.Id, Created = DateTime.Now });
+            context.Companies.Add(new Company() { Name = "Company 1", CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
             company = context.Companies.Where(e => e.Name == "Company 1").FirstOrDefault();
         }
         public void AddUserRole(MerchandiserEntities context)
         {
             var administratorRole = context.AspNetRoles.Where(e => e.Name == "Administrator").FirstOrDefault();
-            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = user.Id, RoleId = administratorRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = new Nullable<Guid>() });
+            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = user.Id, RoleId = administratorRole.Id, CompanyId = company.Id, CustomerId = new Nullable<int>() });
             var customerUser = context.AspNetUsers.Where(e => e.Email == "joel1618+1@gmail.com").FirstOrDefault();
             var customerRole = context.AspNetRoles.Where(e => e.Name == "Customer").FirstOrDefault();
             var customer = context.Customers.Where(e => e.Name == "Customer 1").FirstOrDefault();
-            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = customerUser.Id, RoleId = customerRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = customer.Id });
+            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = customerUser.Id, RoleId = customerRole.Id, CompanyId = company.Id, CustomerId = customer.Id });
             var dataEntryUser = context.AspNetUsers.Where(e => e.Email == "joel1618+2@gmail.com").FirstOrDefault();
             var dataEntryRole = context.AspNetRoles.Where(e => e.Name == "Data Entry").FirstOrDefault();
-            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = dataEntryUser.Id, RoleId = dataEntryRole.Id, CompanyId = company.Id, Id = Guid.NewGuid(), CustomerId = new Nullable<Guid>() });
+            context.AspNetUserRoles.Add(new AspNetUserRole() { UserId = dataEntryUser.Id, RoleId = dataEntryRole.Id, CompanyId = company.Id, CustomerId = new Nullable<int>() });
             context.SaveChanges();
         }
         public void AddCustomers(MerchandiserEntities context)
         {
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Customers.Add(new Customer() { Id = Guid.NewGuid(), Name = "Customer 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Name = "Customer 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Name = "Customer 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Name = "Customer 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Name = "Customer 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Customers.Add(new Customer() { Name = "Customer 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
         }
         public void AddLocations(MerchandiserEntities context)
         {
-            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now, Latitude = (decimal)29.592581, Longitude = (decimal)-98.555577, Address = "107 Shavano Dr, Shavano Park, TX 78231, USA" });
-            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Locations.Add(new Location() { Id = Guid.NewGuid(), Name = "Location 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Locations.Add(new Location() { Name = "Location 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now, Latitude = (decimal)29.592581, Longitude = (decimal)-98.555577, Address = "107 Shavano Dr, Shavano Park, TX 78231, USA" });
+            context.Locations.Add(new Location() { Name = "Location 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Locations.Add(new Location() { Name = "Location 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Locations.Add(new Location() { Name = "Location 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Locations.Add(new Location() { Name = "Location 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
         }
         public void AddProducts(MerchandiserEntities context)
         {
-            context.Products.Add(new Product() { Id = Guid.NewGuid(), Name = "Product 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Products.Add(new Product() { Id = Guid.NewGuid(), Name = "Product 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Products.Add(new Product() { Id = Guid.NewGuid(), Name = "Product 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Products.Add(new Product() { Id = Guid.NewGuid(), Name = "Product 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Products.Add(new Product() { Id = Guid.NewGuid(), Name = "Product 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Products.Add(new Product() { Name = "Product 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Products.Add(new Product() { Name = "Product 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Products.Add(new Product() { Name = "Product 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Products.Add(new Product() { Name = "Product 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Products.Add(new Product() { Name = "Product 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
         }
         public void AddQuestions(MerchandiserEntities context)
         {
-            context.Questions.Add(new Question() { Id = Guid.NewGuid(), Name = "Question 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Questions.Add(new Question() { Id = Guid.NewGuid(), Name = "Question 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Questions.Add(new Question() { Id = Guid.NewGuid(), Name = "Question 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Questions.Add(new Question() { Id = Guid.NewGuid(), Name = "Question 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
-            context.Questions.Add(new Question() { Id = Guid.NewGuid(), Name = "Question 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Questions.Add(new Question() { Name = "Question 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Questions.Add(new Question() { Name = "Question 2", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Questions.Add(new Question() { Name = "Question 3", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Questions.Add(new Question() { Name = "Question 4", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Questions.Add(new Question() { Name = "Question 5", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
         }
         public void AddSurvey(MerchandiserEntities context)
         {
-            context.Surveys.Add(new Survey() { Id = Guid.NewGuid(), Name = "Survey 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
+            context.Surveys.Add(new Survey() { Name = "Survey 1", CompanyId = company.Id, CreatedBy = user.Id, Created = DateTime.Now });
             context.SaveChanges();
             survey = context.Surveys.Where(e => e.Name == "Survey 1").FirstOrDefault();
         }

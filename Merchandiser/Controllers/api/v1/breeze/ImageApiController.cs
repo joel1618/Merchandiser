@@ -18,7 +18,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
     {
         [Route("api/v1/imageapi/GetBeforeImage/{id}")]
         [HttpGet]
-        public HttpResponseMessage GetBeforeImage(Guid id)
+        public HttpResponseMessage GetBeforeImage(int id)
         {
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
             try
@@ -45,7 +45,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
 
         [Route("api/v1/imageapi/GetAfterImage/{id}")]
         [HttpGet]
-        public HttpResponseMessage GetAfterImage(Guid id)
+        public HttpResponseMessage GetAfterImage(int id)
         {
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
             try
@@ -72,7 +72,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
 
         [Route("api/v1/imageapi/CreateBeforeImage/{id}")]
         [HttpPost]
-        public IHttpActionResult CreateBeforeImage(Guid id)
+        public IHttpActionResult CreateBeforeImage(int id)
         {
             var files = HttpContext.Current.Request.InputStream;
             Directory.CreateDirectory(GetBeforeImagePath(id));
@@ -84,7 +84,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
 
         [Route("api/v1/imageapi/CreateAfterImage/{id}")]
         [HttpPost]
-        public IHttpActionResult CreateAfterImage(Guid id)
+        public IHttpActionResult CreateAfterImage(int id)
         {
             var files = HttpContext.Current.Request.InputStream;
             Directory.CreateDirectory(GetAfterImagePath(id));
@@ -96,7 +96,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
 
         [Route("api/v1/imageapi/DeleteBeforeImage/{id}")]
         [HttpDelete]
-        public IHttpActionResult DeleteBeforeImage(Guid id)
+        public IHttpActionResult DeleteBeforeImage(int id)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
 
         [Route("api/v1/imageapi/DeleteAfterImage/{id}")]
         [HttpDelete]
-        public IHttpActionResult DeleteAfterImage(Guid id)
+        public IHttpActionResult DeleteAfterImage(int id)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             }
         }
 
-        private string GetBeforeImagePath(Guid id)
+        private string GetBeforeImagePath(int id)
         {
             byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();
@@ -138,7 +138,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return builder.ToString();
         }
 
-        public string GetAfterImagePath(Guid id)
+        public string GetAfterImagePath(int id)
         {
             byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();

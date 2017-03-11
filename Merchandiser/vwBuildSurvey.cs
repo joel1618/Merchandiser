@@ -15,20 +15,28 @@ namespace Merchandiser
 using System;
     using System.Collections.Generic;
     
-public partial class AspNetUserClaim
+public partial class vwBuildSurvey
 {
 
-    public int Id { get; set; }
+    public int CompanyId { get; set; }
 
-    public string UserId { get; set; }
+    public Nullable<int> CustomerId { get; set; }
 
-    public string ClaimType { get; set; }
+    public string CustomerName { get; set; }
 
-    public string ClaimValue { get; set; }
+    public Nullable<int> LocationId { get; set; }
 
+    public string LocationName { get; set; }
 
+    public Nullable<int> ProductId { get; set; }
 
-    public virtual AspNetUser AspNetUser { get; set; }
+    public string ProductName { get; set; }
+
+    public Nullable<int> QuestionId { get; set; }
+
+    public string QuestionName { get; set; }
+
+    public Nullable<int> SurveyId { get; set; }
 
 }
 

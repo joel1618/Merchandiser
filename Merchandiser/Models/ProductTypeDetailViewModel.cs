@@ -7,9 +7,9 @@ namespace Merchandiser.Models
 {
     public class ProductTypeDetailViewModel
     {
-        public System.Guid Id { get; set; }
-        public System.Guid CompanyId { get; set; }
-        public System.Guid ProductTypeHeaderId { get; set; }
+        public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public int ProductTypeHeaderId { get; set; }
         public string Name { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }

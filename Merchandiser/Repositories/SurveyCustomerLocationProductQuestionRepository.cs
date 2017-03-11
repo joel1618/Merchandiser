@@ -18,7 +18,7 @@ namespace Merchandiser.Repositories
             return context.SurveyCustomerLocationProductQuestions;
         }
 
-        public SurveyCustomerLocationProductQuestion Get(Guid id)
+        public SurveyCustomerLocationProductQuestion Get(int id)
         {
             return context.SurveyCustomerLocationProductQuestions.Find(id);
         }
@@ -26,7 +26,6 @@ namespace Merchandiser.Repositories
         public SurveyCustomerLocationProductQuestion Create(SurveyCustomerLocationProductQuestion item)
         {
             var record = new SurveyCustomerLocationProductQuestion();
-            record.Id = Guid.NewGuid();
             record.SurveyId = item.SurveyId;
             record.CustomerId = item.CustomerId;
             record.LocationId = item.LocationId;
@@ -40,7 +39,7 @@ namespace Merchandiser.Repositories
             return record;
         }
 
-        public SurveyCustomerLocationProductQuestion Update(Guid id, SurveyCustomerLocationProductQuestion item)
+        public SurveyCustomerLocationProductQuestion Update(int id, SurveyCustomerLocationProductQuestion item)
         {
             var entity = context.SurveyCustomerLocationProductQuestions.Find(id);
             entity.Modified = DateTime.UtcNow;
@@ -53,7 +52,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

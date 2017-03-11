@@ -19,21 +19,20 @@ namespace Merchandiser.Repositories
             return context.ProductCategories;
         }
 
-        public ProductCategory Get(Guid id)
+        public ProductCategory Get(int id)
         {
             return context.ProductCategories.Find(id);
         }
 
         public ProductCategory Create(ProductCategory item)
         {
-            item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             context.ProductCategories.Add(item);
             context.SaveChanges();
             return item;
         }
 
-        public ProductCategory Update(Guid id, ProductCategory item)
+        public ProductCategory Update(int id, ProductCategory item)
         {
             var entity = context.ProductCategories.Find(id);
             entity.Name = item.Name;
@@ -42,7 +41,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

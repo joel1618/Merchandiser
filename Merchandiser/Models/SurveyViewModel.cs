@@ -9,9 +9,9 @@ namespace Merchandiser.Models
     public class SurveyViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public string Name { get; set; }
         public bool IsNoteRequired { get; set; }
 

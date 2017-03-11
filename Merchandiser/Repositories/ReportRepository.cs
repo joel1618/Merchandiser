@@ -16,8 +16,8 @@ namespace Merchandiser.Repositories
             this.context = new MerchandiserEntities();
         }
 
-        public List<Dictionary<string, object>> Search(Guid companyId, Guid? surveyHeaderId, Guid? customerId, 
-            Guid? locationId, Guid? productId, Guid? surveyId, string userId, 
+        public List<Dictionary<string, object>> Search(int companyId, int? surveyHeaderId, int? customerId,
+            int? locationId, int? productId, int? surveyId, string userId, 
             DateTime startDate, DateTime endDate, int page, int pageSize)
         {
             using (var cmd = context.Database.Connection.CreateCommand())
@@ -37,32 +37,32 @@ namespace Merchandiser.Repositories
 					left join AspNetUsers on SurveyHeader.CreatedBy = AspNetUsers.Id
 					left join AspNetUsersInfo on AspNetUsers.Id = AspNetUsersInfo.UserId
                     where 
-                    Company.Id = CONVERT(uniqueidentifier,'" + companyId + @"')
+                    Company.Id = CONVERT(int,'" + companyId + @"')
                     AND SurveyHeader.Created >= '" + startDate + @"'
                     AND SurveyHeader.Created <= '" + endDate + @"'";
                 if (surveyHeaderId != null)
                 {
-                    cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(uniqueidentifier,'" + surveyHeaderId + @"'))";
+                    cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(int,'" + surveyHeaderId + @"'))";
                 }
                 if (customerId != null)
                 {
-                    cmd.CommandText += @"AND (Customer.Id = CONVERT(uniqueidentifier,'" + customerId + @"'))";
+                    cmd.CommandText += @"AND (Customer.Id = CONVERT(int,'" + customerId + @"'))";
                 }
                 if (locationId != null)
                 {
-                    cmd.CommandText += @"AND (Location.Id = CONVERT(uniqueidentifier,'" + locationId + @"'))";
+                    cmd.CommandText += @"AND (Location.Id = CONVERT(int,'" + locationId + @"'))";
                 }
                 if (productId != null)
                 {
-                    cmd.CommandText += @"AND (Product.Id = CONVERT(uniqueidentifier,'" + productId + @"'))";
+                    cmd.CommandText += @"AND (Product.Id = CONVERT(int,'" + productId + @"'))";
                 }
                 if (surveyId != null)
                 {
-                    cmd.CommandText += @"AND (Survey.Id = CONVERT(uniqueidentifier,'" + surveyId + @"'))";
+                    cmd.CommandText += @"AND (Survey.Id = CONVERT(int,'" + surveyId + @"'))";
                 }
                 if (userId != null)
                 {
-                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(uniqueidentifier,'" + userId + @"'))";
+                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(int,'" + userId + @"'))";
                 }
                 cmd.CommandText += @"
                      FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '')
@@ -107,32 +107,32 @@ namespace Merchandiser.Repositories
 					left join AspNetUsers on SurveyHeader.CreatedBy = AspNetUsers.Id
 					left join AspNetUsersInfo on AspNetUsers.Id = AspNetUsersInfo.UserId
                     where 
-                    Company.Id = CONVERT(uniqueidentifier,''" + companyId + @"'')
+                    Company.Id = CONVERT(int,''" + companyId + @"'')
                     AND SurveyHeader.Created >= ''" + startDate + @"''
                     AND SurveyHeader.Created <= ''" + endDate + @"''";
                 if (surveyHeaderId != null)
                 {
-                    cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(uniqueidentifier,''" + surveyHeaderId + @"''))";
+                    cmd.CommandText += @"AND (SurveyHeader.Id = CONVERT(int,''" + surveyHeaderId + @"''))";
                 }
                 if(customerId != null)
                 {
-                    cmd.CommandText += @"AND (Customer.Id = CONVERT(uniqueidentifier,''" + customerId + @"''))";
+                    cmd.CommandText += @"AND (Customer.Id = CONVERT(int,''" + customerId + @"''))";
                 }
                 if (locationId != null)
                 {
-                    cmd.CommandText += @"AND (Location.Id = CONVERT(uniqueidentifier,''" + locationId + @"''))";
+                    cmd.CommandText += @"AND (Location.Id = CONVERT(int,''" + locationId + @"''))";
                 }
                 if (productId != null)
                 {
-                    cmd.CommandText += @"AND (Product.Id = CONVERT(uniqueidentifier,''" + productId + @"''))";
+                    cmd.CommandText += @"AND (Product.Id = CONVERT(int,''" + productId + @"''))";
                 }
                 if (surveyId != null)
                 {
-                    cmd.CommandText += @"AND (Survey.Id = CONVERT(uniqueidentifier,''" + surveyId + @"''))";
+                    cmd.CommandText += @"AND (Survey.Id = CONVERT(int,''" + surveyId + @"''))";
                 }
                 if (userId != null)
                 {
-                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(uniqueidentifier,''" + userId + @"''))";
+                    cmd.CommandText += @"AND (AspNetUsers.Id = CONVERT(int,''" + userId + @"''))";
                 }
                 cmd.CommandText += @"
                     ) s

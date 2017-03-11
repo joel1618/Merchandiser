@@ -9,7 +9,7 @@ namespace Merchandiser.Models
     public class CompanyViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }

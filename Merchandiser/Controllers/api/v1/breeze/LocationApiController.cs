@@ -24,7 +24,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<LocationViewModel> Search(Guid companyId)
+        public IQueryable<LocationViewModel> Search(int companyId)
         {
             var userId = User.Identity.GetUserId();
             var response = locationRepository.Search().FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new LocationViewModel()
@@ -46,7 +46,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public LocationViewModel Get(Guid id)
+        public LocationViewModel Get(int id)
         {
             return locationRepository.Get(id).ToViewModel();
         }
@@ -65,7 +65,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public IHttpActionResult Update(Guid id, LocationViewModel item)
+        public IHttpActionResult Update(int id, LocationViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
             var record = locationRepository.Search().Where(e => e.CompanyId == item.CompanyId && e.Name == item.Name && e.Id != item.Id).FirstOrDefault();
@@ -78,7 +78,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             locationRepository.Delete(id);
         }

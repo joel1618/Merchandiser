@@ -26,7 +26,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<SurveyDetailViewModel> Search(Guid companyId)
+        public IQueryable<SurveyDetailViewModel> Search(int companyId)
         {
             var userId = User.Identity.GetUserId();
             return repository.Search().FilterAllByUserAndCompany(userId, companyId, "CreatedBy", "CompanyId", null, userRoleRepository).Select(x => new SurveyDetailViewModel()
@@ -53,12 +53,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Name = x.ProductTypeDetail.Name                    
                 },
-                ProductTypeDetailId = x.ProductTypeDetail != null ? x.ProductTypeDetail.Id : new Nullable<Guid>()
+                ProductTypeDetailId = x.ProductTypeDetail != null ? x.ProductTypeDetail.Id : new Nullable<int>()
             });
         }
 
         [HttpGet]
-        public SurveyDetailViewModel Get(Guid id)
+        public SurveyDetailViewModel Get(int id)
         {
             return repository.Get(id).ToViewModel();
         }
@@ -71,14 +71,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public SurveyDetailViewModel Update(Guid id, SurveyDetailViewModel item)
+        public SurveyDetailViewModel Update(int id, SurveyDetailViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
             return repository.Update(id, item.ToEntity()).ToViewModel();
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             repository.Delete(id);
         }

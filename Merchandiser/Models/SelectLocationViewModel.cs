@@ -7,11 +7,11 @@ namespace Merchandiser.Models
 {
     public class SelectLocationViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public Guid? CustomerId { get; set; }
+        public int? CustomerId { get; set; }
 
-        public Guid? CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public string Name { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }

@@ -20,14 +20,13 @@ namespace Merchandiser.Repositories
             return context.Products;
         }
 
-        public Product Get(Guid id)
+        public Product Get(int id)
         {
             return context.Products.Find(id);
         }
 
         public Product Create(Product item)
         {
-            item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             item.ProductCategory = null;
             item.ProductTypeHeader = null;
@@ -37,7 +36,7 @@ namespace Merchandiser.Repositories
 
         }
 
-        public Product Update(Guid id, Product item)
+        public Product Update(int id, Product item)
         {
             var entity = context.Products.Find(id);
             entity.Name = item.Name;
@@ -48,7 +47,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

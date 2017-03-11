@@ -19,21 +19,20 @@ namespace Merchandiser.Repositories
             return context.Customers;
         }
 
-        public Customer Get(Guid id)
+        public Customer Get(int id)
         {
             return context.Customers.Find(id);
         }
 
         public Customer Create(Customer item)
         {
-            item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             context.Customers.Add(item);
             context.SaveChanges();
             return item;
         }
 
-        public Customer Update(Guid id, Customer item)
+        public Customer Update(int id, Customer item)
         {
             var entity = context.Customers.Find(id);
             entity.Name = item.Name;
@@ -44,7 +43,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

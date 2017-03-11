@@ -9,17 +9,17 @@ namespace Merchandiser.Models
     public class SurveyDetailViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
         [Required]
-        public Guid SurveyHeaderId { get; set; }
+        public int SurveyHeaderId { get; set; }
         [Required]
-        public Guid ProductId { get; set; }
+        public int ProductId { get; set; }
         [Required]
-        public Guid QuestionId { get; set; }
+        public int QuestionId { get; set; }
 
-        public Guid? ProductTypeDetailId { get; set; }
+        public int? ProductTypeDetailId { get; set; }
         public string Answer { get; set; }
         public DateTime Modifed { get; set; }
         public DateTime Created { get; set; }

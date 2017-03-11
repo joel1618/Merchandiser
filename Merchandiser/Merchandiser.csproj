@@ -427,6 +427,9 @@
     <Compile Include="SurveyHeader.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="vwBuildSurvey.cs">
+      <DependentUpon>DatabaseModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\ApplicationComponents\Administrator\Company\Controllers\CompanyAddEditController.js" />
@@ -453,6 +456,8 @@
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Controllers\ProductTypeHeaderController.js" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeader.html" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeaderAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Controllers\SurveyCustomerLocationProductQuestionController2.js" />
+    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Views\SurveyCustomerLocationProductQuestion2.html" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Views\SurveyCustomerLocationProductQuestion.html" />
@@ -2265,8 +2270,6 @@
     <Content Include="Template\vendor\font-awesome\scss\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Controllers\" />
-    <Folder Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Views\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />

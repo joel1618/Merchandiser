@@ -7,7 +7,7 @@ namespace Merchandiser.Models
 {
     public class SelectUserViewModel
     {
-        public System.Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public string Id { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }

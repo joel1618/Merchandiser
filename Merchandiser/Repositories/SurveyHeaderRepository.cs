@@ -18,7 +18,7 @@ namespace Merchandiser.Repositories
             return context.SurveyHeaders;
         }
 
-        public SurveyHeader Get(Guid id)
+        public SurveyHeader Get(int id)
         {
             return context.SurveyHeaders.Find(id);
         }
@@ -31,7 +31,7 @@ namespace Merchandiser.Repositories
             return item;
         }
 
-        public SurveyHeader Update(Guid id, SurveyHeader item)
+        public SurveyHeader Update(int id, SurveyHeader item)
         {
             var entity = context.SurveyHeaders.Find(id);
             entity.IsReviewed = item.IsReviewed;
@@ -43,7 +43,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

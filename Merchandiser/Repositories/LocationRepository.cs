@@ -19,21 +19,20 @@ namespace Merchandiser.Repositories
             return context.Locations;
         }
 
-        public Location Get(Guid id)
+        public Location Get(int id)
         {
             return context.Locations.Find(id);
         }
 
         public Location Create(Location item)
         {
-            item.Id = Guid.NewGuid();
             item.Created = DateTime.UtcNow;
             context.Locations.Add(item);
             context.SaveChanges();
             return item;
         }
 
-        public Location Update(Guid id, Location item)
+        public Location Update(int id, Location item)
         {
             var entity = context.Locations.Find(id);
             entity.Name = item.Name;
@@ -51,7 +50,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

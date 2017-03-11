@@ -7,11 +7,11 @@ namespace Merchandiser.Models
 {
     public class SelectSurveyViewModel
     {
-        public Guid Id { get; set; }
-        public Guid? CustomerId { get; set; }
+        public int Id { get; set; }
+        public int? CustomerId { get; set; }
 
-        public Guid? CompanyId { get; set; }
-        public Guid? LocationId { get; set; }
+        public int? CompanyId { get; set; }
+        public int? LocationId { get; set; }
         public string Name { get; set; }
         public DateTime? SurveyCreated { get; set; }
     }

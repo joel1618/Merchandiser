@@ -45,7 +45,7 @@ namespace Merchandiser.ControllerHelpers
         }
 
         public static IQueryable<T> FilterAllByUserAndCompany<T>(this IQueryable<T> query, 
-            string userId, Guid companyId, string userFieldName, string companyFieldName, string customerFieldName, 
+            string userId, int companyId, string userFieldName, string companyFieldName, string customerFieldName, 
             UserRoleRepository userRoleRepository)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "object");
@@ -92,7 +92,7 @@ namespace Merchandiser.ControllerHelpers
             return query;
         }
 
-        public static bool IsAdministrator(string userId, Guid companyId, RoleRepository roleRepository, UserRoleRepository userRoleRepository)
+        public static bool IsAdministrator(string userId, int companyId, RoleRepository roleRepository, UserRoleRepository userRoleRepository)
         {
             var adminRole = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();
             var userRoles = userRoleRepository.Search().Where(e => e.UserId == userId && e.RoleId == adminRole.Id && e.CompanyId == companyId);

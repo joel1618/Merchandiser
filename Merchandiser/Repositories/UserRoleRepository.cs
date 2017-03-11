@@ -21,14 +21,13 @@ namespace Merchandiser.Repositories
             return context.AspNetUserRoles;
         }
 
-        public AspNetUserRole Get(Guid id)
+        public AspNetUserRole Get(int id)
         {
             return context.AspNetUserRoles.Find(id);
         }
 
         public AspNetUserRole Create(AspNetUserRole item)
         {
-            item.Id = Guid.NewGuid();
             item.Company = context.Companies.Find(item.CompanyId);
             item.Customer = context.Customers.Find(item.CustomerId);
             item.AspNetRole = context.AspNetRoles.Find(item.RoleId);
@@ -38,7 +37,7 @@ namespace Merchandiser.Repositories
             return item;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

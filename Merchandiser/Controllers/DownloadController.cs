@@ -29,8 +29,8 @@ namespace Merchandiser.Controllers.api.v1
         }
 
 
-        public FileResult DownloadSurveyData(Guid? companyId, Guid? surveyHeaderId, Guid? customerId, 
-            Guid? locationId, Guid? productId, Guid? surveyId, DateTime startDate, DateTime endDate)
+        public FileResult DownloadSurveyData(int? companyId, int? surveyHeaderId, int? customerId, 
+            int? locationId, int? productId, int? surveyId, DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
             using (MemoryStream stream = new MemoryStream())
@@ -63,8 +63,8 @@ namespace Merchandiser.Controllers.api.v1
             return File(array, "text/csv", "SurveyDataExport.csv");
         }
         
-        public FileResult DownloadNoteData(Guid companyId, Guid? surveyHeaderId, Guid? customerId,
-        Guid? locationId, Guid? productId, Guid? surveyId, DateTime startDate, DateTime endDate)
+        public FileResult DownloadNoteData(int companyId, int? surveyHeaderId, int? customerId,
+        int? locationId, int? productId, int? surveyId, DateTime startDate, DateTime endDate)
         {
             byte[] array = null;
             string[] excludeColumns = new string[] { "LocationId", "SurveyId", "CompanyId", "CustomerId" };

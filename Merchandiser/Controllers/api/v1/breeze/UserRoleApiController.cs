@@ -70,7 +70,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public UserRoleViewModel Get(Guid id)
+        public UserRoleViewModel Get(int id)
         {
             var item = repository.Get(id);
             var user = userManager.FindById(item.UserId);
@@ -102,7 +102,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete(Guid id)
+        public IHttpActionResult Delete(int id)
         {
             var userRoleToDelete = repository.Get(id);
             var adminRole = roleRepository.Search().Where(e => e.Name == "Administrator").FirstOrDefault();

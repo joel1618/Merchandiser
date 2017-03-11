@@ -59,7 +59,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public CompanyViewModel Get(Guid id)
+        public CompanyViewModel Get(int id)
         {
             return companyRepository.Get(id).ToViewModel();
         }
@@ -86,7 +86,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public IHttpActionResult Update(Guid id, CompanyViewModel item)
+        public IHttpActionResult Update(int id, CompanyViewModel item)
         {
             var record = companyRepository.Search().Where(e => e.CreatedBy == userId && e.Name == item.Name && e.Id != item.Id).FirstOrDefault();
             if (record != null)
@@ -99,7 +99,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             companyRepository.Delete(id);
         }

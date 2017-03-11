@@ -7,13 +7,13 @@ namespace Merchandiser.Models
 {
     public class SurveyCustomerLocationProductQuestionViewModel
     {
-        public System.Guid Id { get; set; }
-        public System.Guid CompanyId { get; set; }
-        public System.Guid SurveyId { get; set; }
-        public System.Guid CustomerId { get; set; }
-        public System.Guid LocationId { get; set; }
-        public System.Guid ProductId { get; set; }
-        public System.Guid QuestionId { get; set; }
+        public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public int SurveyId { get; set; }
+        public int CustomerId { get; set; }
+        public int LocationId { get; set; }
+        public int ProductId { get; set; }
+        public int QuestionId { get; set; }
         public int RowOrder { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
         public string ModifiedBy { get; set; }

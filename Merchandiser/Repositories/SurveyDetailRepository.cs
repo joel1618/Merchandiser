@@ -18,21 +18,20 @@ namespace Merchandiser.Repositories
             return context.SurveyDetails;
         }
 
-        public SurveyDetail Get(Guid id)
+        public SurveyDetail Get(int id)
         {
             return context.SurveyDetails.Find(id);
         }
 
         public SurveyDetail Create(SurveyDetail item)
         {
-            item.Id = Guid.NewGuid();
             item.Modified = new Nullable<DateTime>();
             item.Created = DateTime.UtcNow;
             context.SurveyDetails.Add(item);
             return item;
         }
 
-        public SurveyDetail Update(Guid id, SurveyDetail item)
+        public SurveyDetail Update(int id, SurveyDetail item)
         {
             var entity = context.SurveyDetails.Find(id);
             entity.Answer = item.Answer;
@@ -40,7 +39,7 @@ namespace Merchandiser.Repositories
             return entity;
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var item = Get(id);
             if (item != null)

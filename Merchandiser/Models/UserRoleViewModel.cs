@@ -7,11 +7,11 @@ namespace Merchandiser.Models
 {
     public class UserRoleViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
         public string RoleId { get; set; }
-        public Guid CompanyId { get; set; }
-        public Guid? CustomerId { get; set; }
+        public int CompanyId { get; set; }
+        public int? CustomerId { get; set; }
 
         public virtual UserViewModel User {get; set;}
         public virtual RoleViewModel Role { get; set; }

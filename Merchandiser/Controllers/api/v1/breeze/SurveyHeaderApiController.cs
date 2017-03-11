@@ -35,7 +35,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<SurveyHeaderViewModel> Search(Guid companyId)
+        public IQueryable<SurveyHeaderViewModel> Search(int companyId)
         {
             var userId = User.Identity.GetUserId();
             var response = repository.Search().FilterAllByUserAndCompany(userId, companyId, "CreatedBy", "CompanyId", "CustomerId", userRoleRepository).Select(x => new SurveyHeaderViewModel()
@@ -107,7 +107,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public SurveyHeaderViewModel Get(Guid id)
+        public SurveyHeaderViewModel Get(int id)
         {
             return repository.Get(id).ToViewModel();
         }
@@ -133,8 +133,6 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 }
             }
 
-            var id = Guid.NewGuid();
-            item.Header.Id = id;
             item.Header.CreatedBy = User.Identity.GetUserId();
             if (item.Header.IsReviewed)
             {
@@ -144,7 +142,6 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var response = repository.Create(item.Header.ToEntity()).ToViewModel();
             foreach (var detail in item.Details)
             {
-                detail.SurveyHeaderId = id;
                 detail.CreatedBy = User.Identity.GetUserId();
                 detailRepository.Create(detail.ToEntity()).ToViewModel();
             }
@@ -153,7 +150,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public SurveyHeaderViewModel Update(Guid id, SurveyHeaderViewModel item)
+        public SurveyHeaderViewModel Update(int id, SurveyHeaderViewModel item)
         {
             item.ModifiedBy = User.Identity.GetUserId();
             var response = repository.Update(id, item.ToEntity()).ToViewModel();
@@ -162,7 +159,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateBulk([FromUri()]Guid id, [FromBody()]SurveyHeaderDetailViewModel item)
+        public IHttpActionResult UpdateBulk([FromUri()]int id, [FromBody()]SurveyHeaderDetailViewModel item)
         {
             //Validate that survey is editable if not an admin.
             var userId = User.Identity.GetUserId();
@@ -207,7 +204,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             repository.Delete(id);
             imageApiController.DeleteBeforeImage(id);
@@ -216,7 +213,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteBulk(Guid id)
+        public IHttpActionResult DeleteBulk(int id)
         {
             //Validate that survey is deletable if not an admin.
             var userId = User.Identity.GetUserId();

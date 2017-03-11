@@ -18,7 +18,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<SelectLocationViewModel> Search(Guid companyId)
+        public IQueryable<SelectLocationViewModel> Search(int companyId)
         {
             var response = context.SelectLocations.Where(e => e.CompanyId == companyId).Select(x => new SelectLocationViewModel()
             {

@@ -19,7 +19,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
         }
 
         [HttpGet]
-        public IQueryable<SelectCustomerLocationProductQuestionViewModel> Search(Guid companyId)
+        public IQueryable<SelectCustomerLocationProductQuestionViewModel> Search(int companyId)
         {
             var response =
             from sclpq in context.SurveyCustomerLocationProductQuestions
@@ -33,7 +33,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 CustomerId = sclpq.CustomerId,
                 LocationId = sclpq.LocationId,
                 ProductId = sclpq.ProductId,
-                ProductTypeDetailId = productTypeDetail != null ? productTypeDetail.Id : new Nullable<Guid>(),
+                ProductTypeDetailId = productTypeDetail != null ? productTypeDetail.Id : new Nullable<int>(),
                 Company = new CompanyViewModel()
                 {
                     Id = sclpq.Company.Id,

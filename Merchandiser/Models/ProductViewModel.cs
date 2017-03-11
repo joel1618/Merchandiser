@@ -9,11 +9,11 @@ namespace Merchandiser.Models
     public class ProductViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public Guid CompanyId { get; set; }
-        public Guid? ProductCategoryId { get; set; }
-        public Guid? ProductTypeHeaderId { get; set; }
+        public int CompanyId { get; set; }
+        public int? ProductCategoryId { get; set; }
+        public int? ProductTypeHeaderId { get; set; }
         public string Name { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
