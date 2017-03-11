@@ -4,6 +4,11 @@
     background-color:#ffffff;
 }
 
+/* http://stackoverflow.com/questions/42100246/angular-ui-grid-scroll-error */
+.ui-grid-viewport {
+    overflow-anchor: none;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

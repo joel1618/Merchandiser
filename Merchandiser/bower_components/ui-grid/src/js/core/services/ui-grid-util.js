@@ -910,7 +910,7 @@ module.service('gridUtil', ['$log', '$window', '$document', '$http', '$templateC
         e = elem[0];
       }
 
-      if (e) {
+      if (e && e !== null) {
         var styles = getStyles(e);
         return e.offsetWidth === 0 && rdisplayswap.test(styles.display) ?
                   s.swap(e, cssShow, function() {
@@ -1278,6 +1278,11 @@ module.service('gridUtil', ['$log', '$window', '$document', '$http', '$templateC
     for ( var i = mouseWheeltoBind.length; i; ) {
       $elm.on(mouseWheeltoBind[--i], cbs[fn]);
     }
+    $elm.on('$destroy', function unbindEvents() {
+      for ( var i = mouseWheeltoBind.length; i; ) {
+        $elm.off(mouseWheeltoBind[--i], cbs[fn]);
+      }
+    });
   };
   s.off.mousewheel = function (elm, fn) {
     var $elm = angular.element(elm);

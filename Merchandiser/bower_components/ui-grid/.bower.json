@@ -1,6 +1,6 @@
 {
   "name": "angular-ui-grid",
-  "version": "3.2.1",
+  "version": "4.0.2",
   "homepage": "http://ui-grid.info",
   "repository": {
     "type": "git",
@@ -33,13 +33,13 @@
     "pdfmake": "~0.1.8",
     "csv-js": "https://github.com/c0bra/CSV-JS.git#~1.0.2"
   },
-  "_release": "3.2.1",
+  "_release": "4.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v3.2.1",
-    "commit": "848c73dc54a961ae7d951fd2d73e3a6be81451b7"
+    "tag": "v4.0.2",
+    "commit": "756df76e34a506c27bbcbbcb4dca9855855e917d"
   },
   "_source": "https://github.com/angular-ui/ng-grid.git",
-  "_target": "3.2.1",
+  "_target": "4.0.2",
   "_originalSource": "ui-grid"
 }

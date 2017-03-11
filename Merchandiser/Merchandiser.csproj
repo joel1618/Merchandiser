@@ -2265,6 +2265,8 @@
     <Content Include="Template\vendor\font-awesome\scss\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Controllers\" />
+    <Folder Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Views\" />
     <Folder Include="App_Data\" />
     <Folder Include="bower_components\pdfmake\libs\FileSaver.js\" />
     <Folder Include="bower_components\ui-router\release\" />
