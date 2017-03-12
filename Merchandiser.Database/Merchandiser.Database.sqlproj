@@ -88,6 +88,7 @@
     <Build Include="dbo\Views\SelectUser.sql" />
     <Build Include="dbo\Tables\ProductTypeHeader.sql" />
     <Build Include="dbo\Tables\ProductTypeDetail.sql" />
+    <Build Include="dbo\Views\vwBuildSurvey.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Merchandiser.Database.refactorlog" />
