@@ -3,142 +3,206 @@
     angular.module('Main').config(function ($stateProvider) {
         $stateProvider
         .state('main.admin.surveycustomerlocationproductquestion2', {
-            url: "/survey/surveycustomerlocationproductquestion2",
+            url: "/survey/customerlocationproductquestion2",
             templateUrl: "ApplicationComponents/Administrator/SurveyCustomerLocationProductQuestion2/Views/SurveyCustomerLocationProductQuestion2.html"
         })
     });
     angular.module('Main').controller('SurveyCustomerLocationProductQuestionController2', ['$scope', '$state', '$routeParams', 'uiGridConstants',
         '$http', '$q', '$location', '$timeout', 'breezeservice', 'breeze', 'SurveyCustomerLocationProductQuestionService',
-        'SelectionApplicationService', 'BuildSurveyService',
+        'SelectionApplicationService',
     function controller($scope, $state, $routeParams, uiGridConstants,
     $http, $q, $location, $timeout, breezeservice, breeze, SurveyCustomerLocationProductQuestionService,
-        SelectionApplicationService, BuildSurveyService) {
-
-        $scope.SelectedCustomer = null;
-        $scope.SelectedLocation = null;
-        $scope.SelectedProduct = null;
-        $scope.SelectedQuestion = null;
-
+        SelectionApplicationService) {
+        $scope.Page = 0;
+        var predicate = {
+            and: [
+                { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } }
+            ]
+        }
+        var sort = ["RowOrder asc"];
         $scope.Search = function () {
-            $scope.SearchCustomer();
-            $scope.SearchLocation();
-            $scope.SearchProduct();
-            $scope.SearchQuestion();
+            SurveyCustomerLocationProductQuestionService.Search(predicate, sort, 0, 100, false).then(function (data) {
+                $scope.data = data.Results;
+                $scope.gridApi.infiniteScroll.dataLoaded(false, data.InlineCount);
+            });
+        }
+        $scope.gridOptions = {
+            useExternalSorting: true,
+            useExternalFiltering: true,
+            showGridFooter: true,
+            enableFiltering: true,
+            enableSorting: true,
+            data: 'data',
+            columnDefs: [
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { field: 'Customer.Name', name: 'Customer Name', cellTooltip: true },
+                { field: 'Location.Name', name: 'Location Name', cellTooltip: true },
+                { field: 'Product.Name', name: 'Product Name', cellTooltip: true },
+                { field: 'Question.Name', name: 'Question Name', cellTooltip: true },
+                { field: 'RowOrder', width: '120', name: 'Order', cellTooltip: true }
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.draggableRows.on.rowDropped($scope, function (info, dropTarget) {
+                    //$scope.Reorder();
+                });
+                gridApi.core.on.filterChanged($scope, function (column) {
+                    var grid = this.grid;
+                    if (angular.isDefined($scope.filterTimeout)) {
+                        $timeout.cancel($scope.filterTimeout);
+                    }
+                    $scope.filterTimeout = $timeout(function () {
+                        $scope.filterChanged(grid.columns);
+                    }, 1000);
+                });
+
+                gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
+                    $scope.sortChanged(sortColumns);
+                });
+
+                gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.GetDataDown);
+            },
+            rowTemplate: '<div grid="grid" class="ui-grid-draggable-row" draggable="true"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader, \'custom\': true }" ui-grid-cell></div></div>',
+        };
+        $scope.Search();
+
+        $scope.filterChanged = function (gridColumns) {
+            var equalsColumns = ["RowOrder"];
+            predicate.and.length = 1;
+            $scope.data = [];
+            $scope.Page = 0;
+            angular.forEach(gridColumns, function (column) {
+                if (typeof column.filters !== 'undefined' && column.filters !== null &&
+                        column.filters.length > 0 && column.filters[0].term != null && column.filters[0].term.trim().length > 0) {
+
+                    var operandName = "contains"; var fieldName = column.field; var termName = column.filters[0].term;
+                    if (equalsColumns.indexOf(column.field) != -1) {
+                        operandName = "==";
+                    }
+                    var filter = {};
+                    var field = {}
+                    field[operandName] = termName;
+                    filter[fieldName] = field;
+                    predicate.and.push(filter);
+                }
+            });
+            $scope.Search();
         }
 
-        $scope.SearchCustomer = function () {
-            var predicate = {
-                and: [
-                    {
-                        or: [
-                           { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
-                           { "SurveyId": { "==": null } }
-                        ]
-                    },
-                    { "CustomerId": { "!=": null } }
-                ]
+        $scope.sortChanged = function (sortColumns) {
+            sort.length = 0;
+            $scope.data = [];
+            $scope.Page = 0;
+            if (sortColumns.length > 0) {
+                angular.forEach(sortColumns, function (column) {
+                    if (column.sort.direction == uiGridConstants.DESC) {
+                        sort.push(column.field + " desc");
+                    }
+                    else {
+                        sort.push(column.field + " asc");
+                    }
+                });
+            }
+            else {
+                sort = ["RowOrder asc"];
             }
 
-            var sort = ["CustomerCreated desc"];
-            BuildSurveyService.Search(predicate, sort, 0, 100, false).then(function (data) {
-                $scope.Customers = data;
+            $scope.Search();
+        };
+
+        $scope.GetDataDown = function () {
+            $scope.Page++;
+            SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created desc"], $scope.Page, 100, false).then(function (data) {
+                $scope.gridApi.infiniteScroll.saveScrollPercentage();
+                $scope.data = $scope.data.concat(data.Results);
+                $scope.gridApi.infiniteScroll.dataLoaded(false, $scope.isMoreData(data.InlineCount));
             });
         }
 
-        $scope.SearchLocation = function () {
-            var predicate = {
-                and: [
-                    {
-                        or: [
-                           { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
-                           { "SurveyId": { "==": null } }
-                        ]
-                    },
-                    { "LocationId": { "!=": null } }
-                ]
+        $scope.isMoreData = function (count) {
+            if (count > $scope.data.length) {
+                return true;
             }
-            var sort = ["LocationCreated desc"];
-            BuildSurveyService.Search(predicate, sort, 0, 100, false).then(function (data) {
-                $scope.Locations = data;
+            return false;
+        }
+
+        $scope.Edit = function (row) {
+            $state.go('main.admin.surveycustomerlocationproductquestion.addedit', { id: row.Id }, { reload: false });
+        }
+
+        //TODO: Reorder button.  Don't do on drop.  
+        $scope.Reorder = function () {
+            //validate
+            if (!$scope.ValidateForOrdering()) {
+                return;
+            }
+            //reorder
+            var promises = [], promise = {};
+            for (var i = 0; i < $scope.data.length; i++) {
+                var row = $scope.data[i];
+                row.RowOrder = i
+                var promise = SurveyCustomerLocationProductQuestionService.Update(row.Id, row).then(function (data) {
+                }, function (error) {
+                    toastr.error(error.data, error.statusText);
+                });
+                promises.push(promise);
+            }
+            $q.all(promises).then(function () {
+                $scope.Search();
             });
         }
 
-        $scope.SearchProduct = function () {
-            var predicate = {
-                and: [
-                    {
-                        or: [
-                           { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
-                           { "SurveyId": { "==": null } }
-                        ]
-                    },
-                    { "ProductId": { "!=": null } }
-                ]
+        $scope.ReorderAll = function () {
+            //validate
+            if (!$scope.ValidateForOrdering()) {
+                return;
             }
-            var sort = ["ProductCreated desc"];
-            BuildSurveyService.Search(predicate, sort, 0, 100, false).then(function (data) {
-                $scope.Products = data;
+            var promise = {}, promises = [];
+            angular.forEach($scope.data, function (item, index) {
+                var predicate = {
+                    and: [
+                        { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
+                        { "ProductId": { "==": item.ProductId } },
+                        { "QuestionId": { "==": item.QuestionId } }
+                    ]
+                }
+                promise = SurveyCustomerLocationProductQuestionService.Search(predicate, ["Created asc"], 0, 100, false).then(function (data) {
+                    for (var j = 0; j < data.Results.length; j++) {
+                        var row = data.Results[j];
+                        row.RowOrder = index;
+                        SurveyCustomerLocationProductQuestionService.Update(row.Id, row).then(function (data) {
+
+                        });
+                    }
+                });
+                promises.push(promise);
+                $q.all(promises).then(function () {
+                    $scope.Search();
+                })
             });
         }
 
-        $scope.SearchQuestion = function () {
-            var predicate = {
-                and: [
-                    {
-                        or: [
-                           { "SurveyId": { "==": SelectionApplicationService.GetSurveyId() } },
-                           { "SurveyId": { "==": null } }
-                        ]
-                    },
-                    { "QuestionId": { "!=": null } }
-                ]
+        $scope.ValidateForOrdering = function () {
+            var customer = $scope.data[0].CustomerId;
+            var location = $scope.data[0].LocationId;
+            for (var i = 0; i < $scope.data.length; i++) {
+                if (customer != $scope.data[i].CustomerId) {
+                    toastr.error("The grouping does not contain just one customer.  Please filter down to just one customer first before ordering.");
+                    return false;
+                }
+                if (location != $scope.data[i].LocationId) {
+                    toastr.error("The grouping does not contain just one location.  Please filter down to just one location first before ordering.");
+                    return false;
+                }
             }
-            var sort = ["QuestionCreated desc"];
-            BuildSurveyService.Search(predicate, sort, 0, 100, false).then(function (data) {
-                $scope.Questions = data;
-            });
+            return true;
         }
-
-        $scope.AddCustomer = function (Id) {
-
-        }
-
-        $scope.DeleteCustomer = function (Id) {
-
-        }
-
-        $scope.AddLocation = function (Id) {
-
-        }
-
-        $scope.DeleteLocation = function (Id) {
-
-        }
-
-        $scope.AddProduct = function (Id) {
-
-        }
-
-        $scope.DeleteProduct = function (Id) {
-
-        }
-
-        $scope.AddQuestion = function (Id) {
-
-        }
-
-        $scope.DeleteQuestion = function (Id) {
-
-        }
-
 
         $scope.Delete = function (Id) {
             SurveyCustomerLocationProductQuestionService.Delete(Id).then(function (data) {
                 $scope.Search();
             })
         }
-
-        $scope.Search();
     }]);
 
 })(moment);

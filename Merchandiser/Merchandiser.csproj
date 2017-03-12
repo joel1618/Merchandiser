@@ -459,8 +459,10 @@
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Controllers\ProductTypeHeaderController.js" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeader.html" />
     <Content Include="App\ApplicationComponents\Administrator\ProductTypeHeader\Views\ProductTypeHeaderAddEdit.html" />
+    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Controllers\SurveyCustomerLocationProductQuestionAddEditController2.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Controllers\SurveyCustomerLocationProductQuestionController2.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Views\SurveyCustomerLocationProductQuestion2.html" />
+    <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion2\Views\SurveyCustomerLocationProductQuestionAddEdit2.html" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionAddEditController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Controllers\SurveyCustomerLocationProductQuestionController.js" />
     <Content Include="App\ApplicationComponents\Administrator\SurveyCustomerLocationProductQuestion\Views\SurveyCustomerLocationProductQuestion.html" />

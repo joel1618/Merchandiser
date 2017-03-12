@@ -101,11 +101,11 @@ gulp.task('app', function () {
 });
 
 gulp.task('app:watch', function () {
-    gulp.watch([path.app + '**/*.js'], ['app']);
+    gulp.watch([path.app + '**/*.js', path.app + '**/**/*.js'], ['app']);
 });
 
 gulp.task("templates", function () {
-    return gulp.src(path.app + "**/*.html")
+    return gulp.src([path.app + "**/*.html", path.app + "**/**/*.html"])
            .pipe(templateCache({
                module: "Main",
                transformUrl: function (url) {
@@ -120,7 +120,7 @@ gulp.task("templates", function () {
 });
 
 gulp.task('templates:watch', function () {
-    gulp.watch([path.app + '**/*.tpl.html'], ['templates']);
+    gulp.watch([path.app + '**/*.html', path.app + '**/**/*.html'], ['templates']);
 });
 
 gulp.task('styles', function () {

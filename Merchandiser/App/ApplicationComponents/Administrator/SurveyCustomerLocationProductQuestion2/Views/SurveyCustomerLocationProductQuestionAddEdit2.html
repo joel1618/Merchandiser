@@ -1,0 +1,31 @@
+﻿<div ng-controller="SurveyCustomerLocationProductQuestionAddEditController2">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control input-sm" placeholder="Search Customers..." ng-model="customerQuery" />
+            <div ng-repeat="item in Customers | filter: { Name : customerQuery}">
+                <button class="btn btn-sm btn-success" ng-click="">Add</button>&nbsp;{{item.Name}}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" class="form-control input-sm" placeholder="Search Locations..." ng-model="locationQuery" />
+            <div ng-repeat="item in Locations | filter: { Name : locationQuery}">
+                <button class="btn btn-sm btn-success" ng-click="">Add</button>&nbsp;{{item.Name}}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" class="form-control input-sm" placeholder="Search Products..." ng-model="productQuery" />
+            <div ng-repeat="item in Products | filter: { Name : productQuery}">
+                <button class="btn btn-sm btn-success" ng-click="">Add</button>&nbsp;{{item.Name}}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" class="form-control input-sm" placeholder="Search Questions..." ng-model="questionQuery" />
+            <div ng-repeat="item in Questions | filter: { Name : questionQuery}">
+                <button class="btn btn-sm btn-success" ng-click="">Add</button>&nbsp;{{item.Name}}
+            </div>
+        </div>
+    </div>
+</div>

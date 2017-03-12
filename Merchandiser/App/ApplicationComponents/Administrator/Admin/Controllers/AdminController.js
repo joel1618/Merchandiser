@@ -31,7 +31,7 @@
                         $state.go(state);
                     }
                 }
-                else if (state == "main.admin.surveycustomerlocationproductquestion2") {
+                else if (state == "main.admin.surveycustomerlocationproductquestion2.addedit") {
                     if (SelectionApplicationService.GetSurvey() == null || SelectionApplicationService.GetSurveyId() == null) {
                         toastr.error("A survey must be selected first.");
                     }
