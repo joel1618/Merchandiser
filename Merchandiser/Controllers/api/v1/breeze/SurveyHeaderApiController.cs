@@ -142,6 +142,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             var response = repository.Create(item.Header.ToEntity()).ToViewModel();
             foreach (var detail in item.Details)
             {
+                detail.SurveyHeaderId = response.Id;
                 detail.CreatedBy = User.Identity.GetUserId();
                 detailRepository.Create(detail.ToEntity()).ToViewModel();
             }

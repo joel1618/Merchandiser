@@ -130,7 +130,7 @@ namespace Merchandiser.Controllers.api.v1.breeze
             StringBuilder builder = new StringBuilder();
             builder.Append(AppDomain.CurrentDomain.BaseDirectory);
             builder.Append("..\\Merchandiser\\Images\\BeforeImages\\");
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < id.ToString().Length; i++)
             {
                 builder.Append(guid[i]);
                 builder.Append("\\");
@@ -138,13 +138,13 @@ namespace Merchandiser.Controllers.api.v1.breeze
             return builder.ToString();
         }
 
-        public string GetAfterImagePath(int id)
+        private string GetAfterImagePath(int id)
         {
             byte[] guid = Encoding.ASCII.GetBytes(id.ToString());
             StringBuilder builder = new StringBuilder();
             builder.Append(AppDomain.CurrentDomain.BaseDirectory);
             builder.Append("..\\Merchandiser\\Images\\AfterImages\\");
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < id.ToString().Length; i++)
             {
                 builder.Append(guid[i]);
                 builder.Append("\\");
