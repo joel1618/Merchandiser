@@ -31,6 +31,14 @@
                         $state.go(state);
                     }
                 }
+                else if (state == "main.admin.surveycustomerlocationproductquestion2") {
+                    if (SelectionApplicationService.GetSurvey() == null || SelectionApplicationService.GetSurveyId() == null) {
+                        toastr.error("A survey must be selected first.");
+                    }
+                    else {
+                        $state.go(state);
+                    }
+                }
                 else if(state == "main.admin.producttypedetail.addedit") {
                     if (SelectionApplicationService.GetProductTypeHeader() == null) {
                         toastr.error("A product type must be selected first.");

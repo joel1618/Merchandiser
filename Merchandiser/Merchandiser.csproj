@@ -268,6 +268,7 @@
     </Compile>
     <Compile Include="ControllerHelpers\ApiFilters.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\v1\breeze\BuildSurveyApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ImageApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\LocationApiController.cs" />
     <Compile Include="Controllers\api\v1\breeze\ProductApiController.cs" />
@@ -332,8 +333,10 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\RunOnce.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BuildSurveyViewModel.cs" />
     <Compile Include="Models\CompanyViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Models\Extensions\BuildSurveyExtension.cs" />
     <Compile Include="Models\Extensions\CompanyViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\CustomerViewModelExtensions.cs" />
     <Compile Include="Models\Extensions\LocationViewModelExtension.cs" />
@@ -515,6 +518,7 @@
     <Content Include="App\ApplicationServices\Selection\SelectionApplicationService.js" />
     <Content Include="App\DatabaseServices\Breeze\breezeservice.js" />
     <Content Include="App\DatabaseServices\Breeze\metadata.js" />
+    <Content Include="App\DatabaseServices\BuildSurvey\BuildSurveyService.js" />
     <Content Include="App\DatabaseServices\Company\CompanyService.js" />
     <Content Include="App\DatabaseServices\CompanyUser\CompanyUserService.js" />
     <Content Include="App\DatabaseServices\Customer\CustomerService.js" />

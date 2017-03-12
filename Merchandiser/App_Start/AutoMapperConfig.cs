@@ -71,6 +71,9 @@ namespace Merchandiser.App_Start
 
                 cfg.CreateMap<ProductTypeHeaderViewModel, ProductTypeHeader>();
                 cfg.CreateMap<ProductTypeHeader, ProductTypeHeaderViewModel>();
+
+                cfg.CreateMap<vwBuildSurvey, BuildSurveyViewModel>();
+                cfg.CreateMap<BuildSurveyViewModel, vwBuildSurvey>();
             });
         }
     }

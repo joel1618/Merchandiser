@@ -331,12 +331,16 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerCreated" Type="datetime" />
           <Property Name="LocationId" Type="int" />
           <Property Name="LocationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LocationCreated" Type="datetime" />
           <Property Name="ProductId" Type="int" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductCreated" Type="datetime" />
           <Property Name="QuestionId" Type="int" />
           <Property Name="QuestionName" Type="nvarchar" MaxLength="100" />
+          <Property Name="QuestionCreated" Type="datetime" />
           <Property Name="SurveyId" Type="int" />
         </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
@@ -824,12 +828,16 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
     [vwBuildSurvey].[CompanyId] AS [CompanyId], 
     [vwBuildSurvey].[CustomerId] AS [CustomerId], 
     [vwBuildSurvey].[CustomerName] AS [CustomerName], 
+    [vwBuildSurvey].[CustomerCreated] AS [CustomerCreated], 
     [vwBuildSurvey].[LocationId] AS [LocationId], 
     [vwBuildSurvey].[LocationName] AS [LocationName], 
+    [vwBuildSurvey].[LocationCreated] AS [LocationCreated], 
     [vwBuildSurvey].[ProductId] AS [ProductId], 
     [vwBuildSurvey].[ProductName] AS [ProductName], 
+    [vwBuildSurvey].[ProductCreated] AS [ProductCreated], 
     [vwBuildSurvey].[QuestionId] AS [QuestionId], 
     [vwBuildSurvey].[QuestionName] AS [QuestionName], 
+    [vwBuildSurvey].[QuestionCreated] AS [QuestionCreated], 
     [vwBuildSurvey].[SurveyId] AS [SurveyId]
     FROM [dbo].[vwBuildSurvey] AS [vwBuildSurvey]</DefiningQuery>
           </EntitySet>
@@ -1532,12 +1540,16 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" />
           <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCreated" Type="DateTime" Precision="3" />
           <Property Name="LocationId" Type="Int32" />
           <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LocationCreated" Type="DateTime" Precision="3" />
           <Property Name="ProductId" Type="Int32" />
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductCreated" Type="DateTime" Precision="3" />
           <Property Name="QuestionId" Type="Int32" />
           <Property Name="QuestionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionCreated" Type="DateTime" Precision="3" />
           <Property Name="SurveyId" Type="Int32" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
@@ -2304,12 +2316,16 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
             <EntityTypeMapping TypeName="MerchandiserModel.vwBuildSurvey">
               <MappingFragment StoreEntitySet="vwBuildSurvey">
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+                <ScalarProperty Name="QuestionCreated" ColumnName="QuestionCreated" />
                 <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="ProductCreated" ColumnName="ProductCreated" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="LocationCreated" ColumnName="LocationCreated" />
                 <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CustomerCreated" ColumnName="CustomerCreated" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />

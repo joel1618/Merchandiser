@@ -8,23 +8,23 @@
         <EntityTypeShape EntityType="MerchandiserModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="MerchandiserModel.C__RefactorLog" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="MerchandiserModel.AspNetRole" Width="1.5" PointX="3" PointY="17.875" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="16.375" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="45" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="16.25" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="21.875" />
         <EntityTypeShape EntityType="MerchandiserModel.AspNetUserRole" Width="1.5" PointX="5.25" PointY="23.375" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUser" Width="1.5" PointX="3" PointY="27.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.AspNetUsersInfo" Width="1.5" PointX="5.25" PointY="42" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUser" Width="1.5" PointX="6" PointY="17.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.AspNetUsersInfo" Width="1.5" PointX="8.25" PointY="19" />
         <EntityTypeShape EntityType="MerchandiserModel.Company" Width="1.5" PointX="0.75" PointY="23.875" />
         <EntityTypeShape EntityType="MerchandiserModel.Customer" Width="1.5" PointX="3" PointY="21.125" />
-        <EntityTypeShape EntityType="MerchandiserModel.Location" Width="1.5" PointX="3" PointY="33.25" />
-        <EntityTypeShape EntityType="MerchandiserModel.Product" Width="1.5" PointX="8.25" PointY="27.125" />
-        <EntityTypeShape EntityType="MerchandiserModel.ProductCategory" Width="1.5" PointX="3" PointY="43.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.ProductTypeDetail" Width="1.5" PointX="5.25" PointY="19.375" />
-        <EntityTypeShape EntityType="MerchandiserModel.ProductTypeHeader" Width="1.5" PointX="3" PointY="13.5" />
-        <EntityTypeShape EntityType="MerchandiserModel.Question" Width="1.5" PointX="3" PointY="47.25" />
-        <EntityTypeShape EntityType="MerchandiserModel.Survey" Width="1.5" PointX="3" PointY="38.75" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyCustomerLocationProductQuestion" Width="1.5" PointX="5.25" PointY="36.625" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyDetail" Width="1.5" PointX="10.5" PointY="32.875" />
-        <EntityTypeShape EntityType="MerchandiserModel.SurveyHeader" Width="1.5" PointX="5.25" PointY="28.5" />
+        <EntityTypeShape EntityType="MerchandiserModel.Location" Width="1.5" PointX="3" PointY="34.25" />
+        <EntityTypeShape EntityType="MerchandiserModel.Product" Width="1.5" PointX="5.25" PointY="38.375" />
+        <EntityTypeShape EntityType="MerchandiserModel.ProductCategory" Width="1.5" PointX="3" PointY="47.875" />
+        <EntityTypeShape EntityType="MerchandiserModel.ProductTypeDetail" Width="1.5" PointX="5.25" PointY="33.875" />
+        <EntityTypeShape EntityType="MerchandiserModel.ProductTypeHeader" Width="1.5" PointX="3" PointY="44.125" />
+        <EntityTypeShape EntityType="MerchandiserModel.Question" Width="1.5" PointX="3" PointY="13.5" />
+        <EntityTypeShape EntityType="MerchandiserModel.Survey" Width="1.5" PointX="3" PointY="25.375" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyCustomerLocationProductQuestion" Width="1.5" PointX="5.25" PointY="27" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyDetail" Width="1.5" PointX="10.5" PointY="25.75" />
+        <EntityTypeShape EntityType="MerchandiserModel.SurveyHeader" Width="1.5" PointX="8.25" PointY="25.375" />
         <EntityTypeShape EntityType="MerchandiserModel.SelectLocation" Width="1.5" PointX="2.75" PointY="2.75" />
         <EntityTypeShape EntityType="MerchandiserModel.SelectSurvey" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="MerchandiserModel.SelectUser" Width="1.5" PointX="4.75" PointY="3.75" />

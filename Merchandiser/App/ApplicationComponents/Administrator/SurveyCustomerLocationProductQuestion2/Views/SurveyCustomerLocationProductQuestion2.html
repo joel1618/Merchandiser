@@ -1,3 +1,62 @@
 ﻿<div ng-controller="SurveyCustomerLocationProductQuestionController2">
-
+    <div class="col-md-row">
+        <div class="col-md-3">
+            <h3>Customers</h3>
+            <input class="form-control input-sm" placeholder="Search customers..." ng-model-options="{ debounce: 500 }" /><br />
+            <div ng-repeat="item in Customers | filter: { SurveyId: '' }">
+                <button class="btn btn-sm btn-danger">Delete</button><button class="btn btn-sm btn-primary">Manage</button>{{item.CustomerName}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h3>Locations</h3>
+            <input class="form-control input-sm" placeholder="Search locations..." ng-model-options="{ debounce: 500 }" /><br />
+            <div ng-repeat="item in Locations | filter: { SurveyId: '' }">
+                <button class="btn btn-sm btn-danger">Delete</button><button class="btn btn-sm btn-primary">Manage</button>{{item.LocationName}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h3>Products</h3>
+            <input class="form-control input-sm" placeholder="Search products..." ng-model-options="{ debounce: 500 }" /><br />
+            <div ng-repeat="item in Products | filter: { SurveyId: '' }">
+                <button class="btn btn-sm btn-danger">Delete</button><button class="btn btn-sm btn-primary">Manage</button>{{item.ProductName}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h3>Questions</h3>
+            <input class="form-control input-sm" placeholder="Search questions..." ng-model-options="{ debounce: 500 }" /><br />
+            <div ng-repeat="item in Questions | filter: { SurveyId: '' }">
+                <button class="btn btn-sm btn-danger">Delete</button><button class="btn btn-sm btn-primary">Manage</button>{{item.QuestionName}}
+            </div>
+        </div>
+        <hr />
+        <!--NOT INCLUDED-->
+        <div class="col-md-3">
+            <!--<h3>Customers</h3>
+            <input class="form-control input-sm" placeholder="Search customers..." ng-model-options="{ debounce: 500 }" /><br />-->
+            <div ng-repeat="item in Customers | filter: { SurveyId: null }">
+                <button class="btn btn-sm btn-success">Add</button>{{item.CustomerName}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!--<h3>Locations</h3>
+            <input class="form-control input-sm" placeholder="Search locations..." ng-model-options="{ debounce: 500 }" /><br />-->
+            <div ng-repeat="item in Locations | filter: { SurveyId: null }">
+                <button class="btn btn-sm btn-success">Add</button>{{item.LocationName}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!--<h3>Products</h3>
+            <input class="form-control input-sm" placeholder="Search products..." ng-model-options="{ debounce: 500 }" /><br />-->
+            <div ng-repeat="item in Products | filter: { SurveyId: null }">
+                <button class="btn btn-sm btn-success">Add</button>{{item.ProductName}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!--<h3>Questions</h3>
+            <input class="form-control input-sm" placeholder="Search questions..." ng-model-options="{ debounce: 500 }" /><br />-->
+            <div ng-repeat="item in Questions | filter: { SurveyId: null }">
+                <button class="btn btn-sm btn-success">Add</button>{{item.QuestionName}}
+            </div>
+        </div>
+    </div>
 </div>
