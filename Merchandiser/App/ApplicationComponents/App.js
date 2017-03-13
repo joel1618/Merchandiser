@@ -1,6 +1,6 @@
 ﻿var app = angular.module('Main', ['ngRoute', 'ngResource', 'ngSanitize', 'ngAnimate',
     'ui.grid', 'ui.grid.draggable-rows', 'ui.grid.infiniteScroll', 'ui.grid.cellNav', 'ui.bootstrap', /*'ngTouch',*/ 'ui.router', 'ngMap', 'ui.grid.exporter', 'blockUI', 
-    'breeze.angular', 'ngAria', 'ngMessages', 'ngMaterial', 'focus-if', 'mgcrea.bootstrap.affix', 'Directives', 'DatabaseServices', 'ApplicationServices']);
+    'breeze.angular', 'ngAria', 'ngMessages', 'ngMaterial', 'focus-if', 'mgcrea.bootstrap.affix', 'LocalStorageModule', 'Directives', 'DatabaseServices', 'ApplicationServices']);
 angular.module('Main').config(function (blockUIConfig) {
     // Change the default delay to 100ms before the blocking is visible
     blockUIConfig.delay = 0;
@@ -14,6 +14,10 @@ app.filter('dateLocalize', function () {
             return dt;
         }        
     }
+});
+app.config(function (localStorageServiceProvider) {
+    localStorageServiceProvider
+      .setPrefix('Merchandiser');
 });
 app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1

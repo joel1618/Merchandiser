@@ -1,6 +1,6 @@
 ﻿(function (moment) {
     "use strict";
-    angular.module('ApplicationServices').service('SelectionApplicationService', function () {
+    angular.module('ApplicationServices').service('SelectionApplicationService', function (localStorageService) {
         var observers = [];
         this.RegisterObserver = function (callback) {
             observers.push(callback);
@@ -83,20 +83,28 @@
 
         this.SurveyId = null;
         this.GetSurveyId = function () {
+            var localStorage = localStorageService.get('SurveyId');
+            if (localStorage != null)
+                return localStorage;
             return this.SurveyId;
         };
 
         this.SetSurveyId = function (id) {
+            localStorageService.set('SurveyId', id);
             this.SurveyId = id;
             this.NotifyObservers();
         }
 
         this.Survey = null;
         this.GetSurvey = function () {
+            var localStorage = localStorageService.get('Survey');
+            if (localStorage != null)
+                return localStorage;
             return this.Survey;
         };
 
-        this.SetSurvey = function (item) {
+        this.SetSurvey = function (item) { 
+            localStorageService.set('Survey', item);
             this.Survey = item;
             this.NotifyObservers();
         }

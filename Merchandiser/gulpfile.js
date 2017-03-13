@@ -62,7 +62,8 @@ gulp.task("vendorJs", function () {
             path.components + "ng-focus-if/focusIf.min.js",
             path.components + "angular-jquery/dist/angular-jquery.min.js",
             path.components + "angular-bootstrap-affix/dist/angular-bootstrap-affix.min.js",
-            path.components + "ui-grid-draggable-rows/js/draggable-rows.js"
+            path.components + "ui-grid-draggable-rows/js/draggable-rows.js",
+            path.components + "angular-local-storage/dist/angular-local-storage.min.js"
     ])
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest(path.pub.libs))

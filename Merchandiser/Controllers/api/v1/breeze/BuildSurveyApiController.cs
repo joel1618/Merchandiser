@@ -16,10 +16,12 @@ namespace Merchandiser.Controllers.api.v1.breeze
     {
         MerchandiserEntities context;
         UserRoleRepository userRoleRepository;
+        SurveyCustomerLocationProductQuestionRepository surveyCLPQRepository;
         public BuildSurveyApiController()
         {
             this.context = new MerchandiserEntities();
             this.userRoleRepository = new UserRoleRepository();
+            this.surveyCLPQRepository = new SurveyCustomerLocationProductQuestionRepository();
         }
 
         [HttpGet]
@@ -44,6 +46,14 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 SurveyId = x.SurveyId
             });
             return response;
+        }
+
+        [HttpPost]
+        public IHttpActionResult Create(BuildSurveyViewModel2 model)
+        {
+            SurveyCustomerLocationProductQuestionViewModel item = new SurveyCustomerLocationProductQuestionViewModel();
+
+            return Ok();
         }
     }
 }
