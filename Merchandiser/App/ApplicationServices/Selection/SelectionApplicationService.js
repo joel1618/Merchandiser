@@ -23,20 +23,28 @@
 
         this.CompanyId = null;
         this.GetCompanyId = function () {
+            var localStorage = localStorageService.get('CompanyId');
+            if (localStorage != null)
+                return localStorage;
             return this.CompanyId;
         };
 
         this.SetCompanyId = function (id) {
+            localStorageService.set('CompanyId', id);
             this.CompanyId = id;
             this.NotifyObservers();
         }
 
         this.Company = null;
         this.GetCompany = function () {
+            var localStorage = localStorageService.get('Company');
+            if (localStorage != null)
+                return localStorage;
             return this.Company;
         };
 
         this.SetCompany = function (item) {
+            localStorageService.set('Company', item);
             this.Company = item;
             this.NotifyObservers();
         }

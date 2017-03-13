@@ -19,7 +19,9 @@
             Locations: [],
             Products: [],
             Questions: [],
-            PopulateExisting: false
+            PopulateExisting: false,
+            SurveyId: SelectionApplicationService.GetSurveyId(),
+            CompanyId: SelectionApplicationService.GetCompanyId()
         }
 
         $scope.Search = function () { 

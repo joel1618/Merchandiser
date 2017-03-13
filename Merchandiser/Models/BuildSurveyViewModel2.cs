@@ -12,5 +12,9 @@ namespace Merchandiser.Models
         public List<ProductViewModel> Products { get; set; }
         public List<QuestionViewModel> Questions { get; set; }
         public bool PopulateExisting { get; set; }
+
+        public int SurveyId { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }
