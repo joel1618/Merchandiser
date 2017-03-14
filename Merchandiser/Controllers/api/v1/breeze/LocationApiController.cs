@@ -40,7 +40,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Phone = x.Phone,
                 City = x.City,
                 State = x.State,
-                Zip = x.Zip
+                Zip = x.Zip,
+                CreatedBy = x.CreatedBy,
+                ModifiedBy = x.ModifiedBy,
+                Store = x.Store
             });
             return response;
         }

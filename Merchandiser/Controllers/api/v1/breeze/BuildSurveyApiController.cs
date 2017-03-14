@@ -14,45 +14,47 @@ namespace Merchandiser.Controllers.api.v1.breeze
     [BreezeController]
     public class BuildSurveyApiController : ApiController
     {
-        MerchandiserEntities context;
         UserRoleRepository userRoleRepository;
         SurveyCustomerLocationProductQuestionRepository surveyCLPQRepository;
         public BuildSurveyApiController()
         {
-            this.context = new MerchandiserEntities();
             this.userRoleRepository = new UserRoleRepository();
             this.surveyCLPQRepository = new SurveyCustomerLocationProductQuestionRepository();
         }
 
-        [HttpGet]
-        public IQueryable<BuildSurveyViewModel> Search(int companyId)
-        {
-            var userId = User.Identity.GetUserId();
-            var response = this.context.vwBuildSurveys.FilterAllByUserAndCompany(userId, companyId, null, "CompanyId", "Id", userRoleRepository).Select(x => new BuildSurveyViewModel()
-            {
-                CompanyId = x.CompanyId,
-                CustomerCreated = x.CustomerCreated,
-                CustomerId = x.CustomerId,
-                CustomerName = x.CustomerName,
-                LocationCreated = x.LocationCreated,
-                LocationId = x.LocationId,
-                LocationName = x.LocationName,
-                ProductCreated = x.ProductCreated,
-                ProductId = x.ProductId,
-                ProductName = x.ProductName,
-                QuestionCreated = x.QuestionCreated,
-                QuestionId = x.QuestionId,
-                QuestionName = x.QuestionName,
-                SurveyId = x.SurveyId
-            });
-            return response;
-        }
-
         [HttpPost]
-        public IHttpActionResult Create(BuildSurveyViewModel2 model)
+        public IHttpActionResult Create(BuildSurveyViewModel model)
         {
-            SurveyCustomerLocationProductQuestionViewModel item = new SurveyCustomerLocationProductQuestionViewModel();
+            try
+            {
+                var record = new SurveyCustomerLocationProductQuestion();
+                for (int customerIndex = 0; customerIndex < model.Customers.Count; customerIndex++)
+                {
+                    for (int locationIndex = 0; locationIndex < model.Locations.Count; locationIndex++)
+                    {
+                        for (int productIndex = 0; productIndex < model.Products.Count; productIndex++)
+                        {
+                            for (int questionIndex = 0; questionIndex < model.Questions.Count; questionIndex++)
+                            {
+                                surveyCLPQRepository.Create(new SurveyCustomerLocationProductQuestion()
+                                {
+                                    CompanyId = model.CompanyId,
+                                    SurveyId = model.SurveyId,
+                                    CustomerId = model.Customers[customerIndex].Id,
+                                    LocationId = model.Locations[locationIndex].Id,
+                                    ProductId = model.Products[productIndex].Id,
+                                    QuestionId = model.Questions[questionIndex].Id,
+                                    CreatedBy = User.Identity.GetUserId()
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
 
+            }
             return Ok();
         }
     }

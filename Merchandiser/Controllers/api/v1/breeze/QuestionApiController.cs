@@ -34,7 +34,9 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 Name = x.Name,
                 IsRequired = x.IsRequired,
                 IsTrueFalse = x.IsTrueFalse,
-                Created = x.Created
+                Created = x.Created,
+                CreatedBy = x.CreatedBy,
+                ModifiedBy = x.ModifiedBy
             });
             return response;
         }

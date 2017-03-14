@@ -45,7 +45,10 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 {
                     Id = x.ProductTypeHeader.Id,
                     Name = x.ProductTypeHeader.Name
-                } : null
+                } : null,
+                CreatedBy = x.CreatedBy,
+                ModifiedBy = x.ModifiedBy,
+                ProductTypeHeaderId = x.ProductTypeHeaderId
             });
             return response;
         }
