@@ -9,12 +9,6 @@ namespace Merchandiser
 {
     internal class DatabaseContext : DbContext
     {
-        public DatabaseContext()
-           : base("BreezeMetadata")
-        {
-            // Prevent attempt to initialize a database for this context
-            Database.SetInitializer<DatabaseContext>(null);
-        }
         static DatabaseContext()
         {
             // Prevent attempt to initialize a database for this context

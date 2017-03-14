@@ -20,7 +20,9 @@
                 {{position.CreatedUser.UserName}} <br />
                 {{position.Created | dateLocalize | date: 'MM/dd/yyyy hh:mm:ss a' }} <br />
                 {{position.Customer.Name}} <br />
-                {{position.Location.Name}}
+                {{position.Location.Name}} <br/>
+                Latitude: {{position.Latitude}} <br/>
+                Longitude: {{position.Longitude}} <br/>
             </li>
         </ul>
     </div>

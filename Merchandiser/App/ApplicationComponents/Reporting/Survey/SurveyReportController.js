@@ -65,19 +65,19 @@
                         cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/BeforeAfterNotes.html'
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'CustomerName', name: 'Customer Name', width: 100, cellTooltip: true, headerTooltip: true
+                        field: 'CustomerName', name: 'Customer Name', width: 125, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'LocationName', name: 'Location Name', width: 100, cellTooltip: true, headerTooltip: true
+                        field: 'LocationName', name: 'Location Name', width: 125, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'SurveyName', name: 'Survey Name', width: 100, cellTooltip: true, headerTooltip: true
+                        field: 'SurveyName', name: 'Survey Name', width: 125, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'ProductTypeDetailName', name: 'Product Type Name', width: 100, cellTooltip: true, headerTooltip: true
+                        field: 'ProductTypeDetailName', name: 'Product Type Name', width: 125, cellTooltip: true, headerTooltip: true
                     });
                     $scope.gridOptions.columnDefs.push({
-                        field: 'ProductName', name: 'Product Name', width: 100, cellTooltip: true, headerTooltip: true
+                        field: 'ProductName', name: 'Product Name', width: 125, cellTooltip: true, headerTooltip: true
                     });
                     var exclude = ['IsBeforeImage', 'IsAfterImage', 'Created'],
                         length = exclude.length;
@@ -92,7 +92,7 @@
                         }
                     }
                     $scope.gridOptions.columnDefs.push({
-                        name: 'Created', cellTooltip: true, width: 100, headerTooltip: true,
+                        name: 'Created', cellTooltip: true, width: 125, headerTooltip: true,
                         cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{row.entity.Created | dateLocalize | date: "MM/dd/yyyy h:mm:ss a"}}</div>'
                     });
                 }, function (error) {

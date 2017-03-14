@@ -68,6 +68,7 @@ namespace Merchandiser.Controllers.api.v1
         {
             byte[] array = null;
             string[] excludeColumns = new string[] { "LocationId", "SurveyId", "CompanyId", "CustomerId" };
+            string[] includeColumn = new string[] { "Notes" };
             using (MemoryStream stream = new MemoryStream())
             using (StreamWriter writer = new StreamWriter(stream))
             using (CsvWriter csv = new CsvWriter(writer))
@@ -77,7 +78,7 @@ namespace Merchandiser.Controllers.api.v1
                 {
                     foreach (PropertyInfo propertyInfo in result.First().GetType().GetProperties())
                     {
-                        if (!excludeColumns.Contains(propertyInfo.Name))
+                        if (includeColumn.Contains(propertyInfo.Name))
                         {
                             csv.WriteField(propertyInfo.Name);
                         }
@@ -87,7 +88,7 @@ namespace Merchandiser.Controllers.api.v1
                     {
                         foreach (var column in row.GetType().GetProperties())
                         {
-                            if (!excludeColumns.Contains(column.Name))
+                            if (includeColumn.Contains(column.Name))
                             {
                                 var value = column.GetValue(row, null);
                                 if (value != null)

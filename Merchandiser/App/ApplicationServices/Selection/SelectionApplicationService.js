@@ -137,18 +137,21 @@
             this.NotifyObservers();
         }
 
-        this.StartDate = new Date(moment().startOf('isoWeek').format("YYYY-MM-DD 00:00:00"));
+        this.momentStartDate = moment().startOf('isoWeek');
+        this.StartDate = new Date(this.momentStartDate);
         this.GetStartDate = function () {
-            return this.StartDate;
+            var date = this.StartDate;
+            return date;
         }
 
         this.SetStartDate = function (date) {
             this.StartDate = date;
         }
 
-        this.EndDate = new Date(moment().add(2, "days").format("YYYY-MM-DD : 23:59:59"));
+        this.EndDate = new Date(moment().add(2, "days"));
         this.GetEndDate = function () {
-            return this.EndDate;
+            var date = this.EndDate;
+            return date;
         }
 
         this.SetEndDate = function (date) {
@@ -157,10 +160,14 @@
 
         this.ProductTypeHeader = null;
         this.GetProductTypeHeader = function () {
+            var localStorage = localStorageService.get('ProductTypeHeader');
+            if (localStorage != null)
+                return localStorage;
             return this.ProductTypeHeader;
         }
 
         this.SetProductTypeHeader = function (item) {
+            localStorageService.set('ProductTypeHeader', item);
             this.ProductTypeHeader = item;
             this.NotifyObservers();
         }

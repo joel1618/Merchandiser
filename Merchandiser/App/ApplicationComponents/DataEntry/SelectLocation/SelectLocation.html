@@ -12,7 +12,7 @@
                            typeahead-no-results="noResultsAddress"
                            ng-model="item.Address"
                            uib-typeahead="item.formatted_address for item in ChangeAddress($viewValue)"
-                           ng-model-options="{ debounce: { 'default': 2000, 'blur': 0 } }"
+                           ng-model-options="{ debounce: { 'default': 0, 'blur': 0 } }"
                            typeahead-on-select="SelectAddress($item, $model, $label)" />
                     <div ng-show="noResultsAddress">
                         No Results Found!

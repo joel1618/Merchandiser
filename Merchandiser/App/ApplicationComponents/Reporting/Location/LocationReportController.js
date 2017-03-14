@@ -59,9 +59,10 @@
             })
         }
 
+        $timeout(
         NgMap.getMap().then(function (map) {
             $scope.map = map;
-        });
+        }), 1000);
         $scope.Search();
         $scope.SearchUsers();
 

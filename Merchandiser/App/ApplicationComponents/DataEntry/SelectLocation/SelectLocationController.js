@@ -7,13 +7,14 @@
             templateUrl: "ApplicationComponents/DataEntry/SelectLocation/SelectLocation.html"
         })
     });
-    angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+    angular.module('Main').controller('SelectLocationController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'blockUIConfig',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
         'RoleService', 'SurveyCustomerLocationProductQuestionService', 'SelectionApplicationService', 'SelectLocationService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze, blockUIConfig,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
         RoleService, SurveyCustomerLocationProductQuestionService, SelectionApplicationService, SelectLocationService) {
-        
+
+        blockUIConfig.autoBlock = false;
         $scope.LocationServicesDisabled = false;
         $scope.Location = [];
         $scope.predicate = {
@@ -58,7 +59,12 @@
             $scope.Longitude = position.coords.longitude;
             $scope.Search();
         }, function (error) {
-            toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
+            if (error.message != null) {
+                toastr.error(error.message);
+            }
+            else {
+                toastr.error("User has denied geolocation for this site.  Please allow location services to get your location to find locations near you.");
+            }
             $scope.LocationServicesDisabled = true;
         });
 
