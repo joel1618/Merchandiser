@@ -322,27 +322,6 @@ warning 6002: The table/view 'Merchandiser.dbo.SelectUser' does not have a prima
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vwBuildSurvey">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="CustomerId" Type="int" />
-          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
-          <Property Name="CustomerCreated" Type="datetime" />
-          <Property Name="LocationId" Type="int" />
-          <Property Name="LocationName" Type="nvarchar" MaxLength="100" />
-          <Property Name="LocationCreated" Type="datetime" />
-          <Property Name="ProductId" Type="int" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
-          <Property Name="ProductCreated" Type="datetime" />
-          <Property Name="QuestionId" Type="int" />
-          <Property Name="QuestionName" Type="nvarchar" MaxLength="100" />
-          <Property Name="QuestionCreated" Type="datetime" />
-          <Property Name="SurveyId" Type="int" />
-        </EntityType>
         <Association Name="FK_AspNetUserRoles_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -823,24 +802,6 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
     [SelectUser].[LastName] AS [LastName]
     FROM [dbo].[SelectUser] AS [SelectUser]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="vwBuildSurvey" EntityType="Self.vwBuildSurvey" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vwBuildSurvey].[CompanyId] AS [CompanyId], 
-    [vwBuildSurvey].[CustomerId] AS [CustomerId], 
-    [vwBuildSurvey].[CustomerName] AS [CustomerName], 
-    [vwBuildSurvey].[CustomerCreated] AS [CustomerCreated], 
-    [vwBuildSurvey].[LocationId] AS [LocationId], 
-    [vwBuildSurvey].[LocationName] AS [LocationName], 
-    [vwBuildSurvey].[LocationCreated] AS [LocationCreated], 
-    [vwBuildSurvey].[ProductId] AS [ProductId], 
-    [vwBuildSurvey].[ProductName] AS [ProductName], 
-    [vwBuildSurvey].[ProductCreated] AS [ProductCreated], 
-    [vwBuildSurvey].[QuestionId] AS [QuestionId], 
-    [vwBuildSurvey].[QuestionName] AS [QuestionName], 
-    [vwBuildSurvey].[QuestionCreated] AS [QuestionCreated], 
-    [vwBuildSurvey].[SurveyId] AS [SurveyId]
-    FROM [dbo].[vwBuildSurvey] AS [vwBuildSurvey]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_AspNetUserRoles_Company" Association="Self.FK_AspNetUserRoles_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -1010,7 +971,6 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
           <EntitySet Name="SelectLocations" EntityType="MerchandiserModel.SelectLocation" />
           <EntitySet Name="SelectSurveys" EntityType="MerchandiserModel.SelectSurvey" />
           <EntitySet Name="SelectUsers" EntityType="MerchandiserModel.SelectUser" />
-          <EntitySet Name="vwBuildSurveys" EntityType="MerchandiserModel.vwBuildSurvey" />
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="MerchandiserModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRole" EntitySet="AspNetUserRoles" />
@@ -1532,25 +1492,6 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="vwBuildSurvey">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerId" Type="Int32" />
-          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerCreated" Type="DateTime" Precision="3" />
-          <Property Name="LocationId" Type="Int32" />
-          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LocationCreated" Type="DateTime" Precision="3" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ProductCreated" Type="DateTime" Precision="3" />
-          <Property Name="QuestionId" Type="Int32" />
-          <Property Name="QuestionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionCreated" Type="DateTime" Precision="3" />
-          <Property Name="SurveyId" Type="Int32" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Type="MerchandiserModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
@@ -2309,26 +2250,6 @@ warning 6002: The table/view 'Merchandiser.dbo.vwBuildSurvey' does not have a pr
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwBuildSurveys">
-            <EntityTypeMapping TypeName="MerchandiserModel.vwBuildSurvey">
-              <MappingFragment StoreEntitySet="vwBuildSurvey">
-                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
-                <ScalarProperty Name="QuestionCreated" ColumnName="QuestionCreated" />
-                <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="ProductCreated" ColumnName="ProductCreated" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="LocationCreated" ColumnName="LocationCreated" />
-                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="CustomerCreated" ColumnName="CustomerCreated" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

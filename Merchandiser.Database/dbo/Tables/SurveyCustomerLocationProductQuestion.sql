@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[SurveyCustomerLocationProductQuestion] (
+CREATE TABLE [dbo].[SurveyCustomerLocationProductQuestion] (
     [Id]         INT            IDENTITY (1, 1) NOT NULL,
     [CompanyId]  INT            NOT NULL,
     [SurveyId]   INT            NOT NULL,
@@ -27,6 +27,9 @@
 
 
 
-GO
 
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_SurveyCustomerLocationProductQuestion]
+    ON [dbo].[SurveyCustomerLocationProductQuestion]([CustomerId] ASC, [LocationId] ASC, [ProductId] ASC, [QuestionId] ASC, [CompanyId] ASC, [SurveyId] ASC);
 

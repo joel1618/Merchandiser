@@ -78,8 +78,6 @@ public partial class MerchandiserEntities : DbContext
 
     public virtual DbSet<SelectUser> SelectUsers { get; set; }
 
-    public virtual DbSet<vwBuildSurvey> vwBuildSurveys { get; set; }
-
 }
 
 }
