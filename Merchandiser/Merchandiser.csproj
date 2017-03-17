@@ -429,9 +429,6 @@
     <Compile Include="SurveyHeader.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="vwBuildSurvey.cs">
-      <DependentUpon>DatabaseModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\ApplicationComponents\Administrator\Company\Controllers\CompanyAddEditController.js" />
