@@ -7,10 +7,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" ng-click="GoTo('main.admin.company.addedit')" style="cursor: pointer;">DataStackIO</a>
+                <a class="navbar-brand" ng-click="GoTo('main.admin.company.addedit')">DataStackIO</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav" style="cursor: pointer;">
+                <ul class="nav navbar-nav">
                     <li><a ng-click="GoTo('main.admin.company.addedit')" data-toggle="collapse" data-target="#navbar" ng-show="Role == 'Administrator'">Admin</a></li>
                     <li><a ng-click="GoTo('main.survey')" data-toggle="collapse" data-target="#navbar" ng-show="Role == 'Administrator' || Role == 'Data Entry'">Survey</a></li>
                     <li><a ng-click="GoTo('main.report.surveyheaderreport')" data-toggle="collapse" data-target="#navbar">Report</a></li>
@@ -18,8 +18,8 @@
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a style="cursor: pointer;">Hello {{Username}}!</a></li>
-                    <li><a ng-click="Logout()" style="cursor: pointer;">Log off</a></li>
+                    <li><a >Hello {{Username}}!</a></li>
+                    <li><a ng-click="Logout()">Log off</a></li>
                 </ul>
             </div>
         </div>

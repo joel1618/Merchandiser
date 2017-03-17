@@ -7,13 +7,14 @@
             templateUrl: "ApplicationComponents/DataEntry/SelectCompany/SelectCompany.html"
         })
     });
-    angular.module('Main').controller('SelectCompanyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
+    angular.module('Main').controller('SelectCompanyController', ['$scope', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze', 'blockUIConfig',
         'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'UserService', 'UserRoleService',
         'RoleService', 'SelectionApplicationService',
-    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
+    function controller($scope, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze, blockUIConfig,
         CompanyService, LocationService, CustomerService, SurveyService, UserService, UserRoleService,
         RoleService, SelectionApplicationService) {
 
+        blockUIConfig.Message = 'Loading...';
         $scope.Search = function () {
             CompanyService.Search(null, ["Name desc"], 0, 20, false).then(function (data) {
                 if (data.length == 1) {

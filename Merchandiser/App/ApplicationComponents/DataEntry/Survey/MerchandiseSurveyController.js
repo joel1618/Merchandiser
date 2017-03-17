@@ -8,14 +8,17 @@
         })
     });
     angular.module('Main').controller('MerchandiseSurveyController', ['$scope', '$q', '$state', '$stateParams', '$http', '$location', '$timeout', 'breezeservice', 'breeze',
-        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService',
+        'CompanyService', 'LocationService', 'CustomerService', 'SurveyService', 'blockUIConfig',
         'UserService', 'SurveyCustomerLocationProductQuestionService', 'SurveyHeaderService', 'SurveyDetailService', 'ImageService',
         'SelectionApplicationService', 'SelectCustomerLocationProductQuestionService',
     function controller($scope, $q, $state, $stateParams, $http, $location, $timeout, breezeservice, breeze,
-        CompanyService, LocationService, CustomerService, SurveyService,
+        CompanyService, LocationService, CustomerService, SurveyService, blockUIConfig,
         UserService, SurveyCustomerLocationProductQuestionService, SurveyHeaderService, SurveyDetailService, ImageService,
         SelectionApplicationService, SelectCustomerLocationProductQuestionService) {
         
+        blockUIConfig.autoBlock = true;
+        blockUIConfig.message = 'Saving...';
+
         if ((SelectionApplicationService.GetCompanyId() == null || SelectionApplicationService.GetCustomerId() == null ||
             SelectionApplicationService.GetLocationId() == null || SelectionApplicationService.GetSurveyId() == null) && SelectionApplicationService.GetSurveyHeaderId() == null) {
             $state.go('main.selectcompany');
@@ -142,6 +145,7 @@
                     promise = ImageService.CreateAfterImage($scope.Header.AfterImage, data.data.Id);
                     promises.push(promise);
                     $q.all(promises).then(function () {
+                        blockUIConfig.Message = 'Loading...';
                         toastr.success("Save successful.");
                         SelectionApplicationService.Clear();
                         SelectionApplicationService.SetRedirectState('main.survey');

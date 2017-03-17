@@ -139,14 +139,16 @@ namespace Merchandiser.Controllers.api.v1.breeze
                 item.Header.ReviewedBy = User.Identity.GetUserId();
                 item.Header.Reviewed = DateTime.UtcNow;
             }
-            var response = repository.Create(item.Header.ToEntity()).ToViewModel();
+            var record = item.Header.ToEntity();
+            repository.Create(record).ToViewModel();
             foreach (var detail in item.Details)
             {
-                detail.SurveyHeaderId = response.Id;
+                detail.SurveyHeaderId = record.Id;
                 detail.CreatedBy = User.Identity.GetUserId();
                 detailRepository.Create(detail.ToEntity()).ToViewModel();
             }
             repository.SaveChanges();
+            var response = record.ToViewModel();
             return Ok(response);
         }
 

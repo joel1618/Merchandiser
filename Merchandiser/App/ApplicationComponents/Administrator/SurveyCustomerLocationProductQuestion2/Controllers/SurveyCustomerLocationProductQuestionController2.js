@@ -34,7 +34,7 @@
             enableSorting: true,
             data: 'data',
             columnDefs: [
-                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
+                { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/Delete.html' },
                 { field: 'Customer.Name', name: 'Customer Name', cellTooltip: true },
                 { field: 'Location.Name', name: 'Location Name', cellTooltip: true },
                 { field: 'Product.Name', name: 'Product Name', cellTooltip: true },
