@@ -78,7 +78,7 @@ namespace Merchandiser.Controllers.api.v1
                 {
                     foreach (PropertyInfo propertyInfo in result.First().GetType().GetProperties())
                     {
-                        if (includeColumn.Contains(propertyInfo.Name))
+                        if (!excludeColumns.Contains(propertyInfo.Name))
                         {
                             csv.WriteField(propertyInfo.Name);
                         }
@@ -88,7 +88,7 @@ namespace Merchandiser.Controllers.api.v1
                     {
                         foreach (var column in row.GetType().GetProperties())
                         {
-                            if (includeColumn.Contains(column.Name))
+                            if (!excludeColumns.Contains(column.Name))
                             {
                                 var value = column.GetValue(row, null);
                                 if (value != null)
