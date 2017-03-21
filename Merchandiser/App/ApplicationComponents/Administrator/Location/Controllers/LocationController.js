@@ -17,11 +17,13 @@
             columnDefs: [
                 { name: 'Manage', width: '120', cellTemplate: 'ApplicationComponents/Reporting/Survey/CellTemplates/EditDelete.html' },
                 { field: 'Name', name: 'Name', cellTooltip: true },
-                { field: 'Phone', name: 'Phone', cellTooltip: true },
+                { field: 'Store', name: 'Store', cellTooltip: true },
+                { field: 'AreaManager', name: 'Manager', cellTolltip: true, width: 100 },
+                { field: 'Phone', name: 'Phone', cellTooltip: true, width: 100 },
                 { field: 'Address', name: 'Address', cellTooltip: true },
-                { field: 'City', name: 'City', cellTooltip: true },
-                { field: 'State', name: 'State', cellTooltip: true },
-                { field: 'Zip', name: 'Zip', cellTooltip: true }
+                { field: 'City', name: 'City', cellTooltip: true, width: 125 },
+                { field: 'State', name: 'State', cellTooltip: true, width: 75 },
+                { field: 'Zip', name: 'Zip', cellTooltip: true, width: 75 }
             ]
         };
         $scope.Search();

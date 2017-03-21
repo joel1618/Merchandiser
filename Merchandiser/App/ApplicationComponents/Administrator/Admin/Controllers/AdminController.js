@@ -1,7 +1,7 @@
 ﻿(function (moment) {
-    "use strict";    
-    angular.module('Main').controller('AdminController', ['$scope', '$state', 'SelectionApplicationService',
-    function controller($scope, $state, SelectionApplicationService) {
+    "use strict";
+    angular.module('Main').controller('AdminController', ['$scope', '$state', 'SelectionApplicationService', 'SurveyCustomerLocationProductQuestionService',
+    function controller($scope, $state, SelectionApplicationService, SurveyCustomerLocationProductQuestionService) {
         //TODO: If a regular user go to company, if a company customer assigned to a survey, go to the survey data page.
         $scope.SelectedCompany = null;
         SelectionApplicationService.RegisterObserver(function () {
@@ -9,7 +9,7 @@
         })
 
         $scope.SelectedSurvey = null;
-        SelectionApplicationService.RegisterObserver(function(){
+        SelectionApplicationService.RegisterObserver(function () {
             $scope.SelectedSurvey = SelectionApplicationService.GetSurvey();
         })
 
@@ -39,7 +39,7 @@
                         $state.go(state);
                     }
                 }
-                else if(state == "main.admin.producttypedetail.addedit") {
+                else if (state == "main.admin.producttypedetail.addedit") {
                     if (SelectionApplicationService.GetProductTypeHeader() == null) {
                         toastr.error("A product type must be selected first.");
                     }
@@ -55,6 +55,34 @@
                         $state.go(state);
                     }
                 }
+            }
+        }
+
+        $scope.PreviewSurvey = function () {
+            var selectedSurveyId = SelectionApplicationService.GetSurveyId();
+            if (selectedSurveyId != null) {
+                SurveyCustomerLocationProductQuestionService.Search()
+                var predicate = {
+                    and: [
+                        { "SurveyId": { "==": selectedSurveyId } }
+                    ]
+                }
+                SurveyCustomerLocationProductQuestionService.Search(predicate, [], 0, 1, false).then(function (data) {
+                    if (data.Results.length != 0) {
+                        SelectionApplicationService.SetCompanyId(data.Results[0].CompanyId);
+                        SelectionApplicationService.SetCustomerId(data.Results[0].CustomerId);
+                        SelectionApplicationService.SetLocationId(data.Results[0].LocationId);
+                        SelectionApplicationService.SetSurveyId(data.Results[0].SurveyId);
+                        $state.go('main.survey');
+                    }
+                    else {
+                        toastr.error("No elements have been added to this survey to preview");
+                    }
+                });
+
+            }
+            else {
+                toastr.error("A survey must be selected first.");
             }
         }
     }]);
